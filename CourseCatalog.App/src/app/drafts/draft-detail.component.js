@@ -11,9 +11,9 @@ function controller($http) {
             var courseNumber = ctrl.course.courseNumber ? ctrl.course.courseNumber : 'No Course Number';
             ctrl.title = ctrl.course.name + ' (' + courseNumber + ')';
             ctrl.listOptions = {
-                dataSource: ctrl.course.programAssignments,
+                dataSource: ctrl.course.programs,
                 searchEnabled: true,
-                searchExpr: ['program', 'programCode'],
+                searchExpr: ['name', 'programCode'],
                 noDataText: 'No Programs Assigned'
             }
 

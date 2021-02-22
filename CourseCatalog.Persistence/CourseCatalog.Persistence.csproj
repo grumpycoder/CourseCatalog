@@ -145,6 +145,7 @@
     <Compile Include="Configurations\CourseLevelConfiguration.cs" />
     <Compile Include="Configurations\CourseViewConfiguration.cs" />
     <Compile Include="Configurations\DeliveryTypeConfiguration.cs" />
+    <Compile Include="Configurations\DraftConfiguration.cs" />
     <Compile Include="Configurations\EndorsementConfiguration.cs" />
     <Compile Include="Configurations\GradeConfiguration.cs" />
     <Compile Include="Configurations\GradeScaleConfiguration.cs" />

@@ -278,7 +278,7 @@
     <Compile Include="Features\Courses\Queries\GetCourseDetail\CourseDetailDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQueryHandler.cs" />
-    <Compile Include="Features\Drafts\Queries\GetDraftDetail\DraftDetailVm.cs" />
+    <Compile Include="Features\Drafts\Queries\GetDraftDetail\DraftDetailDto.cs" />
     <Compile Include="Features\Drafts\Queries\GetDraftDetail\GetDraftDetailQuery.cs" />
     <Compile Include="Features\Drafts\Queries\GetDraftDetail\GetDraftDetailQueryHandler.cs" />
     <Compile Include="Filters\CustomAuthorize.cs" />

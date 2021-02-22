@@ -75,8 +75,8 @@ function controller($http) {
                     cellTemplate: function (container, options) {
                         $('<a/>')
                             .text(options.data.courseNumber)
-                            .attr('aria-label', 'Draft Details ' + options.data.id)
-                            .attr('href', '/drafts/' + options.data.id)
+                            .attr('aria-label', 'Draft Details ' + options.data.draftId)
+                            .attr('href', '/drafts/' + options.data.draftId)
                             .appendTo(container);
                     }
                 },

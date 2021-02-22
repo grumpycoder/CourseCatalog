@@ -114,7 +114,7 @@
                             <ul class="list-inline text-white" ng-show="$ctrl.course.deliveryTypes">
                                 <li class="list-inline-item">
                                     <span class="badge badge-info badge-outlined mx-1 text-larger" ng-repeat="item in $ctrl.course.deliveryTypes">
-                                        {{ item.name }}
+                                        {{ item.deliveryTypeName }}
                                     </span>
                                 </li>
 
@@ -128,7 +128,7 @@
                             <ul class="list-inline text-white" ng-show="$ctrl.course.endorsements">
                                 <li class="list-inline-item">
                                     <span class="badge badge-success badge-outlined mx-1 mb-2 text-larger" ng-repeat="item in $ctrl.course.endorsements">
-                                        {{ item.endorseDescription }}
+                                        {{ item.description }}
                                     </span>
                                 </li>
 
@@ -143,9 +143,16 @@
                 <fieldset class="border p-2">
                     <legend class="w-auto"><small>CTE Programs</small></legend>
 
-                    <div dx-list="$ctrl.listOptions" allowDeleting="true" dx-item-alias="program">
+                    <div dx-list="$ctrl.listOptions" allowDeleting="true" dx-item-alias="item">
                         <div data-options="dxTemplate: {name: 'item'}">
-                            <span>{{program.program}} ({{program.programCode}})</span>
+                            <div class="row">
+                                <div class="col-9">
+                                    <span>{{item.name}} ({{item.programCode}})</span>
+                                </div>
+                                <div class="col-3">
+                                    <span>[{{item.beginYear}}-{{ item.endYear || 'Current'}}]</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

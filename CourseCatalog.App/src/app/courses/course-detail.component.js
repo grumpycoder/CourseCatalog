@@ -15,7 +15,7 @@ function controller($http) {
             ctrl.listOptions = {
                 dataSource: ctrl.course.programs,
                 searchEnabled: true,
-                searchExpr: ['program', 'programCode'],
+                searchExpr: ['name', 'programCode'],
                 noDataText: 'No Programs Assigned'
             }
 

@@ -27,6 +27,24 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.Program.ProgramCode))
                 .ReverseMap();
 
+            CreateMap<DraftDetailDto, Draft>().ReverseMap();
+            CreateMap<DraftDeliveryType, DraftDeliveryTypeDto>()
+                .ForMember(d => d.DeliveryTypeName, 
+                    o => o.MapFrom(d => d.DeliveryType.Name))
+                .ReverseMap();
+            CreateMap<DraftEndorsement, DraftEndorsementDto>()
+                .ForMember(d => d.EndorseCode, 
+                    o => o.MapFrom(d => d.Endorsement.EndorseCode))
+                .ForMember(d => d.Description, 
+                    o => o.MapFrom(d => d.Endorsement.Description))
+                .ReverseMap();
+            CreateMap<ProgramDraft, ProgramDraftDto>()
+                .ForMember(d => d.Name, 
+                    o => o.MapFrom(d => d.Program.Name))
+                .ForMember(d => d.ProgramCode, 
+                    o => o.MapFrom(d => d.Program.ProgramCode))
+                .ReverseMap();
+
             //CreateMap<CourseListVm, Course>().ReverseMap();
             //CreateMap<Course, UpdateCourseCommand>().ReverseMap();
             //CreateMap<Course, CreateCourseCommand>().ReverseMap();
