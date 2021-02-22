@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using CourseCatalog.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalog.App.Controllers.API
 {
     public class ValuesController : ApiController
     {
+        private readonly IMediator _mediator;
         private readonly IAsyncRepository<Draft> _repository;
         private readonly CourseDbContext _context;
 
@@ -18,10 +21,16 @@ namespace CourseCatalog.App.Controllers.API
         //    _context = context;
         //}
 
-        public ValuesController(IAsyncRepository<Draft> repository)
+        //public ValuesController(IAsyncRepository<Draft> repository)
+        //{
+        //    _repository = repository;
+        //}
+
+        public ValuesController(IMediator mediator)
         {
-            _repository = repository;
+            _mediator = mediator;
         }
+
         // GET api/values
         public async Task<IHttpActionResult> GetAsync()
         {
@@ -49,7 +58,10 @@ namespace CourseCatalog.App.Controllers.API
             //    .Include(c => c.Endorsements).ThenInclude(e => e.Endorsement)
             //    .FirstOrDefaultAsync(c => c.DraftId == 68);
 
-            var dto = await _repository.GetByIdAsync(68);
+            //var dto = await _repository.GetByIdAsync(68);
+
+            var dto = await _mediator.Send(new GetCourseDetailQuery() { CourseId = 0 });
+
             return Ok(dto);
 
             return Ok(new string[] { "value1", "value2" });

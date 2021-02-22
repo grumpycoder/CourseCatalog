@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -12,6 +13,7 @@ using Autofac.Integration.WebApi;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Persistence;
 using CourseCatalog.Persistence.Repositories;
+using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalog.App
@@ -41,6 +43,8 @@ namespace CourseCatalog.App
                 .InstancePerLifetimeScope();
 
             builder.RegisterModule<RepositoryRegistrationModule>();
+
+            builder.RegisterMediatR(typeof(WebApiApplication).GetTypeInfo().Assembly);
 
             IContainer container = builder.Build();
 
