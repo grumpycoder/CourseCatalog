@@ -60,7 +60,7 @@ namespace CourseCatalog.App.Controllers.API
 
             //var dto = await _repository.GetByIdAsync(68);
 
-            var dto = await _mediator.Send(new GetCourseDetailQuery() { CourseId = 0 });
+            var dto = await _mediator.Send(new GetCourseDetailQuery(0));
 
             return Ok(dto);
 

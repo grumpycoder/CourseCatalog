@@ -19,7 +19,7 @@ namespace CourseCatalog.App.Controllers.API
         [HttpGet, Route("{courseId}")]
         public async Task<IHttpActionResult> Get(int courseId)
         {
-            var dto = await _mediator.Send(new GetCourseDetailQuery() { CourseId = courseId });
+            var dto = await _mediator.Send(new GetCourseDetailQuery(courseId));
             return Ok(dto);
         }
 

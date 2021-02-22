@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
+using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Profiles
@@ -16,7 +17,7 @@ namespace CourseCatalog.App.Profiles
             //CreateMap<Draft, CreateCourseDraftDetailVm>().ReverseMap();
             //CreateMap<Course, CreateCourseDraftDetailVm>().ReverseMap();
 
-            //CreateMap<DraftDetailVm, Draft>().ReverseMap();
+            CreateMap<DraftDetailDto, Draft>().ReverseMap();
             //CreateMap<DraftListVm, Draft>().ReverseMap();
             //CreateMap<Draft, CreateDraftCommand>().ReverseMap();
             

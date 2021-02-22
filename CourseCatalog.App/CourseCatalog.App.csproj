@@ -260,11 +260,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\API\CoursesController.cs" />
+    <Compile Include="Controllers\API\DraftsController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
     <Compile Include="Controllers\API\ValuesController.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\CourseDetailDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQueryHandler.cs" />
+    <Compile Include="Features\Drafts\Queries\GetDraftDetail\DraftDetailVm.cs" />
+    <Compile Include="Features\Drafts\Queries\GetDraftDetail\GetDraftDetailQuery.cs" />
+    <Compile Include="Features\Drafts\Queries\GetDraftDetail\GetDraftDetailQueryHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
