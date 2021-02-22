@@ -27,6 +27,9 @@ namespace CourseCatalog.Persistence.Repositories
                 .Include(c => c.LowGrade)
                 .Include(c => c.GradeScale)
                 .Include(c => c.ScedCategory)
+                .Include(c => c.DeliveryTypes).ThenInclude(d => d.DeliveryType)
+                .Include(c => c.Endorsements).ThenInclude(e => e.Endorsement)
+                .Include(c => c.Programs).ThenInclude(e => e.Program)
                 .FirstOrDefaultAsync(x => x.CourseId == courseId);
 
             return course;

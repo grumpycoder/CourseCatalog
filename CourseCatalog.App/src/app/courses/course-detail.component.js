@@ -7,12 +7,13 @@ function controller($http) {
 
     ctrl.$onInit = function () {
 
-        ctrl.loadCourse(ctrl.courseNumber).then(function () {
+        ctrl.loadCourse(ctrl.courseId).then(function () {
+
             var courseNumber = ctrl.course.courseNumber ? ctrl.course.courseNumber : 'No Course Number'; 
             ctrl.title = ctrl.course.name + ' (' + courseNumber + ')';
 
             ctrl.listOptions = {
-                dataSource: ctrl.course.programAssignments,
+                dataSource: ctrl.course.programs,
                 searchEnabled: true,
                 searchExpr: ['program', 'programCode'],
                 noDataText: 'No Programs Assigned'
@@ -39,7 +40,7 @@ function controller($http) {
 module.component('courseDetail',
     {
         bindings: {
-            courseNumber: '@'
+            courseId: '@'
         },
         templateUrl: '/src/app/courses/course-detail.component.html',
         controller: ['$http', controller]

@@ -460,7 +460,7 @@
     <Content Include="src\scss\vendor\font-awesome\font-awesome.scss" />
     <Content Include="src\scss\vendor\font-awesome\_variables.scss" />
     <Content Include="src\scss\vendor\vendor.scss" />
-    <Content Include="Views\Courses\Detail.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Courses\Requests.cshtml" />

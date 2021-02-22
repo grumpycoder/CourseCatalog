@@ -19,10 +19,10 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View("Index");
         }
 
-        [Route("{courseCode}")]
-        public ActionResult Detail(string courseCode)
+        [Route("{courseId}")]
+        public ActionResult Details(string courseId)
         {
-            return View((object)courseCode);
+            return View((object)courseId);
         }
 
         [Route("{courseNumber}/edit"), CustomAuthorize(Roles = "CourseAdmin")]

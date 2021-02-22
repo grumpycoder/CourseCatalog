@@ -1,4 +1,5 @@
 ﻿using CourseCatalog.Domain.Entities;
+using System.Collections.Generic;
 
 namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
 {
@@ -18,7 +19,7 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
         public int? EndYear { get; set; }
 
         public decimal? CreditHours { get; set; }
-        public string CreditTypes { get; set; }
+        public List<string> CreditTypes { get; set; }
         public string Tags { get; set; }
 
         public Grade LowGrade { get; set; }
@@ -34,5 +35,35 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
         public CourseLevel CourseLevel { get; set; }
         public GradeScale GradeScale { get; set; }
         public ScedCategory ScedCategory { get; set; }
+
+        public List<CourseDeliveryTypeDto> DeliveryTypes { get; set; }
+        public List<CourseEndorsementDto> Endorsements { get; set; }
+
+        public List<ProgramCourseDto> Programs { get; set; }
+
+    }
+
+    public class ProgramCourseDto
+    {
+        public int ProgramCourseId { get; set; }
+        public string ProgramCode { get; set; }
+        public string Name { get; set; }
+        public int? BeginYear { get; set; }
+        public int? EndYear { get; set; }
+    }
+
+    public class CourseEndorsementDto
+    {
+        public int CourseEndorsementId { get; set; }
+        public int EndorsementId { get; set; }
+        public string EndorseCode { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class CourseDeliveryTypeDto
+    {
+        public int CourseDeliveryTypeId { get; set; }
+        public int DeliveryTypeId { get; set; }
+        public string DeliveryTypeName { get; set; }
     }
 }

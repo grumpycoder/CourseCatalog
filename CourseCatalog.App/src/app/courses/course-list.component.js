@@ -81,8 +81,8 @@ function controller($http) {
                     cellTemplate: function (container, options) {
                         $('<a/>')
                             .text(options.data.courseNumber)
-                            .attr('aria-label', 'Course Details ' + options.data.id)
-                            .attr('href', '/courses/' + options.data.id)
+                            .attr('aria-label', 'Course Details ' + options.data.courseId)
+                            .attr('href', '/courses/' + options.data.courseId)
                             .appendTo(container);
                     }
                 },
