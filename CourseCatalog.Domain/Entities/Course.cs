@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CourseCatalog.Domain.Entities
 {
@@ -44,6 +43,7 @@ namespace CourseCatalog.Domain.Entities
 
         public int? CourseLevelId { get; set; }
         public CourseLevel CourseLevel { get; set; }
+
         public List<string> CreditTypes { get; set; }
         public List<string> Tags { get; set; }
 
@@ -55,7 +55,7 @@ namespace CourseCatalog.Domain.Entities
 
         public List<CourseEndorsement> Endorsements { get; set; }
 
-        public DateTime LastUpdate { get; set; }
+        //public DateTime LastUpdate { get; set; }
     }
 }
 

@@ -2,6 +2,7 @@
 {
     public class ProgramCredential
     {
+        public int ProgramCredentialId { get; set; }
         public int ProgramId { get; set; }
         public int CredentialId { get; set; }
         public Program Program { get; set; }

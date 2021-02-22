@@ -1,10 +1,11 @@
 ﻿namespace CourseCatalog.Domain.Entities
 {
-    public class CourseEndorsement
+    public class DraftEndorsement
     {
-        public int CourseEndorsementId { get; set; }
+        public int DraftEndorsementId { get; set; }
         public int EndorsementId { get; set; }
-        public int CourseId { get; set; }
+        public int DraftId { get; set; }
         public Endorsement Endorsement { get; set; }
+
     }
 }

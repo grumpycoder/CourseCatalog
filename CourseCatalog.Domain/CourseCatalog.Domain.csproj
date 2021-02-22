@@ -52,12 +52,15 @@
     <Compile Include="Entities\Draft.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\CourseLevel.cs" />
+    <Compile Include="Entities\DraftDeliveryType.cs" />
+    <Compile Include="Entities\DraftEndorsement.cs" />
     <Compile Include="Entities\Endorsement.cs" />
     <Compile Include="Entities\Grade.cs" />
     <Compile Include="Entities\GradeScale.cs" />
     <Compile Include="Entities\Program.cs" />
     <Compile Include="Entities\ProgramCourse.cs" />
     <Compile Include="Entities\ProgramCredential.cs" />
+    <Compile Include="Entities\ProgramDraft.cs" />
     <Compile Include="Entities\ProgramType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\ScedCategory.cs" />

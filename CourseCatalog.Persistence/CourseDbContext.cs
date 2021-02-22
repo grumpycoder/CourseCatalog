@@ -1,5 +1,6 @@
 ﻿using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace CourseCatalog.Persistence
 {
@@ -7,6 +8,7 @@ namespace CourseCatalog.Persistence
     {
 
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Draft> Drafts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -17,5 +19,11 @@ namespace CourseCatalog.Persistence
                 //.UseLazyLoadingProxies(_useProxyLoading)
                 ;
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
     }
 }

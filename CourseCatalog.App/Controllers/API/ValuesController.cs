@@ -1,14 +1,50 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalog.App.Controllers.API
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        private readonly CourseDbContext _context;
+
+        public ValuesController(CourseDbContext context)
         {
-            return new string[] { "value1", "value2" };
+            _context = context;
+        }
+
+        // GET api/values
+        public async Task<IHttpActionResult> GetAsync()
+        {
+            //var dto = await _context.Courses
+            //    .Include(c => c.ScedCategory)
+            //    .Include(c => c.GradeScale)
+            //    .Include(c => c.LowGrade)
+            //    .Include(c => c.HighGrade)
+            //    .Include(c => c.Subject)
+            //    .Include(c => c.CourseLevel)
+            //    .Include(c => c.Programs).ThenInclude(p => p.Program).ThenInclude(c => c.Cluster).ThenInclude(ct => ct.ClusterType)
+            //    .Include(c => c.DeliveryTypes).ThenInclude(d => d.DeliveryType)
+            //    .Include(c => c.Endorsements).ThenInclude(e => e.Endorsement)
+            //    .FirstOrDefaultAsync(c => c.CourseId == 0);
+
+            var dto = await _context.Drafts
+                .Include(c => c.ScedCategory)
+                .Include(c => c.GradeScale)
+                .Include(c => c.LowGrade)
+                .Include(c => c.HighGrade)
+                .Include(c => c.Subject)
+                .Include(c => c.CourseLevel)
+                .Include(c => c.Programs).ThenInclude(p => p.Program).ThenInclude(c => c.Cluster).ThenInclude(ct => ct.ClusterType)
+                .Include(c => c.DeliveryTypes).ThenInclude(d => d.DeliveryType)
+                .Include(c => c.Endorsements).ThenInclude(e => e.Endorsement)
+                .FirstOrDefaultAsync(c => c.DraftId == 68);
+
+            return Ok(dto);
+
+            return Ok(new string[] { "value1", "value2" });
         }
 
         // GET api/values/5
