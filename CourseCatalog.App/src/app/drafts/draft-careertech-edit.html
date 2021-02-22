@@ -1,0 +1,89 @@
+﻿
+<form novalidate ng-submit="$ctrl.addProgram()" name="$ctrl.form3" id="$ctrl.form3" class="form">
+
+    <div class="form-row col-12 col-lg-6">
+
+        <div class="col-12 alert-info mb-2">
+            <p class="pt-3">
+                Add Career Technology Programs by selecting Beginning and Ending Year ranges and select Program
+            </p>
+        </div>
+
+        <div class="form-group col-6">
+            <label for="beginYear">Beginning Year</label>
+            <select class="form-control"
+                    ng-model="$ctrl.programAssignment.beginYear"
+                    name="beginYear"
+                    id="beginYear"
+                    number-less-than="{{ $ctrl.programAssignment.endYear }}"
+                    required>
+                <option value="">--- Please select ---</option>
+                <option ng-repeat="option in $ctrl.schoolYears" ng-value="option.year">
+                    {{ option.displayYear }}
+                </option>
+            </select>
+            <ng-messages for="$ctrl.form3.beginYear.$error">
+                <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                <ng-message when="numberLessThan" class="form-text text-danger small">Date must be before End Year</ng-message>
+            </ng-messages>
+        </div>
+
+        <div class="form-group col-6">
+            <label for="endYear">Ending Year</label>
+            <select class="form-control"
+                    ng-model="$ctrl.programAssignment.endYear"
+                    name="endYear"
+                    id="endYear"
+                    number-greater-than="{{ $ctrl.programAssignment.beginYear }}">
+                <option value="">--- Please select ---</option>
+                <option ng-repeat="option in $ctrl.schoolYears" ng-value="option.year">
+                    {{ option.displayYear }}
+                </option>
+            </select>
+            <ng-messages for="$ctrl.form3.endYear.$error">
+                <ng-message when="numberGreaterThan" class="form-text text-danger small">Date must be after Begin Year</ng-message>
+            </ng-messages>
+        </div>
+
+    </div>
+
+    <div class="form-row col-12 col-lg-6">
+
+        <div class="input-group mb-3">
+            <div dx-select-box="$ctrl.programsListOptions"
+                 ng-model="$ctrl.programAssignment.programId" style="width: 90%;"
+                 name="programId"
+                 id="programId"
+                 required></div>
+            <div class="input-group-append">
+
+                <button class="btn btn-outline-secondary"
+                        ng-disabled="$ctrl.form3.$invalid || $ctrl.form3.$pristine"
+                        type="submit">
+                    Add
+                </button>
+
+            </div>
+            <ng-messages for="$ctrl.form3.programId.$error && !$ctrl.form3.programId.touched">
+                <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                <ng-message when="numberLessThan" class="form-text text-danger small">Date must be before End Year</ng-message>
+            </ng-messages>
+        </div>
+
+    </div>
+
+    <div class="form-row col-12 col-lg-6">
+        <ul class="list-group col-12">
+            <li class="list-group-item list-group-item-action"
+                ng-repeat="item in $ctrl.course.programAssignments | filter:$ctrl.searchText">
+                {{ item.program }}
+                <span class="pull-right">
+                    <a href="#" ng-click="$ctrl.removeProgram(item)">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+</form>

@@ -1,0 +1,115 @@
+﻿<style>
+
+    .custom-select {
+        padding: .375rem 1.75rem .375rem .75rem !important;
+    }
+
+    .custom-select-sm {
+        width: 81%;
+    }
+
+    .extended-select.custom-select-sm {
+        width: 100%;
+    }
+
+    .angular-extended-select {
+        height: calc(1.7em + .75rem + 2px);
+        width: 100% !important;
+    }
+
+    @media (min-width: 567px) and (max-width: 767px) {
+        .custom-select-sm {
+            width: 68%;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .custom-select-sm {
+            width: 78%;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .custom-select-sm {
+            width: 66%;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .custom-select-sm {
+            width: 69%;
+        }
+    }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+    </div>
+
+    <div class="card-body">
+        <div class="form-group row">
+            <div class="col-4">
+
+                <extended-select ng-model="$ctrl.endorsement"
+                                 deselectable=""
+                                 ng-change="$ctrl.changeEndorsement()"
+                                 ng-options="o as o.description for o in $ctrl.endorsements"
+                                 placeholder="Select Endorsement..."
+                                 class="custom-select-sm"></extended-select>
+
+            </div>
+
+            <!--<div class="col-8">
+                <button class="btn btn-outline-primary pull-right"
+                        data-toggle="tooltip"
+                        title="Add a course to selected endorsement"
+                        ng-click="$ctrl.showInfo()"
+                        ng-show="$ctrl.endorsement">
+                    Add Course
+                </button>
+
+                <div ng-show="$ctrl.visiblePopup">
+                    <h2>Course LIst here</h2>
+                </div>
+            </div>-->
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div ng-show="!$ctrl.endorsement" class="pt-2">
+                    <h4>Select Endorsement</h4>
+                    <p>
+                        To view courses by endorsement select an endorsement from list above.
+                    </p>
+                </div>
+
+                <div id="gridContainer"
+                     dx-data-grid="$ctrl.dataGridOptions"
+                     ng-show="$ctrl.endorsement">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div dx-popup="$ctrl.popupOptions" id="popupContainer">
+    <h3>Courses</h3>
+    <div dx-scroll-view="$ctrl.scrollViewOptions">
+        <div id="gridCourseContainer" dx-data-grid="$ctrl.dataCourseGridOptions">
+        </div>
+    </div>
+
+    <!--<div dx-scroll-view="scrollViewOptions">
+        <div id="textBlock" ng-bind-html="$ctrl.content"></div>
+    </div>-->
+</div>
+
+
+<pre>{{$ctrl.endorsement | json}}</pre>
+

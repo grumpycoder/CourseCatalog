@@ -1,0 +1,14 @@
+﻿$web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,700|Raleway:400,700|Roboto:400,700" !default;
+@import url($web-font-path);
+
+$font-family-sans-serif: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-serif: Georgia, "Times New Roman", Times, serif !default;
+
+$cyan: #3498db !default;
+
+$border-radius-base: 0px;
+$border-radius-large: 0px;
+$border-radius-small: 0px;
+
+$navbar-padding-y: .1em; 
+$navbar-padding-x: .1em;

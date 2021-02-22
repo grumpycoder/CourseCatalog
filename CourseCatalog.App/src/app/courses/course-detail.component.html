@@ -1,0 +1,157 @@
+﻿
+<style>
+    .text-larger {
+        font-size: 90%;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+        <span class="pull-right">
+            <a ng-href="/courses/{{ $ctrl.course.id }}/edit" class="float-right" ng-show="$ctrl.course.canEdit">Edit</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-12 col-md-7 col-lg-7">
+                <fieldset class="border p-2">
+                    <legend class="w-auto"><small>Details</small></legend>
+                    <dl class="row">
+                        <dt class="col-5 col-md-4 col-lg-3">Name</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.name }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Course Number</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.courseNumber }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">CIP Code</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.cipCode || 'None defined'}}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Description</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.description }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Service Range</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.beginYear }} to {{ $ctrl.course.endYear || 'Current' }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Grade Range</dt>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="!$ctrl.course.gradeRange">None defined</dd>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="$ctrl.course.gradeRange">{{ $ctrl.course.gradeRange.lowGrade }} to {{ $ctrl.course.gradeRange.highGrade }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Credit Hours</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.creditHours | number:2 }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Course Level</dt>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="!$ctrl.course.courseLevel">None defined</dd>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="$ctrl.course.courseLevel">{{ $ctrl.course.courseLevel.name }} ({{ $ctrl.course.courseLevel.courseLevelCode }})</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">SCED Category</dt>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="!$ctrl.course.scedCategory">None defined</dd>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="$ctrl.course.scedCategory">{{ $ctrl.course.scedCategory.name }} ({{$ctrl.course.scedCategory.code }}) - {{ $ctrl.course.scedCategory.identifier }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Subject</dt>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="!$ctrl.course.subject">None defined</dd>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="$ctrl.course.subject">{{ $ctrl.course.subject.name }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Grade Scale</dt>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="!$ctrl.course.gradeScale">None defined</dd>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="$ctrl.course.gradeScale.configuration">{{ $ctrl.course.gradeScale.configuration }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">College Course Id</dt>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="!$ctrl.course.collegeCourseId">None defined</dd>
+                        <dd class="col-7 col-md-8 col-lg-9" ng-if="$ctrl.course.collegeCourseId">{{ $ctrl.course.collegeCourseId }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Locally Editable</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.isLocallyEditable ? 'Yes' : 'No' }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Career Tech</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.isCareerTech ? 'Yes' : 'No' }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Special Education</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.isSpecialEducation ? 'Yes' : 'No' }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">College Course</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.isCollege ? 'Yes' : 'No' }}</dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Credit Types</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">
+                            <span ng-show="!$ctrl.course.creditTypes.length" class="badge badge-secondary badge-outlined mx-1 text-larger">None</span>
+                            <ul class="list-inline text-white" ng-show="$ctrl.course.creditTypes">
+                                <li class="list-inline-item">
+                                    <span class="badge badge-primary badge-outlined mx-1 text-larger" ng-repeat="tag in $ctrl.course.creditTypes">
+                                        {{ tag }}
+                                    </span>
+                                </li>
+
+                            </ul>
+                        </dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Tags</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">
+
+                            <span ng-show="!$ctrl.course.tags.length" class="badge badge-secondary badge-outlined mx-1 text-larger">None</span>
+                            <ul class="list-inline text-white" ng-show="$ctrl.course.tags">
+                                <li class="list-inline-item">
+                                    <span class="badge badge-warning badge-outlined mx-1 text-larger" ng-repeat="tag in $ctrl.course.tags">
+                                        {{ tag }}
+                                    </span>
+                                </li>
+
+                            </ul>
+                        </dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Delivery Types</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">
+
+                            <span ng-show="!$ctrl.course.deliveryTypes.length" class="badge badge-secondary badge-outlined mx-1 text-larger">None</span>
+                            <ul class="list-inline text-white" ng-show="$ctrl.course.deliveryTypes">
+                                <li class="list-inline-item">
+                                    <span class="badge badge-info badge-outlined mx-1 text-larger" ng-repeat="item in $ctrl.course.deliveryTypes">
+                                        {{ item.name }}
+                                    </span>
+                                </li>
+
+                            </ul>
+                        </dd>
+
+                        <dt class="col-5 col-md-4 col-lg-3">Endorsements</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">
+
+                            <span ng-show="!$ctrl.course.endorsements.length" class="badge badge-secondary badge-outlined mx-1 text-larger">None</span>
+                            <ul class="list-inline text-white" ng-show="$ctrl.course.endorsements">
+                                <li class="list-inline-item">
+                                    <span class="badge badge-success badge-outlined mx-1 mb-2 text-larger" ng-repeat="item in $ctrl.course.endorsements">
+                                        {{ item.endorseDescription }}
+                                    </span>
+                                </li>
+
+                            </ul>
+                        </dd>
+
+                    </dl>
+                </fieldset>
+            </div>
+
+            <div class="col-12 col-md-5 col-lg-5">
+                <fieldset class="border p-2">
+                    <legend class="w-auto"><small>CTE Programs</small></legend>
+
+                    <div dx-list="$ctrl.listOptions" allowDeleting="true" dx-item-alias="program">
+                        <div data-options="dxTemplate: {name: 'item'}">
+                            <span>{{program.program}} ({{program.programCode}})</span>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <a href="/courses/active">Back To Courses</a>
+        <a ng-href="/courses/{{ $ctrl.course.scedCode }}/edit" class="float-right" ng-show="$ctrl.course.canEdit">Edit</a>
+    </div>
+</div>

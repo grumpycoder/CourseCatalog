@@ -1,0 +1,42 @@
+﻿
+<div class="card" ng-show="$ctrl.course">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+        <!--<span class="pull-right">
+            <a ng-href="/courses/{{ $ctrl.course.courseNumber }}/edit" class="float-right" ng-show="$ctrl.course.canEdit">Edit</a>
+        </span>-->
+    </div>
+    <div class="card-body">
+        <nav>
+            <div class="nav nav-pills pb-2" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
+                <a class="nav-item nav-link" id="nav-tc-tab" data-toggle="tab" href="#nav-tc" role="tab" aria-controls="nav-tc" aria-selected="false">Certification Endorsements</a>
+                <a class="nav-item nav-link" id="nav-ct-tab" data-toggle="tab" href="#nav-ct" role="tab" aria-controls="nav-ct" aria-selected="false">CTE Programs</a>
+                <!--<a class="nav-item nav-link" id="nav-cos-tab" data-toggle="tab" href="#nav-cos" role="tab" aria-controls="nav-cos" aria-selected="false">Course of Study</a>-->
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <course-detail-edit course="$ctrl.course"></course-detail-edit>
+            </div>
+            <div class="tab-pane fade" id="nav-tc" role="tabpanel" aria-labelledby="nav-tc-tab">
+                <course-requirement-edit course="$ctrl.course"></course-requirement-edit>
+            </div>
+            <div class="tab-pane fade" id="nav-ct" role="tabpanel" aria-labelledby="nav-ct-tab">
+                <course-careertech-edit course="$ctrl.course"></course-careertech-edit>
+            </div>
+            <!--<div class="tab-pane fade" id="nav-cos" role="tabpanel" aria-labelledby="nav-cos-tab">
+                Course of Study
+            </div>-->
+        </div>
+        
+
+    </div>
+    <div class="card-footer text-muted">
+        <a href="/courses/active">Back To Courses</a>
+        <a ng-href="/courses/{{ $ctrl.course.id }}" class="float-right">Back to Details</a>
+    </div>
+</div>

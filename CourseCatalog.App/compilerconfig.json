@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "css/site.css",
+    "inputFile": "src/scss/site/site.scss"
+  },
+  {
+    "outputFile": "css/vendor-bundle.css",
+    "inputFile": "src/scss/vendor/vendor.scss"
+  },
+  {
+    "outputFile": "css/devextreme-bundle.css",
+    "inputFile": "src/scss/vendor/devextreme/devextreme.less"
+  }
+]

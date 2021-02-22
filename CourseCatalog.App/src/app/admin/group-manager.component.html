@@ -1,0 +1,101 @@
+﻿
+<style>
+    .text-larger {
+        font-size: 90%;
+    }
+
+    .dx-scrollable-customizable-scrollbars {
+        height: 100% !important;
+    }
+</style>
+
+<div class="card">
+
+    <div class="card-header">
+        {{ $ctrl.title }}
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header bg-info text-light">
+                        Groups
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <div class="input-group">
+
+                                <input type="text" ng-model="$ctrl.groupName" placeholder="New Group Name" class="form-control" style="width: 87%;" />
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="button" id="btnAddGroup" ng-click="$ctrl.addGroup()">Add</button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+
+                        <div dx-list="$ctrl.groupListOptions" allowDeleting="true" dx-item-alias="item"
+                             id="groupList">
+                            <div data-options="dxTemplate: {name: 'item'}">
+                                <span>{{item.name}}</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header bg-info text-light">
+                        Group Membership
+                    </div>
+
+                    <div class="card-body" style="height: 400px; overflow-x: hidden; overflow-y: auto;">
+
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div ng-hide="$ctrl.selectedGroup">
+                                    <i class="fa fa-chevron-circle-left"></i> Select a group to show members
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" ng-show="$ctrl.selectedGroup">
+                            <div class="col-12 mb-4">
+                                <div class="input-group">
+                                    <div dx-select-box="$ctrl.userListOptions" id="userId" style="width: 87%;" ng-model="$ctrl.selectedUser"></div>
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-secondary" type="button" id="btnAddGroupMember" ng-click="$ctrl.addGroupMember()">Add</button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div>
+
+                            <div class="col-12">
+                                <input type="text" ng-model="$ctrl.search" 
+                                       class="form-control mb-2" autocomplete="off" aria-autocomplete="none" />
+
+                                <ul class="list-group">
+                                    <li ng-repeat="item in $ctrl.selectedGroup.users  | filter:$ctrl.search" class="list-group-item">
+                                        <span>{{ item.fullName }} ({{ item.emailAddress }})</span>
+                                        <button class="btn btn-sm btn-outline-dark float-right" ng-click="$ctrl.deleteUser(item)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>

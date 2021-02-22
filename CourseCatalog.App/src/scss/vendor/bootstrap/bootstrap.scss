@@ -1,0 +1,9 @@
+﻿/*@import '_config.scss';*/
+
+//** Global text color on `<body>`.
+/*$text-color: $gray-dark !default;*/
+
+
+@import '_pre_default';
+@import "node_modules/bootswatch/dist/cosmo/variables";
+@import "node_modules/bootstrap/scss/bootstrap";

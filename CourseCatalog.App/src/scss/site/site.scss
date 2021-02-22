@@ -1,0 +1,163 @@
+﻿@import "_defaults";
+@import "_footer";
+
+$black: #000;
+$blue: rgb(55,192,238);
+$orange: rgb(238,156,32);
+$green: rgb(39,166,93);
+$light-blue: #00FFFF;
+$yellow: #FFFF00;
+$white: #fff;
+
+pre {
+    background-color: gainsboro;
+    /*display: none;*/
+}
+
+html {
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+}
+
+main{
+    margin-top: 10px; 
+}
+
+input.ng-invalid.ng-touched {
+    border: solid 1px #FA787E;
+}
+
+input.ng-valid.ng-touched {
+    border: solid 1px #78FA89;
+}
+
+.blue-gradient {
+    background-color: #4b6397;
+    color: #fff;
+    padding: 5px;
+}
+
+.bg-blue-gradient {
+    background: #4b6cb7;
+    background: linear-gradient(180deg, #4b6cb7 0%, #527dcb 100%);
+}
+
+
+.bg-yellow {
+
+    $primary-color: $yellow;
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+.bg-orange {
+    $primary-color: $orange;
+
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+.bg-blue {
+    $primary-color: $blue;
+
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+.statusbar {
+    margin-bottom: 0;
+    border-bottom: none;
+    border: 0 solid transparent;
+    border-radius: 0;
+    min-height: 30px;
+    font-size: 14px;
+
+    a.nav-link {
+        padding-bottom: 0;
+        height: 30px;
+        padding-top: 5px;
+    }
+}
+
+fieldset {
+    height: 100%;
+}
+
+.intro-header:before {
+    content: "";
+    background: url(/img/dashboard-header.jpg) no-repeat center center;
+    background-size: cover;
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.intro-header {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    color: #f8f8f8;
+    position: relative; 
+    align-items:center; 
+    justify-content: center;
+}
+
+.intro-divider {
+    width: 400px;
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 20px;
+}
+
+.intro-message {
+    position: relative;
+}
+
+.intro-message > h1 {
+    margin: 0;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    font-size: 5em;
+}
+
+.bg-courses {
+    background-color: #3b5998 !important;
+}
+
+.bg-careertech {
+    background-color: #00aced !important;
+}
+
+.c-vr {
+    width: 1px;
+    background-color: rgba(0,0,21,.2);
+}
+
+.navbar{
+    padding: .1em 1em; 
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}

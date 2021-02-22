@@ -1,0 +1,442 @@
+﻿<style>
+    .dx-list-item-content {
+        white-space: normal !important;
+    }
+</style>
+
+<div class="row">
+
+    <div class="col-12 col-lg-6">
+
+        <form novalidate ng-submit="$ctrl.onSubmit()" name="$ctrl.form" id="$ctrl.form" class="form">
+
+            <div class="form-row">
+
+                <div class="form-group col-12">
+                    <label for="courseName">Course Name</label>
+
+                    <input type="text"
+                           class="form-control"
+                           id="courseName"
+                           autocomplete="off"
+                           name="courseName"
+                           placeholder="Course Name (required)"
+                           ng-model="$ctrl.course.name"
+                           required
+                           ng-minlength="6"
+                           ng-maxlength="100" />
+                    <ng-messages for="$ctrl.form.courseName.$error">
+                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                        <ng-message when="minlength" class="form-text text-danger small">Field is too short</ng-message>
+                        <ng-message when="maxlength" class="form-text text-danger small">Field is too long</ng-message>
+                    </ng-messages>
+
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="description">Description</label>
+                    <textarea id="description"
+                              name="description"
+                              class="form-control"
+                              cols="30"
+                              rows="10"
+                              placeholder="Course Description (required)"
+                              ng-model="$ctrl.course.description"
+                              required></textarea>
+                    <ng-messages for="$ctrl.form.description.$error">
+                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                    </ng-messages>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="form-row">
+
+                <div class="form-group col-6">
+                    <label for="beginYear">Beginning Year</label>
+                    <select class="form-control"
+                            ng-model="$ctrl.course.beginYear"
+                            name="beginYear"
+                            id="beginYear"
+                            number-less-than="{{ $ctrl.course.endYear }}"
+                            required>
+                        <option value="">--- Please select ---</option>
+                        <option ng-repeat="option in $ctrl.schoolYears" ng-value="option.year">
+                            {{ option.displayYear }}
+                        </option>
+                    </select>
+                    <ng-messages for="$ctrl.form.beginYear.$error">
+                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                        <ng-message when="numberLessThan" class="form-text text-danger small">Date must be before End Year</ng-message>
+                    </ng-messages>
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="endYear">Ending Year</label>
+                    <select class="form-control"
+                            ng-model="$ctrl.course.endYear"
+                            name="endYear"
+                            id="endYear"
+                            number-greater-than="{{ $ctrl.course.beginYear }}">
+                        <option value="">--- Please select ---</option>
+                        <option ng-repeat="option in $ctrl.schoolYears" ng-value="option.year">
+                            {{ option.displayYear }}
+                        </option>
+                    </select>
+                    <ng-messages for="$ctrl.form.endYear.$error">
+                        <ng-message when="numberGreaterThan" class="form-text text-danger small">Date must be after Begin Year</ng-message>
+                    </ng-messages>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-6">
+                    <label for="lowGradeId">Lowest Grade</label>
+                    <select class="form-control"
+                            ng-model="$ctrl.course.gradeRange.lowGradeId"
+                            name="lowGradeId"
+                            id="lowGradeId"
+                            number-less-than="{{ $ctrl.course.gradeRange.highGradeId }}"
+                            required>
+                        <option value="">--- Please select ---</option>
+                        <option ng-repeat="option in $ctrl.grades" ng-value="option.id">
+                            {{ option.name }} - {{ option.description }}
+                        </option>
+                    </select>
+                    <ng-messages for="$ctrl.form.lowGradeId.$error">
+                        <ng-message when="numberLessThan" class="form-text text-danger small">Lowest grade must be less than Highest Grade</ng-message>
+                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                    </ng-messages>
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="highGradeId">Highest Grade</label>
+                    <select class="form-control"
+                            ng-model="$ctrl.course.gradeRange.highGradeId"
+                            name="highGradeId"
+                            id="highGradeId"
+                            number-greater-than="{{ $ctrl.course.gradeRange.lowGradeId }}"
+                            required>
+                        <option value="">--- Please select ---</option>
+                        <option ng-repeat="option in $ctrl.grades" ng-value="option.id">
+                            {{ option.name }} - {{ option.description }}
+                        </option>
+                    </select>
+                    <ng-messages for="$ctrl.form.highGradeId.$error">
+                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                        <ng-message when="numberGreaterThan" class="form-text text-danger small">Highest Grade must be less than Lowest Grade</ng-message>
+                    </ng-messages>
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="gradeScaleId">Grade Scale</label>
+                    <select class="form-control"
+                            ng-model="$ctrl.course.gradeScale.id"
+                            name="gradeScaleId"
+                            id="gradeScaleId">
+                        <option value="">--- Please select ---</option>
+                        <option ng-repeat="option in $ctrl.gradeScales" ng-value="option.id">
+                            {{ option.configuration }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group col-6">
+
+                    <label for="subjectId">Subject</label>
+
+                    <select class="form-control"
+                            ng-model="$ctrl.course.subject.id"
+                            name="subjectId"
+                            id="subjectId">
+                        <option value="">--- Please select ---</option>
+                        <option ng-repeat="option in $ctrl.subjects" ng-value="option.id">
+                            {{ option.name }}
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <hr />
+            <div class="form-row">
+                <!--TODO: Disable when edit-->
+
+                <div class="form-group col-6">
+                    <label for="courseNumber" class="col-form-label">Course Number</label>
+                    <input type="text" class="form-control"
+                           ng-model="$ctrl.course.courseNumber"
+                           name="courseNumber"
+                           id="courseNumber"
+                           aria-readonly="true" disabled="disabled" />
+                </div>
+
+                <div class="form-group col-6">
+
+                    <label for="scedCategoryId" class="col-form-label">SCED Category</label>
+
+                    <select class="form-control"
+                            ng-model="$ctrl.course.scedCategory.id"
+                            name="scedCategoryId"
+                            id="scedCategoryId" aria-readonly="true" disabled="disabled">
+                        <option value="">--- Please select ---</option>
+                        <option ng-repeat="option in $ctrl.scedCategories" ng-value="option.id">
+                            {{ option.identifier }}
+                        </option>
+                    </select>
+
+                    <ng-messages for="$ctrl.form.scedCategoryId.$error">
+                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                    </ng-messages>
+
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="scedCourseNumber" class="col-form-label">Sced Course Number</label>
+                    <input type="text" class="form-control"
+                           ng-model="$ctrl.course.scedCourseNumber"
+                           name="scedCourseNumber"
+                           id="scedCourseNumber"
+                           aria-readonly="true" disabled="disabled" />
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="stateAttribute1" class="col-form-label">State Attribute 1</label>
+                    <input type="text" class="form-control"
+                           ng-model="$ctrl.course.stateAttribute1"
+                           name="stateAttribute1"
+                           id="stateAttribute1" aria-readonly="true" disabled="disabled" />
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="stateAttribute2" class="col-form-label">State Attribute 2</label>
+                    <input type="text" class="form-control"
+                           ng-model="$ctrl.course.stateAttribute2"
+                           name="stateAttribute2"
+                           id="stateAttribute2"
+                           aria-readonly="true" disabled="disabled" />
+                </div>
+
+                <div class="form-group col-6">
+
+                    <label for="courseLevelId" class="col-form-label">Course Level</label>
+
+                    <select class="form-control"
+                            ng-model="$ctrl.course.courseLevel.id"
+                            name="courseLevelId"
+                            id="courseLevelId"
+                            aria-readonly="true" disabled="disabled">
+                        <option value="">--- Please select ---</option>
+                        <option ng-repeat="option in $ctrl.courseLevels" ng-value="option.id">
+                            {{ option.name }}
+                        </option>
+                    </select>
+
+                    <ng-messages for="$ctrl.form.scedCategoryId.$error">
+                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                    </ng-messages>
+
+                </div>
+
+            </div>
+
+
+            <hr />
+
+            <div class="form-row">
+
+                <div class="form-group col-6">
+                    <label for="creditHours">Credit Hours</label>
+                    <select class="form-control"
+                            ng-model="$ctrl.course.creditHours"
+                            name="creditHours"
+                            id="creditHours">
+                        <option value="">--- Please select ---</option>
+                        <option value="0.00">0.00</option>
+                        <option value="0.50">0.50</option>
+                        <option value="1.00">1.00</option>
+                        <option value="2.00">2.00</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="collegeCourseId">College Course Id</label>
+                    <input type="text" class="form-control"
+                           ng-model="$ctrl.course.collegeCourseId"
+                           name="collegeCourseId"
+                           id="collegeCourseId" />
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="cipCode">CIP Code</label>
+                    <input type="text" class="form-control"
+                           ng-model="$ctrl.course.cipCode"
+                           name="cipCode"
+                           id="cipCode" />
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-6">
+
+                    <label for="isLocallyEditable1">Locally Editable By Systems</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isLocallyEditable1"
+                               id="isLocallyEditable1" ng-value="true"
+                               ng-model="$ctrl.course.isLocallyEditable">
+                        <label class="form-check-label" for="isLocallyEditable1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isLocallyEditable2"
+                               id="isLocallyEditable2" ng-value="false"
+                               ng-model="$ctrl.course.isLocallyEditable">
+                        <label class="form-check-label" for="isLocallyEditable2">
+                            No
+                        </label>
+                    </div>
+
+                </div>
+                <div class="form-group col-6">
+
+                    <label for="isCollege1">College Course</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isCollege"
+                               id="isCollege1" ng-value="true"
+                               ng-model="$ctrl.course.isCollege">
+                        <label class="form-check-label" for="isCollege1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isCollege2"
+                               id="isCollege2" ng-value="false"
+                               ng-model="$ctrl.course.isCollege">
+                        <label class="form-check-label" for="isCollege2">
+                            No
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="form-group col-6">
+
+                    <label for="isCareerTech1">Career Tech</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isCareerTech1"
+                               id="isCareerTech1" ng-value="true"
+                               ng-model="$ctrl.course.isCareerTech">
+                        <label class="form-check-label" for="isCareerTech1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isCareerTech2"
+                               id="isCareerTech2" ng-value="false"
+                               ng-model="$ctrl.course.isCareerTech">
+                        <label class="form-check-label" for="isCareerTech2">
+                            No
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="form-group col-6">
+
+                    <label for="isSpecialEducation1">Special Education</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isSpecialEducation1"
+                               id="isSpecialEducation1" ng-value="true"
+                               ng-model="$ctrl.course.isSpecialEducation">
+                        <label class="form-check-label" for="isSpecialEducation1">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isSpecialEducation2"
+                               id="isSpecialEducation2" ng-value="false"
+                               ng-model="$ctrl.course.isSpecialEducation">
+                        <label class="form-check-label" for="isCareerTech2">
+                            No
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="form-row">
+
+                <div class="form-group col-6 pr-5">
+
+                    <div>
+                        <label for="deliveryTypes">Delivery Type(s)</label>
+                        <div class="form-control m-auto"
+                             name="deliveryTypes"
+                             id="deliveryTypes"
+                             ng-model="$ctrl.course.deliveryTypes"
+                             dx-list="$ctrl.deliveryTypeOptions">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="courseTags">Credit Types(s)</label>
+
+                    <div id="creditTypes" name="creditTypes" ng-model="$ctrl.selectedCreditTypeTags"
+                         dx-tag-box="$ctrl.creditTypesTags"></div>
+
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="courseTags">Tag(s)</label>
+
+                    <div id="courseTags" name="courseTags" ng-model="$ctrl.selectedTags"
+                         dx-tag-box="$ctrl.tags"></div>
+
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <button class="btn btn-outline-secondary btn-block"
+                            ng-show="$ctrl.form.$dirty"
+                            type="button"
+                            ng-click="$ctrl.cancel()">
+                        Cancel Changes
+                    </button>
+                </div>
+                <div class="form-group col-6">
+                    <button class="btn btn-primary btn-block"
+                            ng-disabled="$ctrl.form.$invalid || $ctrl.form.$pristine"
+                            type="submit">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+

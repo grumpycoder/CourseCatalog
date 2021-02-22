@@ -1,38 +1,32 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="ALSDE Course Catalog" />
+    <title>@ViewBag.Title | @Html.RenderApplicationName()</title>
+    <link href="~/css/vendor-bundle.min.css?v=1.0.0" rel="stylesheet" />
+    <link href="~/css/dx-bundle.min.css?v=1.0.0" rel="stylesheet" />
+    <link href="~/css/site.min.css?v=1.0.0" rel="stylesheet" />
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
+<body ng-app="app">
+    @Html.Partial("_Statusbar")
+    @Html.Partial("_Header")
+    @Html.Partial("_Navbar")
+    <main class="container-fluid">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </main>
 
+    <footer>
+        <p>&copy; @DateTime.Now.Year - @Html.RenderApplicationName()</p>
+    </footer>
+    <script src="~/js/vendor-bundle.min.js?v=1.0.0"></script>
+    <script src="~/js/angular-bundle.js?v=1.0.0"></script>
+    <script src="~/js/dx-bundle.min.js?v=1.0.0"></script>
+
+    @*TODO: Bundle app code*@
+    <script src="~/src/app/app.module.js"></script>
+    <script src="~/src/app/directives/year-greater-than.directive.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

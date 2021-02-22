@@ -1,0 +1,350 @@
+﻿<style>
+    .dx-list-item-content {
+        white-space: normal !important;
+    }
+
+    .dx-scrollable-customizable-scrollbars {
+        height: 100% !important;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <span class="card-title font-weight-bolder">{{ $ctrl.title }}</span>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row" ng-show="$ctrl.program">
+
+            <div class="col-6">
+
+                <div class="card border-secondary mb-3">
+                    <form novalidate name="$ctrl.form">
+
+                        <div class="card-header">
+                            <span>Details</span>
+                            <span class="pull-right text-danger" ng-show="$ctrl.form.$dirty"><i class="fa fa-asterisk"></i></span>
+                        </div>
+
+                        <div class="card-body text-secondary">
+
+                            <div class="form-group row">
+                                <label for="name" class="col-3 col-form-label">Name</label>
+
+                                <div class="col-9">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="name"
+                                           name="name"
+                                           autocomplete="off"
+                                           placeholder="Program Name (required)"
+                                           ng-model="$ctrl.program.name"
+                                           required />
+                                    <ng-messages for="$ctrl.form.name.$error">
+                                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                    </ng-messages>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="programCode" class="col-3 col-form-label">Program Code</label>
+
+                                <div class="col-9">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="programCode"
+                                           name="programCode"
+                                           autocomplete="off"
+                                           placeholder="Program Code (required)"
+                                           ng-model="$ctrl.program.programCode"
+                                           ng-change="$ctrl.onChangeProgramCode()"
+                                           ng-model-options="{ debounce: 300 }"
+                                           required
+                                           minlength="3"
+                                           maxlength="3" />
+                                    <ng-messages for="$ctrl.form.programCode.$error">
+                                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                        <ng-message when="minlength" class="form-text text-danger small">Field is too short</ng-message>
+                                        <ng-message when="maxlength" class="form-text text-danger small">Field is too long</ng-message>
+                                        <ng-message when="unique" class="form-text text-danger small">Already in use</ng-message>
+                                    </ng-messages>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="programDescription" class="col-3 col-form-label">Description</label>
+
+                                <div class="col-9">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="programDescription"
+                                           name="programDescription"
+                                           autocomplete="off"
+                                           placeholder="Program Description"
+                                           ng-model="$ctrl.program.programDescription" />
+                                    <ng-messages for="$ctrl.form.programDescription.$error">
+                                    </ng-messages>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="programTypeId" class="col-md-3 col-form-label">Program Type</label>
+                                <div class="col-md-9">
+                                    <select class="form-control"
+                                            ng-model="$ctrl.program.programTypeId"
+                                            name="programTypeId"
+                                            id="programTypeId"
+                                            required>
+                                        <option ng-repeat="option in $ctrl.programTypes" ng-value="option.id">
+                                            {{ option.name }}
+                                        </option>
+                                    </select>
+                                    <ng-messages for="$ctrl.form.programTypeId.$error">
+                                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                    </ng-messages>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="clusterId" class="col-md-3 col-form-label">Cluster</label>
+                                <div class="col-md-9">
+                                    <select class="form-control"
+                                            ng-model="$ctrl.program.clusterId"
+                                            name="clusterId"
+                                            id="clusterId"
+                                            required>
+                                        <option ng-repeat="option in $ctrl.clusters" ng-value="option.id">
+                                            {{ option.name }}
+                                        </option>
+                                    </select>
+                                    <ng-messages for="$ctrl.form.programTypeId.$error">
+                                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                    </ng-messages>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="beginYear" class="col-form-label">Begin Service</label>
+
+                                    <select class="form-control"
+                                            ng-model="$ctrl.program.beginYear"
+                                            name="beginYear"
+                                            id="beginYear"
+                                            number-less-than="{{ $ctrl.program.endYear }}"
+                                            required>
+                                        <option value="">--- Please select ---</option>
+                                        <option ng-repeat="option in $ctrl.schoolYears" ng-value="{{option.year}}">
+                                            {{ option.year }}
+                                        </option>
+                                    </select>
+                                    <ng-messages for="$ctrl.form.beginYear.$error">
+                                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                        <ng-message when="numberLessThan" class="form-text text-danger small">Date must be before End Year</ng-message>
+                                    </ng-messages>
+                                </div>
+                                <div class="col-6">
+                                    <label for="endYear" class="col-form-label">End Service</label>
+                                    <select class="form-control"
+                                            ng-model="$ctrl.program.endYear"
+                                            name="endYear"
+                                            id="endYear"
+                                            number-greater-than="{{ $ctrl.program.beginYear }}">
+                                        <option value="">--- Please select ---</option>
+                                        <option ng-repeat="option in $ctrl.schoolYears" ng-value="{{option.year}}">
+                                            {{ option.year }}
+                                        </option>
+                                    </select>
+                                    <ng-messages for="$ctrl.form.endYear.$error">
+                                        <ng-message when="numberGreaterThan" class="form-text text-danger small">Date must be after Begin Year</ng-message>
+                                    </ng-messages>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input"
+                                                   name="isNonTraditionalForFemales"
+                                                   ng-model="$ctrl.program.traditionalForFemales"
+                                                   ng-change="$ctrl.validateTraditional('female')">Traditional For Females
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input"
+                                                   name="isNonTraditionalForMales"
+                                                   ng-model="$ctrl.program.traditionalForMales"
+                                                   ng-change="$ctrl.validateTraditional('male')">Traditional For Males
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-secondary btn-block"
+                                            ng-show="$ctrl.form.$dirty"
+                                            type="button"
+                                            ng-click="$ctrl.cancel()">
+                                        Cancel Changes
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-primary btn-block"
+                                            ng-disabled="$ctrl.form.$invalid || $ctrl.form.$pristine"
+                                            type="submit"
+                                            ng-click="$ctrl.onSubmit()">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-6">
+
+                <div class="card border-secondary mb-3">
+
+                    <div class="card-header">
+                        <h5>
+                            Assigned Credentials
+
+                            <span class="pull-right" ng-show="$ctrl.program">
+                                <button class="btn btn-outline-secondary" ng-click="$ctrl.showForm = !$ctrl.showForm">
+
+                                    {{ $ctrl.showForm == true ? 'Close' : 'Create New' }}
+
+
+                                </button>
+                            </span>
+                        </h5>
+
+                    </div>
+                    <div class="card-body text-secondary p-1" ng-show="$ctrl.showForm">
+
+                        <div class="card border-secondary">
+                            <div class="card-header bg-secondary text-white">
+                                Add Credential
+                            </div>
+                            <div class="card-body">
+
+                                <form novalidate name="$ctrl.form2">
+                                    <div class="form-group">
+                                        <label for="credentialId">Credential</label>
+
+                                        <select class="form-control"
+                                                ng-model="$ctrl.assignment.credentialId"
+                                                name="credentialId"
+                                                id="credentialId"
+                                                required>
+                                            <option ng-repeat="option in $ctrl.credentials" ng-value="option.id">
+                                                {{ option.name }} ({{ option.credentialCode }})
+                                            </option>
+                                        </select>
+                                        <ng-messages for="$ctrl.form2.credentialId.$error && $ctrl.form2.credentialId.$pristine">
+                                            <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                        </ng-messages>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="beginYear2">Begin Service</label>
+
+                                        <select class="form-control"
+                                                ng-model="$ctrl.assignment.beginYear"
+                                                name="beginYear2"
+                                                id="beginYear2"
+                                                number-less-than="{{ $ctrl.assignment.endYear }}"
+                                                required>
+                                            <option value="">--- Please select ---</option>
+                                            <option ng-repeat="option in $ctrl.schoolYears" ng-value="{{option.year}}">
+                                                {{ option.year }}
+                                            </option>
+                                        </select>
+                                        <ng-messages for="$ctrl.form2.beginYear2.$error">
+                                            <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                            <ng-message when="numberLessThan" class="form-text text-danger small">Date must be before End Year</ng-message>
+                                        </ng-messages>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="endYear2">End Service</label>
+                                        <select class="form-control"
+                                                ng-model="$ctrl.assignment.endYear"
+                                                name="endYear2"
+                                                id="endYear2"
+                                                number-greater-than="{{ $ctrl.assignment.beginYear }}">
+                                            <option value="">--- Please select ---</option>
+                                            <option ng-repeat="option in $ctrl.schoolYears" ng-value="{{option.year}}">
+                                                {{ option.year }}
+                                            </option>
+                                        </select>
+                                        <ng-messages for="$ctrl.form2.endYear2.$error">
+                                            <ng-message when="numberGreaterThan" class="form-text text-danger small">Date must be after Begin Year</ng-message>
+                                        </ng-messages>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-12">
+                                            <button class="btn btn-outline-secondary" ng-click="$ctrl.showForm = !$ctrl.showForm ">
+                                                Cancel
+                                            </button>
+                                            <button class="btn btn-outline-secondary float-right" ng-click="$ctrl.createAssignment()"
+                                                    ng-disabled="$ctrl.form2.$invalid || $ctrl.form2.$pristine">
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="card-body text-secondary">
+                        <div style="height: 400px; overflow-x: hidden; overflow-y: auto;">
+                            <div dx-list="$ctrl.listOptions" id="programCredentials" allowDeleting="true" dx-item-alias="item">
+
+                                <div data-options="dxTemplate: {name: 'item'}">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            <span>{{item.credential}} ({{item.credentialCode}})</span>
+                                        </div>
+                                        <div class="col-3">
+                                            <span>[{{item.beginYear}}-{{ item.endYear || 'Current'}}]</span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<pre>
+{{ $ctrl.program | json }}
+</pre>

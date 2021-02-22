@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Alsde.Extensions, Version=2018.11.16.6895, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Alsde.Extensions.2018.11.0\lib\net451\Alsde.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac, Version=6.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.6.1.0\lib\netstandard2.0\Autofac.dll</HintPath>
     </Reference>
@@ -259,6 +262,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\API\CoursesController.cs" />
     <Compile Include="Controllers\API\DraftsController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
@@ -272,12 +276,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AppSettingsExtensions.cs" />
+    <Compile Include="Helpers\AssemblyExtensions.cs" />
+    <Compile Include="Helpers\IdentityExtensions.cs" />
+    <Compile Include="Helpers\MvcWebExtensions.cs" />
+    <Compile Include="Helpers\NavigationHelper.cs" />
     <Compile Include="Profiles\Mappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="css\devextreme-bundle.css" />
+    <Content Include="css\devextreme-bundle.min.css" />
+    <Content Include="css\dx-bundle.css" />
+    <Content Include="css\dx-bundle.min.css" />
+    <Content Include="css\site.css" />
+    <Content Include="css\site.min.css" />
+    <Content Include="css\vendor-bundle.css" />
+    <Content Include="css\vendor-bundle.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -298,6 +316,74 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="img\dashboard-header.jpg" />
+    <Content Include="img\sde-logo-transparent-25.png" />
+    <Content Include="js\angular-bundle.js" />
+    <Content Include="js\angular-bundle2.js" />
+    <Content Include="js\dx-bundle.js" />
+    <Content Include="js\dx-bundle.min.js" />
+    <Content Include="js\vendor-bundle.js" />
+    <Content Include="js\vendor-bundle.min.js" />
+    <Content Include="src\app\admin\error-viewer.component.html" />
+    <Content Include="src\app\admin\error-viewer.component.js" />
+    <Content Include="src\app\admin\group-manager.component.html" />
+    <Content Include="src\app\admin\group-manager.component.js" />
+    <Content Include="src\app\admin\perf-viewer.component.html" />
+    <Content Include="src\app\admin\perf-viewer.component.js" />
+    <Content Include="src\app\app.module.js" />
+    <Content Include="src\app\careertech\clusters\cluster-detail.component.html" />
+    <Content Include="src\app\careertech\clusters\cluster-detail.component.js" />
+    <Content Include="src\app\careertech\clusters\cluster-edit.component.html" />
+    <Content Include="src\app\careertech\clusters\cluster-edit.component.js" />
+    <Content Include="src\app\careertech\clusters\cluster-list.component.html" />
+    <Content Include="src\app\careertech\clusters\cluster-list.component.js" />
+    <Content Include="src\app\careertech\courses\course-program-list.component.html" />
+    <Content Include="src\app\careertech\courses\course-program-list.component.js" />
+    <Content Include="src\app\careertech\courses\ct-course-list.component.html" />
+    <Content Include="src\app\careertech\courses\ct-course-list.component.js" />
+    <Content Include="src\app\careertech\credentials\credential-detail.component.html" />
+    <Content Include="src\app\careertech\credentials\credential-detail.component.js" />
+    <Content Include="src\app\careertech\credentials\credential-edit.component.html" />
+    <Content Include="src\app\careertech\credentials\credential-edit.component.js" />
+    <Content Include="src\app\careertech\credentials\credential-list.component.html" />
+    <Content Include="src\app\careertech\credentials\credential-list.component.js" />
+    <Content Include="src\app\careertech\programs\program-detail.component.html" />
+    <Content Include="src\app\careertech\programs\program-detail.component.js" />
+    <Content Include="src\app\careertech\programs\program-edit.component.html" />
+    <Content Include="src\app\careertech\programs\program-edit.component.js" />
+    <Content Include="src\app\careertech\programs\program-list.component.html" />
+    <Content Include="src\app\careertech\programs\program-list.component.js" />
+    <Content Include="src\app\courses\course-careertech-edit.html" />
+    <Content Include="src\app\courses\course-careertech-edit.js" />
+    <Content Include="src\app\courses\course-detail-edit.component.html" />
+    <Content Include="src\app\courses\course-detail-edit.component.js" />
+    <Content Include="src\app\courses\course-detail.component.html" />
+    <Content Include="src\app\courses\course-detail.component.js" />
+    <Content Include="src\app\courses\course-edit.component.html" />
+    <Content Include="src\app\courses\course-edit.component.js" />
+    <Content Include="src\app\courses\course-list.component.html" />
+    <Content Include="src\app\courses\course-list.component.js" />
+    <Content Include="src\app\courses\course-program-list.component.html" />
+    <Content Include="src\app\courses\course-program-list.component.js" />
+    <Content Include="src\app\courses\course-requirement-edit.html" />
+    <Content Include="src\app\courses\course-requirement-edit.js" />
+    <Content Include="src\app\dashboard\dashboard-home.component.html" />
+    <Content Include="src\app\dashboard\dashboard-home.component.js" />
+    <Content Include="src\app\directives\year-greater-than.directive.js" />
+    <Content Include="src\app\drafts\draft-careertech-edit.html" />
+    <Content Include="src\app\drafts\draft-careertech-edit.js" />
+    <Content Include="src\app\drafts\draft-detail-edit.component.html" />
+    <Content Include="src\app\drafts\draft-detail-edit.component.js" />
+    <Content Include="src\app\drafts\draft-detail.component.html" />
+    <Content Include="src\app\drafts\draft-detail.component.js" />
+    <Content Include="src\app\drafts\draft-edit.component.html" />
+    <Content Include="src\app\drafts\draft-edit.component.js" />
+    <Content Include="src\app\drafts\draft-list.component.html" />
+    <Content Include="src\app\drafts\draft-list.component.js" />
+    <Content Include="src\app\drafts\draft-requirement-edit.html" />
+    <Content Include="src\app\drafts\draft-requirement-edit.js" />
+    <Content Include="src\app\tcert\course-requirement-list.component.html" />
+    <Content Include="src\app\tcert\course-requirement-list.component.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -318,7 +404,53 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="package.json" />
+    <Content Include="bundleconfig.json" />
+    <Content Include="bundleconfig.json.bindings" />
+    <Content Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.defaults" />
+    <Content Include="js\vendor-bundle.min.js.map" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="css\fonts\Roboto-300.ttf" />
+    <Content Include="css\fonts\Roboto-300.woff" />
+    <Content Include="css\fonts\Roboto-300.woff2" />
+    <Content Include="css\fonts\Roboto-400.ttf" />
+    <Content Include="css\fonts\Roboto-400.woff" />
+    <Content Include="css\fonts\Roboto-400.woff2" />
+    <Content Include="css\fonts\Roboto-500.ttf" />
+    <Content Include="css\fonts\Roboto-500.woff" />
+    <Content Include="css\fonts\Roboto-500.woff2" />
+    <Content Include="css\fonts\Roboto-700.ttf" />
+    <Content Include="css\fonts\Roboto-700.woff" />
+    <Content Include="css\fonts\Roboto-700.woff2" />
+    <Content Include="css\icons\dxicons.ttf" />
+    <Content Include="css\icons\dxicons.woff" />
+    <Content Include="css\icons\dxicons.woff2" />
+    <Content Include="css\icons\dxiconsios.ttf" />
+    <Content Include="css\icons\dxiconsios.woff" />
+    <Content Include="css\icons\dxiconsios.woff2" />
+    <Content Include="css\icons\dxiconsmaterial.ttf" />
+    <Content Include="css\icons\dxiconsmaterial.woff" />
+    <Content Include="css\icons\dxiconsmaterial.woff2" />
     <None Include="packages.config" />
+    <Content Include="Views\Shared\ComingSoon.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Navbar.cshtml" />
+    <Content Include="Views\Shared\_Statusbar.cshtml" />
+    <Content Include="src\scss\site\site.scss" />
+    <Content Include="src\scss\site\_defaults.scss" />
+    <Content Include="src\scss\site\_footer.scss" />
+    <Content Include="src\scss\vendor\bootstrap\bootstrap.scss" />
+    <Content Include="src\scss\vendor\bootstrap\_pre_default.scss" />
+    <Content Include="src\scss\vendor\devextreme\devextreme.less" />
+    <Content Include="src\scss\vendor\font-awesome\font-awesome.scss" />
+    <Content Include="src\scss\vendor\font-awesome\_variables.scss" />
+    <Content Include="src\scss\vendor\vendor.scss" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">

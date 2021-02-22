@@ -1,0 +1,28 @@
+﻿<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div id="gridContainer" dx-data-grid="$ctrl.dataGridOptions">
+                    <div data-options="dxTemplate:{ name: 'cellTemplate' }">
+                        <a href="/courses/{{course.courseCode}}/edit">{{course.courseCode}}</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip(); 
+    });
+</script>

@@ -1,0 +1,71 @@
+[
+  {
+    "outputFileName": "js/vendor-bundle.js",
+    "inputFiles": [
+      "node_modules/jquery/dist/jquery.js",
+      "node_modules/popper.js/dist/umd/popper.js",
+      "node_modules/bootstrap/dist/js/bootstrap.js",
+      "node_modules/jquery-validation/dist/jquery.validate.js",
+      "node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js",
+      "node_modules/moment/moment.js",
+      "node_modules/lodash/lodash.js",
+      "node_modules/toastr/toastr.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "js/angular-bundle.js",
+    "inputFiles": [
+      "node_modules/angular/angular.min.js",
+      "node_modules/angular-messages/angular-messages.min.js",
+      "node_modules/angular-animate/angular-animate.min.js",
+      "node_modules/angularjs-bootstrap-4/dist/angularjs-bootstrap-4.min.js",
+      "node_modules/angularjs-bootstrap4-extended-select/dist/angularjs-bootstrap4-extended-select.min.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "js/angular-bundle2.js",
+    "inputFiles": [
+      "node_modules/angularjs-bootstrap-4/dist/angularjs-bootstrap-4.min.js",
+      "node_modules/angularjs-bootstrap4-extended-select/dist/angularjs-bootstrap4-extended-select.min.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "js/dx-bundle.js",
+    "inputFiles": [
+      "node_modules/jszip/dist/jszip.js",
+      "node_modules/devextreme/dist/js/dx.all.js",
+      "node_modules/devextreme-aspnet-data/js/dx.aspnet.data.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "css/dx-bundle.css",
+    "inputFiles": [
+      "node_modules/devextreme/dist/css/dx.common.css",
+      "node_modules/devextreme/dist/css/dx.light.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "adjustRelativePaths": false
+    }
+  }
+]

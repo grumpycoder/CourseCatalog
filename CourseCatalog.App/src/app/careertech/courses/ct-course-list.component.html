@@ -1,0 +1,59 @@
+﻿
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-6">
+
+                <div id="gridContainer" dx-data-grid="$ctrl.dataGridOptions">
+                </div>
+
+            </div>
+            
+            <div class="col-6" ng-show="$ctrl.selectedCourse">
+                <div class="col-12">
+                    <div class="input-group mb-3">
+                        <div dx-select-box="$ctrl.availablePrograms" id="availablePrograms" name="availablePrograms" style="width: 75%;"></div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary"
+                                    type="button"
+                                    id="btnaddProgram"
+                                    name="btnaddProgram"
+                                    ng-click="$ctrl.addProgram()">
+                                Add Program
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                <div class="col-12">
+                    <h5>Program Assignments</h5>
+                    <div ng-show="$ctrl.selectedCourse.programAssignments.length === 0">
+                        No programs assigned
+                    </div>
+                    <div>
+                        <ul class="list-group" ng-show="$ctrl.selectedCourse.programAssignments.length > 0">
+                            <li ng-repeat="item in $ctrl.selectedCourse.programAssignments" class="list-group-item">
+                                <span class="align-middle">{{ item.program }}</span>
+                                <span class="float-right">
+                                    <button class="btn btn-outline-primary" ng-click="$ctrl.removeProgram(item)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

@@ -1,0 +1,60 @@
+﻿@using CourseCatalog.App.Helpers
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark menu">
+    <a class="navbar-brand" href="/" aria-label="Menu Home"><i class="fa fa-home"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+
+            @Html.BsNavigationLink("Home", "Index", "Home")
+            @Html.BsNavigationLink("Courses", "Active", "Courses")
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Career Tech
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/careertech/clusters">Clusters</a>
+                    <a class="dropdown-item" href="/careertech/programs">Programs</a>
+                    <a class="dropdown-item" href="/careertech/credentials">Credentials</a>
+                </div>
+            </li>
+            
+            @if (User.IsInRole("TeacherCertAdmin"))
+            {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Teacher Certification
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/tcert/course-requirements">Endorsements</a>
+                    </div>
+                </li>
+            }
+
+        </ul>
+
+
+
+        @if (User.IsInRole("Admin"))
+        {
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Administration</a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="/admin/groups" class="dropdown-item">Group Manager</a>
+                        <a href="/admin/users" class="dropdown-item">User Manager</a>
+                        <a href="/admin/error-log" class="dropdown-item">Error Logs</a>
+                        <a href="/admin/perf-log" class="dropdown-item">Perf Logs</a>
+                        <a href="/swagger" class="dropdown-item">Swagger</a>
+                    </div>
+                </li>
+            </ul>
+        }
+
+
+    </div>
+</nav>

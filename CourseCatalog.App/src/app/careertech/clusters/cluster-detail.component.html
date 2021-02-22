@@ -1,0 +1,82 @@
+﻿
+<style>
+    .text-larger {
+        font-size: 90%;
+    }
+
+    .dx-scrollable-customizable-scrollbars {
+        height: 100% !important;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+        <span class="pull-right">
+            <a ng-href="/careertech/clusters/{{ $ctrl.cluster.clusterCode }}/edit" class="float-right" ng-show="$ctrl.cluster.canEdit">Edit</a>
+        </span>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-6">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">
+                        <span>Details</span>
+                    </div>
+                    <div class="card-body text-secondary">
+                        <dl class="row">
+                            <dt class="col-4">Name</dt>
+                            <dd class="col-8">{{ $ctrl.cluster.name }}</dd>
+
+                            <dt class="col-4">Cluster Code</dt>
+                            <dd class="col-8">{{ $ctrl.cluster.clusterCode }}</dd>
+
+                            <dt class="col-4">Cluster Type</dt>
+                            <dd class="col-8">{{ $ctrl.cluster.clusterType.name || 'None'}}</dd>
+
+                            <dt class="col-4">EdFacts Name</dt>
+                            <dd class="col-8">{{ $ctrl.cluster.edFactsClusterValue || 'None'}}</dd>
+
+                            <dt class="col-4">Service Range</dt>
+                            <dd class="col-8">{{ $ctrl.cluster.beginYear }} to {{ $ctrl.cluster.endYear || 'Current' }}</dd>
+
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-6">
+
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">
+                        <span>Assigned Programs</span>
+                    </div>
+                    <div class="card-body text-secondary">
+                        <div style="height: 400px; overflow-x: hidden; overflow-y: auto;">
+                            <div dx-list="$ctrl.listOptions" allowDeleting="true" dx-item-alias="item">
+                                <div data-options="dxTemplate: {name: 'item'}">
+                                    <span>{{item.name}} ({{item.programCode}})</span>
+                                    <span class="float-right">[{{item.beginYear}}-{{ item.endYear || 'Current'}}]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card-footer text-muted">
+    <a href="/careertech/clusters">Back To Clusters</a>
+    <a ng-href="/careertech/clusters/{{ $ctrl.cluster.clusterCode }}/edit" class="float-right" ng-show="$ctrl.cluster.canEdit">Edit</a>
+</div>
+

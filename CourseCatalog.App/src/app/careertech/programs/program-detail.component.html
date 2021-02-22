@@ -1,0 +1,91 @@
+﻿
+<style>
+    .text-larger {
+        font-size: 90%;
+    }
+
+    .dx-scrollable-customizable-scrollbars {
+        height: 100% !important;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+        <span class="pull-right">
+            <a ng-href="/careertech/programs/{{ $ctrl.program.clusterCode }}/edit" class="float-right" ng-show="$ctrl.program.canEdit">Edit</a>
+        </span>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-6">
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">
+                        <span>Details</span>
+                    </div>
+                    <div class="card-body text-secondary">
+                        <dl class="row">
+                            <dt class="col-4">Name</dt>
+                            <dd class="col-8">{{ $ctrl.program.name }}</dd>
+
+                            <dt class="col-4">Cluster Code</dt>
+                            <dd class="col-8">{{ $ctrl.program.programCode }}</dd>
+
+                            <dt class="col-4">Description</dt>
+                            <dd class="col-8">{{ $ctrl.program.description || 'Not Supplied' }}</dd>
+
+                            <dt class="col-4">Program Type</dt>
+                            <dd class="col-8">{{ $ctrl.program.programType || 'None' }}</dd>
+
+                            <dt class="col-4">Cluster</dt>
+                            <dd class="col-8">{{ $ctrl.program.cluster || 'None'}}</dd>
+
+                            <dt class="col-4">Service Range</dt>
+                            <dd class="col-8">{{ $ctrl.program.beginYear }} to {{ $ctrl.program.endYear || 'Current' }}</dd>
+
+                            <dt class="col-4">Traditional Male</dt>
+                            <dd class="col-8">{{ $ctrl.program.traditionalMale ? 'Yes' : 'No' }}</dd>
+
+                            <dt class="col-4">Traditional Female</dt>
+                            <dd class="col-8">{{ $ctrl.program.traditionalFemale ? 'Yes' : 'No' }}</dd>
+
+                        </dl>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-6">
+
+                <div class="card border-secondary mb-3">
+                    <div class="card-header">
+                        <span>Assigned Credentials</span>
+                    </div>
+                    <div class="card-body text-secondary">
+                        <div style="height: 400px; overflow-x: hidden; overflow-y: auto;">
+                            <div dx-list="$ctrl.listOptions" allowDeleting="true" dx-item-alias="item">
+                                <div data-options="dxTemplate: {name: 'item'}">
+                                    <span>{{item.credential}} ({{item.credentialCode}})</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card-footer text-muted">
+    <a href="/careertech/programs">Back To Programs</a>
+    <a ng-href="/careertech/programs/{{ $ctrl.program.programCode }}/edit" class="float-right" ng-show="$ctrl.program.canEdit">Edit</a>
+</div>
+
