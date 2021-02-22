@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Domain.Entities;
 using CourseCatalog.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,13 +10,18 @@ namespace CourseCatalog.App.Controllers.API
 {
     public class ValuesController : ApiController
     {
+        private readonly IAsyncRepository<Draft> _repository;
         private readonly CourseDbContext _context;
 
-        public ValuesController(CourseDbContext context)
-        {
-            _context = context;
-        }
+        //public ValuesController(CourseDbContext context)
+        //{
+        //    _context = context;
+        //}
 
+        public ValuesController(IAsyncRepository<Draft> repository)
+        {
+            _repository = repository;
+        }
         // GET api/values
         public async Task<IHttpActionResult> GetAsync()
         {
@@ -30,18 +37,19 @@ namespace CourseCatalog.App.Controllers.API
             //    .Include(c => c.Endorsements).ThenInclude(e => e.Endorsement)
             //    .FirstOrDefaultAsync(c => c.CourseId == 0);
 
-            var dto = await _context.Drafts
-                .Include(c => c.ScedCategory)
-                .Include(c => c.GradeScale)
-                .Include(c => c.LowGrade)
-                .Include(c => c.HighGrade)
-                .Include(c => c.Subject)
-                .Include(c => c.CourseLevel)
-                .Include(c => c.Programs).ThenInclude(p => p.Program).ThenInclude(c => c.Cluster).ThenInclude(ct => ct.ClusterType)
-                .Include(c => c.DeliveryTypes).ThenInclude(d => d.DeliveryType)
-                .Include(c => c.Endorsements).ThenInclude(e => e.Endorsement)
-                .FirstOrDefaultAsync(c => c.DraftId == 68);
+            //var dto = await _context.Drafts
+            //    .Include(c => c.ScedCategory)
+            //    .Include(c => c.GradeScale)
+            //    .Include(c => c.LowGrade)
+            //    .Include(c => c.HighGrade)
+            //    .Include(c => c.Subject)
+            //    .Include(c => c.CourseLevel)
+            //    .Include(c => c.Programs).ThenInclude(p => p.Program).ThenInclude(c => c.Cluster).ThenInclude(ct => ct.ClusterType)
+            //    .Include(c => c.DeliveryTypes).ThenInclude(d => d.DeliveryType)
+            //    .Include(c => c.Endorsements).ThenInclude(e => e.Endorsement)
+            //    .FirstOrDefaultAsync(c => c.DraftId == 68);
 
+            var dto = await _repository.GetByIdAsync(68);
             return Ok(dto);
 
             return Ok(new string[] { "value1", "value2" });

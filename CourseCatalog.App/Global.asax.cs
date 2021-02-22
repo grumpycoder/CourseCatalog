@@ -40,11 +40,27 @@ namespace CourseCatalog.App
                 .As(typeof(IAsyncRepository<>))
                 .InstancePerLifetimeScope();
 
+            builder.RegisterModule<RepositoryRegistrationModule>();
+
             IContainer container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
+        }
+    }
+
+    public class RepositoryRegistrationModule : Autofac.Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(typeof(WebApiApplication).Assembly)
+                .Where(t => t.Name.EndsWith("Repository"))
+                .As(t => t.GetInterfaces()?.FirstOrDefault(
+                    i => i.Name == "I" + t.Name))
+                .InstancePerRequest()
+                //.WithParameter(new TypedParameter(typeof(string), "easyBlog"))
+                ;
         }
     }
 }
