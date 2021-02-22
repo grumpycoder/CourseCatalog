@@ -1,4 +1,4 @@
-﻿namespace CourseCatalog.Domain
+﻿namespace CourseCatalog.Domain.Entities
 {
     public class Grade
     {

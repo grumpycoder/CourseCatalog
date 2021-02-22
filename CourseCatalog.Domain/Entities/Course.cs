@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CourseCatalog.Domain
+namespace CourseCatalog.Domain.Entities
 {
     public class Course
     {
@@ -47,19 +47,17 @@ namespace CourseCatalog.Domain
         public List<string> CreditTypes { get; set; }
         public List<string> Tags { get; set; }
 
-        //public CourseStatus? Status { get; set; }
+        public CourseStatus? Status { get; set; }
 
-        //readonly List<ProgramAssignment> _programAssignments = new List<ProgramAssignment>();
-        //public  List<ProgramAssignment> ProgramAssignments => _programAssignments;
+        public List<ProgramCourse> Programs { get; set; }
 
-        //readonly List<CourseDeliveryType> _deliveryTypes = new List<CourseDeliveryType>();
-        //public List<CourseDeliveryType> DeliveryTypes => _deliveryTypes;
+        public List<CourseDeliveryType> DeliveryTypes { get; set; }
 
-        //readonly List<CourseEndorsement> _endorsements = new List<CourseEndorsement>();
-        //public List<CourseEndorsement> Endorsements => _endorsements;
+        public List<CourseEndorsement> Endorsements { get; set; }
 
         public DateTime LastUpdate { get; set; }
     }
-
-
 }
+
+
+
