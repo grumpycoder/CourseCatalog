@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ICourseRepository.cs" />
     <Compile Include="Exceptions\BadRequestException.cs" />
     <Compile Include="Contracts\IAsyncRepository.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />

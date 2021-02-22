@@ -10,6 +10,8 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using AutoMapper;
+using CourseCatalog.App.Profiles;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Persistence;
 using CourseCatalog.Persistence.Repositories;
@@ -43,6 +45,7 @@ namespace CourseCatalog.App
                 .InstancePerLifetimeScope();
 
             builder.RegisterModule<RepositoryRegistrationModule>();
+            builder.RegisterModule<AutoMapperModule>();
 
             builder.RegisterMediatR(typeof(WebApiApplication).GetTypeInfo().Assembly);
 
@@ -58,13 +61,35 @@ namespace CourseCatalog.App
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(typeof(WebApiApplication).Assembly)
+            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .Where(t => t.Name.EndsWith("Repository"))
-                .As(t => t.GetInterfaces()?.FirstOrDefault(
-                    i => i.Name == "I" + t.Name))
-                .InstancePerRequest()
-                //.WithParameter(new TypedParameter(typeof(string), "easyBlog"))
-                ;
+                .AsImplementedInterfaces()
+                .InstancePerRequest(); 
+        }
+    }
+
+    public class AutoMapperModule : Autofac.Module
+    {
+        protected override void Load(ContainerBuilder builder)
+        {
+            //Also register any custom type converter/value resolvers
+            //builder.RegisterType<CustomValueResolver>().AsSelf();
+            //builder.RegisterType<CustomTypeConverter>().AsSelf();
+
+            builder.Register(context => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<Mappings>();
+            })).AsSelf().SingleInstance();
+
+            builder.Register(c =>
+                {
+                    //This resolves a new context that can be used later.
+                    var context = c.Resolve<IComponentContext>();
+                    var config = context.Resolve<MapperConfiguration>();
+                    return config.CreateMapper(context.Resolve);
+                })
+                .As<IMapper>()
+                .InstancePerLifetimeScope();
         }
     }
 }
