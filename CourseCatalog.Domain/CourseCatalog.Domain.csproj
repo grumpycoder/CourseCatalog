@@ -46,6 +46,7 @@
     <Compile Include="Entities\CourseDeliveryType.cs" />
     <Compile Include="Entities\CourseEndorsement.cs" />
     <Compile Include="Entities\CourseStatus.cs" />
+    <Compile Include="Entities\CourseView.cs" />
     <Compile Include="Entities\Credential.cs" />
     <Compile Include="Entities\CredentialType.cs" />
     <Compile Include="Entities\DeliveryType.cs" />

@@ -14,7 +14,7 @@ function controller($http) {
 
         ctrl.dataGridOptions = {
             dataSource: DevExpress.data.AspNet.createStore({
-                key: "id",
+                key: "draftId",
                 loadUrl: url
             }),
             remoteOperations: true,

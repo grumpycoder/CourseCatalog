@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = $"Edit Course";
+}
+
+<course-edit course-number="@Model"></course-edit>
+
+
+@*<nav>
+        <div class="nav nav-pills pb-2" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Details</a>
+            <a class="nav-item nav-link" id="nav-tc-tab" data-toggle="tab" href="#nav-tc" role="tab" aria-controls="nav-tc" aria-selected="false">Teaching Requirements</a>
+            <a class="nav-item nav-link" id="nav-ct-tab" data-toggle="tab" href="#nav-ct" role="tab" aria-controls="nav-ct" aria-selected="false">Career Technology</a>
+            <a class="nav-item nav-link" id="nav-cos-tab" data-toggle="tab" href="#nav-cos" role="tab" aria-controls="nav-cos" aria-selected="false">Course of Study</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+            <course-detail-edit course-number="@Model"></course-detail-edit>
+        </div>
+        <div class="tab-pane fade" id="nav-tc" role="tabpanel" aria-labelledby="nav-tc-tab">
+            <course-requirement-edit course-number="@Model"></course-requirement-edit>
+        </div>
+        <div class="tab-pane fade" id="nav-ct" role="tabpanel" aria-labelledby="nav-ct-tab">
+            <course-careertech-edit course-number="@Model"></course-careertech-edit>
+        </div>
+        <div class="tab-pane fade" id="nav-cos" role="tabpanel" aria-labelledby="nav-cos-tab">
+            Course of Study
+        </div>
+    </div>*@
+
+@*<course-detail-edit course-number="@Model"></course-detail-edit>*@
+
+@*<course-detail-edit course-number="@Model"></course-detail-edit>*@
+
+
+@section scripts{
+    <script src="~/src/app/courses/course-edit.component.js"></script>
+
+    <script src="~/src/app/courses/course-detail-edit.component.js"></script>
+    <script src="~/src/app/courses/course-requirement-edit.js"></script>
+    <script src="~/src/app/courses/course-careertech-edit.js"></script>
+    @*<script src="~/src/app/courses/course-program-list.component.js"></script>*@
+}

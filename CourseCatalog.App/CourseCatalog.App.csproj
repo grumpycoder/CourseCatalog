@@ -59,6 +59,12 @@
     <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="DevExtreme.AspNet.Data, Version=2.6.2.0, Culture=neutral, PublicKeyToken=982f5dab1439d0f7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExtreme.AspNet.Data.2.6.2\lib\net452\DevExtreme.AspNet.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExtreme.AspNet.Mvc, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExtreme.AspNet.Mvc.20.1.4\lib\net452\DevExtreme.AspNet.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="MediatR, Version=9.0.0.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.9.0.0\lib\net461\MediatR.dll</HintPath>
     </Reference>
@@ -265,6 +271,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\API\CoursesController.cs" />
     <Compile Include="Controllers\API\DraftsController.cs" />
+    <Compile Include="Controllers\Mvc\CoursesController.cs" />
+    <Compile Include="Controllers\Mvc\DraftController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
     <Compile Include="Controllers\API\ValuesController.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\CourseDetailDto.cs" />
@@ -273,6 +281,7 @@
     <Compile Include="Features\Drafts\Queries\GetDraftDetail\DraftDetailVm.cs" />
     <Compile Include="Features\Drafts\Queries\GetDraftDetail\GetDraftDetailQuery.cs" />
     <Compile Include="Features\Drafts\Queries\GetDraftDetail\GetDraftDetailQueryHandler.cs" />
+    <Compile Include="Filters\CustomAuthorize.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -451,6 +460,13 @@
     <Content Include="src\scss\vendor\font-awesome\font-awesome.scss" />
     <Content Include="src\scss\vendor\font-awesome\_variables.scss" />
     <Content Include="src\scss\vendor\vendor.scss" />
+    <Content Include="Views\Courses\Detail.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Courses\Requests.cshtml" />
+    <Content Include="Views\Drafts\Detail.cshtml" />
+    <Content Include="Views\Drafts\Edit.cshtml" />
+    <Content Include="Views\Drafts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">
