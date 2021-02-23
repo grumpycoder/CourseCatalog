@@ -18,7 +18,7 @@ namespace CourseCatalog.Persistence.Repositories
             return draft;
         }
 
-        public async Task<Draft> GetDraftWithDetails(int draftId)
+        public async Task<Draft> GetDraftByIdWithDetails(int draftId)
         {
             var draft = await _dbContext.Drafts
                 .Include(c => c.CourseLevel)

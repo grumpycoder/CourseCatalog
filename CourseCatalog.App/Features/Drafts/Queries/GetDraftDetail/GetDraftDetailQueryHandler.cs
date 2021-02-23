@@ -22,7 +22,7 @@ namespace CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail
 
         public async Task<DraftDetailDto> Handle(GetDraftDetailQuery request, CancellationToken cancellationToken)
         {
-            var draft = await _draftRepository.GetDraftWithDetails(request.DraftId);
+            var draft = await _draftRepository.GetDraftByIdWithDetails(request.DraftId);
 
             if (draft == null)
             {

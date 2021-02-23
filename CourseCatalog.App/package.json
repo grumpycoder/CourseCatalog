@@ -2,7 +2,7 @@
   "name": "CourseCatalog",
   "version": "1.0.0",
   "devDependencies": {
-    "angular": "^1.8.2",
+    "angular": "^1.8.0",
     "angular-animate": "^1.7.9",
     "angular-messages": "^1.7.9",
     "angular-sanitize": "^1.8.2",

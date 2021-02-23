@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\ICourseRepository.cs" />
+    <Compile Include="Contracts\ITagRepository.cs" />
     <Compile Include="Contracts\IDraftRepository.cs" />
     <Compile Include="Exceptions\BadRequestException.cs" />
     <Compile Include="Contracts\IAsyncRepository.cs" />

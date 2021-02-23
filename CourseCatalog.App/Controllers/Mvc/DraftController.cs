@@ -1,5 +1,4 @@
-﻿using CourseCatalog.App.Filters;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
@@ -19,13 +18,15 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View(id);
         }
 
-        [Route("{id:int}/edit"), CustomAuthorize(Roles = "CourseAdmin")]
+        //[Route("{id:int}/edit"), CustomAuthorize(Roles = "CourseAdmin")]
+        [Route("{id:int}/edit")]
         public ActionResult Edit(int id)
         {
             return View(id);
         }
 
-        [Route("new"), CustomAuthorize(Roles = "CourseAdmin")]
+        //[Route("new"), CustomAuthorize(Roles = "CourseAdmin")]
+        [Route("new")]
         public ActionResult New()
         {
             return View("Edit", -1);

@@ -25,7 +25,6 @@ function detailController($http) {
         //path for existing course
         if (ctrl.course) {
             fetchScedCategories();
-
             if (ctrl.course.deliveryTypes !== undefined)
                 ctrl.course.deliveryTypes.forEach(e => {
                     ctrl.selectedDeliveryTypes.push(e.deliveryTypeId);
@@ -37,7 +36,6 @@ function detailController($http) {
             }
             ctrl.existing = ctrl.course.courseStatus === 'ExistingCourse';
         }
-
     };
 
     ctrl.$onInit = function () {
@@ -46,17 +44,15 @@ function detailController($http) {
 
     ctrl.onSubmit = function () {
         var url = '/api/drafts/';
+
         ctrl.course.tags = ctrl.selectedTags;
         ctrl.course.creditTypes = ctrl.selectedCreditTypeTags;
-        if (!ctrl.course.creditHours) ctrl.course.creditHours = 0.0;
 
-        if (!ctrl.course.id) {
+        console.log('submit course', ctrl.course);
+        if (!ctrl.course.draftId) {
             $http.post(url, ctrl.course).then(r => {
-                r.data.creditHours = r.data.creditHours.toFixed(2);
-                ctrl.course = r.data;
-                updateCache();
                 toastr.success('Created Course Draft');
-                window.location.href = '/drafts/' + ctrl.course.id + '/edit';
+                window.location.href = '/drafts/' + r.data + '/edit';
             }).catch(e => {
                 console.error('update error', e);
                 toastr.error(e.data.message);
@@ -64,10 +60,7 @@ function detailController($http) {
             return;
         }
 
-        url = url + ctrl.course.id;
         $http.put(url, ctrl.course).then(r => {
-            r.data.creditHours = r.data.creditHours.toFixed(2);
-            ctrl.course = r.data;
             updateCache();
             toastr.success('Saved Course Draft');
         }).catch(e => {
@@ -96,11 +89,11 @@ function detailController($http) {
             ctrl.scedCourseNumber = ctrl.course.scedCourseNumber;
         }
 
-        if (ctrl.course.scedCategory) {
-            ctrl.scedCategoryCode = ctrl.scedCategories.find(s => s.id == ctrl.course.scedCategory.id).code;
+        if (ctrl.course.scedCategoryId) {
+            ctrl.scedCategoryCode = ctrl.scedCategories.find(s => s.scedCategoryId === ctrl.course.scedCategoryId).code;
         }
-        if (ctrl.course.courseLevel) {
-            ctrl.courseLevelCode = ctrl.courseLevels.find(s => s.id == ctrl.course.courseLevel.id).courseLevelCode;
+        if (ctrl.course.courseLevelId) {
+            ctrl.courseLevelCode = ctrl.courseLevels.find(s => s.courseLevelId === ctrl.course.courseLevelId).courseLevelCode;
         }
 
         ctrl.course.courseNumber = ctrl.scedCategoryCode + ctrl.scedCourseNumber + ctrl.courseLevelCode + ctrl.stateAttribute1 + ctrl.stateAttribute2;
@@ -125,6 +118,16 @@ function detailController($http) {
 
     function fetchCourseLevels() {
         return $http.get('/api/refs/courseLevels').then(function (r) {
+
+            ctrl.courseLevelSelect = {
+                dataSource: r.data,
+                displayExpr: 'name',
+                valueExpr: 'courseLevelId',
+                onValueChanged: function (e) {
+                    ctrl.updateCourseNumber();
+                }
+            };
+
             return ctrl.courseLevels = r.data;
         });
     }
@@ -160,7 +163,6 @@ function detailController($http) {
                     return $("<div>").text(data.name + ' - ' + data.description);
                 },
                 onSelectionChanged: function (e) {
-                    console.log(e.element);
                     if (e.element[0].id === 'highGradeId') {
                         ctrl.selectedHighGrade = e.selectedItem.name;
                     } else {
@@ -169,8 +171,6 @@ function detailController($http) {
                     ctrl.validateCourseCode();
                 }
             }
-
-
             return ctrl.grades = r.data;
         });
     }
@@ -178,6 +178,18 @@ function detailController($http) {
     function fetchScedCategories() {
         return $http.get('/api/refs/scedcategories').then(function (r) {
             ctrl.scedCategories = r.data;
+
+            ctrl.scedSelect = {
+                dataSource: r.data,
+                displayExpr: 'identifier',
+                valueExpr: 'scedCategoryId',
+                onValueChanged: function (e) {
+                    console.log('change', e);
+                    console.log(ctrl.course);
+                    ctrl.updateCourseNumber();
+                }
+            };
+
             return ctrl.scedCategories;
         });
     }
@@ -227,7 +239,7 @@ function detailController($http) {
 
             var source = new DevExpress.data.DataSource({
                 store: new DevExpress.data.ArrayStore({
-                    key: 'id',
+                    key: 'deliveryTypeId',
                     data: ctrl.deliveryTypes
                 })
             });
@@ -245,19 +257,11 @@ function detailController($http) {
                     return item.name;
                 },
                 onSelectionChanged: function (e) {
-                    e.addedItems.forEach(item => {
-                        let found = ctrl.course.deliveryTypes
-                            .find(cdt => cdt.deliveryTypeId === item.id);
+                    if (!ctrl.course.deliveryTypes) ctrl.course.deliveryTypes = [];
 
-                        if (!found) {
-                            var deliveryType = {
-                                deliveryTypeId: item.id,
-                                courseId: ctrl.course.id,
-                                name: item.name
-                            }
-                            addDeliveryType(deliveryType);
-                            e.model.$ctrl.form.$setDirty();
-                        }
+                    e.addedItems.forEach(item => {
+                        addDeliveryType(item);
+                        e.model.$ctrl.form.$setDirty();
                     });
 
                     e.removedItems.forEach(item => {
@@ -271,16 +275,25 @@ function detailController($http) {
     };
 
     function addDeliveryType(item) {
-        ctrl.course.deliveryTypes.push(item);
+        var deliveryType = {
+            draftDeliveryTypeId: 0, 
+            deliveryTypeId: item.deliveryTypeId, 
+            draftId: ctrl.course.draftId 
+
+        }
+        if (!ctrl.course.deliveryTypes.find(c => c.deliveryTypeId === deliveryType.deliveryTypeId)) {
+            ctrl.course.deliveryTypes.push(deliveryType);
+        };
     }
 
     function removeDeliveryType(item) {
         let found = ctrl.course.deliveryTypes
-            .find(cdt => cdt.deliveryTypeId === item.id);
+            .find(cdt => cdt.deliveryTypeId === item.deliveryTypeId);
 
-        let idx = ctrl.course.deliveryTypes.indexOf(found);
-
-        ctrl.course.deliveryTypes.splice(idx, 1);
+        if (found) {
+            let idx = ctrl.course.deliveryTypes.indexOf(found);
+            ctrl.course.deliveryTypes.splice(idx, 1);
+        }
     }
 
     function updateCache() {

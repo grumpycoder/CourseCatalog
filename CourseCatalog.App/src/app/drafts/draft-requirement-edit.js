@@ -7,8 +7,7 @@ function controller($http) {
     ctrl.endorsements = [];
 
     this.$onInit = function () {
-        fetchEndorsements().then(r => {
-        });
+        fetchEndorsements().then(r => {});
     }
 
     ctrl.$onChanges = function () {
@@ -16,7 +15,7 @@ function controller($http) {
             ctrl.listOptions = {
                 dataSource: ctrl.course.endorsements,
                 searchEnabled: true,
-                searchExpr: "endorseDescription",
+                searchExpr: "description",
                 height: 500,
                 allowItemDeleting: true,
                 onItemDeleting: function (data) {

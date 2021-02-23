@@ -1,13 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
-using MediatR;
-using System.Threading.Tasks;
-using System.Web.Http;
 using CourseCatalog.Domain.Entities;
 using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using MediatR;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
+using CourseCatalog.App.Features.Drafts.Commands.Create;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -45,6 +47,22 @@ namespace CourseCatalog.App.Controllers.API
             var dto = await _mediator.Send(new GetDraftDetailQuery(draftId));
             return Ok(dto);
         }
+
+        [HttpPut, Route()]
+        public async Task<IHttpActionResult> Put([FromBody] UpdateDraftCommand updateDraftCommand)
+        {
+            var dto = await _mediator.Send(updateDraftCommand);
+            return Ok();
+        }
+
+        [HttpPost, Route()]
+        public async Task<IHttpActionResult> Post([FromBody] CreateDraftCommand createDraftCommand)
+        {
+            var dto = await _mediator.Send(createDraftCommand);
+            return Ok(dto);
+        }
+
+
 
     }
 }

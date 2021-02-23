@@ -98,13 +98,13 @@
                 <div class="form-group col-6">
                     <label for="lowGradeId">Lowest Grade</label>
                     <select class="form-control"
-                            ng-model="$ctrl.course.gradeRange.lowGradeId"
+                            ng-model="$ctrl.course.lowGradeId"
                             name="lowGradeId"
                             id="lowGradeId"
-                            number-less-than="{{ $ctrl.course.gradeRange.highGradeId }}"
+                            number-less-than="{{ $ctrl.course.highGradeId }}"
                             required>
                         <option value="">--- Please select ---</option>
-                        <option ng-repeat="option in $ctrl.grades" ng-value="option.id">
+                        <option ng-repeat="option in $ctrl.grades" ng-value="option.gradeId">
                             {{ option.name }} - {{ option.description }}
                         </option>
                     </select>
@@ -117,13 +117,13 @@
                 <div class="form-group col-6">
                     <label for="highGradeId">Highest Grade</label>
                     <select class="form-control"
-                            ng-model="$ctrl.course.gradeRange.highGradeId"
+                            ng-model="$ctrl.course.highGradeId"
                             name="highGradeId"
                             id="highGradeId"
-                            number-greater-than="{{ $ctrl.course.gradeRange.lowGradeId }}"
+                            number-greater-than="{{ $ctrl.course.lowGradeId }}"
                             required>
                         <option value="">--- Please select ---</option>
-                        <option ng-repeat="option in $ctrl.grades" ng-value="option.id">
+                        <option ng-repeat="option in $ctrl.grades" ng-value="option.gradeId">
                             {{ option.name }} - {{ option.description }}
                         </option>
                     </select>
@@ -136,11 +136,11 @@
                 <div class="form-group col-6">
                     <label for="gradeScaleId">Grade Scale</label>
                     <select class="form-control"
-                            ng-model="$ctrl.course.gradeScale.id"
+                            ng-model="$ctrl.course.gradeScaleId"
                             name="gradeScaleId"
                             id="gradeScaleId">
                         <option value="">--- Please select ---</option>
-                        <option ng-repeat="option in $ctrl.gradeScales" ng-value="option.id">
+                        <option ng-repeat="option in $ctrl.gradeScales" ng-value="option.gradeScaleId">
                             {{ option.configuration }}
                         </option>
                     </select>
@@ -151,11 +151,11 @@
                     <label for="subjectId">Subject</label>
 
                     <select class="form-control"
-                            ng-model="$ctrl.course.subject.id"
+                            ng-model="$ctrl.course.subjectId"
                             name="subjectId"
                             id="subjectId">
                         <option value="">--- Please select ---</option>
-                        <option ng-repeat="option in $ctrl.subjects" ng-value="option.id">
+                        <option ng-repeat="option in $ctrl.subjects" ng-value="option.subjectId">
                             {{ option.name }}
                         </option>
                     </select>
@@ -179,15 +179,14 @@
 
                 <div class="form-group col-6">
                     <label for="scedCategoryId" class="col-form-label">SCED Category</label>
-
                     <select class="form-control"
-                            ng-model="$ctrl.course.scedCategory.id"
+                            ng-model="$ctrl.course.scedCategoryId"
                             name="scedCategoryId"
                             id="scedCategoryId"
                             ng-disabled="$ctrl.existing"
                             ng-change="$ctrl.updateCourseNumber()">
                         <option value="">--- Please select ---</option>
-                        <option ng-repeat="option in $ctrl.scedCategories" ng-value="option.id">
+                        <option ng-repeat="option in $ctrl.scedCategories" ng-value="option.scedCategoryId">
                             {{ option.identifier }}
                         </option>
                     </select>
@@ -213,7 +212,7 @@
                     <input type="text" class="form-control"
                            ng-model="$ctrl.course.stateAttribute1"
                            name="stateAttribute1"
-                           id="stateAttribute1" 
+                           id="stateAttribute1"
                            ng-disabled="$ctrl.existing"
                            ng-change="$ctrl.updateCourseNumber()" />
                 </div>
@@ -229,17 +228,15 @@
                 </div>
 
                 <div class="form-group col-6">
-
                     <label for="courseLevelId" class="col-form-label">Course Level</label>
-
                     <select class="form-control"
-                            ng-model="$ctrl.course.courseLevel.id"
+                            ng-model="$ctrl.course.courseLevelId"
                             name="courseLevelId"
                             id="courseLevelId"
-                            ng-disabled="$ctrl.existing" 
-                            ng-change="$ctrl.updateCourseNumber()" >
+                            ng-disabled="$ctrl.existing"
+                            ng-change="$ctrl.updateCourseNumber()">
                         <option value="">--- Please select ---</option>
-                        <option ng-repeat="option in $ctrl.courseLevels" ng-value="option.id">
+                        <option ng-repeat="option in $ctrl.courseLevels" ng-value="option.courseLevelId">
                             {{ option.name }}
                         </option>
                     </select>
@@ -434,7 +431,7 @@
                             ng-disabled="$ctrl.form.$invalid || $ctrl.form.$pristine"
                             type="submit">
                         <span>
-                            {{ $ctrl.course ? 'Save Change' : 'Create Draft' }}
+                            {{ $ctrl.course ? 'Save Changes' : 'Create Draft' }}
                         </span>
                     </button>
                 </div>

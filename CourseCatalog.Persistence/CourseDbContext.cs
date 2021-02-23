@@ -10,6 +10,7 @@ namespace CourseCatalog.Persistence
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseView> CoursesView { get; set; }
         public DbSet<Draft> Drafts { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

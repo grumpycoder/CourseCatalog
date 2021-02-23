@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using CourseCatalog.Domain.Entities;
+﻿using CourseCatalog.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.Application.Contracts
 {
     public interface IDraftRepository : IAsyncRepository<Draft>
     {
-        Task<Draft> GetDraftWithDetails(int courseId);
+        Task<Draft> GetDraftByIdWithDetails(int courseId);
         Task<Draft> GetDraftByCourseNumber(string courseNumber);
     }
 }
