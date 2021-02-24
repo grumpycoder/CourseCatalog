@@ -2,13 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using CourseCatalog.App.Features.Drafts.Commands.CreateRequirement;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
 
-namespace CourseCatalog.App.Features.Drafts.Commands
+namespace CourseCatalog.App.Features.Drafts.Commands.DeleteRequirement
 {
     public class DeleteRequirementCommandHandler : IRequestHandler<DeleteRequirementCommand>
     {

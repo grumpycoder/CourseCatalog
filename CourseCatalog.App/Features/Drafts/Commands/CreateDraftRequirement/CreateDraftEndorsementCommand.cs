@@ -1,11 +1,17 @@
 ﻿using MediatR;
 
-namespace CourseCatalog.App.Features.Drafts.Commands.CreateRequirement
+namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement
 {
-    public class CreateRequirementCommand : IRequest<CreatedDraftEndorsementDto>
+    public class CreateDraftEndorsementCommand : IRequest<CreatedDraftEndorsementDto>
     {
         public int DraftId { get; set; }
         public int EndorsementId { get; set; }
+
+        public CreateDraftEndorsementCommand(int draftId, int endorsementId)
+        {
+            DraftId = draftId;
+            EndorsementId = endorsementId;
+        }
     }
 
     public class CreatedDraftEndorsementDto

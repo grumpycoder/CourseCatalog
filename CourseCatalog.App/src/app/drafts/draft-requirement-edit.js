@@ -31,10 +31,6 @@ function controller($http) {
             draftId: ctrl.course.draftId,
             endorsementId: item.endorsementId
         }; 
-        
-
-        console.log('dto', dto);
-        //return $http.delete('/api/drafts/deleterequirement', {deleteRequirementCommand: dto})
         var url = '/api/drafts/' + ctrl.course.draftId + '/endorsements/' + item.endorsementId; 
         console.log('url', url);
         return $http.delete('/api/drafts/' + ctrl.course.draftId + '/endorsements/' + item.endorsementId)
@@ -54,13 +50,11 @@ function controller($http) {
             return;
         }
 
-        //$http.post('/api/drafts/' + ctrl.course.id + '/endorsements/' + ctrl.endorsementId)
         var dto = {
             draftId: ctrl.course.draftId, 
             endorsementId: ctrl.endorsementId
         }
-        console.log(dto);
-        $http.post('/api/drafts/createrequirement', dto)
+        $http.post('/api/drafts/createendorsement', dto)
             .then(r => {
                 ctrl.course.endorsements.push(r.data);
                 toastr.success('Added endorsement ' + r.data.endorseCode);

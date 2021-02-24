@@ -51,7 +51,8 @@ namespace CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail
 
     public class ProgramDraftDto
     {
-        public int ProgramCourseId { get; set; }
+        public int ProgramDraftId { get; set; }
+        public int ProgramId { get; set; }
         public string ProgramCode { get; set; }
         public string Name { get; set; }
         public int? BeginYear { get; set; }

@@ -1,6 +1,8 @@
-﻿namespace CourseCatalog.Domain.Entities
+﻿using CourseCatalog.Domain.Common;
+
+namespace CourseCatalog.Domain.Entities
 {
-    public class ProgramDraft
+    public class ProgramDraft: AuditableEntity
     {
         public int ProgramDraftId { get; set; }
         public int DraftId { get; set; }

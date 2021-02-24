@@ -25,7 +25,7 @@ function controller($http) {
             ctrl.programs = r.data;
             ctrl.programsStore = new DevExpress.data.ArrayStore({
                 data: r.data,
-                key: 'id',
+                key: 'programId',
                 reshapeOnPush: true
             });
             ctrl.programsListOptions = {
@@ -33,18 +33,19 @@ function controller($http) {
                 searchEnabled: true,
                 searchExpr: "description",
                 displayExpr: 'name',
-                valueExpr: 'id'
+                valueExpr: 'programId'
             }
         });
     }
 
     ctrl.removeProgram = function(item) {
-        var idx = ctrl.course.programAssignments.indexOf(item);
-        var url = '/api/drafts/' + ctrl.course.id + '/programs/' + item.programId; 
+        console.log('item', item);
+        var idx = ctrl.course.programs.indexOf(item);
+        var url = '/api/drafts/' + ctrl.course.draftId + '/programs/' + item.programId; 
         $http.delete(url)
             .then(r => {
                 //TODO: toastr message
-                ctrl.course.programAssignments.splice(idx, 1);
+                ctrl.course.programs.splice(idx, 1);
             }).catch(e => {
                 //TODO: toastr message
                 console.error(e);
@@ -52,10 +53,17 @@ function controller($http) {
     }
 
     ctrl.addProgram = function() {
-        var data = JSON.stringify(ctrl.programAssignment);
-        $http.post('/api/drafts/' + ctrl.course.id + '/programs', data)
+        var dto = {
+            draftId: ctrl.course.draftId, 
+            programId: ctrl.programAssignment.programId, 
+            beginYear: ctrl.programAssignment.beginYear, 
+            endYear: ctrl.programAssignment.endYear
+        }
+        
+        $http.post('/api/drafts/assignprogram', dto)
             .then(r => {
-                ctrl.course.programAssignments.push(r.data);
+                console.log('r', r);
+                ctrl.course.programs.push(r.data);
                 ctrl.programAssignment.programId = undefined; 
                 //TODO: toastr message
             }).catch(e => {

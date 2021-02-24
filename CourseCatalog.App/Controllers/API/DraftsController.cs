@@ -1,6 +1,8 @@
-﻿using CourseCatalog.App.Features.Drafts.Commands;
-using CourseCatalog.App.Features.Drafts.Commands.Create;
-using CourseCatalog.App.Features.Drafts.Commands.CreateRequirement;
+﻿using CourseCatalog.App.Features.Drafts.Commands.Create;
+using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
+using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
+using CourseCatalog.App.Features.Drafts.Commands.DeleteDraftProgram;
+using CourseCatalog.App.Features.Drafts.Commands.DeleteRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.Domain.Entities;
@@ -64,8 +66,8 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPost, Route("createrequirement")]
-        public async Task<IHttpActionResult> CreateRequirement([FromBody] CreateRequirementCommand createRequirementCommand)
+        [HttpPost, Route("createendorsement")]
+        public async Task<IHttpActionResult> CreateDraftEndorsement([FromBody] CreateDraftEndorsementCommand createRequirementCommand)
         {
             var dto = await _mediator.Send(createRequirementCommand);
             return Ok(dto);
@@ -73,11 +75,26 @@ namespace CourseCatalog.App.Controllers.API
 
         [HttpDelete]
         [Route("{draftId}/endorsements/{endorsementId}")]
-        public async Task<IHttpActionResult> DeleteRequirement(int draftId, int endorsementId)
+        public async Task<IHttpActionResult> DeleteDraftEndorsement(int draftId, int endorsementId)
         {
-            await _mediator.Send(new DeleteRequirementCommand(){DraftId = draftId, EndorsementId = endorsementId});
+            await _mediator.Send(new DeleteRequirementCommand(draftId, endorsementId));
             return Ok();
         }
 
+        [HttpPost, Route("assignprogram")]
+        public async Task<IHttpActionResult> AssignProgram([FromBody] CreateDraftProgramCommand createDraftProgramCommand)
+        {
+            var dto = await _mediator.Send(createDraftProgramCommand);
+            return Ok(dto);
+        }
+
+        [HttpDelete]
+        //[Route("{draftId}/programs/{programId}"), Authorize(Roles = "CourseAdmin")]
+        [Route("{draftId}/programs/{programId}")]
+        public async Task<IHttpActionResult> RemoveProgram(int draftId, int programId)
+        {
+            await _mediator.Send(new DeleteDraftProgramCommand(draftId, programId));
+            return Ok();
+        }
     }
 }

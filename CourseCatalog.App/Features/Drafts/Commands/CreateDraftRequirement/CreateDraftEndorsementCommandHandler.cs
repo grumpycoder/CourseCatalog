@@ -7,22 +7,22 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CourseCatalog.App.Features.Drafts.Commands.CreateRequirement
+namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement
 {
-    public class CreateRequirementCommandHandler : IRequestHandler<CreateRequirementCommand, CreatedDraftEndorsementDto>
+    public class CreateDraftEndorsementCommandHandler : IRequestHandler<CreateDraftEndorsementCommand, CreatedDraftEndorsementDto>
     {
         private readonly IMapper _mapper;
         private readonly IDraftRepository _draftRepository;
         private readonly ICourseRepository _courseRepository;
 
-        public CreateRequirementCommandHandler(IMapper mapper, IDraftRepository draftRepository, ICourseRepository courseRepository)
+        public CreateDraftEndorsementCommandHandler(IMapper mapper, IDraftRepository draftRepository, ICourseRepository courseRepository)
         {
             _mapper = mapper;
             _draftRepository = draftRepository;
             _courseRepository = courseRepository;
         }
 
-        public async Task<CreatedDraftEndorsementDto> Handle(CreateRequirementCommand request, CancellationToken cancellationToken)
+        public async Task<CreatedDraftEndorsementDto> Handle(CreateDraftEndorsementCommand request, CancellationToken cancellationToken)
         {
             var existingDraft = await _draftRepository.GetDraftByIdWithDetails(request.DraftId);
 

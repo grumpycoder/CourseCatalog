@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
 using CourseCatalog.App.Features.Drafts.Commands.Create;
-using CourseCatalog.App.Features.Drafts.Commands.CreateRequirement;
+using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
+using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.Domain.Entities;
@@ -49,6 +50,13 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.Endorsement.Description))
                 .ReverseMap();
 
+            CreateMap<ProgramDraft, CreatedDraftProgramDto>()
+                .ForMember(d => d.Name,
+                    o => o.MapFrom(d => d.Program.Name))
+                .ForMember(d => d.ProgramCode,
+                    o => o.MapFrom(d => d.Program.ProgramCode))
+                .ReverseMap();
+
             CreateMap<ProgramDraft, ProgramDraftDto>()
                 .ForMember(d => d.Name,
                     o => o.MapFrom(d => d.Program.Name))
@@ -69,6 +77,8 @@ namespace CourseCatalog.App.Profiles
             CreateMap<DraftDeliveryType, CreateDraftDeliveryTypeDto>().ReverseMap();
 
             CreateMap<Draft, CreateDraftCommand>().ReverseMap();
+
+
 
             //CreateMap<DraftListVm, Draft>().ReverseMap();
             //CreateMap<Draft, CreateDraftCommand>().ReverseMap();
