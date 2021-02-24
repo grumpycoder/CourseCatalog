@@ -1,6 +1,9 @@
-﻿using CourseCatalog.Domain.Entities;
+﻿using CourseCatalog.Domain.Common;
+using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.Persistence
 {
@@ -27,5 +30,22 @@ namespace CourseCatalog.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            //TODO: add user instance to ModifyUser
+            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.ModifyUser = "system";
+                        break;
+                    case EntityState.Modified:
+                        entry.Entity.ModifyUser = "system";
+                        break;
+                }
+            }
+            return base.SaveChangesAsync(cancellationToken);
+        }
     }
 }

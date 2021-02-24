@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AuditableEntity.cs" />
     <Compile Include="Entities\Cluster.cs" />
     <Compile Include="Entities\ClusterType.cs" />
     <Compile Include="Entities\CourseDeliveryType.cs" />

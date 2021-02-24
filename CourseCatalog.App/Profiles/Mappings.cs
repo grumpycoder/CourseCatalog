@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
 using CourseCatalog.App.Features.Drafts.Commands.Create;
+using CourseCatalog.App.Features.Drafts.Commands.CreateRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.Domain.Entities;
@@ -40,6 +41,14 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.Description,
                     o => o.MapFrom(d => d.Endorsement.Description))
                 .ReverseMap();
+
+            CreateMap<DraftEndorsement, CreatedDraftEndorsementDto>()
+                .ForMember(d => d.EndorseCode,
+                    o => o.MapFrom(d => d.Endorsement.EndorseCode))
+                .ForMember(d => d.Description,
+                    o => o.MapFrom(d => d.Endorsement.Description))
+                .ReverseMap();
+
             CreateMap<ProgramDraft, ProgramDraftDto>()
                 .ForMember(d => d.Name,
                     o => o.MapFrom(d => d.Program.Name))

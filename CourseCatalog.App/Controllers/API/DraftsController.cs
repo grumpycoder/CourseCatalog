@@ -1,4 +1,7 @@
-﻿using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
+﻿using CourseCatalog.App.Features.Drafts.Commands;
+using CourseCatalog.App.Features.Drafts.Commands.Create;
+using CourseCatalog.App.Features.Drafts.Commands.CreateRequirement;
+using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.Domain.Entities;
 using CourseCatalog.Persistence;
@@ -9,7 +12,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Features.Drafts.Commands.Create;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -62,7 +64,20 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
+        [HttpPost, Route("createrequirement")]
+        public async Task<IHttpActionResult> CreateRequirement([FromBody] CreateRequirementCommand createRequirementCommand)
+        {
+            var dto = await _mediator.Send(createRequirementCommand);
+            return Ok(dto);
+        }
 
+        [HttpDelete]
+        [Route("{draftId}/endorsements/{endorsementId}")]
+        public async Task<IHttpActionResult> DeleteRequirement(int draftId, int endorsementId)
+        {
+            await _mediator.Send(new DeleteRequirementCommand(){DraftId = draftId, EndorsementId = endorsementId});
+            return Ok();
+        }
 
     }
 }

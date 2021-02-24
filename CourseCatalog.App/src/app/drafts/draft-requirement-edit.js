@@ -27,7 +27,17 @@ function controller($http) {
 
     ctrl.removeEndorsement = function (item) {
         var idx = ctrl.course.endorsements.indexOf(item);
-        return $http.delete('/api/drafts/' + ctrl.course.id + '/endorsements/' + item.endorsementId)
+        var dto = {
+            draftId: ctrl.course.draftId,
+            endorsementId: item.endorsementId
+        }; 
+        
+
+        console.log('dto', dto);
+        //return $http.delete('/api/drafts/deleterequirement', {deleteRequirementCommand: dto})
+        var url = '/api/drafts/' + ctrl.course.draftId + '/endorsements/' + item.endorsementId; 
+        console.log('url', url);
+        return $http.delete('/api/drafts/' + ctrl.course.draftId + '/endorsements/' + item.endorsementId)
             .then(r => {
                 ctrl.course.endorsements.splice(idx, 1);
                 toastr.success('Removed ' + item.endorseCode);
@@ -44,7 +54,13 @@ function controller($http) {
             return;
         }
 
-        $http.post('/api/drafts/' + ctrl.course.id + '/endorsements/' + ctrl.endorsementId)
+        //$http.post('/api/drafts/' + ctrl.course.id + '/endorsements/' + ctrl.endorsementId)
+        var dto = {
+            draftId: ctrl.course.draftId, 
+            endorsementId: ctrl.endorsementId
+        }
+        console.log(dto);
+        $http.post('/api/drafts/createrequirement', dto)
             .then(r => {
                 ctrl.course.endorsements.push(r.data);
                 toastr.success('Added endorsement ' + r.data.endorseCode);
@@ -60,6 +76,14 @@ function controller($http) {
 
         return $http.get('/api/refs/endorsements').then(r => {
             ctrl.endorsements = r.data;
+
+            ctrl.endorsementListOptions = {
+                dataSource: ctrl.endorsements, 
+                displayExpr: 'description', 
+                searchEnabled: true, 
+                searchExpr: "description", 
+                valueExpr: 'endorsementId'
+            }
         });
     }
 }
