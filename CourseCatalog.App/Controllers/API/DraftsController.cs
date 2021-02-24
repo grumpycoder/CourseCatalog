@@ -3,6 +3,7 @@ using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.DeleteDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.DeleteRequirement;
+using CourseCatalog.App.Features.Drafts.Commands.PublishDraft;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.Domain.Entities;
@@ -35,7 +36,7 @@ namespace CourseCatalog.App.Controllers.API
             try
             {
                 //var list = await DataSourceLoader.LoadAsync(_context.Drafts.Where(x => x.Status != CourseStatus.Published).ProjectTo<CourseDto>(), loadOptions);
-                var list = await DataSourceLoader.LoadAsync(_context.Drafts.Where(x => x.Status != CourseStatus.Published), loadOptions);
+                var list = await DataSourceLoader.LoadAsync(_context.DraftsView, loadOptions);
 
                 return Ok(list);
             }
@@ -95,6 +96,13 @@ namespace CourseCatalog.App.Controllers.API
         {
             await _mediator.Send(new DeleteDraftProgramCommand(draftId, programId));
             return Ok();
+        }
+
+        [HttpPost, Route("publish/{draftId}")]
+        public async Task<IHttpActionResult> Post(int draftId)
+        {
+            var dto = await _mediator.Send(new PublishDraftCommand(draftId));
+            return Ok(dto);
         }
     }
 }

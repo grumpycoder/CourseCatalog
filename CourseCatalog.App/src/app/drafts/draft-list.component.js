@@ -87,7 +87,7 @@ function controller($http) {
                 { dataField: 'lowGrade', dataType: 'string', caption: 'Low Grade' },
                 { dataField: 'highGrade', dataType: 'string', caption: 'High Grade' },
                 { dataField: 'cipCode', dataType: 'string', visible: false },
-                { dataField: 'courseLevel.name', dataType: 'string', caption: 'Course Level' },
+                { dataField: 'courseLevel', dataType: 'string', caption: 'Course Level' },
                 {
                     dataField: 'creditHours', dataType: 'decimal', format: {
                         type: "fixedPoint",
@@ -95,30 +95,28 @@ function controller($http) {
                     }, caption: 'Credit Hours'
                 },
                 { dataField: 'scedIdentifier', dataType: 'string', caption: 'Sced Category' },
-                { dataField: 'subject.name', dataType: 'string', caption: 'Subject' },
+                { dataField: 'subject', dataType: 'string', caption: 'Subject' },
                 { dataField: 'status', dataType: 'string', caption: 'Status' },
                 {
                     caption: '',
                     cellTemplate: function (container, options) {
-                        if (options.data.canEdit) {
                             $('<a/>').addClass('btn btn-primary btn-sm')
                                 .text('')
                                 .attr('aria-label', 'Edit Draft ' + options.data.courseNumber)
                                 .attr('title', 'Edit Draft ' + options.data.courseNumber)
                                 .attr('data-toggle', 'tooltip')
                                 .attr('data-placement', 'top')
-                                .attr('href', '/drafts/' + options.data.id + '/edit')
+                                .attr('href', '/drafts/' + options.data.draftId + '/edit')
                                 .append('<i class="fa fa-pencil">')
                                 .on('dxclick',
                                     function (e) {
                                         $('<a href="/drafts/' +
-                                            options.data.id +
+                                            options.data.draftId +
                                             '/edit>' +
                                             options.data.courseNumber +
                                             '</a>').appendTo(container);
                                     })
                                 .appendTo(container);
-                        }
                     }
                 },
             ],

@@ -21,7 +21,7 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
 
         public async Task<CourseDetailDto> Handle(GetCourseDetailQuery request, CancellationToken cancellationToken)
         {
-            var course = await _courseRepository.GetCourseWithDetails(request.CourseId);
+            var course = await _courseRepository.GetCourseByIdWithDetails(request.CourseId);
 
             if (course == null)
             {

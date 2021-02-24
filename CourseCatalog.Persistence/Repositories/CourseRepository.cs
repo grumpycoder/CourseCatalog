@@ -18,7 +18,7 @@ namespace CourseCatalog.Persistence.Repositories
             return course;
         }
 
-        public async Task<Course> GetCourseWithDetails(int courseId)
+        public async Task<Course> GetCourseByIdWithDetails(int courseId)
         {
             var course = await _dbContext.Courses
                 .Include(c => c.CourseLevel)

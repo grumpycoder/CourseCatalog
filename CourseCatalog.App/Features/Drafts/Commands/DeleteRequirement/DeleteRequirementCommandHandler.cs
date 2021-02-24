@@ -1,25 +1,20 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.DeleteRequirement
 {
     public class DeleteRequirementCommandHandler : IRequestHandler<DeleteRequirementCommand>
     {
-        private readonly IMapper _mapper;
         private readonly IDraftRepository _draftRepository;
-        private readonly ICourseRepository _courseRepository;
 
-        public DeleteRequirementCommandHandler(IMapper mapper, IDraftRepository draftRepository, ICourseRepository courseRepository)
+        public DeleteRequirementCommandHandler(IDraftRepository draftRepository)
         {
-            _mapper = mapper;
             _draftRepository = draftRepository;
-            _courseRepository = courseRepository;
         }
 
         public async Task<Unit> Handle(DeleteRequirementCommand request, CancellationToken cancellationToken)

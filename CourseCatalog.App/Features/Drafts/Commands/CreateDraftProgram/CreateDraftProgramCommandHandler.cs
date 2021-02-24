@@ -13,13 +13,11 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram
     {
         private readonly IMapper _mapper;
         private readonly IDraftRepository _draftRepository;
-        private readonly ICourseRepository _courseRepository;
 
-        public CreateDraftProgramCommandHandler(IMapper mapper, IDraftRepository draftRepository, ICourseRepository courseRepository)
+        public CreateDraftProgramCommandHandler(IMapper mapper, IDraftRepository draftRepository)
         {
             _mapper = mapper;
             _draftRepository = draftRepository;
-            _courseRepository = courseRepository;
         }
 
         public async Task<CreatedDraftProgramDto> Handle(CreateDraftProgramCommand request, CancellationToken cancellationToken)

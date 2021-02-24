@@ -3,8 +3,12 @@ using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using WebGrease.Css.Extensions;
+
 
 namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
 {
@@ -12,13 +16,11 @@ namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
     {
         private readonly IMapper _mapper;
         private readonly IDraftRepository _draftRepository;
-        private readonly ICourseRepository _courseRepository;
 
-        public UpdateDraftCommandHandler(IMapper mapper, IDraftRepository draftRepository, ICourseRepository courseRepository)
+        public UpdateDraftCommandHandler(IMapper mapper, IDraftRepository draftRepository)
         {
             _mapper = mapper;
             _draftRepository = draftRepository;
-            _courseRepository = courseRepository;
         }
 
         public async Task<Unit> Handle(UpdateDraftCommand request, CancellationToken cancellationToken)
@@ -27,12 +29,17 @@ namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
 
             if (draftToUpdate == null) throw new NotFoundException(nameof(Draft), request.DraftId);
 
-            //TODO: Check to add missing and remove existing delivery types to draft
-            draftToUpdate.DeliveryTypes.Clear();
-            foreach (var dt in request.DeliveryTypes)
-            {
-                draftToUpdate.DeliveryTypes.Add(new DraftDeliveryType() { DeliveryTypeId = dt.DeliveryTypeId, DraftId = request.DraftId });
-            }
+            //draftToUpdate.DeliveryTypes.Clear();
+            //foreach (var dt in request.DeliveryTypes)
+            //{
+            //    draftToUpdate.DeliveryTypes.Add(new DraftDeliveryType() { DeliveryTypeId = dt.DeliveryTypeId, DraftId = request.DraftId });
+            //}
+
+            draftToUpdate.DeliveryTypes
+                .Where(ddt => request.DeliveryTypes.All(deliveryTypeDto => deliveryTypeDto.DeliveryTypeId != ddt.DeliveryTypeId))
+                .ForEach(draftDeliveryType => { draftToUpdate.DeliveryTypes.Add(new DraftDeliveryType() { DeliveryTypeId = draftDeliveryType.DeliveryTypeId }); });
+
+            draftToUpdate.DeliveryTypes.RemoveAll(cdt => !request.DeliveryTypes.Select(ddt => ddt.DeliveryTypeId).Contains(cdt.DeliveryTypeId));
 
             _mapper.Map(request, draftToUpdate, typeof(UpdateDraftCommand), typeof(Draft));
 

@@ -64,6 +64,15 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.Program.ProgramCode))
                 .ReverseMap();
 
+            CreateMap<Draft, Course>()
+                .ForMember(d => d.Endorsements, o => o.Ignore())
+                .ForMember(d => d.DeliveryTypes, o => o.Ignore())
+                .ForMember(d => d.Programs, o => o.Ignore())
+                .ReverseMap();
+            //CreateMap<DraftDeliveryType, CourseDeliveryType>().ReverseMap();
+            //CreateMap<ProgramCourse, ProgramDraft>().ReverseMap();
+            //CreateMap<CourseEndorsement, DraftEndorsement>().ReverseMap();
+
             //CreateMap<CourseListVm, Course>().ReverseMap();
             //CreateMap<Course, UpdateCourseCommand>().ReverseMap();
             //CreateMap<Course, CreateCourseCommand>().ReverseMap();

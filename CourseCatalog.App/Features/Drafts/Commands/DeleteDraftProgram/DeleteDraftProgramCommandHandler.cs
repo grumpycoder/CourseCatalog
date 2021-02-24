@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
@@ -11,15 +10,11 @@ namespace CourseCatalog.App.Features.Drafts.Commands.DeleteDraftProgram
 {
     public class DeleteDraftProgramCommandHandler : IRequestHandler<DeleteDraftProgramCommand>
     {
-        private readonly IMapper _mapper;
         private readonly IDraftRepository _draftRepository;
-        private readonly ICourseRepository _courseRepository;
 
-        public DeleteDraftProgramCommandHandler(IMapper mapper, IDraftRepository draftRepository, ICourseRepository courseRepository)
+        public DeleteDraftProgramCommandHandler(IDraftRepository draftRepository)
         {
-            _mapper = mapper;
             _draftRepository = draftRepository;
-            _courseRepository = courseRepository;
         }
 
         public async Task<Unit> Handle(DeleteDraftProgramCommand request, CancellationToken cancellationToken)

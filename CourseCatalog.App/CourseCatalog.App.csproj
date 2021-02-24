@@ -279,9 +279,10 @@
     <Compile Include="Features\Courses\Queries\GetCourseDetail\CourseDetailDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQueryHandler.cs" />
+    <Compile Include="Features\Drafts\Commands\PublishDraft\PublishDraftCommandHandler.cs" />
     <Compile Include="Features\Drafts\Commands\CreateDraftProgram\CreateDraftProgramCommand.cs" />
     <Compile Include="Features\Drafts\Commands\CreateDraftProgram\CreateDraftProgramCommandHandler.cs" />
-    <Compile Include="Features\Drafts\Commands\DeleteDraftProgram\DeleteRequirementCommand.cs" />
+    <Compile Include="Features\Drafts\Commands\DeleteDraftProgram\DeleteDraftProgramCommand.cs" />
     <Compile Include="Features\Drafts\Commands\DeleteDraftProgram\DeleteDraftProgramCommandHandler.cs" />
     <Compile Include="Features\Drafts\Commands\DeleteRequirement\DeleteRequirementCommand.cs" />
     <Compile Include="Features\Drafts\Commands\DeleteRequirement\DeleteRequirementCommandHandler.cs" />
@@ -289,6 +290,7 @@
     <Compile Include="Features\Drafts\Commands\CreateDraftRequirement\CreateDraftEndorsementCommandHandler.cs" />
     <Compile Include="Features\Drafts\Commands\CreateDraft\CreateDraftCommand.cs" />
     <Compile Include="Features\Drafts\Commands\CreateDraft\CreateDraftCommandHandler.cs" />
+    <Compile Include="Features\Drafts\Commands\PublishDraft\PublishDraftCommand.cs" />
     <Compile Include="Features\Drafts\Commands\UpdateDraft\UpdateDraftCommand.cs" />
     <Compile Include="Features\Drafts\Commands\UpdateDraft\UpdateDraftCommandHandler.cs" />
     <Compile Include="Features\Drafts\Queries\GetDraftDetail\DraftDetailDto.cs" />

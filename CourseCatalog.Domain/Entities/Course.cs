@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using CourseCatalog.Domain.Common;
 
 namespace CourseCatalog.Domain.Entities
 {
-    public class Course
+    public class Course : AuditableEntity
     {
         public int CourseId { get; set; }
         public string CourseNumber { get; set; }
@@ -54,6 +56,8 @@ namespace CourseCatalog.Domain.Entities
         public List<CourseDeliveryType> DeliveryTypes { get; set; }
 
         public List<CourseEndorsement> Endorsements { get; set; }
+
+        public DateTime PublishDate { get; set; }
 
         //public DateTime LastUpdate { get; set; }
     }

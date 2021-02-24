@@ -42,6 +42,8 @@ namespace CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail
         public GradeScale GradeScale { get; set; }
         public int? ScedCategoryId { get; set; }
         public ScedCategory ScedCategory { get; set; }
+
+        public string Status { get; set; }
         public List<DraftDeliveryTypeDto> DeliveryTypes { get; set; }
         public List<DraftEndorsementDto> Endorsements { get; set; }
 

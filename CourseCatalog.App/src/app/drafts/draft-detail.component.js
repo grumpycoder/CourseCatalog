@@ -38,9 +38,8 @@ function controller($http) {
     };
 
     ctrl.publish = function () {
-        console.log('call api to move draft to courses', ctrl.course);
         ctrl.processing = true; 
-        $http.post('/api/drafts/publish/' + ctrl.course.id).then(r => {
+        $http.post('/api/drafts/publish/' + ctrl.course.draftId).then(r => {
             //TODO: Disable publish and edit button
             toastr.success('Published', ctrl.course.courseNumber + ' Successfully Published',
                 {

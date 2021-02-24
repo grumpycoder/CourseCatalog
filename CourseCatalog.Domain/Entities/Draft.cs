@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CourseCatalog.Domain.Entities
 {
@@ -20,7 +19,7 @@ namespace CourseCatalog.Domain.Entities
         public string StateAttribute1 { get; set; }
         public string StateAttribute2 { get; set; }
 
-        public int ScedCategoryId { get; set; }
+        public int? ScedCategoryId { get; set; }
         public ScedCategory ScedCategory { get; set; }
 
         public int GradeScaleId { get; set; }

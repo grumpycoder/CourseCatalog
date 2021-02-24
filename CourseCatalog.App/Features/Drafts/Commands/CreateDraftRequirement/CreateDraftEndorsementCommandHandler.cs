@@ -13,13 +13,11 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement
     {
         private readonly IMapper _mapper;
         private readonly IDraftRepository _draftRepository;
-        private readonly ICourseRepository _courseRepository;
 
-        public CreateDraftEndorsementCommandHandler(IMapper mapper, IDraftRepository draftRepository, ICourseRepository courseRepository)
+        public CreateDraftEndorsementCommandHandler(IMapper mapper, IDraftRepository draftRepository)
         {
             _mapper = mapper;
             _draftRepository = draftRepository;
-            _courseRepository = courseRepository;
         }
 
         public async Task<CreatedDraftEndorsementDto> Handle(CreateDraftEndorsementCommand request, CancellationToken cancellationToken)

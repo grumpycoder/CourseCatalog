@@ -1,6 +1,8 @@
-﻿namespace CourseCatalog.Domain.Entities
+﻿using CourseCatalog.Domain.Common;
+
+namespace CourseCatalog.Domain.Entities
 {
-    public class CourseEndorsement
+    public class CourseEndorsement: AuditableEntity
     {
         public int CourseEndorsementId { get; set; }
         public int EndorsementId { get; set; }
