@@ -15,16 +15,16 @@ namespace CourseCatalog.Domain.Entities
         public bool? IsLocallyEditable { get; set; }
         public bool? IsCareerTech { get; set; }
         public bool? IsSpecialEducation { get; set; }
-        public bool IsCollege { get; set; }
+        public bool? IsCollege { get; set; }
 
         public string ScedCourseNumber { get; set; }
         public string StateAttribute1 { get; set; }
         public string StateAttribute2 { get; set; }
 
-        public int ScedCategoryId { get; set; }
+        public int? ScedCategoryId { get; set; }
         public ScedCategory ScedCategory { get; set; }
 
-        public int GradeScaleId { get; set; }
+        public int? GradeScaleId { get; set; }
         public GradeScale GradeScale { get; set; }
 
         public int? BeginYear { get; set; }

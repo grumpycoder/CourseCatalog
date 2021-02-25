@@ -106,27 +106,27 @@ function controller($http) {
                 { dataField: 'status', dataType: 'string', caption: 'Status' },
                 {
                     caption: '',
-                    visible: ctrl.isAdmin, 
+                    visible: ctrl.isAdmin,
                     cellTemplate: function (container, options) {
-                            $('<button>')//.text('Create Draft')
-                                .append('<i class="fa fa-pencil"></i>')
-                                .addClass('btn btn-primary btn-sm')
-                                .attr('aria-label', 'Create Draft ' + options.data.courseNumber)
-                                .attr('title', 'Create Draft ' + options.data.courseNumber)
-                                .attr('data-toggle', 'tooltip')
-                                .attr('data-placement', 'top')
-                                .on('dxclick',
-                                    function (e) {
-                                        $http.post('/api/drafts/' + options.data.courseId + '/create').then(r => {
-                                            toastr.success('Created draft ' + options.data.courseNumber);
-                                            window.location.href = '/drafts/' + r.data; 
-                                        }).catch (err => {
-                                            toastr.error(err.data.exceptionMessage);
-                                            console.log('err', err);
-                                        }); 
-                                    })
-                                .appendTo(container);
-                }
+                        $('<button>')
+                            .append('<i class="fa fa-pencil"></i>')
+                            .addClass('btn btn btn-outline-dark btn-sm')
+                            .attr('aria-label', 'Create Draft ' + options.data.courseNumber)
+                            .attr('title', 'Create Draft ' + options.data.courseNumber)
+                            .attr('data-toggle', 'tooltip')
+                            .attr('data-placement', 'top')
+                            .on('dxclick',
+                                function (e) {
+                                    $http.post('/api/drafts/' + options.data.courseId + '/create').then(r => {
+                                        toastr.success('Created draft ' + options.data.courseNumber);
+                                        window.location.href = '/drafts/' + r.data;
+                                    }).catch(err => {
+                                        toastr.error(err.data.exceptionMessage);
+                                        console.log('err', err);
+                                    });
+                                })
+                            .appendTo(container);
+                    }
                 }
             ],
             summary: {
@@ -268,7 +268,7 @@ function controller($http) {
 module.component('courseList',
     {
         bindings: {
-            filter: '@', 
+            filter: '@',
             isAdmin: '@'
         },
         templateUrl: '/src/app/courses/course-list.component.html',

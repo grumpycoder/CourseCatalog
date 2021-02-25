@@ -14,6 +14,7 @@ using MediatR;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.App.Features.Drafts.Commands.DeleteDraft;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -63,6 +64,13 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<IHttpActionResult> Post([FromBody] CreateDraftCommand createDraftCommand)
         {
             var dto = await _mediator.Send(createDraftCommand);
+            return Ok(dto);
+        }
+
+        [HttpDelete, Route("{draftId}")]
+        public async Task<IHttpActionResult> Delete(int draftId)
+        {
+            var dto = await _mediator.Send(new DeleteDraftCommand(draftId));
             return Ok(dto);
         }
 

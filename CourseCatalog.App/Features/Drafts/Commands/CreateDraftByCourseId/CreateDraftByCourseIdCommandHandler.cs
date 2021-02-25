@@ -25,6 +25,8 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftByCourseId
         {
             var courseToDraft = await _courseRepository.GetCourseByIdWithDetails(request.CourseId);
 
+            courseToDraft.Status = CourseStatus.InDraft;
+
             var existingDraft = await _draftRepository.GetDraftByCourseNumber(courseToDraft.CourseNumber);
 
             if (existingDraft != null) throw new BadRequestException(
@@ -43,7 +45,10 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftByCourseId
             courseToDraft.DeliveryTypes
                 .ForEach(program => { draftToCreate.DeliveryTypes.Add(new DraftDeliveryType() { DeliveryTypeId = program.DeliveryTypeId }); });
 
+            draftToCreate.Status = CourseStatus.ExistingCourse;
+
             await _draftRepository.AddAsync(draftToCreate);
+            await _courseRepository.UpdateAsync(courseToDraft);
 
             return draftToCreate.DraftId;
         }
