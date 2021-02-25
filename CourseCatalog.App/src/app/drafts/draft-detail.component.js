@@ -38,9 +38,8 @@ function controller($http) {
     };
 
     ctrl.publish = function () {
-        ctrl.processing = true; 
+        ctrl.isProcessing = true; 
         $http.post('/api/drafts/publish/' + ctrl.course.draftId).then(r => {
-            //TODO: Disable publish and edit button
             toastr.success('Published', ctrl.course.courseNumber + ' Successfully Published',
                 {
                     timeOut: 1000,

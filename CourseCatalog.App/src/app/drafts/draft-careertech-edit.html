@@ -51,25 +51,22 @@
     <div class="form-row col-12 col-lg-6">
 
         <div class="input-group mb-3">
-            <div dx-select-box="$ctrl.programsListOptions"
-                 ng-model="$ctrl.programAssignment.programId" style="width: 90%;"
-                 name="programId"
-                 id="programId"
-                 required></div>
+            <extended-select ng-model="$ctrl.programAssignment.programId"
+                             deselectable=""
+                             required
+                             ng-options="o.programId as o.displayName group by o.cluster for o in $ctrl.programs | orderBy:['cluster', 'displayName']"
+                             class="custom-select-sm"></extended-select>
             <div class="input-group-append">
-
-                <button class="btn btn-outline-secondary"
-                        
-                        type="submit">
+                <button class="btn btn-outline-secondary" type="submit"
+                        ng-disabled="$ctrl.form3.$invalid || $ctrl.form3.$pristine">
                     Add
                 </button>
-
             </div>
-            <ng-messages for="$ctrl.form3.programId.$error && !$ctrl.form3.programId.touched">
-                <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
-                <ng-message when="numberLessThan" class="form-text text-danger small">Date must be before End Year</ng-message>
-            </ng-messages>
         </div>
+        <ng-messages for="$ctrl.form3.programId.$error && !$ctrl.form3.programId.touched">
+            <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+            <ng-message when="numberLessThan" class="form-text text-danger small">Date must be before End Year</ng-message>
+        </ng-messages>
 
     </div>
 

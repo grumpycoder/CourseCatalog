@@ -30,10 +30,9 @@ function controller($http) {
         var dto = {
             draftId: ctrl.course.draftId,
             endorsementId: item.endorsementId
-        }; 
+        };
         var url = '/api/drafts/' + ctrl.course.draftId + '/endorsements/' + item.endorsementId; 
-        console.log('url', url);
-        return $http.delete('/api/drafts/' + ctrl.course.draftId + '/endorsements/' + item.endorsementId)
+        return $http.delete(url)
             .then(r => {
                 ctrl.course.endorsements.splice(idx, 1);
                 toastr.success('Removed ' + item.endorseCode);
@@ -57,7 +56,7 @@ function controller($http) {
         $http.post('/api/drafts/createendorsement', dto)
             .then(r => {
                 ctrl.course.endorsements.push(r.data);
-                toastr.success('Added endorsement ' + r.data.endorseCode);
+                toastr.success('Added ' + r.data.endorseCode);
                 $('#endorsements').dxList('instance').reload();
                 ctrl.endorsementId = undefined;
             }).catch(err => {
@@ -70,14 +69,6 @@ function controller($http) {
 
         return $http.get('/api/refs/endorsements').then(r => {
             ctrl.endorsements = r.data;
-
-            ctrl.endorsementListOptions = {
-                dataSource: ctrl.endorsements, 
-                displayExpr: 'description', 
-                searchEnabled: true, 
-                searchExpr: "description", 
-                valueExpr: 'endorsementId'
-            }
         });
     }
 }

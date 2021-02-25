@@ -15,6 +15,7 @@ namespace CourseCatalog.Persistence
         public DbSet<DraftView> DraftsView { get; set; }
         public DbSet<Draft> Drafts { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Program> Programs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

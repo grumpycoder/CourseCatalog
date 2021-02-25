@@ -34,7 +34,7 @@ function detailController($http) {
                 ctrl.selectedTags = JSON.parse(JSON.stringify(ctrl.course.tags));
                 ctrl.selectedCreditTypeTags = JSON.parse(JSON.stringify(ctrl.course.creditTypes));
             }
-            ctrl.existing = ctrl.course.courseStatus === 'ExistingCourse';
+            ctrl.canEditCourseNumber = ctrl.course.status === 'NewCourse';
         }
     };
 

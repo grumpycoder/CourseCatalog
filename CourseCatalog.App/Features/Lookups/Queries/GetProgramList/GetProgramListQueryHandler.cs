@@ -1,5 +1,5 @@
-﻿using CourseCatalog.Application.Contracts;
-using CourseCatalog.Domain.Entities;
+﻿using AutoMapper;
+using CourseCatalog.Application.Contracts;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;
@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Lookups.Queries.GetProgramList
 {
-    public class GetProgramListQueryHandler : IRequestHandler<GetProgramListQuery, List<Program>>
+    public class GetProgramListQueryHandler : IRequestHandler<GetProgramListQuery, List<ProgramListDto>>
     {
-        private readonly IAsyncRepository<Program> _repository;
+        private readonly IMapper _mapper;
+        private readonly IProgramRepository _repository;
 
-        public GetProgramListQueryHandler(IAsyncRepository<Program> repository)
+        public GetProgramListQueryHandler(IMapper mapper, IProgramRepository repository)
         {
+            _mapper = mapper;
             _repository = repository;
         }
 
-        public async Task<List<Program>> Handle(GetProgramListQuery request, CancellationToken cancellationToken)
+        public async Task<List<ProgramListDto>> Handle(GetProgramListQuery request, CancellationToken cancellationToken)
         {
-            var dto = await _repository.ListAllAsync();
-            return dto as List<Program>;
+            var programs = await _repository.GetProgramListWithDetails();
+            return _mapper.Map<List<ProgramListDto>>(programs);
         }
     }
 }

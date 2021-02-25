@@ -5,6 +5,7 @@ using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
+using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
 using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Profiles
@@ -69,6 +70,7 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.DeliveryTypes, o => o.Ignore())
                 .ForMember(d => d.Programs, o => o.Ignore())
                 .ReverseMap();
+
             //CreateMap<DraftDeliveryType, CourseDeliveryType>().ReverseMap();
             //CreateMap<ProgramCourse, ProgramDraft>().ReverseMap();
             //CreateMap<CourseEndorsement, DraftEndorsement>().ReverseMap();
@@ -88,6 +90,10 @@ namespace CourseCatalog.App.Profiles
             CreateMap<Draft, CreateDraftCommand>().ReverseMap();
 
 
+            CreateMap<Program, ProgramListDto>()
+                .ForMember(d => d.Cluster, o => o.MapFrom(s => s.Cluster.Name))
+                .ForMember(d => d.ProgramType, o => o.MapFrom(s => s.ProgramType.Name))
+                .ReverseMap();
 
             //CreateMap<DraftListVm, Draft>().ReverseMap();
             //CreateMap<Draft, CreateDraftCommand>().ReverseMap();

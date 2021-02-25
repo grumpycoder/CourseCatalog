@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CourseCatalog.Application.Exceptions;
 using WebGrease.Css.Extensions;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
@@ -29,8 +30,12 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
             var draftToPublish = await _draftRepository.GetDraftByIdWithDetails(request.DraftId);
             var existingCourse = await _courseRepository.GetCourseByCourseNumber(draftToPublish.CourseNumber);
 
-            if (existingCourse == null)
+            if (draftToPublish.Status == CourseStatus.NewCourse)
             {
+                if (existingCourse != null)
+                    throw new BadRequestException(
+                        $"Duplicate Course Number. Existing course already contains course number {draftToPublish.CourseNumber}");
+
                 //create new course
                 existingCourse = _mapper.Map<Course>(draftToPublish);
                 existingCourse.Endorsements = new List<CourseEndorsement>();
@@ -51,7 +56,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 var id = await _courseRepository.AddAsync(existingCourse);
 
                 await _draftRepository.DeleteAsync(draftToPublish);
-                //TODO: Delete Draft records
+
             }
             else
             {
@@ -91,7 +96,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 existingCourse.PublishDate = DateTime.Now;
 
                 await _courseRepository.UpdateAsync(existingCourse);
-                
+
                 await _draftRepository.DeleteAsync(draftToPublish);
             }
 

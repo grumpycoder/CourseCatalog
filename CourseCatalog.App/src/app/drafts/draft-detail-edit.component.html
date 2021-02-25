@@ -183,7 +183,7 @@
                             ng-model="$ctrl.course.scedCategoryId"
                             name="scedCategoryId"
                             id="scedCategoryId"
-                            ng-disabled="$ctrl.existing"
+                            ng-disabled="!$ctrl.canEditCourseNumber"
                             ng-change="$ctrl.updateCourseNumber()">
                         <option value="">--- Please select ---</option>
                         <option ng-repeat="option in $ctrl.scedCategories" ng-value="option.scedCategoryId">
@@ -203,7 +203,7 @@
                            ng-model="$ctrl.course.scedCourseNumber"
                            name="scedCourseNumber"
                            id="scedCourseNumber"
-                           ng-disabled="$ctrl.existing"
+                           ng-disabled="!$ctrl.canEditCourseNumber"
                            ng-change="$ctrl.updateCourseNumber()" />
                 </div>
 
@@ -213,7 +213,7 @@
                            ng-model="$ctrl.course.stateAttribute1"
                            name="stateAttribute1"
                            id="stateAttribute1"
-                           ng-disabled="$ctrl.existing"
+                           ng-disabled="!$ctrl.canEditCourseNumber"
                            ng-change="$ctrl.updateCourseNumber()" />
                 </div>
 
@@ -223,7 +223,7 @@
                            ng-model="$ctrl.course.stateAttribute2"
                            name="stateAttribute2"
                            id="stateAttribute2"
-                           ng-disabled="$ctrl.existing"
+                           ng-disabled="!$ctrl.canEditCourseNumber"
                            ng-change="$ctrl.updateCourseNumber()" />
                 </div>
 
@@ -233,7 +233,7 @@
                             ng-model="$ctrl.course.courseLevelId"
                             name="courseLevelId"
                             id="courseLevelId"
-                            ng-disabled="$ctrl.existing"
+                            ng-disabled="!$ctrl.canEditCourseNumber"
                             ng-change="$ctrl.updateCourseNumber()">
                         <option value="">--- Please select ---</option>
                         <option ng-repeat="option in $ctrl.courseLevels" ng-value="option.courseLevelId">

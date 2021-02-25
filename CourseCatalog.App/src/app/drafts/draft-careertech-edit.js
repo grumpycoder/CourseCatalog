@@ -39,15 +39,14 @@ function controller($http) {
     }
 
     ctrl.removeProgram = function(item) {
-        console.log('item', item);
         var idx = ctrl.course.programs.indexOf(item);
         var url = '/api/drafts/' + ctrl.course.draftId + '/programs/' + item.programId; 
         $http.delete(url)
             .then(r => {
-                //TODO: toastr message
+                toastr.success('Removed ' + item.programCode);
                 ctrl.course.programs.splice(idx, 1);
             }).catch(e => {
-                //TODO: toastr message
+                toastr.error(err.data.message);
                 console.error(e);
             }); 
     }
@@ -59,16 +58,16 @@ function controller($http) {
             beginYear: ctrl.programAssignment.beginYear, 
             endYear: ctrl.programAssignment.endYear
         }
-        
-        $http.post('/api/drafts/assignprogram', dto)
+
+        var url = '/api/drafts/assignprogram'; 
+        $http.post(url, dto)
             .then(r => {
-                console.log('r', r);
                 ctrl.course.programs.push(r.data);
                 ctrl.programAssignment.programId = undefined; 
-                //TODO: toastr message
-            }).catch(e => {
-                console.error(e);
-                //TODO: toastr message
+                toastr.success('Added ' + r.data.programCode);
+            }).catch(err => {
+                console.error('error', err);
+                toastr.error(err.data.message);
             }); 
     }
 }

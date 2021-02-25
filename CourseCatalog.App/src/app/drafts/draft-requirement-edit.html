@@ -47,15 +47,12 @@
     {{ $ctrl.form | json }}
 </pre>
     <div class="form-group row">
-        <div class="col-12">
-            <div dx-select-box="$ctrl.endorsementListOptions" ng-model="$ctrl.endorsementId"></div>
-
-        </div>
+       
         <div class="col-12">
             <div class="input-group mb-3">
                 <extended-select ng-model="$ctrl.endorsementId"
                                  deselectable=""
-                                 ng-options="o.id as o.description for o in $ctrl.endorsements | orderBy:['-len(endorseCode)', 'description']"
+                                 ng-options="o.endorsementId as o.description for o in $ctrl.endorsements | orderBy:['-len(endorseCode)', 'description']"
                                  class="custom-select-sm"></extended-select>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"
