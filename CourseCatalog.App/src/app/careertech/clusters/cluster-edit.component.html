@@ -55,8 +55,7 @@
                                               cols="30"
                                               rows="10"
                                               placeholder="Cluster Description"
-                                              ng-model="$ctrl.cluster.description"
-                                              required></textarea>
+                                              ng-model="$ctrl.cluster.description"></textarea>
                                 </div>
                             </div>
 
@@ -103,11 +102,11 @@
                                 <label for="clusterTypeId" class="col-md-3 col-form-label">Cluster Type</label>
                                 <div class="col-md-9">
                                     <select class="form-control"
-                                            ng-model="$ctrl.cluster.clusterType.id"
+                                            ng-model="$ctrl.cluster.clusterTypeId"
                                             name="clusterTypeId"
                                             id="clusterTypeId"
                                             required>
-                                        <option ng-repeat="option in $ctrl.clusterTypes" ng-value="option.id">
+                                        <option ng-repeat="option in $ctrl.clusterTypes" ng-value="option.clusterTypeId">
                                             {{ option.name }}
                                         </option>
                                     </select>
@@ -209,7 +208,7 @@
 </div>
 
 
-<pre>
+<!--<pre>
 form
 {{ $ctrl.form | json }}
-</pre>
+</pre>-->

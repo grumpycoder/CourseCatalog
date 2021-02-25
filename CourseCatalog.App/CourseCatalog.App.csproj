@@ -280,6 +280,11 @@
     <Compile Include="Controllers\Mvc\DraftsController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
     <Compile Include="Controllers\API\ValuesController.cs" />
+    <Compile Include="Features\Clusters\Commands\UpdateCluster\UpdateClusterCommand.cs" />
+    <Compile Include="Features\Clusters\Commands\UpdateCluster\UpdateClusterCommandHandler.cs" />
+    <Compile Include="Features\Clusters\Queries\GetClusterDetail\ClusterDetailDto.cs" />
+    <Compile Include="Features\Clusters\Queries\GetClusterDetail\GetClusterDetailQuery.cs" />
+    <Compile Include="Features\Clusters\Queries\GetClusterDetail\GetClusterDetailQueryHandler.cs" />
     <Compile Include="Features\Clusters\Queries\GetClusterList\ClusterListDto.cs" />
     <Compile Include="Features\Clusters\Queries\GetClusterList\ClusterListVm.cs" />
     <Compile Include="Features\Clusters\Queries\GetClusterList\GetClusterListQueryHandler.cs" />
@@ -318,6 +323,8 @@
     <Compile Include="Features\Lookups\Queries\GetDeliveryTypeList\GetDeliveryTypeListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetDeliveryTypeList\GetDeliveryTypeListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetProgramList\ProgramListDto.cs" />
+    <Compile Include="Features\Lookups\Queries\GetClusterTypetList\GetClusterTypeListQuery.cs" />
+    <Compile Include="Features\Lookups\Queries\GetClusterTypetList\GetClusterTypeListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetTagList\GetTagListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetTagList\GetTagListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetCreditTypeList\GetCreditTypesQuery.cs" />
@@ -526,6 +533,8 @@
     <Content Include="Views\CareerTech\Clusters.cshtml" />
     <Content Include="Views\CareerTech\Programs.cshtml" />
     <Content Include="Views\CareerTech\Credentials.cshtml" />
+    <Content Include="Views\CareerTech\ClusterDetails.cshtml" />
+    <Content Include="Views\CareerTech\ClusterEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">

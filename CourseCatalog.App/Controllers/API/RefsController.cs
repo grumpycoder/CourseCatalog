@@ -4,6 +4,7 @@ using CourseCatalog.App.Features.Lookups.Queries.GetDeliveryTypeList;
 using CourseCatalog.App.Features.Lookups.Queries.GetEndorsementList;
 using CourseCatalog.App.Features.Lookups.Queries.GetGradeList;
 using CourseCatalog.App.Features.Lookups.Queries.GetGradeScaleList;
+using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
 using CourseCatalog.App.Features.Lookups.Queries.GetScedCategoryList;
 using CourseCatalog.App.Features.Lookups.Queries.GetSchoolYearList;
 using CourseCatalog.App.Features.Lookups.Queries.GetSubjectList;
@@ -12,7 +13,6 @@ using CourseCatalog.Persistence;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -56,8 +56,8 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpGet, Route("scedcategories")]
-        public async Task<IHttpActionResult> ScedCategories()
+        [HttpGet, Route("scedcategories2")]
+        public async Task<IHttpActionResult> ScedCategories2()
         {
             var dto = await _mediator.Send(new GetScedCategoryListQuery());
             return Ok(dto);
@@ -102,6 +102,13 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<IHttpActionResult> Programs()
         {
             var dto = await _mediator.Send(new GetProgramListQuery());
+            return Ok(dto);
+        }
+
+        [HttpGet, Route("clusterTypes")]
+        public async Task<IHttpActionResult> ClusterTypes()
+        {
+            var dto = await _mediator.Send(new GetClusterTypeListQuery());
             return Ok(dto);
         }
 

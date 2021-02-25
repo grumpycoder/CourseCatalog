@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
+using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
@@ -16,6 +18,7 @@ namespace CourseCatalog.App.Profiles
     {
         public Mappings()
         {
+            //Course Mappings
             CreateMap<CourseDetailDto, Course>().ReverseMap();
             CreateMap<CourseDeliveryType, CourseDeliveryTypeDto>()
                 .ForMember(d => d.DeliveryTypeName,
@@ -34,6 +37,7 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.Program.ProgramCode))
                 .ReverseMap();
 
+            //Draft Mappings
             CreateMap<DraftDetailDto, Draft>().ReverseMap();
             CreateMap<DraftDeliveryType, DraftDeliveryTypeDto>()
                 .ForMember(d => d.DeliveryTypeName,
@@ -67,6 +71,13 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.Program.ProgramCode))
                 .ReverseMap();
 
+            CreateMap<DraftDetailDto, Draft>().ReverseMap();
+            CreateMap<Draft, UpdateDraftCommand>().ReverseMap();
+            CreateMap<DraftDeliveryType, UpdateDraftDeliveryTypeDto>().ReverseMap();
+            CreateMap<DraftDeliveryType, CreateDraftDeliveryTypeDto>().ReverseMap();
+            CreateMap<Draft, CreateDraftCommand>().ReverseMap();
+
+            //Course/Draft Mapping
             CreateMap<Draft, Course>()
                 .ForMember(d => d.Endorsements, o => o.Ignore())
                 .ForMember(d => d.DeliveryTypes, o => o.Ignore())
@@ -79,28 +90,33 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.Programs, o => o.Ignore())
                 .ReverseMap();
 
-            CreateMap<DraftDetailDto, Draft>().ReverseMap();
-            CreateMap<Draft, UpdateDraftCommand>().ReverseMap();
-            CreateMap<DraftDeliveryType, UpdateDraftDeliveryTypeDto>().ReverseMap();
-            CreateMap<DraftDeliveryType, CreateDraftDeliveryTypeDto>().ReverseMap();
 
-            CreateMap<Draft, CreateDraftCommand>().ReverseMap();
+            //Clusters Mappings
+            CreateMap<Cluster, ClusterListDto>()
+                .ForMember(d => d.ClusterTypeName, o => o.MapFrom(d => d.ClusterType.Name))
+                .ReverseMap();
+            
+            CreateMap<ClusterDetailDto, Cluster>().ReverseMap();
 
+            CreateMap<ClusterType, ClusterTypeDto>().ReverseMap();
+            CreateMap<Program, ClusterProgramListDto>().ReverseMap();
+            CreateMap<Cluster, UpdateClusterCommand>().ReverseMap();
+
+            //Programs Mappings
             CreateMap<Program, ProgramListDto>()
                 .ForMember(d => d.Cluster, o => o.MapFrom(s => s.Cluster.Name))
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.ProgramType, o => o.MapFrom(s => s.ProgramType.Name))
                 .ReverseMap();
 
-            //Clusters Mappings
-            CreateMap<Cluster, ClusterListDto>().ReverseMap();
-            CreateMap<ClusterType, ClusterTypeDto>().ReverseMap();
-
             //Credentials Mappings 
             CreateMap<Credential, CredentialListDto>()
                 .ForMember(d => d.CredentialType, o => o.MapFrom(s => s.CredentialType.Name))
                 .ForMember(d => d.CredentialTypeCode, o => o.MapFrom(s => s.CredentialType.CredentialTypeCode))
                 .ReverseMap();
+
+
+
 
             //CreateMap<DraftListVm, Draft>().ReverseMap();
             //CreateMap<Draft, CreateDraftCommand>().ReverseMap();
@@ -109,7 +125,6 @@ namespace CourseCatalog.App.Profiles
             //CreateMap<ClusterListVm, Cluster>().ReverseMap();
             //CreateMap<ClusterTypeDto, ClusterType>().ReverseMap();
             //CreateMap<Cluster, CreateClusterCommand>().ReverseMap();
-            //CreateMap<Cluster, UpdateClusterCommand>().ReverseMap();
 
             //CreateMap<ProgramDetailVm, Program>().ReverseMap();
             //CreateMap<ProgramListVm, Program>().ReverseMap();

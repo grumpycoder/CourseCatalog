@@ -66,16 +66,16 @@ function controller($http) {
                         cellTemplate: function (container, options) {
                             $('<a/>')
                                 .text(options.data.clusterCode)
-                                .attr('aria-label', 'Cluster Details ' + options.data.clusterCode)
-                                .attr('href', '/careertech/clusters/' + options.data.clusterCode)
+                                .attr('aria-label', 'Cluster Details ' + options.data.clusterId)
+                                .attr('href', '/careertech/clusters/' + options.data.clusterId)
                                 .appendTo(container);
                         }
                     },
                     { dataField: 'name', caption: 'Name', dataType: 'string' },
                     { dataField: 'description', caption: 'Description', dataType: 'string' },
-                    { dataField: 'clusterType.name', caption: 'Cluster Type', width: 120, dataType: 'string' },
-                    { dataField: 'beginYear', caption: 'Valid Start', width: 120, dataType: 'string' },
-                    { dataField: 'endYear', caption: 'Valid End', width: 120, dataType: 'string' },
+                    { dataField: 'clusterTypeName', caption: 'Cluster Type', width: 120, dataType: 'string' },
+                    { dataField: 'beginYear', caption: 'Start Year', width: 120, dataType: 'int' },
+                    { dataField: 'endYear', caption: 'End Year', width: 120, dataType: 'int' },
                     {
                         caption: '',
                         visible: ctrl.isAdmin, 

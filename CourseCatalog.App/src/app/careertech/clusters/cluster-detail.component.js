@@ -6,7 +6,7 @@ function controller($http) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
-        ctrl.loadCluster(ctrl.clusterCode).then(function () {
+        ctrl.loadCluster(ctrl.clusterId).then(function () {
             ctrl.title = ctrl.cluster.name + ' (' + ctrl.cluster.clusterCode + ')';
             
             if (ctrl.cluster !== undefined) {
@@ -30,8 +30,8 @@ function controller($http) {
 
     }
 
-    ctrl.loadCluster = function (clusterCode) {
-        return $http.get('/api/clusters/' + clusterCode).then(r => {
+    ctrl.loadCluster = function (clusterId) {
+        return $http.get('/api/clusters/' + clusterId).then(r => {
             ctrl.cluster = r.data;
         }).catch(function (err) {
             console.error(err.message);
@@ -43,7 +43,8 @@ function controller($http) {
 module.component('clusterDetail',
     {
         bindings: {
-            clusterCode: '@'
+            clusterId: '@', 
+            isAdmin: '@'
         },
         templateUrl: '/src/app/careertech/clusters/cluster-detail.component.html',
         controller: ['$http', controller]

@@ -25,6 +25,7 @@ namespace CourseCatalog.Persistence.Repositories
         {
             var cluster = await _dbContext.Clusters
                 .Include(c => c.ClusterType)
+                .Include(c => c.Programs)
                 .FirstOrDefaultAsync(x => x.ClusterId == id);
 
             return cluster;

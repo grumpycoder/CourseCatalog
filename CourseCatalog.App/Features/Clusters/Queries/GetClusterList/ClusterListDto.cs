@@ -11,7 +11,8 @@
         public int? BeginYear { get; set; }
         public int? EndYear { get; set; }
 
-        public ClusterTypeDto ClusterType { get; set; }
+        public int ClusterTypeId { get; set; }
+        public string ClusterTypeName { get; set; }
 
     }
 }

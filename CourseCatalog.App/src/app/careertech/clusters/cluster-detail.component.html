@@ -16,7 +16,7 @@
             {{ $ctrl.title }}
         </span>
         <span class="pull-right">
-            <a ng-href="/careertech/clusters/{{ $ctrl.cluster.clusterCode }}/edit" class="float-right" ng-show="$ctrl.cluster.canEdit">Edit</a>
+            <a ng-href="/careertech/clusters/{{ $ctrl.cluster.clusterId }}/edit" class="float-right" ng-show="$ctrl.isAdmin">Edit</a>
         </span>
     </div>
 

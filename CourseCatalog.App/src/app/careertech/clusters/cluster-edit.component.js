@@ -9,7 +9,7 @@ function controller($http) {
     ctrl.cache = {};
     
     ctrl.$onInit = function () {
-        fetchCluster(ctrl.clustercode).then(r => {
+        fetchCluster(ctrl.clusterid).then(r => {
             ctrl.title = 'Cluster: ' + ctrl.cluster.name + ' (' + ctrl.cluster.clusterCode + ')';
         }).finally(d => {
             if (ctrl.cluster !== undefined) {
@@ -32,18 +32,19 @@ function controller($http) {
     };
 
     ctrl.onSubmit = function () {
-        var url = '/api/clusters/' + ctrl.cluster.id;
+        var url = '/api/clusters/';
         
         var dto = {
+            clusterId: ctrl.cluster.clusterId, 
             name: ctrl.cluster.name, 
             description: ctrl.cluster.description, 
             edFactsClusterValue: ctrl.cluster.edFactsClusterValue, 
+            clusterCode: ctrl.cluster.clusterCode, 
             beginYear: ctrl.cluster.beginYear, 
             endYear: ctrl.cluster.endYear, 
-            clusterTypeId: ctrl.cluster.clusterType.id
+            clusterTypeId: ctrl.cluster.clusterTypeId
         }
         $http.put(url, dto).then(r => {
-            ctrl.cluster = r.data; 
             updateCache();
             resetValidation();
             //TODO: toastr message
@@ -76,8 +77,8 @@ function controller($http) {
         ctrl.form.clusterCode.$setValidity("unique", !codeInUse(ctrl.cluster.clusterCode));
     };
 
-    function fetchCluster(clusterCode) {
-        return $http.get('/api/clusters/' + pad(clusterCode, 3)).then(r => {
+    function fetchCluster(clusterid) {
+        return $http.get('/api/clusters/' + clusterid).then(r => {
             ctrl.cluster = r.data;
             updateCache();
             return ctrl.cluster = r.data;
@@ -138,7 +139,7 @@ function controller($http) {
 module.component('clusterEdit',
     {
         bindings: {
-            clustercode: '<'
+            clusterid: '<'
         },
         templateUrl: '/src/app/careertech/clusters/cluster-edit.component.html',
         controller: ['$http', controller]
