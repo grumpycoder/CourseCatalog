@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
 using CourseCatalog.Application.Contracts;
+using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using CourseCatalog.Application.Exceptions;
 using WebGrease.Css.Extensions;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
@@ -38,9 +37,6 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
 
                 //create new course
                 existingCourse = _mapper.Map<Course>(draftToPublish);
-                existingCourse.Endorsements = new List<CourseEndorsement>();
-                existingCourse.Programs = new List<ProgramCourse>();
-                existingCourse.DeliveryTypes = new List<CourseDeliveryType>();
 
                 draftToPublish.Endorsements
                     .ForEach(endorsement => { existingCourse.Endorsements.Add(new CourseEndorsement() { EndorsementId = endorsement.EndorsementId }); });

@@ -7,7 +7,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -29,7 +28,6 @@ namespace CourseCatalog.App.Controllers.API
             try
             {
                 var dtos = await DataSourceLoader.LoadAsync(_context.CoursesView.Where(c => !c.IsRetired), loadOptions);
-
                 return Ok(dtos);
             }
             catch (Exception e)
@@ -44,7 +42,6 @@ namespace CourseCatalog.App.Controllers.API
             try
             {
                 var list = await DataSourceLoader.LoadAsync(_context.CoursesView, loadOptions);
-
                 return Ok(list);
             }
             catch (Exception e)
@@ -57,7 +54,6 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<IHttpActionResult> Get(int courseId)
         {
             var dto = await _mediator.Send(new GetCourseDetailQuery(courseId));
-            //var dto = await _context.Courses.Include(c => c.DeliveryTypes).FirstOrDefaultAsync(c => c.CourseId == courseId);
             return Ok(dto);
         }
 

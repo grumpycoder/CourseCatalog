@@ -1,6 +1,6 @@
-﻿using System;
+﻿using CourseCatalog.Domain.Common;
+using System;
 using System.Collections.Generic;
-using CourseCatalog.Domain.Common;
 
 namespace CourseCatalog.Domain.Entities
 {
@@ -51,13 +51,13 @@ namespace CourseCatalog.Domain.Entities
 
         public CourseStatus? Status { get; set; }
 
-        public List<ProgramCourse> Programs { get; set; }
+        public List<ProgramCourse> Programs { get; set; } = new List<ProgramCourse>();
 
-        public List<CourseDeliveryType> DeliveryTypes { get; set; }
+        public List<CourseDeliveryType> DeliveryTypes { get; set; } = new List<CourseDeliveryType>();
 
-        public List<CourseEndorsement> Endorsements { get; set; }
+        public List<CourseEndorsement> Endorsements { get; set; } = new List<CourseEndorsement>();
 
-        public DateTime PublishDate { get; set; }
+        public DateTime? PublishDate { get; set; }
 
         //public DateTime LastUpdate { get; set; }
     }

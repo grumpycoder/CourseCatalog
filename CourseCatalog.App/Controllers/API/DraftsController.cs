@@ -1,4 +1,5 @@
 ﻿using CourseCatalog.App.Features.Drafts.Commands.Create;
+using CourseCatalog.App.Features.Drafts.Commands.CreateDraftByCourseId;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.DeleteDraftProgram;
@@ -6,13 +7,11 @@ using CourseCatalog.App.Features.Drafts.Commands.DeleteRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.PublishDraft;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
-using CourseCatalog.Domain.Entities;
 using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using MediatR;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -96,6 +95,13 @@ namespace CourseCatalog.App.Controllers.API
         {
             await _mediator.Send(new DeleteDraftProgramCommand(draftId, programId));
             return Ok();
+        }
+
+        [HttpPost, Route("{courseId}/create")]
+        public async Task<IHttpActionResult> CreateDraft(int courseId)
+        {
+            var dto = await _mediator.Send(new CreateDraftByCourseIdCommand(courseId));
+            return Ok(dto);
         }
 
         [HttpPost, Route("publish/{draftId}")]

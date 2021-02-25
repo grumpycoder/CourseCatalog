@@ -7,6 +7,7 @@ function controller($http) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
+        ctrl.isAdmin = (ctrl.isAdmin == 'true');
 
         var url = '/api/courses/';
         ctrl.title = 'Course Catalog';
@@ -105,8 +106,8 @@ function controller($http) {
                 { dataField: 'status', dataType: 'string', caption: 'Status' },
                 {
                     caption: '',
+                    visible: ctrl.isAdmin, 
                     cellTemplate: function (container, options) {
-                        if (options.data.canEdit) {
                             $('<button>')//.text('Create Draft')
                                 .append('<i class="fa fa-pencil"></i>')
                                 .addClass('btn btn-primary btn-sm')
@@ -116,17 +117,16 @@ function controller($http) {
                                 .attr('data-placement', 'top')
                                 .on('dxclick',
                                     function (e) {
-                                        $http.post('/api/drafts/' + options.data.id + '/create').then(r => {
+                                        $http.post('/api/drafts/' + options.data.courseId + '/create').then(r => {
                                             toastr.success('Created draft ' + options.data.courseNumber);
-                                            window.location.href = '/drafts/' + r.data.id; 
+                                            window.location.href = '/drafts/' + r.data; 
                                         }).catch (err => {
-                                            toastr.error(err.data.message);
+                                            toastr.error(err.data.exceptionMessage);
                                             console.log('err', err);
                                         }); 
                                     })
                                 .appendTo(container);
-                        }
-                    }
+                }
                 }
             ],
             summary: {
@@ -268,7 +268,8 @@ function controller($http) {
 module.component('courseList',
     {
         bindings: {
-            filter: '@'
+            filter: '@', 
+            isAdmin: '@'
         },
         templateUrl: '/src/app/courses/course-list.component.html',
         controller: ['$http', controller]

@@ -48,11 +48,11 @@ namespace CourseCatalog.Domain.Entities
 
         public CourseStatus? Status { get; set; }
 
-        public List<ProgramDraft> Programs { get; set; }
+        public List<ProgramDraft> Programs { get; set; } = new List<ProgramDraft>();
 
-        public List<DraftDeliveryType> DeliveryTypes { get; set; }
+        public List<DraftDeliveryType> DeliveryTypes { get; set; } = new List<DraftDeliveryType>();
 
-        public List<DraftEndorsement> Endorsements { get; set; }
+        public List<DraftEndorsement> Endorsements { get; set; } = new List<DraftEndorsement>();
 
         //public DateTime LastUpdate { get; set; }
     }

@@ -273,12 +273,14 @@
     <Compile Include="Controllers\API\DraftsController.cs" />
     <Compile Include="Controllers\API\RefsController.cs" />
     <Compile Include="Controllers\Mvc\CoursesController.cs" />
-    <Compile Include="Controllers\Mvc\DraftController.cs" />
+    <Compile Include="Controllers\Mvc\DraftsController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
     <Compile Include="Controllers\API\ValuesController.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\CourseDetailDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQueryHandler.cs" />
+    <Compile Include="Features\Drafts\Commands\CreateDraftByCourseId\CreateDraftByCourseIdCommand.cs" />
+    <Compile Include="Features\Drafts\Commands\CreateDraftByCourseId\CreateDraftByCourseIdCommandHandler.cs" />
     <Compile Include="Features\Drafts\Commands\PublishDraft\PublishDraftCommandHandler.cs" />
     <Compile Include="Features\Drafts\Commands\CreateDraftProgram\CreateDraftProgramCommand.cs" />
     <Compile Include="Features\Drafts\Commands\CreateDraftProgram\CreateDraftProgramCommandHandler.cs" />
