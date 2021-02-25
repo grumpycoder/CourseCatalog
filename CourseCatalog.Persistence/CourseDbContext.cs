@@ -16,6 +16,8 @@ namespace CourseCatalog.Persistence
         public DbSet<Draft> Drafts { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Program> Programs { get; set; }
+        public DbSet<Cluster> Clusters { get; set; }
+        public DbSet<Credential> Credentials { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

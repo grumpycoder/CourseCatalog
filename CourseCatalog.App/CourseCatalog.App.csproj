@@ -269,16 +269,27 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\API\ClustersController.cs" />
     <Compile Include="Controllers\API\CoursesController.cs" />
+    <Compile Include="Controllers\API\CredentialsController.cs" />
     <Compile Include="Controllers\API\DraftsController.cs" />
+    <Compile Include="Controllers\API\ProgramsController.cs" />
     <Compile Include="Controllers\API\RefsController.cs" />
+    <Compile Include="Controllers\Mvc\CareerTechController.cs" />
     <Compile Include="Controllers\Mvc\CoursesController.cs" />
     <Compile Include="Controllers\Mvc\DraftsController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
     <Compile Include="Controllers\API\ValuesController.cs" />
+    <Compile Include="Features\Clusters\Queries\GetClusterList\ClusterListDto.cs" />
+    <Compile Include="Features\Clusters\Queries\GetClusterList\ClusterListVm.cs" />
+    <Compile Include="Features\Clusters\Queries\GetClusterList\GetClusterListQueryHandler.cs" />
+    <Compile Include="Features\Clusters\Queries\GetClusterList\GetCourseListQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\CourseDetailDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQueryHandler.cs" />
+    <Compile Include="Features\Credentials\Queries\GetCredentialList\CredentialListDto.cs" />
+    <Compile Include="Features\Credentials\Queries\GetCredentialList\GetCredentialListQuery.cs" />
+    <Compile Include="Features\Credentials\Queries\GetCredentialList\GetCredentialListQueryHandler.cs" />
     <Compile Include="Features\Drafts\Commands\DeleteDraft\DeleteDraftCommand.cs" />
     <Compile Include="Features\Drafts\Commands\DeleteDraft\DeleteDraftCommandHandler.cs" />
     <Compile Include="Features\Drafts\Commands\CreateDraftByCourseId\CreateDraftByCourseIdCommand.cs" />
@@ -306,6 +317,7 @@
     <Compile Include="Features\Lookups\Queries\GetEndorsementList\GetEndorsementListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetDeliveryTypeList\GetDeliveryTypeListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetDeliveryTypeList\GetDeliveryTypeListQueryHandler.cs" />
+    <Compile Include="Features\Lookups\Queries\GetProgramList\ProgramListDto.cs" />
     <Compile Include="Features\Lookups\Queries\GetTagList\GetTagListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetTagList\GetTagListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetCreditTypeList\GetCreditTypesQuery.cs" />
@@ -323,6 +335,9 @@
     <Compile Include="Features\Lookups\Queries\GetSchoolYearList\GetSchoolYearQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetSchoolYearList\GetSchoolYearQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetSchoolYearList\SchoolYearDto.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramList\GetProgramListQuery.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramList\GetProgramListQueryHandler.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramList\ProgramListDto.cs" />
     <Compile Include="Filters\CustomAuthorize.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -508,6 +523,9 @@
     <Content Include="Views\Drafts\Detail.cshtml" />
     <Content Include="Views\Drafts\Edit.cshtml" />
     <Content Include="Views\Drafts\Index.cshtml" />
+    <Content Include="Views\CareerTech\Clusters.cshtml" />
+    <Content Include="Views\CareerTech\Programs.cshtml" />
+    <Content Include="Views\CareerTech\Credentials.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">

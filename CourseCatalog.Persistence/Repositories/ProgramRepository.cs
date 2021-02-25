@@ -19,5 +19,14 @@ namespace CourseCatalog.Persistence.Repositories
                 .Include(c => c.ProgramType)
                 .ToListAsync();
         }
+
+        public async Task<List<Program>> GetProgramsWithDetails()
+        {
+            var programs = await _dbContext.Programs
+                .Include(c => c.ProgramType)
+                .ToListAsync();
+
+            return programs;
+        }
     }
 }

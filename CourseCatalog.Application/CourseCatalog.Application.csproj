@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IClusterRepository.cs" />
     <Compile Include="Contracts\ICourseRepository.cs" />
+    <Compile Include="Contracts\ICredentialRepository.cs" />
     <Compile Include="Contracts\IProgramRepository.cs" />
     <Compile Include="Contracts\ITagRepository.cs" />
     <Compile Include="Contracts\IDraftRepository.cs" />

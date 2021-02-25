@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
+using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
 using CourseCatalog.App.Features.Drafts.Commands.Create;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
@@ -77,17 +79,6 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.Programs, o => o.Ignore())
                 .ReverseMap();
 
-            //CreateMap<DraftDeliveryType, CourseDeliveryType>().ReverseMap();
-            //CreateMap<ProgramCourse, ProgramDraft>().ReverseMap();
-            //CreateMap<CourseEndorsement, DraftEndorsement>().ReverseMap();
-
-            //CreateMap<CourseListVm, Course>().ReverseMap();
-            //CreateMap<Course, UpdateCourseCommand>().ReverseMap();
-            //CreateMap<Course, CreateCourseCommand>().ReverseMap();
-
-            //CreateMap<Draft, CreateCourseDraftDetailVm>().ReverseMap();
-            //CreateMap<Course, CreateCourseDraftDetailVm>().ReverseMap();
-
             CreateMap<DraftDetailDto, Draft>().ReverseMap();
             CreateMap<Draft, UpdateDraftCommand>().ReverseMap();
             CreateMap<DraftDeliveryType, UpdateDraftDeliveryTypeDto>().ReverseMap();
@@ -95,10 +86,20 @@ namespace CourseCatalog.App.Profiles
 
             CreateMap<Draft, CreateDraftCommand>().ReverseMap();
 
-
             CreateMap<Program, ProgramListDto>()
                 .ForMember(d => d.Cluster, o => o.MapFrom(s => s.Cluster.Name))
+                .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.ProgramType, o => o.MapFrom(s => s.ProgramType.Name))
+                .ReverseMap();
+
+            //Clusters Mappings
+            CreateMap<Cluster, ClusterListDto>().ReverseMap();
+            CreateMap<ClusterType, ClusterTypeDto>().ReverseMap();
+
+            //Credentials Mappings 
+            CreateMap<Credential, CredentialListDto>()
+                .ForMember(d => d.CredentialType, o => o.MapFrom(s => s.CredentialType.Name))
+                .ForMember(d => d.CredentialTypeCode, o => o.MapFrom(s => s.CredentialType.CredentialTypeCode))
                 .ReverseMap();
 
             //CreateMap<DraftListVm, Draft>().ReverseMap();
