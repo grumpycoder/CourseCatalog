@@ -1,12 +1,12 @@
-﻿using AutoMapper;
-using MediatR;
-using MyDemo.Api.Application.Contracts;
-using MyDemo.Api.Domain.Entities;
-using MyDemo.Api.Exceptions;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Application.Exceptions;
+using CourseCatalog.Domain.Entities;
+using MediatR;
 
-namespace MyDemo.Api.Features.Programs.Commands.UpdateProgram
+namespace CourseCatalog.App.Features.Programs.Commands.UpdateProgram
 {
     public class UpdateProgramCommandHandler : IRequestHandler<UpdateProgramCommand>
     {

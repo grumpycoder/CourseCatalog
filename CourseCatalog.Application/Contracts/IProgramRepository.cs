@@ -8,8 +8,8 @@ namespace CourseCatalog.Application.Contracts
     {
         Task<List<Program>> GetProgramListWithDetails();
         Task<List<Program>> GetProgramsWithDetails();
+        Task<Program> GetProgramByIdWithDetails(int programId);
+        Task<Program> GetProgramByProgramCode(string programCode);
 
-        //Task<Program> GetProgramWithDetails(int id);
-        //Task<Program> GetProgramByProgramCode(string programCode);
     }
 }

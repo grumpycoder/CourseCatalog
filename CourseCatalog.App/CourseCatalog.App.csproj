@@ -325,6 +325,8 @@
     <Compile Include="Features\Lookups\Queries\GetProgramList\ProgramListDto.cs" />
     <Compile Include="Features\Lookups\Queries\GetClusterTypetList\GetClusterTypeListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetClusterTypetList\GetClusterTypeListQueryHandler.cs" />
+    <Compile Include="Features\Lookups\Queries\GetProgramTypeList\GetProgramTypeListQuery.cs" />
+    <Compile Include="Features\Lookups\Queries\GetProgramTypeList\GetProgramTypeListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetTagList\GetTagListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetTagList\GetTagListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetCreditTypeList\GetCreditTypesQuery.cs" />
@@ -342,6 +344,15 @@
     <Compile Include="Features\Lookups\Queries\GetSchoolYearList\GetSchoolYearQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetSchoolYearList\GetSchoolYearQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetSchoolYearList\SchoolYearDto.cs" />
+    <Compile Include="Features\Programs\Commands\DeleteProgramCredential\DeleteProgramCredentialCommand.cs" />
+    <Compile Include="Features\Programs\Commands\DeleteProgramCredential\DeleteProgramCredentialCommandHandler.cs" />
+    <Compile Include="Features\Programs\Commands\CreateProgramCredential\CreateProgramCredentialCommand.cs" />
+    <Compile Include="Features\Programs\Commands\CreateProgramCredential\CreateProgramCredentialCommandHandler.cs" />
+    <Compile Include="Features\Programs\Commands\UpdateProgram\UpdateClusterCommand.cs" />
+    <Compile Include="Features\Programs\Commands\UpdateProgram\UpdateProgramCommandHandler.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramDetail\GetProgramDetailQuery.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramDetail\GetProgramDetailQueryHandler.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramDetail\ProgramDetailDto.cs" />
     <Compile Include="Features\Programs\Queries\GetProgramList\GetProgramListQuery.cs" />
     <Compile Include="Features\Programs\Queries\GetProgramList\GetProgramListQueryHandler.cs" />
     <Compile Include="Features\Programs\Queries\GetProgramList\ProgramListDto.cs" />
@@ -533,8 +544,10 @@
     <Content Include="Views\CareerTech\Clusters.cshtml" />
     <Content Include="Views\CareerTech\Programs.cshtml" />
     <Content Include="Views\CareerTech\Credentials.cshtml" />
-    <Content Include="Views\CareerTech\ClusterDetails.cshtml" />
+    <Content Include="Views\CareerTech\ClusterDetail.cshtml" />
     <Content Include="Views\CareerTech\ClusterEdit.cshtml" />
+    <Content Include="Views\CareerTech\ProgramDetail.cshtml" />
+    <Content Include="Views\CareerTech\ProgramEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">

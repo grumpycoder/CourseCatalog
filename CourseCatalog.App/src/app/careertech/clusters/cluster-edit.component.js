@@ -47,10 +47,10 @@ function controller($http) {
         $http.put(url, dto).then(r => {
             updateCache();
             resetValidation();
-            //TODO: toastr message
+            toastr.success('Saved Cluster'); 
         }).catch(e => {
-            console.log('e', e.data.message);
-            //TODO: toast error message
+            console.error('update error', e.message);
+            toastr.error(e.message);
         });
     };
 

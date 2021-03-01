@@ -13,6 +13,7 @@ using CourseCatalog.Persistence;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.App.Features.Lookups.Queries.GetProgramTypeList;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -109,6 +110,13 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<IHttpActionResult> ClusterTypes()
         {
             var dto = await _mediator.Send(new GetClusterTypeListQuery());
+            return Ok(dto);
+        }
+
+        [HttpGet, Route("programTypes")]
+        public async Task<IHttpActionResult> ProgramTypes()
+        {
+            var dto = await _mediator.Send(new GetProgramTypeListQuery());
             return Ok(dto);
         }
 

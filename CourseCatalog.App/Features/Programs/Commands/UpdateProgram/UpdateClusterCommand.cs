@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace MyDemo.Api.Features.Programs.Commands.UpdateProgram
+namespace CourseCatalog.App.Features.Programs.Commands.UpdateProgram
 {
     public class UpdateProgramCommand : IRequest
     {

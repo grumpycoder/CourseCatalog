@@ -1,0 +1,11 @@
+﻿@model int
+@{
+    ViewBag.Title = "Program Detail";
+}
+
+<program-detail program-id='@Model' is-admin=true></program-detail>
+
+
+@section scripts{
+    <script src="~/src/app/careertech/programs/program-detail.component.js"></script>
+}

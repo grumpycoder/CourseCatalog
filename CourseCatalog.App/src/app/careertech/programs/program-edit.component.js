@@ -7,27 +7,27 @@ function controller($http) {
     ctrl.cache = {};
 
     ctrl.$onInit = function () {
-        fetchProgram(ctrl.programcode).then(r => {
+        fetchProgram(ctrl.programid).then(r => {
             ctrl.title = 'Program: ' + ctrl.program.name + ' (' + ctrl.program.programCode + ')';
         }).finally(f => {
             if (ctrl.program) {
                 ctrl.listOptions = {
-                    dataSource: ctrl.program.programCredentials,
+                    dataSource: ctrl.program.credentials,
                     searchEnabled: true,
                     searchExpr: "credential",
                     allowItemDeleting: true,
                     onItemDeleting: function (item) {
                         var d = $.Deferred();
-                        var url = '/api/programs/' + item.itemData.programId + '/credentials/' + item.itemData.credentialId;
+                        var url = '/api/programs/' + ctrl.program.programId + '/credentials/' + item.itemData.credentialId;
                         $http.delete(url).then(r => {
-                            //TODO: Toastr success message
-                            return r;
+                            toastr.success('Removed Credential');
+                            d.resolve();
                         }).catch(e => {
-                            //TODO: Toastr error message 
-                            console.error(e.data);
+                            console.error('add credential error', e);
                             toastr.error(e.data.exceptionMessage);
+                            d.reject();
                         });
-                        data.cancel = d.promise();
+                        item.cancel = d.promise();
                     }
                 }
             }
@@ -58,42 +58,58 @@ function controller($http) {
     };
 
     ctrl.onSubmit = function () {
-        var url = '/api/programs/' + ctrl.program.id;
+        var url = '/api/programs/';
+        var dto = {
+            programId: ctrl.program.programId,
+            programCode: ctrl.program.programCode,
+            name: ctrl.program.name,
+            description: ctrl.program.programDescription,
+            beginYear: ctrl.program.beginYear,
+            endYear: ctrl.program.endYear,
+            traditionalForMales: ctrl.program.traditionalForMales,
+            traditionalForFemales: ctrl.program.traditionalForFemales,
+            programTypeId: ctrl.program.programTypeId,
+            clusterId: ctrl.program.clusterId
+        }
 
-        $http.put(url, ctrl.program).then(r => {
+        $http.put(url, dto).then(r => {
             updateCache();
             resetValidation();
-            //TODO: toastr message
+            toastr.success('Saved Program');
         }).catch(e => {
-            //TODO: toastr message
-            console.error(e);
+            console.error('update error', e);
+            toastr.error(e.data.exceptionMessage);
         });
     };
 
     ctrl.onChangeProgramCode = function () {
         ctrl.form.programCode.$setValidity("unique", !codeInUse(ctrl.program.programCode));
     };
-    
+
     ctrl.createAssignment = function () {
-        var url = '/api/programs/' + ctrl.program.id + '/credentials';
-        $http.post(url, ctrl.assignment).then(r => {
+        var url = '/api/programs/credentials';
+        var dto = {
+            programId: ctrl.program.programId, 
+            credentialId: ctrl.assignment.credentialId, 
+            beginYear: ctrl.assignment.beginYear, 
+            endYar: ctrl.assignment.endYear
+        }
 
-            ctrl.program.programCredentials.push(r.data);
-            $('#programCredentials').dxList('instance').reload();
-
+        $http.post(url, dto).then(r => {
+            ctrl.program.credentials.push(r.data);
+            $('#credentials').dxList('instance').reload();
             ctrl.assignment = {};
             ctrl.showForm = false;
-            //TODO: Toastr success message
-
+            toastr.success('Saved Credential Assignment');
         }).catch(e => {
-            console.error('e', e.data.message);
+            console.error('update error', e);
             toastr.error(e.data.exceptionMessage);
         });
 
     }
 
-    function fetchProgram(programCode) {
-        return $http.get('/api/programs/' + pad(programCode, 3)).then(r => {
+    function fetchProgram(programid) {
+        return $http.get('/api/programs/' + programid).then(r => {
             ctrl.program = r.data;
             updateCache();
             return ctrl.program = r.data;
@@ -129,9 +145,11 @@ function controller($http) {
 
     function fetchPrograms() {
         var url = '/api/programs';
-        return $http.get(url).then(function (r) {
-            return ctrl.programs = r.data;
-        });
+        if (!ctrl.programList) {
+            return $http.get(url).then(function (r) {
+                return ctrl.programList = r.data;
+            });
+        };
     }
 
     function fetchCredentials() {
@@ -161,18 +179,12 @@ function controller($http) {
         return inUse;
     }
 
-    function pad(num, size) {
-        var s = num + "";
-        while (s.length < size) s = "0" + s;
-        return s;
-    }
-
 }
 
 module.component('programEdit',
     {
         bindings: {
-            programcode: '<'
+            programid: '<'
         },
         templateUrl: '/src/app/careertech/programs/program-edit.component.html',
         controller: ['$http', controller]

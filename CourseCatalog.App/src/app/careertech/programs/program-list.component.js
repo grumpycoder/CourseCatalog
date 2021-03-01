@@ -65,7 +65,7 @@ function controller($http) {
                             $('<a/>')
                                 .text(options.data.programCode)
                                 .attr('aria-label', 'Program Details ' + options.data.programCode)
-                                .attr('href', '/careertech/programs/' + options.data.programCode)
+                                .attr('href', '/careertech/programs/' + options.data.programId)
                                 .appendTo(container);
                         }
                     },

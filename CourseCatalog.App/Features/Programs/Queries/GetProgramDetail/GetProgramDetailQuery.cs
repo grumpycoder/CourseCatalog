@@ -1,9 +1,14 @@
 ﻿using MediatR;
 
-namespace MyDemo.Api.Features.Programs.Queries.GetProgramDetail
+namespace CourseCatalog.App.Features.Programs.Queries.GetProgramDetail
 {
-    public class GetProgramDetailQuery : IRequest<ProgramDetailVm>
+    public class GetProgramDetailQuery : IRequest<ProgramDetailDto>
     {
         public int ProgramId { get; set; }
+
+        public GetProgramDetailQuery(int programId)
+        {
+            ProgramId = programId;
+        }
     }
 }

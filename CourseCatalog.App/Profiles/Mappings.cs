@@ -10,6 +10,9 @@ using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
+using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
+using CourseCatalog.App.Features.Programs.Commands.UpdateProgram;
+using CourseCatalog.App.Features.Programs.Queries.GetProgramDetail;
 using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Profiles
@@ -95,7 +98,7 @@ namespace CourseCatalog.App.Profiles
             CreateMap<Cluster, ClusterListDto>()
                 .ForMember(d => d.ClusterTypeName, o => o.MapFrom(d => d.ClusterType.Name))
                 .ReverseMap();
-            
+
             CreateMap<ClusterDetailDto, Cluster>().ReverseMap();
 
             CreateMap<ClusterType, ClusterTypeDto>().ReverseMap();
@@ -107,6 +110,23 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.Cluster, o => o.MapFrom(s => s.Cluster.Name))
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.ProgramType, o => o.MapFrom(s => s.ProgramType.Name))
+                .ReverseMap();
+
+            CreateMap<Program, ProgramDetailDto>()
+                .ForMember(d => d.Cluster, o => o.MapFrom(s => s.Cluster.Name))
+                .ForMember(d => d.ProgramType, o => o.MapFrom(s => s.ProgramType.Name))
+                .ReverseMap();
+
+            CreateMap<ProgramCredential, ProgramCredentialListDto>()
+                .ForMember(d => d.CredentialCode, o => o.MapFrom(s => s.Credential.CredentialCode))
+                .ForMember(d => d.CredentialName, o => o.MapFrom(s => s.Credential.Name))
+                .ReverseMap();
+
+            CreateMap<Program, UpdateProgramCommand>().ReverseMap();
+
+            CreateMap<ProgramCredential, CreateProgramCredentialDto>()
+                .ForMember(d => d.CredentialCode, o => o.MapFrom(s => s.Credential.CredentialCode))
+                .ForMember(d => d.CredentialName, o => o.MapFrom(s => s.Credential.Name))
                 .ReverseMap();
 
             //Credentials Mappings 

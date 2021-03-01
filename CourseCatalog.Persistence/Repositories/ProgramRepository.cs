@@ -28,5 +28,21 @@ namespace CourseCatalog.Persistence.Repositories
 
             return programs;
         }
+        public async Task<Program> GetProgramByIdWithDetails(int programId)
+        {
+            var program = await _dbContext.Programs
+                .Include(c => c.ProgramType)
+                .Include(c => c.Cluster)
+                .Include(c => c.Credentials)
+                .ThenInclude(x => x.Credential)
+                .FirstOrDefaultAsync(x => x.ProgramId == programId);
+
+            return program;
+        }
+
+        public async Task<Program> GetProgramByProgramCode(string programCode)
+        {
+            return await _dbContext.Programs.FirstOrDefaultAsync(c => c.ProgramCode == programCode);
+        }
     }
 }

@@ -152,9 +152,10 @@
     <Compile Include="Configurations\EndorsementConfiguration.cs" />
     <Compile Include="Configurations\GradeConfiguration.cs" />
     <Compile Include="Configurations\GradeScaleConfiguration.cs" />
-    <Compile Include="Configurations\ProgramConfiguration - Copy.cs" />
+    <Compile Include="Configurations\ProgramTypeConfiguration.cs" />
     <Compile Include="Configurations\ProgramConfiguration.cs" />
     <Compile Include="Configurations\ProgramCourseConfiguration.cs" />
+    <Compile Include="Configurations\ProgramCredentialConfiguration.cs" />
     <Compile Include="Configurations\ScedCategoryConfiguration.cs" />
     <Compile Include="Configurations\SubjectConfiguration.cs" />
     <Compile Include="Configurations\TagConfiguration.cs" />

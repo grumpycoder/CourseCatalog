@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Application.Exceptions;
+using CourseCatalog.Domain.Entities;
 using MediatR;
-using MyDemo.Api.Application.Contracts;
-using MyDemo.Api.Domain.Entities;
-using MyDemo.Api.Exceptions;
-using MyDemo.Api.Features.Clusters.Queries.GetClusterDetail;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MyDemo.Api.Features.Programs.Queries.GetProgramDetail
+namespace CourseCatalog.App.Features.Programs.Queries.GetProgramDetail
 {
-    public class GetProgramDetailQueryHandler : IRequestHandler<GetProgramDetailQuery, ProgramDetailVm>
+    public class GetProgramDetailQueryHandler : IRequestHandler<GetProgramDetailQuery, ProgramDetailDto>
     {
         private readonly IProgramRepository _programRepository;
         private readonly IMapper _mapper;
@@ -21,15 +20,13 @@ namespace MyDemo.Api.Features.Programs.Queries.GetProgramDetail
             _programRepository = programRepository;
         }
 
-        public async Task<ProgramDetailVm> Handle(GetProgramDetailQuery request, CancellationToken cancellationToken)
+        public async Task<ProgramDetailDto> Handle(GetProgramDetailQuery request, CancellationToken cancellationToken)
         {
-            var program = await _programRepository.GetProgramWithDetails(request.ProgramId);
+            var program = await _programRepository.GetProgramByIdWithDetails(request.ProgramId);
 
-            if (program == null)
-            {
-                throw new NotFoundException(nameof(Cluster), request.ProgramId);
-            }
-            var programDetailDto = _mapper.Map<ProgramDetailVm>(program);
+            if (program == null) throw new NotFoundException(nameof(Program), request.ProgramId);
+
+            var programDetailDto = _mapper.Map<ProgramDetailDto>(program);
 
             return programDetailDto;
         }

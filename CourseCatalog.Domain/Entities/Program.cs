@@ -22,6 +22,6 @@ namespace CourseCatalog.Domain.Entities
 
         public Cluster Cluster { get; set; }
 
-        //public List<ProgramCredential> ProgramCredentials { get; set; }
+        public List<ProgramCredential> Credentials { get; set; }
     }
 }

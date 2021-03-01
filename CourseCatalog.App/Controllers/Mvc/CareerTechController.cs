@@ -12,9 +12,9 @@ namespace CourseCatalog.App.Controllers.Mvc
         }
 
         [Route("clusters/{clusterId?}")]
-        public ActionResult ClusterDetails(int clusterId)
+        public ActionResult ClusterDetail(int clusterId)
         {
-            return View("ClusterDetails", clusterId);
+            return View("ClusterDetail", clusterId);
         }
 
         [Route("clusters/{clusterId?}/edit")] //, CustomAuthorize(Roles = "CareerTechAdmin")]
@@ -27,6 +27,18 @@ namespace CourseCatalog.App.Controllers.Mvc
         public ActionResult Programs()
         {
             return View();
+        }
+
+        [Route("programs/{programId}")]
+        public ActionResult ProgramDetail(int programId)
+        {
+            return View("ProgramDetail", programId);
+        }
+
+        [Route("programs/{programId}/edit")] //,CustomAuthorize(Roles = "CareerTechAdmin")]
+        public ActionResult ProgramEdit(int programId)
+        {
+            return View(programId);
         }
 
         [Route("credentials")]

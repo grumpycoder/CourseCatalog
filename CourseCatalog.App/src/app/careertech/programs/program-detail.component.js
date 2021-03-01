@@ -7,13 +7,14 @@ function controller($http) {
     ctrl.cache = {};
 
     ctrl.$onInit = function () {
-
-        fetchProgram(ctrl.programcode).then(r => {
+        ctrl.isAdmin = (ctrl.isAdmin === 'true');
+        console.log('admin', ctrl.isAdmin);
+        fetchProgram(ctrl.programId).then(r => {
             ctrl.title = 'Program: ' + ctrl.program.name + ' (' + ctrl.program.programCode + ')';
         }).finally(f => {
             if (ctrl.program !== undefined) {
                 ctrl.listOptions = {
-                    dataSource: ctrl.program.programCredentials,
+                    dataSource: ctrl.program.credentials,
                     searchEnabled: true,
                     searchExpr: "credential",
                     noDataText: 'No Credentials Assigned'
@@ -25,25 +26,21 @@ function controller($http) {
     ctrl.$onChanges = function () {
     };
 
-    function fetchProgram(programCode) {
-        return $http.get('/api/programs/' + pad(programCode, 3)).then(r => {
+    function fetchProgram(programId) {
+        return $http.get('/api/programs/' + programId).then(r => {
             ctrl.program = r.data;
             return ctrl.program = r.data;
 
         });
     }
     
-    function pad(num, size) {
-        var s = num + "";
-        while (s.length < size) s = "0" + s;
-        return s;
-    }
 }
 
 module.component('programDetail',
     {
         bindings: {
-            programcode: '<'
+            programId: '<', 
+            isAdmin: '@'
         },
         templateUrl: '/src/app/careertech/programs/program-detail.component.html',
         controller: ['$http', controller]
