@@ -17,6 +17,6 @@ namespace CourseCatalog.Domain.Entities
 
         public CredentialType CredentialType { get; set; }
 
-        public List<ProgramCredential> ProgramCredentials { get; set; }
+        public List<ProgramCredential> Programs { get; set; }
     }
 }

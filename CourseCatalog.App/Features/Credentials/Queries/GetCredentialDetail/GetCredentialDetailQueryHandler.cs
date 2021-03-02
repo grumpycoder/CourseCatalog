@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Application.Exceptions;
+using CourseCatalog.Domain.Entities;
 using MediatR;
-using MyDemo.Api.Application.Contracts;
-using MyDemo.Api.Domain.Entities;
-using MyDemo.Api.Exceptions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MyDemo.Api.Features.Credentials.Queries.GetCredentialDetail
+namespace CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail
 {
-    public class GetCredentialDetailQueryHandler : IRequestHandler<GetCredentialDetailQuery, CredentialDetailVm>
+    public class GetCredentialDetailQueryHandler : IRequestHandler<GetCredentialDetailQuery, CredentialDetailDto>
     {
         private readonly ICredentialRepository _credentialRepository;
         private readonly IMapper _mapper;
@@ -20,15 +20,15 @@ namespace MyDemo.Api.Features.Credentials.Queries.GetCredentialDetail
             _credentialRepository = credentialRepository;
         }
 
-        public async Task<CredentialDetailVm> Handle(GetCredentialDetailQuery request, CancellationToken cancellationToken)
+        public async Task<CredentialDetailDto> Handle(GetCredentialDetailQuery request, CancellationToken cancellationToken)
         {
-            var credential = await _credentialRepository.GetCredentialWithDetails(request.CredentialId);
+            var credential = await _credentialRepository.GetCredentialByIdWithDetails(request.CredentialId);
 
             if (credential == null)
             {
                 throw new NotFoundException(nameof(Credential), request.CredentialId);
             }
-            var credentialDetailDto = _mapper.Map<CredentialDetailVm>(credential);
+            var credentialDetailDto = _mapper.Map<CredentialDetailDto>(credential);
 
             return credentialDetailDto;
         }

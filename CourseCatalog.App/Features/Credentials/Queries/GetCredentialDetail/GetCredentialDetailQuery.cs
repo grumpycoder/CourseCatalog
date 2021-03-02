@@ -1,9 +1,14 @@
 ﻿using MediatR;
 
-namespace MyDemo.Api.Features.Credentials.Queries.GetCredentialDetail
+namespace CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail
 {
-    public class GetCredentialDetailQuery : IRequest<CredentialDetailVm>
+    public class GetCredentialDetailQuery : IRequest<CredentialDetailDto>
     {
         public int CredentialId { get; set; }
+
+        public GetCredentialDetailQuery(int credentialId)
+        {
+            CredentialId = credentialId;
+        }
     }
 }

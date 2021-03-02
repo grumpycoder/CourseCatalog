@@ -13,6 +13,7 @@ using CourseCatalog.Persistence;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
 using CourseCatalog.App.Features.Lookups.Queries.GetProgramTypeList;
 
 namespace CourseCatalog.App.Controllers.API
@@ -120,6 +121,12 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
+        [HttpGet, Route("credentialTypes")]
+        public async Task<IHttpActionResult> CredentialTypes()
+        {
+            var dto = await _mediator.Send(new GetCredentialListQuery());
+            return Ok(dto);
+        }
     }
 
 }

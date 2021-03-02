@@ -9,38 +9,32 @@ function controller($http) {
     ctrl.title = 'Career Tech Credentials';
 
     ctrl.$onInit = function () {
-        fetchCredential(ctrl.credentialcode).then(r => {
+        ctrl.isAdmin = (ctrl.isAdmin === 'true');
+
+        fetchCredential(ctrl.credentialid).then(r => {
             ctrl.title = 'Credential: ' + ctrl.credential.name + ' (' + ctrl.credential.credentialCode + ')';
             ctrl.listOptions = {
-                dataSource: ctrl.credential.programCredentials,
+                dataSource: ctrl.credential.programs,
                 searchEnabled: true,
-                searchExpr: ["program", "programCode"],
-                noDataText: 'No Credentials Assigned'
+                searchExpr: ["programName", "programCode"],
+                noDataText: 'No Programs Assigned'
             }
         });
     };
 
-
-    function fetchCredential(credentialCode) {
-        return $http.get('/api/credentials/' + pad(credentialCode, 4)).then(r => {
-            
+    function fetchCredential(credentialid) {
+        return $http.get('/api/credentials/' + credentialid).then(r => {
             ctrl.credential = r.data;
-            //updateCache();
             return ctrl.credential;
         });
-    }
-
-    function pad(num, size) {
-        var s = num + "";
-        while (s.length < size) s = "0" + s;
-        return s;
     }
 }
 
 module.component('credentialDetail',
     {
         bindings: {
-            credentialcode: '<'
+            credentialid: '<', 
+            isAdmin: '@'
         },
         templateUrl: '/src/app/careertech/credentials/credential-detail.component.html',
         controller: ['$http', controller]

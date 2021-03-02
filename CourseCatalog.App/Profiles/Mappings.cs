@@ -3,6 +3,8 @@ using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
+using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
+using CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
 using CourseCatalog.App.Features.Drafts.Commands.Create;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
@@ -135,8 +137,19 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.CredentialTypeCode, o => o.MapFrom(s => s.CredentialType.CredentialTypeCode))
                 .ReverseMap();
 
+            CreateMap<Credential, CredentialDetailDto>()
+                .ForMember(d => d.CredentialType, o => o.MapFrom(s => s.CredentialType.Name))
+                .ReverseMap();
 
+            CreateMap<ProgramCredential, CredentialProgramListDto>()
+                .ForMember(d => d.ProgramCode, o => o.MapFrom(s => s.Program.ProgramCode))
+                .ForMember(d => d.ProgramName, o => o.MapFrom(s => s.Program.Name))
+                .ReverseMap();
 
+            CreateMap<ProgramCredential, CreateCredentialProgramDto>()
+                .ForMember(d => d.ProgramCode, o => o.MapFrom(s => s.Program.ProgramCode))
+                .ForMember(d => d.ProgramName, o => o.MapFrom(s => s.Program.Name))
+                .ReverseMap();
 
             //CreateMap<DraftListVm, Draft>().ReverseMap();
             //CreateMap<Draft, CreateDraftCommand>().ReverseMap();
@@ -151,7 +164,6 @@ namespace CourseCatalog.App.Profiles
             //CreateMap<Program, CreateProgramCommand>().ReverseMap();
             //CreateMap<Program, UpdateProgramCommand>().ReverseMap();
 
-            //CreateMap<CredentialDetailVm, Credential>().ReverseMap();
             //CreateMap<CredentialListVm, Credential>().ReverseMap();
             //CreateMap<Credential, CreateCredentialCommand>().ReverseMap();
             //CreateMap<Credential, UpdateCredentialCommand>().ReverseMap();

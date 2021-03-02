@@ -6,6 +6,7 @@ function controller($http) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
+        ctrl.isAdmin = (ctrl.isAdmin === 'true');
         ctrl.loadCluster(ctrl.clusterId).then(function () {
             ctrl.title = ctrl.cluster.name + ' (' + ctrl.cluster.clusterCode + ')';
             

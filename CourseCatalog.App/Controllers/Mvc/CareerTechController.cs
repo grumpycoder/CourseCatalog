@@ -46,5 +46,17 @@ namespace CourseCatalog.App.Controllers.Mvc
         {
             return View();
         }
+
+        [Route("credentials/{credentialId}")]
+        public ActionResult Credentials(int credentialId)
+        {
+            return View("CredentialDetail", credentialId);
+        }
+
+        [Route("credentials/{credentialId}/edit")] //,CustomAuthorize(Roles = "CareerTechAdmin")]
+        public ActionResult CredentialEdit(int credentialId)
+        {
+            return View(credentialId);
+        }
     }
 }

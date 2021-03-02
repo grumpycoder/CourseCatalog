@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.Persistence.Repositories
 {
@@ -21,10 +21,12 @@ namespace CourseCatalog.Persistence.Repositories
             return credentials;
         }
 
-        public async Task<Credential> GetCredentialWithDetails(int id)
+        public async Task<Credential> GetCredentialByIdWithDetails(int id)
         {
             var credential = await _dbContext.Credentials
                 .Include(c => c.CredentialType)
+                .Include(c => c.Programs)
+                .ThenInclude(p => p.Program)
                 .FirstOrDefaultAsync(x => x.CredentialId == id);
 
             return credential;

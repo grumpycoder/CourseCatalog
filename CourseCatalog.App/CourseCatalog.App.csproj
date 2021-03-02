@@ -292,6 +292,13 @@
     <Compile Include="Features\Courses\Queries\GetCourseDetail\CourseDetailDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseDetail\GetCourseDetailQueryHandler.cs" />
+    <Compile Include="Features\Credentials\Commands\CreateCredentialProgram\CreateProgramCredentialCommand.cs" />
+    <Compile Include="Features\Credentials\Commands\CreateCredentialProgram\CreateProgramCredentialCommandHandler.cs" />
+    <Compile Include="Features\Credentials\Commands\DeleteCredentialProgram\DeleteCredentialProgramCommand.cs" />
+    <Compile Include="Features\Credentials\Commands\DeleteCredentialProgram\DeleteCredentialProgramCommandHandler.cs" />
+    <Compile Include="Features\Credentials\Queries\GetCredentialDetail\CredentialDetailDto.cs" />
+    <Compile Include="Features\Credentials\Queries\GetCredentialDetail\GetCredentialDetailQuery.cs" />
+    <Compile Include="Features\Credentials\Queries\GetCredentialDetail\GetCredentialDetailQueryHandler.cs" />
     <Compile Include="Features\Credentials\Queries\GetCredentialList\CredentialListDto.cs" />
     <Compile Include="Features\Credentials\Queries\GetCredentialList\GetCredentialListQuery.cs" />
     <Compile Include="Features\Credentials\Queries\GetCredentialList\GetCredentialListQueryHandler.cs" />
@@ -327,6 +334,8 @@
     <Compile Include="Features\Lookups\Queries\GetClusterTypetList\GetClusterTypeListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetProgramTypeList\GetProgramTypeListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetProgramTypeList\GetProgramTypeListQueryHandler.cs" />
+    <Compile Include="Features\Lookups\Queries\GetCredentialTypeList\GetCredentialTypeListQuery.cs" />
+    <Compile Include="Features\Lookups\Queries\GetCredentialTypeList\GetCredentialTypeListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetTagList\GetTagListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetTagList\GetTagListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetCreditTypeList\GetCreditTypesQuery.cs" />
@@ -548,6 +557,8 @@
     <Content Include="Views\CareerTech\ClusterEdit.cshtml" />
     <Content Include="Views\CareerTech\ProgramDetail.cshtml" />
     <Content Include="Views\CareerTech\ProgramEdit.cshtml" />
+    <Content Include="Views\CareerTech\CredentialDetail.cshtml" />
+    <Content Include="Views\CareerTech\CredentialEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">

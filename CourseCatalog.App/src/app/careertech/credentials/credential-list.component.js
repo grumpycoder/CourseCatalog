@@ -10,8 +10,7 @@ function controller($http) {
     ctrl.$onInit = function () {
         ctrl.title = 'CTE Credentials';
         ctrl.isAdmin = (ctrl.isAdmin == 'true');
-        console.log('admin', ctrl.isAdmin);
-
+        
         $http.get('/api/credentials').then(r => {
 
             ctrl.credentials = r.data;
@@ -70,7 +69,7 @@ function controller($http) {
                             $('<a/>')
                                 .text(options.data.credentialCode)
                                 .attr('aria-label', 'Credentials Details ' + options.data.credentialCode)
-                                .attr('href', '/careertech/credentials/' + options.data.credentialCode)
+                                .attr('href', '/careertech/credentials/' + options.data.credentialId)
                                 .appendTo(container);
                         }
                     },

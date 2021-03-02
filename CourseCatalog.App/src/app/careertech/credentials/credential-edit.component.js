@@ -11,10 +11,28 @@ function controller($http) {
 
     ctrl.$onInit = function () {
 
-        fetchCredential(ctrl.credentialcode).then(r => {
+        fetchCredential(ctrl.credentialid).then(r => {
             ctrl.title = 'Credential: ' + ctrl.credential.name + ' (' + ctrl.credential.credentialCode + ')';
-        }).finally(f => {
-            defineProgramsList();
+            ctrl.listOptions = {
+                dataSource: ctrl.credential.programs,
+                searchEnabled: true,
+                searchExpr: ["programName", "programCode"],
+                noDataText: 'No Programs Assigned', 
+                allowItemDeleting: true,
+                onItemDeleting: function (item) {
+                    var d = $.Deferred();
+                    var url = '/api/credentials/' + ctrl.credential.credentialId + '/programs/' + item.itemData.programId;
+                    $http.delete(url).then(r => {
+                        toastr.success('Removed Program');
+                        d.resolve();
+                    }).catch(e => {
+                        console.error('add program error', e);
+                        toastr.error(e.data.exceptionMessage);
+                        d.reject();
+                    });
+                    item.cancel = d.promise();
+                }
+            }
         });
 
         loadRefs();
@@ -76,20 +94,22 @@ function controller($http) {
     };
 
     ctrl.createAssignment = function() {
-        ctrl.assignment.credentialId = ctrl.credential.id; 
-        var url = '/api/programs/' + ctrl.assignment.programId + '/credentials'; 
-        $http.post('/api/programs/' + ctrl.assignment.programId + '/credentials', ctrl.assignment).then(r => {
-            ctrl.credential.programCredentials.push(r.data);
-            ctrl.store.insert(r.data);
-            //HACK: DX will not refresh without resetting datasource
-            $('#list').dxList('instance').option('dataSource', ctrl.store);
-
+        var dto = {
+            credentialId: ctrl.credential.credentialId, 
+            programId: ctrl.assignment.programId, 
+            beginYear: ctrl.assignment.beginYear, 
+            endYar: ctrl.assignment.endYear
+        }
+        var url = '/api/credentials/programs';
+        $http.post(url, dto).then(r => {
+            ctrl.credential.programs.push(r.data);
+            $('#credentials').dxList('instance').reload();
             ctrl.assignment = {};
             ctrl.showForm = false; 
-            //TODO: Toastr success message
+            toastr.success('Saved Credential Assignment');
         }).catch(e => {
-            //TODO: Toastr message error
-            console.log('e', e.data.message);
+            console.error('update error', e);
+            toastr.error(e.data.exceptionMessage);
         });
     }
 
@@ -126,9 +146,8 @@ function controller($http) {
         }
     }
 
-    function fetchCredential(credentialCode) {
-        return $http.get('/api/credentials/' + pad(credentialCode, 4)).then(r => {
-            
+    function fetchCredential(credentialid) {
+        return $http.get('/api/credentials/' + credentialid).then(r => {
             ctrl.credential = r.data;
             updateCache();
             return ctrl.credential;
@@ -199,7 +218,7 @@ function controller($http) {
 module.component('credentialEdit',
     {
         bindings: {
-            credentialcode: '<'
+            credentialid: '<'
         },
         templateUrl: '/src/app/careertech/credentials/credential-edit.component.html',
         controller: ['$http', controller]

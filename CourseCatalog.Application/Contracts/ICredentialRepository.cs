@@ -7,7 +7,7 @@ namespace CourseCatalog.Application.Contracts
     public interface ICredentialRepository : IAsyncRepository<Credential>
     {
         Task<List<Credential>> GetCredentialsWithDetails();
-        Task<Credential> GetCredentialWithDetails(int id);
+        Task<Credential> GetCredentialByIdWithDetails(int id);
         Task<Credential> GetCredentialByCredentialCode(string credentialCode);
     }
 }
