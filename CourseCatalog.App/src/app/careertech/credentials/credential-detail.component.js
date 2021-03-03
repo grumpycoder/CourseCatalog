@@ -8,8 +8,11 @@ function controller($http) {
 
     ctrl.title = 'Career Tech Credentials';
 
-    ctrl.$onInit = function () {
+    ctrl.$onChanges = function() {
         ctrl.isAdmin = (ctrl.isAdmin === 'true');
+    }
+
+    ctrl.$onInit = function () {
 
         fetchCredential(ctrl.credentialid).then(r => {
             ctrl.title = 'Credential: ' + ctrl.credential.name + ' (' + ctrl.credential.credentialCode + ')';

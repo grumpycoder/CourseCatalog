@@ -6,9 +6,13 @@ function controller($http) {
 
     ctrl.title = 'CTE Programs';
 
+    ctrl.$onChanges = function() {
+        ctrl.isAdmin = (ctrl.isAdmin === 'true');
+    }
+
     ctrl.$onInit = function () {
-        ctrl.isAdmin = (ctrl.isAdmin == 'true');
-        console.log('admin', ctrl.isAdmin);
+        
+        console.log(ctrl);
         $http.get('/api/programs').then(r => {
             ctrl.programs = r.data;
             ctrl.dataGridOptions = {
@@ -239,7 +243,6 @@ function controller($http) {
 
 module.component('programList',
     {
-        //TODO: isAdmin not working
         bindings: {
             isAdmin: '@'
         },

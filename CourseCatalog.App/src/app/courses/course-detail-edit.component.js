@@ -267,7 +267,7 @@ function detailController($http) {
 module.component('courseDetailEdit',
     {
         bindings: {
-            course: '<'
+            course: '<' 
         },
         templateUrl: '/src/app/courses/course-detail-edit.component.html',
         controller: ['$http', detailController]

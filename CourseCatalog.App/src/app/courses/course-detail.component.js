@@ -6,9 +6,7 @@ function controller($http) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
-
         ctrl.loadCourse(ctrl.courseId).then(function () {
-
             var courseNumber = ctrl.course.courseNumber ? ctrl.course.courseNumber : 'No Course Number'; 
             ctrl.title = ctrl.course.name + ' (' + courseNumber + ')';
 
@@ -22,8 +20,14 @@ function controller($http) {
         });
     };
 
-    ctrl.$onChanges = function () {
-
+    ctrl.createDraft = function() {
+        $http.post('/api/drafts/' + ctrl.courseId + '/create').then(r => {
+            toastr.success('Created draft ' + ctrl.course.courseNumber);
+            window.location.href = '/drafts/' + r.data;
+        }).catch(err => {
+            toastr.error(err.data.exceptionMessage);
+            console.log('err', err);
+        });
     }
 
     ctrl.loadCourse = function (courseNumber) {
@@ -40,7 +44,8 @@ function controller($http) {
 module.component('courseDetail',
     {
         bindings: {
-            courseId: '@'
+            courseId: '@', 
+            isAdmin: '@'
         },
         templateUrl: '/src/app/courses/course-detail.component.html',
         controller: ['$http', controller]

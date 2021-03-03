@@ -1,12 +1,16 @@
 ﻿
 @{
     ViewBag.Title = "Course Detail";
+    var isAdmin = "false";
+    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
+    {
+        isAdmin = "true"; 
+    };
 }
-<course-detail course-id="@Model"></course-detail>
+<course-detail course-id="@Model" is-admin=@isAdmin></course-detail>
 
 
 @section scripts{
     <script src="~/src/app/courses/course-detail.component.js"></script>
-    <script src="~/src/app/courses/course-program-list.component.js"></script>
 
 }

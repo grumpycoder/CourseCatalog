@@ -1,9 +1,13 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Cluster Detail";
+    var isAdmin = "false";
+    if (User.Identity.HasClaim("CareerTechAdmin") || @User.Identity.HasClaim("Admin"))
+    {
+        isAdmin = "true";
+    };
 }
 
-<cluster-detail cluster-id="@Model" is-admin="true"></cluster-detail>
+<cluster-detail cluster-id="@Model" is-admin=@isAdmin></cluster-detail>
 
 
 @section scripts{

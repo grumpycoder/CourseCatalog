@@ -7,9 +7,12 @@ function controller($http) {
 
     var ctrl = this;
 
+    ctrl.$onChanges = function() {
+        ctrl.isAdmin = (ctrl.isAdmin == 'true');
+    }
+
     ctrl.$onInit = function () {
         ctrl.title = 'CTE Credentials';
-        ctrl.isAdmin = (ctrl.isAdmin == 'true');
         
         $http.get('/api/credentials').then(r => {
 

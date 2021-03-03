@@ -1,9 +1,12 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Clusters";
+    var isAdmin = "false";
+    if (User.Identity.HasClaim("CareerTechAdmin") || @User.Identity.HasClaim("Admin"))
+    {
+        isAdmin = "true"; 
+    };
 }
-
-<cluster-list></cluster-list>
+<cluster-list is-admin=@isAdmin></cluster-list>
 
 @section scripts{
     <script src="~/src/app/careertech/clusters/cluster-list.component.js"></script>

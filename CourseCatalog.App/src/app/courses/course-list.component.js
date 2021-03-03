@@ -7,8 +7,6 @@ function controller($http) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
-        ctrl.isAdmin = (ctrl.isAdmin == 'true');
-
         var url = '/api/courses/';
         ctrl.title = 'Course Catalog';
 

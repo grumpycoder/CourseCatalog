@@ -7,7 +7,8 @@ function controller($http) {
     ctrl.cache = {};
 
     ctrl.$onInit = function () {
-        ctrl.isAdmin = (ctrl.isAdmin === 'true');
+        //ctrl.isAdmin = (ctrl.isAdmin === 'true');
+        console.log(ctrl);
         fetchProgram(ctrl.programId).then(r => {
             ctrl.title = 'Program: ' + ctrl.program.name + ' (' + ctrl.program.programCode + ')';
         }).finally(f => {
@@ -23,6 +24,7 @@ function controller($http) {
     };
 
     ctrl.$onChanges = function () {
+        ctrl.isAdmin = (ctrl.isAdmin === 'true');
     };
 
     function fetchProgram(programId) {

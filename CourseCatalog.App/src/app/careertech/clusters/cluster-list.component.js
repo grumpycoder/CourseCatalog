@@ -8,9 +8,6 @@ function controller($http) {
     ctrl.title = 'CTE Clusters';
 
     ctrl.$onInit = function () {
-        ctrl.isAdmin = (ctrl.isAdmin == 'true');
-        console.log('admin', ctrl.isAdmin);
-
         $http.get('/api/clusters').then(r => {
             ctrl.clusters = r.data;
             ctrl.dataGridOptions = {
@@ -82,7 +79,7 @@ function controller($http) {
                         width: 75,
                         cssClass: 'center-col',
                         cellTemplate: function (container, options) {
-                            if (options.data.canEdit) {
+                            if (ctrl.isAdmin) {
                                 $('<a/>').addClass('btn btn-outline-primary')
                                     .text('')
                                     .attr('aria-label', 'Edit Cluster ' + options.data.clusterCode)
@@ -214,7 +211,7 @@ function controller($http) {
 module.component('clusterList',
     {
         bindings: {
-            isAdmin: '@'
+            isAdmin: '<'
         },
         templateUrl: '/src/app/careertech/clusters/cluster-list.component.html',
         controller: ['$http', controller]

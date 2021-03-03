@@ -13,7 +13,7 @@
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bolder">
-            {{ $ctrl.title }}
+            {{ $ctrl.title }} {{ $ctrl.isAdmin }}
         </span>
         <span class="pull-right">
             <a ng-href="/careertech/programs/{{ $ctrl.program.programId }}/edit" class="float-right" ng-show="$ctrl.isAdmin">Edit</a>

@@ -12,7 +12,7 @@
             {{ $ctrl.title }}
         </span>
         <span class="pull-right">
-            <a ng-href="/courses/{{ $ctrl.course.id }}/edit" class="float-right" ng-show="$ctrl.course.canEdit">Edit</a>
+            <button class="float-right btn btn-outline-dark" ng-show="$ctrl.isAdmin" ng-click="$ctrl.createDraft()">Create Draft</button>
         </span>
     </div>
     <div class="card-body">

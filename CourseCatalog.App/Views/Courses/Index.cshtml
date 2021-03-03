@@ -1,9 +1,13 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Courses";
+    var isAdmin = "false";
+    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
+    {
+        isAdmin = "true"; 
+    };
 }
 
-<course-list filter="@ViewBag.Filter" is-admin=true></course-list>
+<course-list filter="@ViewBag.Filter" is-admin=@isAdmin></course-list>
 
 
 @section scripts{
