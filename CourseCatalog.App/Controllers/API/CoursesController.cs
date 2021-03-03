@@ -1,4 +1,5 @@
 ﻿using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
+using CourseCatalog.App.Features.Courses.Queries.GetCourseSummary;
 using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
@@ -57,5 +58,31 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
+        [HttpGet, Route("summary")]
+        public async Task<IHttpActionResult> Summary()
+        {
+            var dto = await _mediator.Send(new GetCourseSummaryQuery());
+            return Ok(dto);
+
+            //try
+            //{
+            //    var activeCoursesCount = await _context.CoursesView
+            //        .Where(c => !c.IsRetired).CountAsync();
+
+            //    //TODO: Get course request count when implemented
+            //    var requestedCoursesCount = await _draftContext.Courses.CountAsync();
+
+            //    var summary = new
+            //    {
+            //        ActiveCourseCount = activeCoursesCount,
+            //        RequestedCourseCount = requestedCoursesCount
+            //    };
+            //    return Ok(summary);
+            //}
+            //catch (Exception e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
+        }
     }
 }

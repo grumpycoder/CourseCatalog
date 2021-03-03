@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.Persistence.Repositories
 {
@@ -33,6 +33,11 @@ namespace CourseCatalog.Persistence.Repositories
                 .FirstOrDefaultAsync(x => x.DraftId == draftId);
 
             return draft;
+        }
+
+        public async Task<int> GetDraftCount()
+        {
+            return await _dbContext.Drafts.CountAsync();
         }
     }
 }

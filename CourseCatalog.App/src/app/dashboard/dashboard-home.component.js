@@ -17,7 +17,7 @@ function controller($http) {
 
         fetchCoursesSummary().then(r => {
             ctrl.activeCourseCount = r.activeCourseCount;
-            ctrl.requestedCourseCount = r.requestedCourseCount;
+            ctrl.draftCount = r.draftCount;
         }); 
 
     };

@@ -11,5 +11,6 @@ namespace CourseCatalog.Application.Contracts
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<IReadOnlyList<T>> GetPagedResponseAsync(int page, int size);
+        Task<int> Count();
     }
 }

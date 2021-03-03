@@ -49,5 +49,10 @@ namespace CourseCatalog.Persistence.Repositories
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<int> Count()
+        {
+            return await _dbContext.Set<T>().CountAsync();
+        }
     }
 }

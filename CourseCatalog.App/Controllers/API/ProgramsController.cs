@@ -6,6 +6,7 @@ using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
+using CourseCatalog.App.Features.Programs.Queries.GetProgramSummary;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -54,6 +55,33 @@ namespace CourseCatalog.App.Controllers.API
         {
             var dto = await _mediator.Send(createProgramCredentialCommand);
             return Ok(dto);
+        }
+
+        [HttpGet, Route("summary")]
+        public async Task<object> Summary()
+        {
+            var dto = await _mediator.Send(new GetProgramSummaryQuery());
+            return Ok(dto);
+            //try
+            //{
+            //    var activeProgramsCount = await _context.Programs
+            //        .Where(x => x.ValidPeriod.EndYear <= DateTime.Now.Year || x.ValidPeriod.EndYear == null).CountAsync();
+
+            //    var activeCredentialsCount = await _context.Credentials
+            //        .Where(x => x.ValidPeriod.EndYear <= DateTime.Now.Year || x.ValidPeriod.EndYear == null).CountAsync();
+
+
+            //    var summary = new
+            //    {
+            //        activeProgramsCount,
+            //        activeCredentialsCount
+            //    };
+            //    return Ok(summary);
+            //}
+            //catch (Exception e)
+            //{
+            //    return BadRequest(e.Message);
+            //}
         }
     }
 }

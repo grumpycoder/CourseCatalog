@@ -7,5 +7,6 @@ namespace CourseCatalog.Application.Contracts
     {
         Task<Course> GetCourseByIdWithDetails(int courseId);
         Task<Course> GetCourseByCourseNumber(string courseNumber);
+        Task<int> GetActiveCourseCount();
     }
 }

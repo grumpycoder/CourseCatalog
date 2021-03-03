@@ -269,6 +269,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Features\Courses\Queries\GetCourseSummary\CourseSummaryDto.cs" />
+    <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQuery.cs" />
+    <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQueryHandler.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramSummary\ProgramSummaryDto.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramSummary\GetProgramSummaryQuery.cs" />
+    <Compile Include="Features\Programs\Queries\GetProgramSummary\GetProgramSummaryQueryHandler.cs" />
     <Compile Include="Features\Users\Commands\CreateUser\CreateUserCommand.cs" />
     <Compile Include="Features\Users\Commands\CreateUser\CreateUserCommandHandler.cs" />
     <Compile Include="Features\Users\Commands\UpdateUser\UpdateUserCommand.cs" />
