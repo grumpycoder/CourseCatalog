@@ -159,6 +159,7 @@
     <Compile Include="Configurations\ScedCategoryConfiguration.cs" />
     <Compile Include="Configurations\SubjectConfiguration.cs" />
     <Compile Include="Configurations\TagConfiguration.cs" />
+    <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="CourseDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Repositories\ProgramRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
     <Compile Include="Repositories\DraftRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

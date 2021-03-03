@@ -50,9 +50,12 @@
     <Compile Include="Contracts\IClusterRepository.cs" />
     <Compile Include="Contracts\ICourseRepository.cs" />
     <Compile Include="Contracts\ICredentialRepository.cs" />
+    <Compile Include="Contracts\ILoggedInUserService.cs" />
+    <Compile Include="Contracts\IMemberService.cs" />
     <Compile Include="Contracts\IProgramRepository.cs" />
     <Compile Include="Contracts\ITagRepository.cs" />
     <Compile Include="Contracts\IDraftRepository.cs" />
+    <Compile Include="Contracts\IUserRepository.cs" />
     <Compile Include="Exceptions\BadRequestException.cs" />
     <Compile Include="Contracts\IAsyncRepository.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />

@@ -1,5 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
+using AutoMapper;
+using CourseCatalog.App.Profiles;
+using CourseCatalog.App.Services;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Persistence;
+using CourseCatalog.Persistence.Repositories;
+using MediatR.Extensions.Autofac.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -7,16 +17,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Autofac;
-using Autofac.Integration.Mvc;
-using Autofac.Integration.WebApi;
-using AutoMapper;
-using CourseCatalog.App.Profiles;
-using CourseCatalog.Application.Contracts;
-using CourseCatalog.Persistence;
-using CourseCatalog.Persistence.Repositories;
-using MediatR.Extensions.Autofac.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalog.App
 {
@@ -34,6 +34,19 @@ namespace CourseCatalog.App
 
             builder.RegisterControllers(typeof(WebApiApplication).Assembly);
             builder.RegisterApiControllers(typeof(WebApiApplication).Assembly);
+
+            builder.Register(
+                    c => HttpContext.Current != null ?
+                        new HttpContextWrapper(HttpContext.Current) :
+                        c.Resolve<System.Net.Http.HttpRequestMessage>().Properties["MS_HttpContext"])
+                .As<HttpContextBase>()
+                .InstancePerRequest();
+
+            //builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
+            builder.Register(c => HttpContext.Current).As<HttpContext>().InstancePerRequest();
+
+            builder.RegisterType<LoggedInUserService>().As<ILoggedInUserService>();
+            builder.RegisterType<MemberService>().As<IMemberService>();
 
             builder
                 .RegisterType<CourseDbContext>()
@@ -64,7 +77,7 @@ namespace CourseCatalog.App
             builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces()
-                .InstancePerRequest(); 
+                .InstancePerRequest();
         }
     }
 

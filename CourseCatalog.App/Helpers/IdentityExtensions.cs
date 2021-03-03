@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CourseCatalog.Domain.Entities;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -53,16 +54,16 @@ namespace CourseCatalog.App.Helpers
             return GetClaimValue(ClaimsPrincipal.Current, key).ToLower();
         }
 
-        //public static string AddGroupsToRoles(this IIdentity currentPrincipal, List<Group> groups)
-        //{
-        //    var identity = currentPrincipal as ClaimsIdentity;
+        public static string AddGroupsToRoles(this IIdentity currentPrincipal, List<Group> groups)
+        {
+            var identity = currentPrincipal as ClaimsIdentity;
 
-        //    foreach (var @group in groups)
-        //    {
-        //        identity.AddClaim(new Claim(ClaimTypes.Role, @group.Name));
-        //        identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, @group.Name));
-        //    }
-        //    return string.Empty;
-        //}
+            foreach (var @group in groups)
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Role, @group.Name));
+                identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, @group.Name));
+            }
+            return string.Empty;
+        }
     }
 }

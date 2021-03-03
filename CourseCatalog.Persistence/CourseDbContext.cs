@@ -1,4 +1,5 @@
-﻿using CourseCatalog.Domain.Common;
+﻿using CourseCatalog.Application.Contracts;
+using CourseCatalog.Domain.Common;
 using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -9,6 +10,7 @@ namespace CourseCatalog.Persistence
 {
     public class CourseDbContext : DbContext
     {
+        private readonly ILoggedInUserService _loggedInUserService;
 
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseView> CoursesView { get; set; }
@@ -18,6 +20,13 @@ namespace CourseCatalog.Persistence
         public DbSet<Program> Programs { get; set; }
         public DbSet<Cluster> Clusters { get; set; }
         public DbSet<Credential> Credentials { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public CourseDbContext(ILoggedInUserService loggedInUserService)
+        {
+            _loggedInUserService = loggedInUserService;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,16 +45,15 @@ namespace CourseCatalog.Persistence
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            //TODO: add user instance to ModifyUser
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
             {
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.ModifyUser = "system";
+                        entry.Entity.ModifyUser = _loggedInUserService.UserId; // "system";
                         break;
                     case EntityState.Modified:
-                        entry.Entity.ModifyUser = "system";
+                        entry.Entity.ModifyUser = _loggedInUserService.UserId; // "system";
                         break;
                 }
             }

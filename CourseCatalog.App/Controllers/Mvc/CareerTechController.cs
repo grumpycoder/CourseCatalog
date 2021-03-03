@@ -5,6 +5,11 @@ namespace CourseCatalog.App.Controllers.Mvc
     [RoutePrefix("careertech")]
     public class CareerTechController : Controller
     {
+
+        public CareerTechController()
+        {
+        }
+
         [Route("clusters")]
         public ActionResult Clusters()
         {

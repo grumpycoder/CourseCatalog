@@ -15,6 +15,7 @@ using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
 using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
 using CourseCatalog.App.Features.Programs.Commands.UpdateProgram;
 using CourseCatalog.App.Features.Programs.Queries.GetProgramDetail;
+using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Profiles
@@ -150,6 +151,9 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.ProgramCode, o => o.MapFrom(s => s.Program.ProgramCode))
                 .ForMember(d => d.ProgramName, o => o.MapFrom(s => s.Program.Name))
                 .ReverseMap();
+
+            //User/Group Mappings
+            CreateMap<UserGroup, UserGroupListDto>().ReverseMap();
 
             //CreateMap<DraftListVm, Draft>().ReverseMap();
             //CreateMap<Draft, CreateDraftCommand>().ReverseMap();
