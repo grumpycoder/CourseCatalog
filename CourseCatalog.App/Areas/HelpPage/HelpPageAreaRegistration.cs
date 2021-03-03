@@ -1,3 +1,4 @@
+using CourseCatalog.App.Areas.HelpPage.App_Start;
 using System.Web.Http;
 using System.Web.Mvc;
 

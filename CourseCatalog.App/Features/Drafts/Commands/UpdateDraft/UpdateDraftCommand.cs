@@ -1,5 +1,4 @@
-﻿using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
-using MediatR;
+﻿using MediatR;
 using System.Collections.Generic;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft

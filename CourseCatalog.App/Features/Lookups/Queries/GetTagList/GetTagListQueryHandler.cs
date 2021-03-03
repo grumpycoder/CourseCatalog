@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CourseCatalog.App.Features.Lookups.Queries.GetCreditTypeList;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using MediatR;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Lookups.Queries.GetTagList
 {

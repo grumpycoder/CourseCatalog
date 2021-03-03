@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.Persistence.Repositories
 {
@@ -22,7 +22,8 @@ namespace CourseCatalog.Persistence.Repositories
 
         public async Task<List<Tag>> GetGeneralTags()
         {
-            throw new System.NotImplementedException();
+            var creditTypes = await _dbContext.Tags.Where(t => t.GroupName == "General").ToListAsync();
+            return creditTypes;
         }
     }
 }

@@ -1,32 +1,30 @@
-﻿using CourseCatalog.App.Features.Lookups.Queries.GetCourseLevelList;
+﻿using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
+using CourseCatalog.App.Features.Lookups.Queries.GetClusterTypetList;
+using CourseCatalog.App.Features.Lookups.Queries.GetCourseLevelList;
 using CourseCatalog.App.Features.Lookups.Queries.GetCreditTypeList;
 using CourseCatalog.App.Features.Lookups.Queries.GetDeliveryTypeList;
 using CourseCatalog.App.Features.Lookups.Queries.GetEndorsementList;
 using CourseCatalog.App.Features.Lookups.Queries.GetGradeList;
 using CourseCatalog.App.Features.Lookups.Queries.GetGradeScaleList;
 using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
+using CourseCatalog.App.Features.Lookups.Queries.GetProgramTypeList;
 using CourseCatalog.App.Features.Lookups.Queries.GetScedCategoryList;
 using CourseCatalog.App.Features.Lookups.Queries.GetSchoolYearList;
 using CourseCatalog.App.Features.Lookups.Queries.GetSubjectList;
 using CourseCatalog.App.Features.Lookups.Queries.GetTagList;
-using CourseCatalog.Persistence;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
-using CourseCatalog.App.Features.Lookups.Queries.GetProgramTypeList;
 
 namespace CourseCatalog.App.Controllers.API
 {
     [RoutePrefix("api/refs")]
     public class RefsController : ApiController
     {
-        private readonly CourseDbContext _context;
         private readonly IMediator _mediator;
 
-        public RefsController(CourseDbContext context, IMediator mediator)
+        public RefsController(IMediator mediator)
         {
-            _context = context;
             _mediator = mediator;
         }
 

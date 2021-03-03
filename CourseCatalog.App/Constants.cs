@@ -4,7 +4,7 @@ namespace CourseCatalog.App
 {
     public static class Constants
     {
-        public const string ApplicationName = "Aden";
+        public const string ApplicationName = "Course Catalog";
         public const string LayerName = "WebApp";
         public const string WebApiLayerName = "WebApi";
 

@@ -32,10 +32,10 @@ namespace CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential
             if (programToUpdate.Credentials.Any(c => c.CredentialId == request.CredentialId))
             {
                 throw new BadRequestException(
-                    $"Credential already assigned to Program");
+                    "Credential already assigned to Program");
             }
 
-            var programCredential = new ProgramCredential()
+            var programCredential = new ProgramCredential
             {
                 BeginYear = request.BeginYear,
                 EndYear = request.EndYear,

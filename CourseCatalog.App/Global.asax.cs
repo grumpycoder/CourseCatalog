@@ -10,7 +10,6 @@ using CourseCatalog.Persistence.Repositories;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
@@ -20,7 +19,7 @@ using System.Web.Routing;
 
 namespace CourseCatalog.App
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -30,7 +29,7 @@ namespace CourseCatalog.App
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            ContainerBuilder builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();
 
             builder.RegisterControllers(typeof(WebApiApplication).Assembly);
             builder.RegisterApiControllers(typeof(WebApiApplication).Assembly);
@@ -62,7 +61,7 @@ namespace CourseCatalog.App
 
             builder.RegisterMediatR(typeof(WebApiApplication).GetTypeInfo().Assembly);
 
-            IContainer container = builder.Build();
+            var container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);

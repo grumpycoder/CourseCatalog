@@ -24,7 +24,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.DeleteDraftProgram
             if (existingDraft == null) throw new NotFoundException(nameof(Draft), request.DraftId);
 
             var programToDelete = existingDraft.Programs.FirstOrDefault(e => e.ProgramId == request.ProgramId);
-            if (programToDelete == null) throw new BadRequestException($"Draft does not contain program");
+            if (programToDelete == null) throw new BadRequestException("Draft does not contain program");
 
             existingDraft.Programs.Remove(programToDelete);
 

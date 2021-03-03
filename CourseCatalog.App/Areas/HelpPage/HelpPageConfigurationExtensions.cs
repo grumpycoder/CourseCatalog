@@ -1,3 +1,6 @@
+using CourseCatalog.App.Areas.HelpPage.ModelDescriptions;
+using CourseCatalog.App.Areas.HelpPage.Models;
+using CourseCatalog.App.Areas.HelpPage.SampleGeneration;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,8 +14,6 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using CourseCatalog.App.Areas.HelpPage.ModelDescriptions;
-using CourseCatalog.App.Areas.HelpPage.Models;
 
 namespace CourseCatalog.App.Areas.HelpPage
 {

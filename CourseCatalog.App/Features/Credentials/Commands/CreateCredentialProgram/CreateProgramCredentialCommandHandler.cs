@@ -1,12 +1,11 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
+﻿using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram
 {
@@ -33,10 +32,10 @@ namespace CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgra
             if (credentialToUpdate.Programs.Any(c => c.ProgramId == request.ProgramId))
             {
                 throw new BadRequestException(
-                    $"Program already assigned to Credential");
+                    "Program already assigned to Credential");
             }
 
-            var programCredential = new ProgramCredential()
+            var programCredential = new ProgramCredential
             {
                 BeginYear = request.BeginYear,
                 EndYear = request.EndYear,

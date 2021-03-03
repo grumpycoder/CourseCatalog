@@ -320,7 +320,6 @@
     <Compile Include="Controllers\Mvc\CoursesController.cs" />
     <Compile Include="Controllers\Mvc\DraftsController.cs" />
     <Compile Include="Controllers\Mvc\HomeController.cs" />
-    <Compile Include="Controllers\API\ValuesController.cs" />
     <Compile Include="Features\Clusters\Commands\UpdateCluster\UpdateClusterCommand.cs" />
     <Compile Include="Features\Clusters\Commands\UpdateCluster\UpdateClusterCommandHandler.cs" />
     <Compile Include="Features\Clusters\Queries\GetClusterDetail\ClusterDetailDto.cs" />

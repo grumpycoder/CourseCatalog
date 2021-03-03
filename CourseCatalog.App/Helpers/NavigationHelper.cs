@@ -2,7 +2,7 @@
 
 namespace CourseCatalog.App.Helpers
 {
-    public static partial class NavigationHelper
+    public static class NavigationHelper
     {
 
         public static MvcHtmlString BsNavigationLink(this HtmlHelper html, string linkText, string action, string controller, string icon = null, object routeValues = null, object css = null)
@@ -10,12 +10,12 @@ namespace CourseCatalog.App.Helpers
             var activeRouteAction = html.ViewContext.RouteData.Values["action"].ToString();
             var activeRouteController = html.ViewContext.RouteData.Values["controller"].ToString();
 
-            TagBuilder aTag = new TagBuilder("a");
-            TagBuilder liTag = new TagBuilder("li");
+            var aTag = new TagBuilder("a");
+            var liTag = new TagBuilder("li");
             var htmlAttributes = HtmlHelper.AnonymousObjectToHtmlAttributes(css);
-            string url = (routeValues == null) ?
-                (new UrlHelper(html.ViewContext.RequestContext)).Action(action, controller)
-                : (new UrlHelper(html.ViewContext.RequestContext)).Action(action, controller, routeValues);
+            var url = routeValues == null ?
+                new UrlHelper(html.ViewContext.RequestContext).Action(action, controller)
+                : new UrlHelper(html.ViewContext.RequestContext).Action(action, controller, routeValues);
 
             var imageIcon = string.Empty;
             if (icon != null)
@@ -34,7 +34,7 @@ namespace CourseCatalog.App.Helpers
 
             liTag.AddCssClass("nav-item");
 
-            if (activeRouteController == controller || (activeRouteController == controller && activeRouteAction == action))
+            if (activeRouteController == controller || activeRouteController == controller && activeRouteAction == action)
             {
                 liTag.AddCssClass("active");
             }
@@ -48,7 +48,7 @@ namespace CourseCatalog.App.Helpers
             var activeRouteAction = url.RequestContext.RouteData.Values["action"].ToString();
             var activeRouteController = url.RequestContext.RouteData.Values["controller"].ToString();
 
-            if (activeRouteController == controller || (activeRouteController == controller && activeRouteAction == action))
+            if (activeRouteController == controller || activeRouteController == controller && activeRouteAction == action)
             {
                 return "active";
             }

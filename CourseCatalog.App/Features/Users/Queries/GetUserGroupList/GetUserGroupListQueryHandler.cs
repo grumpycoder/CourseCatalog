@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using MediatR;
 using System.Collections.Generic;
@@ -11,12 +10,10 @@ namespace CourseCatalog.App.Features.Users.Queries.GetUserGroupList
 {
     public class GetUserGroupListQueryHandler : IRequestHandler<GetUserGroupListQuery, List<Group>>
     {
-        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public GetUserGroupListQueryHandler(IMapper mapper, IUserRepository userRepository)
+        public GetUserGroupListQueryHandler(IUserRepository userRepository)
         {
-            _mapper = mapper;
             _userRepository = userRepository;
         }
 

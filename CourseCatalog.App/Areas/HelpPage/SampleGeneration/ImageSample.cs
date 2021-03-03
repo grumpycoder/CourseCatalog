@@ -1,6 +1,6 @@
 using System;
 
-namespace CourseCatalog.App.Areas.HelpPage
+namespace CourseCatalog.App.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
     /// This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
@@ -20,7 +20,7 @@ namespace CourseCatalog.App.Areas.HelpPage
             Src = src;
         }
 
-        public string Src { get; private set; }
+        public string Src { get; }
 
         public override bool Equals(object obj)
         {

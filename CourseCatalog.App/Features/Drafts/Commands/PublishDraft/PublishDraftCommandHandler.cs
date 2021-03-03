@@ -39,13 +39,13 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 existingCourse = _mapper.Map<Course>(draftToPublish);
 
                 draftToPublish.Endorsements
-                    .ForEach(endorsement => { existingCourse.Endorsements.Add(new CourseEndorsement() { EndorsementId = endorsement.EndorsementId }); });
+                    .ForEach(endorsement => { existingCourse.Endorsements.Add(new CourseEndorsement { EndorsementId = endorsement.EndorsementId }); });
 
                 draftToPublish.Programs
-                    .ForEach(program => { existingCourse.Programs.Add(new ProgramCourse() { ProgramId = program.ProgramId, BeginYear = program.BeginYear, EndYear = program.EndYear }); });
+                    .ForEach(program => { existingCourse.Programs.Add(new ProgramCourse { ProgramId = program.ProgramId, BeginYear = program.BeginYear, EndYear = program.EndYear }); });
 
                 draftToPublish.DeliveryTypes
-                    .ForEach(program => { existingCourse.DeliveryTypes.Add(new CourseDeliveryType() { DeliveryTypeId = program.DeliveryTypeId }); });
+                    .ForEach(program => { existingCourse.DeliveryTypes.Add(new CourseDeliveryType { DeliveryTypeId = program.DeliveryTypeId }); });
 
                 existingCourse.Status = CourseStatus.Published;
                 existingCourse.PublishDate = DateTime.Now;
@@ -62,14 +62,14 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 //sync endorsements
                 draftToPublish.Endorsements
                     .Where(draftEndorsement => existingCourse.Endorsements.All(courseEndorsement => courseEndorsement.EndorsementId != draftEndorsement.EndorsementId))
-                    .ForEach(draftEndorsement => { existingCourse.Endorsements.Add(new CourseEndorsement() { EndorsementId = draftEndorsement.EndorsementId }); });
+                    .ForEach(draftEndorsement => { existingCourse.Endorsements.Add(new CourseEndorsement { EndorsementId = draftEndorsement.EndorsementId }); });
 
                 existingCourse.Endorsements.RemoveAll(courseEndorsement => !draftToPublish.Endorsements.Select(draftEndorsement => draftEndorsement.EndorsementId).Contains(courseEndorsement.EndorsementId));
 
                 //sync programs
                 draftToPublish.Programs
                     .Where(programDraft => existingCourse.Programs.All(programCourse => programCourse.ProgramId != programDraft.ProgramId))
-                    .ForEach(programDraft => { existingCourse.Programs.Add(new ProgramCourse() { ProgramId = programDraft.ProgramId, BeginYear = programDraft.BeginYear, EndYear = programDraft.EndYear }); });
+                    .ForEach(programDraft => { existingCourse.Programs.Add(new ProgramCourse { ProgramId = programDraft.ProgramId, BeginYear = programDraft.BeginYear, EndYear = programDraft.EndYear }); });
 
                 existingCourse.Programs.RemoveAll(programCourse => !draftToPublish.Programs.Select(programDraft => programDraft.ProgramId).Contains(programCourse.ProgramId));
 
@@ -84,7 +84,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 //sync delivery types
                 draftToPublish.DeliveryTypes
                     .Where(draftDeliveryType => existingCourse.DeliveryTypes.All(courseDeliveryType => courseDeliveryType.DeliveryTypeId != draftDeliveryType.DeliveryTypeId))
-                    .ForEach(draftDeliveryType => { existingCourse.DeliveryTypes.Add(new CourseDeliveryType() { DeliveryTypeId = draftDeliveryType.DeliveryTypeId }); });
+                    .ForEach(draftDeliveryType => { existingCourse.DeliveryTypes.Add(new CourseDeliveryType { DeliveryTypeId = draftDeliveryType.DeliveryTypeId }); });
 
                 existingCourse.DeliveryTypes.RemoveAll(courseDeliveryType => !draftToPublish.DeliveryTypes.Select(draftDeliveryType => draftDeliveryType.DeliveryTypeId).Contains(courseDeliveryType.DeliveryTypeId));
 

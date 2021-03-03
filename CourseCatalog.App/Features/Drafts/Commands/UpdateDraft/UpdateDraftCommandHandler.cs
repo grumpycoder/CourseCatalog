@@ -3,7 +3,6 @@ using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,7 +36,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
 
             draftToUpdate.DeliveryTypes
                 .Where(ddt => request.DeliveryTypes.All(deliveryTypeDto => deliveryTypeDto.DeliveryTypeId != ddt.DeliveryTypeId))
-                .ForEach(draftDeliveryType => { draftToUpdate.DeliveryTypes.Add(new DraftDeliveryType() { DeliveryTypeId = draftDeliveryType.DeliveryTypeId }); });
+                .ForEach(draftDeliveryType => { draftToUpdate.DeliveryTypes.Add(new DraftDeliveryType { DeliveryTypeId = draftDeliveryType.DeliveryTypeId }); });
 
             draftToUpdate.DeliveryTypes.RemoveAll(cdt => !request.DeliveryTypes.Select(ddt => ddt.DeliveryTypeId).Contains(cdt.DeliveryTypeId));
 

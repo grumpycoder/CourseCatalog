@@ -1,8 +1,8 @@
-﻿using CourseCatalog.Domain.Entities;
+﻿using System.Collections.Generic;
+using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Collections.Generic;
 
-namespace CourseCatalog.App.Features.Lookups.Queries.GetSubjectList
+namespace CourseCatalog.App.Features.Lookups.Queries.GetClusterTypetList
 {
     public class GetClusterTypeListQuery : IRequest<List<ClusterType>>
     {

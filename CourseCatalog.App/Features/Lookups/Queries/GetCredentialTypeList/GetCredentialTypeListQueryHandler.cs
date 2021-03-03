@@ -1,5 +1,4 @@
-﻿using CourseCatalog.App.Features.Lookups.Queries.GetSubjectList;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using MediatR;
 using System.Collections.Generic;

@@ -24,7 +24,7 @@ namespace CourseCatalog.App.Features.Credentials.Commands.DeleteCredentialProgra
             if (existingCredential == null) throw new NotFoundException(nameof(Credential), request.CredentialId);
 
             var programToDelete = existingCredential.Programs.FirstOrDefault(e => e.ProgramId == request.ProgramId);
-            if (programToDelete == null) throw new BadRequestException($"Credential does not contain Program");
+            if (programToDelete == null) throw new BadRequestException("Credential does not contain Program");
 
             existingCredential.Programs.Remove(programToDelete);
 

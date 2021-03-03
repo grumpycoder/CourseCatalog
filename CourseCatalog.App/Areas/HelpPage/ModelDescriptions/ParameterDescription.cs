@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace CourseCatalog.App.Areas.HelpPage.ModelDescriptions
@@ -10,7 +9,7 @@ namespace CourseCatalog.App.Areas.HelpPage.ModelDescriptions
             Annotations = new Collection<ParameterAnnotation>();
         }
 
-        public Collection<ParameterAnnotation> Annotations { get; private set; }
+        public Collection<ParameterAnnotation> Annotations { get; }
 
         public string Documentation { get; set; }
 

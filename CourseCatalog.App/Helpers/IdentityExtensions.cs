@@ -8,12 +8,11 @@ namespace CourseCatalog.App.Helpers
 {
     public static class IdentityExtensions
     {
-        const string key = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+        private const string Key = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
 
         public static void AddUpdateClaim(this IIdentity currentPrincipal, string key, string value)
         {
-            var identity = currentPrincipal as ClaimsIdentity;
-            if (identity == null)
+            if (!(currentPrincipal is ClaimsIdentity identity))
                 return;
 
             // check for existing claim and remove it
@@ -51,14 +50,14 @@ namespace CourseCatalog.App.Helpers
 
         public static string GetEmailAddressClaim(this IIdentity currentPrincipal)
         {
-            return GetClaimValue(ClaimsPrincipal.Current, key).ToLower();
+            return GetClaimValue(ClaimsPrincipal.Current, Key).ToLower();
         }
 
         public static string AddGroupsToRoles(this IIdentity currentPrincipal, List<Group> groups)
         {
             var identity = currentPrincipal as ClaimsIdentity;
 
-            foreach (var @group in groups)
+            foreach (var group in groups)
             {
                 identity.AddClaim(new Claim(ClaimTypes.Role, @group.Name));
                 identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, @group.Name));

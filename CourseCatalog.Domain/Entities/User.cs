@@ -45,11 +45,11 @@ namespace CourseCatalog.Domain.Entities
     public class UserGroup
     {
         public int Id { get; set; }
-        public int UserId { get; private set; }
-        public int GroupId { get; private set; }
+        public int UserId { get; set; }
+        public int GroupId { get; set; }
 
-        public User User { get; private set; }
-        public Group Group { get; private set; }
+        public User User { get; set; }
+        public Group Group { get; set; }
 
     }
 }

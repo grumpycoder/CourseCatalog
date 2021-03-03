@@ -12,7 +12,7 @@ namespace CourseCatalog.App.Helpers
             if (string.IsNullOrWhiteSpace(appSetting)) throw new Exception($"Application Configuration key \" {key} not found \".");
 
             var converter = TypeDescriptor.GetConverter(typeof(T));
-            return (T)(converter.ConvertFromInvariantString(appSetting));
+            return (T)converter.ConvertFromInvariantString(appSetting);
         }
 
         public static T GetDatabaseString<T>(string key)
@@ -21,7 +21,7 @@ namespace CourseCatalog.App.Helpers
             if (string.IsNullOrWhiteSpace(appSetting)) throw new Exception($"Database Configuration key \" {key} not found \".");
 
             var converter = TypeDescriptor.GetConverter(typeof(T));
-            return (T)(converter.ConvertFromInvariantString(appSetting));
+            return (T)converter.ConvertFromInvariantString(appSetting);
         }
 
         internal static object GetDatabaseString<T>(object databaseContextName)

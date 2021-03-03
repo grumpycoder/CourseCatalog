@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,6 @@ using System.Runtime.Serialization;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace CourseCatalog.App.Areas.HelpPage.ModelDescriptions
 {
@@ -84,7 +84,7 @@ namespace CourseCatalog.App.Areas.HelpPage.ModelDescriptions
             { typeof(Boolean), "boolean" },
         };
 
-        private Lazy<IModelDocumentationProvider> _documentationProvider;
+        private readonly Lazy<IModelDocumentationProvider> _documentationProvider;
 
         public ModelDescriptionGenerator(HttpConfiguration config)
         {
@@ -97,7 +97,7 @@ namespace CourseCatalog.App.Areas.HelpPage.ModelDescriptions
             GeneratedModels = new Dictionary<string, ModelDescription>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public Dictionary<string, ModelDescription> GeneratedModels { get; private set; }
+        public Dictionary<string, ModelDescription> GeneratedModels { get; }
 
         private IModelDocumentationProvider DocumentationProvider
         {

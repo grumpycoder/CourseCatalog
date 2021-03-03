@@ -6,7 +6,7 @@ using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
 using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
-using CourseCatalog.App.Features.Drafts.Commands.Create;
+using CourseCatalog.App.Features.Drafts.Commands.CreateDraft;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;

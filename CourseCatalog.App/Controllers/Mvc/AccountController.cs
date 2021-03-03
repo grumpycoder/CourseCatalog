@@ -1,8 +1,5 @@
-﻿using System;
-using Alsde.Security.Identity;
-using CourseCatalog.App.Helpers;
+﻿using Alsde.Security.Identity;
 using CourseCatalog.Application.Contracts;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -37,8 +34,6 @@ namespace CourseCatalog.App.Controllers.Mvc
                 return View("LoginFailure");
             }
 
-            var guid = identity.GetClaimValue(ClaimTypes.NameIdentifier);
-            var groups = await _memberService.GetUserGroups(new Guid(guid));
             await _memberService.SyncClaims(identity);
             return RedirectToAction("Index", "Home");
 

@@ -27,13 +27,12 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement
             if (existingDraft == null) throw new NotFoundException(nameof(Draft), request.DraftId);
 
             var existingEndorsement = existingDraft.Endorsements.FirstOrDefault(e => e.EndorsementId == request.EndorsementId);
-            if (existingEndorsement != null) throw new BadRequestException($"Draft already contains existing endorsement");
+            if (existingEndorsement != null) throw new BadRequestException("Draft already contains existing endorsement");
 
-            existingDraft.Endorsements.Add(new DraftEndorsement() { EndorsementId = request.EndorsementId });
+            existingDraft.Endorsements.Add(new DraftEndorsement { EndorsementId = request.EndorsementId });
 
             await _draftRepository.UpdateAsync(existingDraft);
 
-            //TODO: too many database calls
             existingDraft = await _draftRepository.GetDraftByIdWithDetails(request.DraftId);
 
             var endorsement = existingDraft.Endorsements.FirstOrDefault(e => e.EndorsementId == request.EndorsementId);

@@ -1,7 +1,8 @@
-﻿using CourseCatalog.App.Features.Drafts.Commands.Create;
+﻿using CourseCatalog.App.Features.Drafts.Commands.CreateDraft;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftByCourseId;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
+using CourseCatalog.App.Features.Drafts.Commands.DeleteDraft;
 using CourseCatalog.App.Features.Drafts.Commands.DeleteDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.DeleteRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.PublishDraft;
@@ -14,7 +15,6 @@ using MediatR;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Features.Drafts.Commands.DeleteDraft;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -53,14 +53,14 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPut, Route()]
+        [HttpPut, Route]
         public async Task<IHttpActionResult> Put([FromBody] UpdateDraftCommand updateDraftCommand)
         {
             var dto = await _mediator.Send(updateDraftCommand);
-            return Ok();
+            return Ok(dto);
         }
 
-        [HttpPost, Route()]
+        [HttpPost, Route]
         public async Task<IHttpActionResult> Post([FromBody] CreateDraftCommand createDraftCommand)
         {
             var dto = await _mediator.Send(createDraftCommand);

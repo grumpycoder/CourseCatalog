@@ -1,18 +1,17 @@
 ﻿using Alsde.Extensions;
+using CourseCatalog.App.Features.Users.Commands.CreateUser;
+using CourseCatalog.App.Features.Users.Commands.UpdateUser;
 using CourseCatalog.App.Features.Users.Queries.GetUser;
 using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Helpers;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
-using CourseCatalog.Persistence;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CourseCatalog.App.Features.Users.Commands.CreateUser;
-using CourseCatalog.App.Features.Users.Commands.UpdateUser;
 
 namespace CourseCatalog.App.Services
 {
@@ -20,9 +19,7 @@ namespace CourseCatalog.App.Services
     public class MemberService : IMemberService
     {
         private readonly IMediator _mediator;
-        private readonly CourseDbContext _context;
 
-        //TODO: Use Mediatr commands/queries
         public MemberService(IMediator mediator)
         {
             _mediator = mediator;
@@ -37,7 +34,6 @@ namespace CourseCatalog.App.Services
         public async Task SyncClaims(ClaimsIdentity identity)
         {
             var claim = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-
 
             //Update local user attributes that may have changed since last login
             var username = identity.GetClaimValue(ClaimTypes.Email).Split('@')[0].ToLower();

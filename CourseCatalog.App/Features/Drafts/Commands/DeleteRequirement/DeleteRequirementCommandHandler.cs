@@ -24,7 +24,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.DeleteRequirement
             if (existingDraft == null) throw new NotFoundException(nameof(Draft), request.DraftId);
 
             var endorsementToDelete = existingDraft.Endorsements.FirstOrDefault(e => e.EndorsementId == request.EndorsementId);
-            if (endorsementToDelete == null) throw new BadRequestException($"Draft does not contains endorsement");
+            if (endorsementToDelete == null) throw new BadRequestException("Draft does not contains endorsement");
 
             existingDraft.Endorsements.Remove(endorsementToDelete);
 

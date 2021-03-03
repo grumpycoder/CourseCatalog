@@ -31,19 +31,13 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(cluster);
         }
 
-        [HttpPut, Route()]
+        [HttpPut, Route]
         public async Task<IHttpActionResult> Put([FromBody] UpdateClusterCommand updateClusterCommand)
         {
             var id = await _mediator.Send(updateClusterCommand);
             return Ok(id);
         }
 
-        //[HttpPost, Route("")]
-        //public async Task<IHttpActionResult> Post([FromBody] CreateClusterCommand createClusterCommand)
-        //{
-        //    var id = await _mediator.Send(createClusterCommand);
-        //    return Ok(id);
-        //}
     }
 
 }

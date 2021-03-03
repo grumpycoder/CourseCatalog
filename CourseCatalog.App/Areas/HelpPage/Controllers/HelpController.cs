@@ -1,8 +1,8 @@
+using CourseCatalog.App.Areas.HelpPage.ModelDescriptions;
+using CourseCatalog.App.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using CourseCatalog.App.Areas.HelpPage.ModelDescriptions;
-using CourseCatalog.App.Areas.HelpPage.Models;
 
 namespace CourseCatalog.App.Areas.HelpPage.Controllers
 {
@@ -23,7 +23,7 @@ namespace CourseCatalog.App.Areas.HelpPage.Controllers
             Configuration = config;
         }
 
-        public HttpConfiguration Configuration { get; private set; }
+        public HttpConfiguration Configuration { get; }
 
         public ActionResult Index()
         {

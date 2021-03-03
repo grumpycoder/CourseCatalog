@@ -13,6 +13,6 @@ namespace CourseCatalog.App.Areas.HelpPage.ModelDescriptions
             Name = name;
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
     }
 }

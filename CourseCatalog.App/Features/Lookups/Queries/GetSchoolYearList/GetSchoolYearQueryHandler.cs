@@ -20,7 +20,7 @@ namespace CourseCatalog.App.Features.Lookups.Queries.GetSchoolYearList
 
             var years = Enumerable.Range(currentYear - 19, 20).Reverse().ToList();
 
-            return years.Select(item => new SchoolYearDto() { Year = item }).ToList();
+            return years.Select(item => new SchoolYearDto { Year = item }).ToList();
         }
     }
 }

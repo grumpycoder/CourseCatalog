@@ -1,8 +1,8 @@
+using CourseCatalog.App.Areas.HelpPage.ModelDescriptions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using CourseCatalog.App.Areas.HelpPage.ModelDescriptions;
 
 namespace CourseCatalog.App.Areas.HelpPage.Models
 {
@@ -30,7 +30,7 @@ namespace CourseCatalog.App.Areas.HelpPage.Models
         /// <summary>
         /// Gets or sets the <see cref="ParameterDescription"/> collection that describes the URI parameters for the API.
         /// </summary>
-        public Collection<ParameterDescription> UriParameters { get; private set; }
+        public Collection<ParameterDescription> UriParameters { get; }
 
         /// <summary>
         /// Gets or sets the documentation for the request.
@@ -72,17 +72,17 @@ namespace CourseCatalog.App.Areas.HelpPage.Models
         /// <summary>
         /// Gets the sample requests associated with the API.
         /// </summary>
-        public IDictionary<MediaTypeHeaderValue, object> SampleRequests { get; private set; }
+        public IDictionary<MediaTypeHeaderValue, object> SampleRequests { get; }
 
         /// <summary>
         /// Gets the sample responses associated with the API.
         /// </summary>
-        public IDictionary<MediaTypeHeaderValue, object> SampleResponses { get; private set; }
+        public IDictionary<MediaTypeHeaderValue, object> SampleResponses { get; }
 
         /// <summary>
         /// Gets the error messages associated with this model.
         /// </summary>
-        public Collection<string> ErrorMessages { get; private set; }
+        public Collection<string> ErrorMessages { get; }
 
         private static IList<ParameterDescription> GetParameterDescriptions(ModelDescription modelDescription)
         {

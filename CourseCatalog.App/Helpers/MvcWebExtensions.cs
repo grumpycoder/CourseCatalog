@@ -1,28 +1,26 @@
-﻿using System;
+﻿using Alsde.Extensions;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
-using Alsde.Extensions;
-using Microsoft.Data.SqlClient;
 
 namespace CourseCatalog.App.Helpers
 {
-    public static partial class MvcWebExtensions
+    public static class MvcWebExtensions
     {
         public static IHtmlString RenderApplicationName(this HtmlHelper htmlHelper)
         {
             var appInstance = htmlHelper.ViewContext.HttpContext.ApplicationInstance;
 
             var memberInfo = appInstance.GetType().BaseType;
-            if (memberInfo != null)
-            {
-                var attr = memberInfo.Assembly.GetAssemblyAttribute<AssemblyTitleAttribute>();
+            if (memberInfo == null) return new MvcHtmlString("No Application Title");
 
-                return new MvcHtmlString(attr.Title ?? "No Application Title");
-            }
-            return new MvcHtmlString("No Application Title");
+            var attr = memberInfo.Assembly.GetAssemblyAttribute<AssemblyTitleAttribute>();
+
+            return new MvcHtmlString(attr.Title ?? "No Application Title");
         }
 
         public static IHtmlString RenderApplicationDescription(this HtmlHelper htmlHelper)
@@ -30,18 +28,16 @@ namespace CourseCatalog.App.Helpers
             var appInstance = htmlHelper.ViewContext.HttpContext.ApplicationInstance;
 
             var memberInfo = appInstance.GetType().BaseType;
-            if (memberInfo != null)
-            {
-                var attr = memberInfo.Assembly.GetAssemblyAttribute<AssemblyDescriptionAttribute>();
+            if (memberInfo == null) return new MvcHtmlString("No Application Description");
 
-                return new MvcHtmlString(attr.Description ?? "No Application Description");
-            }
-            return new MvcHtmlString("No Application Description");
+            var attr = memberInfo.Assembly.GetAssemblyAttribute<AssemblyDescriptionAttribute>();
+
+            return new MvcHtmlString(attr.Description ?? "No Application Description");
         }
 
         public static IHtmlString RenderMachineName(this HtmlHelper htmlHelper)
         {
-            var value = System.Environment.MachineName;
+            var value = Environment.MachineName;
             return new MvcHtmlString(value);
         }
 
@@ -83,7 +79,7 @@ namespace CourseCatalog.App.Helpers
 
         private static string GetCssClass(string environment)
         {
-            string cssClass = "bg-light";
+            var cssClass = "bg-light";
 
             switch (environment.ToLower())
             {
@@ -106,11 +102,10 @@ namespace CourseCatalog.App.Helpers
         public static void GetHttpStatus(Exception ex, out int httpStatus)
         {
             httpStatus = 500;  // default is server error
-            if (ex is HttpException)
-            {
-                var httpEx = ex as HttpException;
-                httpStatus = httpEx.GetHttpCode();
-            }
+            if (!(ex is HttpException)) return;
+
+            var httpEx = (HttpException)ex;
+            httpStatus = httpEx.GetHttpCode();
         }
 
         public static bool IsDev()

@@ -2,6 +2,7 @@
 using CourseCatalog.Domain.Common;
 using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,11 +51,19 @@ namespace CourseCatalog.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.ModifyUser = _loggedInUserService.UserId; // "system";
+                        entry.Entity.ModifyUser = _loggedInUserService.UserId;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.ModifyUser = _loggedInUserService.UserId; // "system";
+                        entry.Entity.ModifyUser = _loggedInUserService.UserId;
                         break;
+                    case EntityState.Detached:
+                        break;
+                    case EntityState.Unchanged:
+                        break;
+                    case EntityState.Deleted:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             return base.SaveChangesAsync(cancellationToken);

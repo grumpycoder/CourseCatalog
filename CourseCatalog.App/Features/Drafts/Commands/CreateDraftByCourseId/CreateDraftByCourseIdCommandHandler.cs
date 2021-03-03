@@ -37,13 +37,13 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftByCourseId
             _mapper.Map(courseToDraft, draftToCreate, typeof(Course), typeof(Draft));
 
             courseToDraft.Endorsements
-                .ForEach(endorsement => { draftToCreate.Endorsements.Add(new DraftEndorsement() { EndorsementId = endorsement.EndorsementId }); });
+                .ForEach(endorsement => { draftToCreate.Endorsements.Add(new DraftEndorsement { EndorsementId = endorsement.EndorsementId }); });
 
             courseToDraft.Programs
-                .ForEach(program => { draftToCreate.Programs.Add(new ProgramDraft() { ProgramId = program.ProgramId, BeginYear = program.BeginYear, EndYear = program.EndYear }); });
+                .ForEach(program => { draftToCreate.Programs.Add(new ProgramDraft { ProgramId = program.ProgramId, BeginYear = program.BeginYear, EndYear = program.EndYear }); });
 
             courseToDraft.DeliveryTypes
-                .ForEach(program => { draftToCreate.DeliveryTypes.Add(new DraftDeliveryType() { DeliveryTypeId = program.DeliveryTypeId }); });
+                .ForEach(program => { draftToCreate.DeliveryTypes.Add(new DraftDeliveryType { DeliveryTypeId = program.DeliveryTypeId }); });
 
             draftToCreate.Status = CourseStatus.ExistingCourse;
 

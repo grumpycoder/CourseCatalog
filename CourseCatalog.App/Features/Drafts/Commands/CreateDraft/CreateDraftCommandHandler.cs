@@ -1,12 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace CourseCatalog.App.Features.Drafts.Commands.Create
+namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraft
 {
     public class CreateDraftCommandHandler : IRequestHandler<CreateDraftCommand, int>
     {
