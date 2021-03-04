@@ -3,6 +3,7 @@ using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
+using CourseCatalog.App.Features.Courses.Queries.GetCoursesByEndorsement;
 using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
@@ -41,6 +42,21 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.Program.Name))
                 .ForMember(d => d.ProgramCode,
                     o => o.MapFrom(d => d.Program.ProgramCode))
+                .ReverseMap();
+
+            CreateMap<Course, EndorsementCourseListDto>()
+                .ForMember(d => d.GradeScale,
+                    o => o.MapFrom(d => d.GradeScale.Configuration))
+                .ForMember(d => d.Subject,
+                    o => o.MapFrom(d => d.Subject.Name))
+                .ForMember(d => d.LowGrade,
+                    o => o.MapFrom(d => d.LowGrade.Name))
+                .ForMember(d => d.HighGrade,
+                    o => o.MapFrom(d => d.HighGrade.Name))
+                .ForMember(d => d.ScedCategory,
+                    o => o.MapFrom(d => d.ScedCategory.Name))
+                .ForMember(d => d.CourseLevel,
+                    o => o.MapFrom(d => d.CourseLevel.Name))
                 .ReverseMap();
 
             //Draft Mappings

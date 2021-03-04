@@ -269,6 +269,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\API\TCertController.cs" />
+    <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\EndorsementCourseListDto.cs" />
+    <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\GetCoursesByEndorsementQuery.cs" />
+    <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\GetCoursesByEndorsementQueryHandler.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\CourseSummaryDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQueryHandler.cs" />
@@ -607,6 +611,8 @@
     <Content Include="Views\CareerTech\CredentialDetail.cshtml" />
     <Content Include="Views\CareerTech\CredentialEdit.cshtml" />
     <Content Include="Views\Account\LoginFailure.cshtml" />
+    <Content Include="Views\TCert\CourseRequirements.cshtml" />
+    <Content Include="Views\TCert\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">

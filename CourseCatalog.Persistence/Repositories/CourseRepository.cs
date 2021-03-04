@@ -1,7 +1,9 @@
-﻿using System.Linq;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CourseCatalog.Persistence.Repositories
@@ -14,8 +16,8 @@ namespace CourseCatalog.Persistence.Repositories
 
         public async Task<int> GetActiveCourseCount()
         {
-            var count =  await _dbContext.CoursesView.CountAsync(c => c.IsRetired == false);
-            return count; 
+            var count = await _dbContext.CoursesView.CountAsync(c => c.IsRetired == false);
+            return count;
         }
 
         public async Task<Course> GetCourseByCourseNumber(string courseNumber)
@@ -23,6 +25,29 @@ namespace CourseCatalog.Persistence.Repositories
             var course = await _dbContext.Courses.FirstOrDefaultAsync(c => c.CourseNumber == courseNumber);
 
             return course;
+        }
+
+        public async Task<List<Course>> GetCoursesByEndorseId(int endorseId)
+        {
+            try
+            {
+                var courses = await _dbContext.Courses
+                    .Include(c => c.Subject)
+                    .Include(c => c.GradeScale)
+                    .Include(c => c.ScedCategory)
+                    .Include(c => c.CourseLevel)
+                    .Include(c => c.LowGrade)
+                    .Include(c => c.HighGrade)
+                    .Where(c => c.Endorsements.Any(e => e.EndorsementId == endorseId))
+                    .ToListAsync();
+                return courses;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         public async Task<Course> GetCourseByIdWithDetails(int courseId)

@@ -8,7 +8,7 @@ function controller($http) {
     ctrl.visiblePopup = false;
 
     this.$onInit = function () {
-        ctrl.title = 'Course Endorsements';
+        ctrl.title = 'Endorsement Courses';
 
         fetchEndorsements().then(r => {
         });
@@ -23,7 +23,7 @@ function controller($http) {
             ctrl.courses = [];
             $('#gridContainer').dxDataGrid('instance').option('dataSource', ctrl.courses);
         } else {
-            fetchCourses(ctrl.endorsement.endorseCode).then(r => {
+            fetchCourses(ctrl.endorsement.endorsementId).then(r => {
                 ctrl.courses = r;
                 $('#gridContainer').dxDataGrid('instance').option('dataSource', ctrl.courses);
             });
@@ -107,10 +107,10 @@ function controller($http) {
             { dataField: 'description', dataType: 'string', width: 200, wordWrapEnabled: false, visible: false },
             { dataField: 'beginYear', dataType: 'int', caption: 'Begin Year' },
             { dataField: 'endYear', dataType: 'int', caption: 'End Year' },
-            { dataField: 'gradeRange.lowGrade', dataType: 'string', caption: 'Low Grade' },
-            { dataField: 'gradeRange.highGrade', dataType: 'string', caption: 'High Grade' },
+            { dataField: 'lowGrade', dataType: 'string', caption: 'Low Grade' },
+            { dataField: 'highGrade', dataType: 'string', caption: 'High Grade' },
             { dataField: 'cipCode', dataType: 'string', visible: false },
-            { dataField: 'courseLevel.name', dataType: 'string', caption: 'Course Level' },
+            { dataField: 'courseLevel', dataType: 'string', caption: 'Course Level' },
             {
                 dataField: 'creditHours', dataType: 'decimal', format: {
                     type: "fixedPoint",
@@ -118,7 +118,7 @@ function controller($http) {
                 }, caption: 'Credit Hours'
             },
             { dataField: 'scedIdentifier', dataType: 'string', caption: 'Sced Category', visible: false },
-            { dataField: 'subject.name', dataType: 'string', caption: 'Subject' },
+            { dataField: 'subject', dataType: 'string', caption: 'Subject' },
             { dataField: 'status', dataType: 'string', caption: 'Status', visible: false }
         ],
         summary: {
@@ -383,8 +383,8 @@ function controller($http) {
         };
 
 
-    function fetchCourses(endorseCode) {
-        return $http.get('/api/courses/endorsements/' + endorseCode).then(r => {
+    function fetchCourses(endorsementId) {
+        return $http.get('/api/courses/endorsements/' + endorsementId).then(r => {
             return r.data;
         });
     }
