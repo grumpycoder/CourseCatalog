@@ -2,10 +2,15 @@
 
 @{
     ViewBag.Title = "Course Requirements";
+    var isAdmin = "false";
+    if (User.Identity.HasClaim("TeacherCertAdmin") || @User.Identity.HasClaim("Admin"))
+    {
+        isAdmin = "true";
+    };
 }
 
 
-<course-requirement-list></course-requirement-list>
+<course-requirement-list is-admin=@isAdmin></course-requirement-list>
 
 
 @section scripts{

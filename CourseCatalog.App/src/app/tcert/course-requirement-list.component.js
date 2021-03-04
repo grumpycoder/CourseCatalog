@@ -7,10 +7,17 @@ function controller($http) {
     ctrl.endorsements = [];
     ctrl.visiblePopup = false;
 
-    this.$onInit = function () {
-        ctrl.title = 'Endorsement Courses';
+    ctrl.$onChanges = function () {
+        ctrl.isAdmin = (ctrl.isAdmin === 'true');
+        console.log(ctrl.isAdmin);
+    }
 
+    this.$onInit = function () {
+        ctrl.endorsement = {};
+        ctrl.title = 'Endorsement Courses';
+        console.log(ctrl.isAdmin);
         fetchEndorsements().then(r => {
+            ctrl.changeEndorsement();
         });
     }
 
@@ -34,7 +41,7 @@ function controller($http) {
         dataSource: ctrl.courses,
         editing: {
             mode: 'row',
-            allowDeleting: true,
+            allowDeleting: ctrl.isAdmin,
             confirmDelete: false,
             texts: {
                 deleteRow: "Remove",
@@ -241,12 +248,11 @@ function controller($http) {
                 }
             );
         },
-        onRowRemoving: function (e) { 
-            var url = '/api/courses/' + e.data.id + '/endorsements/' + ctrl.endorsement.id; 
+        onRowRemoving: function (e) {
+            var url = '/api/courses/' + e.data.id + '/endorsements/' + ctrl.endorsement.id;
             return $http.delete(url)
                 .then(r => {
                     toastr.success('Removed ' + e.data.name);
-                    //TODO: toastr message
                 }).catch(err => {
                     console.error('error', err);
                     toastr.error('Error removing ' + e.data.name);
@@ -268,10 +274,10 @@ function controller($http) {
     };
 
     ctrl.showInfo = function () {
-        
+
 
         console.log('popup', ctrl.popupOptions);
-        ctrl.popupOptions.visible = true; 
+        ctrl.popupOptions.visible = true;
         console.log('popup', ctrl.popupOptions);
 
         $("#popupContainer").dxPopup("show");
@@ -295,119 +301,104 @@ function controller($http) {
 
     var url = '/api/courses/active';
 
-    ctrl.dataCourseGridOptions = {
-            dataSource: DevExpress.data.AspNet.createStore({
-                key: "id",
-                loadUrl: url
-            }),
-            remoteOperations: true,
-            scrolling: {
-                mode: "virtual",
-                rowRenderingMode: "virtual"
-            },
-            paging: {
-                pageSize: 20
-            },
-            headerFilter: {
-                visible: true,
-                allowSearch: true
-            },
-            filterRow: {
-                visible: true
-            },
-            filterPanel: {
-                visible: true
-            },
-            searchPanel: {
-                visible: true,
-                placeholder: 'Search...'
-            },
-            loadPanel: {
-                text: 'Loading Courses...'
-            },
-            hoverStateEnabled: true,
-            height: 650,
-            allowColumnResizing: true,
-            allowColumnReordering: true,
-            columnResizingMode: "nextColumn",
-            wordWrapEnabled: true,
-            showBorders: true,
-            columnAutoWidth: true,
-            columnMinWidth: 50,
-            columns: [
-                {
-                    dataField: 'courseNumber',
-                    caption: 'Course Number',
-                    dataType: 'string'
-                },
-                { dataField: 'name', dataType: 'string' },
-                { dataField: 'description', dataType: 'string', width: 200, wordWrapEnabled: false, visible: false },
-                { dataField: 'beginYear', dataType: 'int', caption: 'Begin Year' },
-                { dataField: 'endYear', dataType: 'int', caption: 'End Year' },
-                { dataField: 'lowGrade', dataType: 'string', caption: 'Low Grade' },
-                { dataField: 'highGrade', dataType: 'string', caption: 'High Grade' },
-                { dataField: 'courseLevel', dataType: 'string', caption: 'Course Level' },
-                { dataField: 'scedIdentifier', dataType: 'string', caption: 'Sced Category' },
-                { dataField: 'subject', dataType: 'string', caption: 'Subject' }
-            ],
-            onToolbarPreparing: function (e) {
-                var dataGrid = e.component;
-                e.toolbarOptions.items.unshift(
-                    {
-                        location: "after",
-                        widget: "dxButton",
-                        options: {
-                            icon: "refresh",
-                            hint: 'Refresh',
-                            elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                            onClick: function () {
-                                dataGrid.refresh();
-                            }
-                        }
-                    },
-                    {
-                        location: "after",
-                        widget: "dxButton",
-                        options: {
-                            icon: "clearformat",
-                            hint: 'Clear filters',
-                            elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                            onClick: function () {
-                                dataGrid.clearFilter();
-                            }
-                        }
-                    }
-                   
-                );
-            }
-        };
+    //ctrl.dataCourseGridOptions = {
+    //        dataSource: DevExpress.data.AspNet.createStore({
+    //            key: "id",
+    //            loadUrl: url
+    //        }),
+    //        remoteOperations: true,
+    //        scrolling: {
+    //            mode: "virtual",
+    //            rowRenderingMode: "virtual"
+    //        },
+    //        paging: {
+    //            pageSize: 20
+    //        },
+    //        headerFilter: {
+    //            visible: true,
+    //            allowSearch: true
+    //        },
+    //        filterRow: {
+    //            visible: true
+    //        },
+    //        filterPanel: {
+    //            visible: true
+    //        },
+    //        searchPanel: {
+    //            visible: true,
+    //            placeholder: 'Search...'
+    //        },
+    //        loadPanel: {
+    //            text: 'Loading Courses...'
+    //        },
+    //        hoverStateEnabled: true,
+    //        height: 650,
+    //        allowColumnResizing: true,
+    //        allowColumnReordering: true,
+    //        columnResizingMode: "nextColumn",
+    //        wordWrapEnabled: true,
+    //        showBorders: true,
+    //        columnAutoWidth: true,
+    //        columnMinWidth: 50,
+    //        columns: [
+    //            {
+    //                dataField: 'courseNumber',
+    //                caption: 'Course Number',
+    //                dataType: 'string'
+    //            },
+    //            { dataField: 'name', dataType: 'string' },
+    //            { dataField: 'description', dataType: 'string', width: 200, wordWrapEnabled: false, visible: false },
+    //            { dataField: 'beginYear', dataType: 'int', caption: 'Begin Year' },
+    //            { dataField: 'endYear', dataType: 'int', caption: 'End Year' },
+    //            { dataField: 'lowGrade', dataType: 'string', caption: 'Low Grade' },
+    //            { dataField: 'highGrade', dataType: 'string', caption: 'High Grade' },
+    //            { dataField: 'courseLevel', dataType: 'string', caption: 'Course Level' },
+    //            { dataField: 'scedIdentifier', dataType: 'string', caption: 'Sced Category' },
+    //            { dataField: 'subject', dataType: 'string', caption: 'Subject' }
+    //        ],
+    //        onToolbarPreparing: function (e) {
+    //            var dataGrid = e.component;
+    //            e.toolbarOptions.items.unshift(
+    //                {
+    //                    location: "after",
+    //                    widget: "dxButton",
+    //                    options: {
+    //                        icon: "refresh",
+    //                        hint: 'Refresh',
+    //                        elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
+    //                        onClick: function () {
+    //                            dataGrid.refresh();
+    //                        }
+    //                    }
+    //                },
+    //                {
+    //                    location: "after",
+    //                    widget: "dxButton",
+    //                    options: {
+    //                        icon: "clearformat",
+    //                        hint: 'Clear filters',
+    //                        elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
+    //                        onClick: function () {
+    //                            dataGrid.clearFilter();
+    //                        }
+    //                    }
+    //                }
+
+    //            );
+    //        }
+    //    };
 
 
     function fetchCourses(endorsementId) {
+        endorsementId = 495; 
         return $http.get('/api/courses/endorsements/' + endorsementId).then(r => {
             return r.data;
         });
     }
 
     function fetchEndorsements() {
-
         return $http.get('/api/refs/endorsements').then(r => {
             ctrl.endorsements = r.data;
-            //ctrl.endorsementStore = new DevExpress.data.ArrayStore({
-            //    data: r.data,
-            //    key: 'id',
-            //    //reshapeOnPush: true
-            //});
-            //ctrl.endorsementListOptions = {
-            //    dataSource: ctrl.endorsementStore,
-            //    searchEnabled: true,
-            //    searchExpr: "description",
-            //    displayExpr: 'description',
-            //    valueExpr: 'id',
-            //    //onValueChanged: function (item) {
-            //    //    ctrl.selectedEndorsement = item.value;
-            //    //}
-            //}
         });
     }
 
@@ -424,6 +415,9 @@ function controller($http) {
 
 module.component('courseRequirementList',
     {
+        bindings: {
+            isAdmin: '@'
+        },
         templateUrl: '/src/app/tcert/course-requirement-list.component.html',
         controller: ['$http', controller]
     });
