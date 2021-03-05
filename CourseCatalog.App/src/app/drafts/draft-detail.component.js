@@ -6,7 +6,6 @@ function controller($http) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
-        //ctrl.processing = true; 
         ctrl.loadCourse(ctrl.courseId).then(function () {
             var courseNumber = ctrl.course.courseNumber ? ctrl.course.courseNumber : 'No Course Number';
             ctrl.title = ctrl.course.name + ' (' + courseNumber + ')';
@@ -49,6 +48,7 @@ function controller($http) {
                 });
         }).catch(e => {
             console.error('error', e);
+            ctrl.isProcessing = false; 
             toastr.error(e.data.exceptionMessage);
         });
     }
@@ -58,7 +58,8 @@ function controller($http) {
 module.component('draftDetail',
     {
         bindings: {
-            courseId: '@'
+            courseId: '@', 
+            isAdmin: '@'
         },
         templateUrl: '/src/app/drafts/draft-detail.component.html',
         controller: ['$http', controller]

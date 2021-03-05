@@ -56,8 +56,8 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpGet, Route("scedcategories2")]
-        public async Task<IHttpActionResult> ScedCategories2()
+        [HttpGet, Route("scedcategories")]
+        public async Task<IHttpActionResult> ScedCategories()
         {
             var dto = await _mediator.Send(new GetScedCategoryListQuery());
             return Ok(dto);

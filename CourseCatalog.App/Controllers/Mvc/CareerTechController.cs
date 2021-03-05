@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using CourseCatalog.App.Filters;
+using System.Web.Mvc;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
@@ -17,7 +18,7 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View("ClusterDetail", clusterId);
         }
 
-        [Route("clusters/{clusterId?}/edit")] //, CustomAuthorize(Roles = "CareerTechAdmin")]
+        [Route("clusters/{clusterId?}/edit"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult ClusterEdit(int clusterId)
         {
             return View(clusterId);
@@ -35,7 +36,7 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View("ProgramDetail", programId);
         }
 
-        [Route("programs/{programId}/edit")] //,CustomAuthorize(Roles = "CareerTechAdmin")]
+        [Route("programs/{programId}/edit"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult ProgramEdit(int programId)
         {
             return View(programId);
@@ -53,7 +54,7 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View("CredentialDetail", credentialId);
         }
 
-        [Route("credentials/{credentialId}/edit")] //,CustomAuthorize(Roles = "CareerTechAdmin")]
+        [Route("credentials/{credentialId}/edit"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult CredentialEdit(int credentialId)
         {
             return View(credentialId);

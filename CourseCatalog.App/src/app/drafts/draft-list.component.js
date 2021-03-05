@@ -6,7 +6,12 @@ function controller($http) {
 
     var ctrl = this;
 
+    ctrl.$onChanges = function() {
+    }
+
     ctrl.$onInit = function () {
+        ctrl.isAdmin = (ctrl.isAdmin === 'true');
+        console.log(ctrl);
         var url = '/api/drafts/';
         ctrl.title = 'Course Drafts';
 
@@ -99,6 +104,7 @@ function controller($http) {
                 { dataField: 'status', dataType: 'string', caption: 'Status' },
                 {
                     caption: '',
+                    visible: ctrl.isAdmin, 
                     width: 80,
                     cellTemplate: function (container, options) {
                         $('<a/>').addClass('btn btn btn-outline-dark btn-sm')
@@ -138,7 +144,7 @@ function controller($http) {
                                 })
                             .appendTo(container);
                     }
-                },
+                }
             ],
             summary: {
                 totalItems: [
@@ -283,6 +289,7 @@ function controller($http) {
 module.component('draftList',
     {
         bindings: {
+            isAdmin: '@'
         },
         templateUrl: '/src/app/drafts/draft-list.component.html',
         controller: ['$http', controller]

@@ -1,9 +1,14 @@
 ﻿
 @{
     ViewBag.Title = "Draft Detail";
+    var isAdmin = "false";
+    if (User.Identity.HasClaim("CareerTechAdmin") || @User.Identity.HasClaim("Admin"))
+    {
+        isAdmin = "true";
+    };
 }
 
-<draft-detail course-id="@Model"></draft-detail>
+<draft-detail course-id="@Model" is-admin=@isAdmin></draft-detail>
 
 @section scripts{
     <script src="~/src/app/drafts/draft-detail.component.js"></script>

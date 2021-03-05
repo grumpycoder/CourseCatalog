@@ -13,7 +13,7 @@
 <div class="card">
     <div class="card-header">
         <span class="font-weight-bolder">
-            {{ $ctrl.title }} {{ $ctrl.isAdmin }}
+            {{ $ctrl.title }}
         </span>
         <span class="pull-right">
             <a ng-href="/careertech/programs/{{ $ctrl.program.programId }}/edit" class="float-right" ng-show="$ctrl.isAdmin">Edit</a>
@@ -85,6 +85,5 @@
 
 <div class="card-footer text-muted">
     <a href="/careertech/programs">Back To Programs</a>
-    <a ng-href="/careertech/programs/{{ $ctrl.program.programCode }}/edit" class="float-right" ng-show="$ctrl.program.canEdit">Edit</a>
 </div>
 
