@@ -4,6 +4,7 @@ using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.App.Filters;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -31,7 +32,7 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(cluster);
         }
 
-        [HttpPut, Route]
+        [HttpPut, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> Put([FromBody] UpdateClusterCommand updateClusterCommand)
         {
             var id = await _mediator.Send(updateClusterCommand);

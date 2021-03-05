@@ -1,10 +1,11 @@
-﻿using CourseCatalog.App.Features.Credentials.Commands.DeleteCredentialProgram;
+﻿using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
+using CourseCatalog.App.Features.Credentials.Commands.DeleteCredentialProgram;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
+using CourseCatalog.App.Filters;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -33,7 +34,7 @@ namespace CourseCatalog.App.Controllers.API
         }
 
         [HttpDelete]
-        [Route("{credentialId}/programs/{programId}")]
+        [Route("{credentialId}/programs/{programId}"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> DeleteProgramCredential(int credentialId, int programId)
         {
             await _mediator.Send(new DeleteCredentialProgramCommand(programId, credentialId));
@@ -41,7 +42,7 @@ namespace CourseCatalog.App.Controllers.API
         }
 
         [HttpPost]
-        [Route("programs")]
+        [Route("programs"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> CreateCredentialProgram([FromBody] CreateCredentialProgramCommand createCredentialProgramCommand)
         {
             var dto = await _mediator.Send(createCredentialProgramCommand);
