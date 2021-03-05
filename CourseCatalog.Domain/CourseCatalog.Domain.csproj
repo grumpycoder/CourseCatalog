@@ -58,8 +58,10 @@
     <Compile Include="Entities\DraftDeliveryType.cs" />
     <Compile Include="Entities\DraftEndorsement.cs" />
     <Compile Include="Entities\Endorsement.cs" />
+    <Compile Include="Entities\ErrorLogDetail.cs" />
     <Compile Include="Entities\Grade.cs" />
     <Compile Include="Entities\GradeScale.cs" />
+    <Compile Include="Entities\PerformanceLogDetail.cs" />
     <Compile Include="Entities\Program.cs" />
     <Compile Include="Entities\ProgramCourse.cs" />
     <Compile Include="Entities\ProgramCredential.cs" />

@@ -23,6 +23,8 @@ namespace CourseCatalog.Persistence
         public DbSet<Credential> Credentials { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<ErrorLogDetail> ErrorLogs { get; set; }
+        public DbSet<PerformanceLogDetail> PerformanceLogs { get; set; }
 
         public CourseDbContext(ILoggedInUserService loggedInUserService)
         {

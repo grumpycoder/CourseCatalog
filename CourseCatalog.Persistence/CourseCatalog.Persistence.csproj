@@ -150,8 +150,10 @@
     <Compile Include="Configurations\DeliveryTypeConfiguration.cs" />
     <Compile Include="Configurations\DraftConfiguration.cs" />
     <Compile Include="Configurations\EndorsementConfiguration.cs" />
+    <Compile Include="Configurations\ErrorLogDetailConfiguration.cs" />
     <Compile Include="Configurations\GradeConfiguration.cs" />
     <Compile Include="Configurations\GradeScaleConfiguration.cs" />
+    <Compile Include="Configurations\PerformanceLogDetailConfiguration.cs" />
     <Compile Include="Configurations\ProgramTypeConfiguration.cs" />
     <Compile Include="Configurations\ProgramConfiguration.cs" />
     <Compile Include="Configurations\ProgramCourseConfiguration.cs" />

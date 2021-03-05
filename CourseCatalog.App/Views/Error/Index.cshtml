@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Error";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+
+            <h2 class="text-center">An error occurred processing your request. </h2>
+
+            <div class="alert alert-danger">
+                <p>
+                    Something happened and we have error monitors in place that will let
+                    us know that we have something to fix.
+                    If you want to contact us, refer to the
+                    following error id: <strong>@Session.SessionID</strong>
+                </p>
+            </div>
+        </div><!-- ./col -->
+
+    </div><!-- ./row -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-primary" type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseExample"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                    hidden="@(!User.IsInRole(Constants.GlobalAdministrators) || !@MvcWebExtensions.IsDev())">
+                Exception Details
+            </button>
+
+            <div class="collapse" id="collapseExample">
+                <p>
+                    <pre>
+                        <code>
+                            @Html.Raw(@ViewBag.Error)
+                        </code>
+                    </pre>
+                </p>
+            </div>
+        </div><!-- ./col -->
+    </div><!-- ./row -->
+
+</div><!-- ./container -->

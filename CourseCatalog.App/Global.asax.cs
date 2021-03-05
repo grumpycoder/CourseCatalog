@@ -16,6 +16,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Alsde.Mvc.Logging;
+using CourseCatalog.App.Controllers.Mvc;
+using CourseCatalog.App.Helpers;
 
 namespace CourseCatalog.App
 {
@@ -23,6 +26,7 @@ namespace CourseCatalog.App
     {
         protected void Application_Start()
         {
+            MvcHandler.DisableMvcResponseHeader = true;
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -73,6 +77,42 @@ namespace CourseCatalog.App
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var ex = Server.GetLastError();
+            if (ex == null) return;
+
+            Session["Error"] = ex.ToBetterString();
+
+            string errorControllerAction;
+
+            MvcWebExtensions.GetHttpStatus(ex, out var httpStatus);
+            switch (httpStatus)
+            {
+                case 404:
+                    errorControllerAction = "NotFound";
+                    break;
+                default:
+                    Alsde.Mvc.Logging.Helpers.LogWebError(Constants.ApplicationName, Constants.LayerName, ex);
+                    errorControllerAction = "Index";
+                    break;
+            }
+
+            var httpContext = ((WebApiApplication)sender).Context;
+            httpContext.ClearError();
+            httpContext.Response.Clear();
+            httpContext.Response.StatusCode = httpStatus;
+            httpContext.Response.TrySkipIisCustomErrors = true;
+
+            var routeData = new RouteData();
+            routeData.Values["controller"] = "Error";
+            routeData.Values["action"] = errorControllerAction;
+
+            var controller = new ErrorController();
+            ((IController)controller)
+                .Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
+        }
     }
 
     public class RepositoryRegistrationModule : Autofac.Module
@@ -110,4 +150,6 @@ namespace CourseCatalog.App
                 .InstancePerLifetimeScope();
         }
     }
+
 }
+
