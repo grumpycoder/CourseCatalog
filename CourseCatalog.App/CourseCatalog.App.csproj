@@ -288,6 +288,8 @@
     <Compile Include="Features\Users\Queries\GetUser\GetUserQuery.cs" />
     <Compile Include="Features\Users\Queries\GetUser\GetUserQueryHandler.cs" />
     <Compile Include="Services\MemberService.cs" />
+    <Compile Include="Services\PublisherApiConfiguration.cs" />
+    <Compile Include="Services\PublishService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />

@@ -14,12 +14,14 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
     public class PublishDraftCommandHandler : IRequestHandler<PublishDraftCommand>
     {
         private readonly IMapper _mapper;
+        private readonly IPublishCourseService _publishCourseService;
         private readonly IDraftRepository _draftRepository;
         private readonly ICourseRepository _courseRepository;
 
-        public PublishDraftCommandHandler(IMapper mapper, IDraftRepository draftRepository, ICourseRepository courseRepository)
+        public PublishDraftCommandHandler(IMapper mapper, IPublishCourseService publishCourseService, IDraftRepository draftRepository, ICourseRepository courseRepository)
         {
             _mapper = mapper;
+            _publishCourseService = publishCourseService;
             _draftRepository = draftRepository;
             _courseRepository = courseRepository;
         }
@@ -47,12 +49,21 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 draftToPublish.DeliveryTypes
                     .ForEach(program => { existingCourse.DeliveryTypes.Add(new CourseDeliveryType { DeliveryTypeId = program.DeliveryTypeId }); });
 
+
                 existingCourse.Status = CourseStatus.Published;
                 existingCourse.PublishDate = DateTime.Now;
+                var publishResponse = await _publishCourseService.PublishCourse(existingCourse);
+                if (!publishResponse.Success)
+                {
+                    throw new BadRequestException(publishResponse.Message);
+                }
+
+                //TODO: Is there another way to null list<string>?
+                if (existingCourse.Tags.Count == 0) existingCourse.Tags = null;
+                if (existingCourse.CreditTypes.Count == 0) existingCourse.CreditTypes = null;
+
                 var id = await _courseRepository.AddAsync(existingCourse);
-
                 await _draftRepository.DeleteAsync(draftToPublish);
-
             }
             else
             {
@@ -88,15 +99,24 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
 
                 existingCourse.DeliveryTypes.RemoveAll(courseDeliveryType => !draftToPublish.DeliveryTypes.Select(draftDeliveryType => draftDeliveryType.DeliveryTypeId).Contains(courseDeliveryType.DeliveryTypeId));
 
+
                 existingCourse.Status = CourseStatus.Published;
                 existingCourse.PublishDate = DateTime.Now;
+
+                var publishResponse = await _publishCourseService.PublishCourse(existingCourse);
+                if (!publishResponse.Success)
+                {
+                    throw new BadRequestException(publishResponse.Message);
+                }
+
+                //TODO: Is there another way to null list<string>?
+                if (existingCourse.Tags.Count == 0) existingCourse.Tags = null;
+                if (existingCourse.CreditTypes.Count == 0) existingCourse.CreditTypes = null;
 
                 await _courseRepository.UpdateAsync(existingCourse);
 
                 await _draftRepository.DeleteAsync(draftToPublish);
             }
-
-            //TODO: publish course to PS
 
             return Unit.Value;
         }

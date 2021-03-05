@@ -7,6 +7,7 @@ namespace CourseCatalog.Domain.Entities
     public class Course : AuditableEntity
     {
         public int CourseId { get; set; }
+        public string ArchiveCourseCode { get; set; }
         public string CourseNumber { get; set; }
         public string CipCode { get; set; }
         public string Name { get; set; }

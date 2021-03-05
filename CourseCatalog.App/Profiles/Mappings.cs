@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
@@ -17,6 +18,7 @@ using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
 using CourseCatalog.App.Features.Programs.Commands.UpdateProgram;
 using CourseCatalog.App.Features.Programs.Queries.GetProgramDetail;
 using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
+using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Profiles
@@ -59,6 +61,38 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.CourseLevel.Name))
                 .ReverseMap();
 
+            CreateMap<Course, UDefCourses>()
+                .ForMember(d => d.CourseCode, o => 
+                    o.MapFrom(s => s.ArchiveCourseCode))
+                .ForMember(d => d.CourseName, o => 
+                    o.MapFrom(s => s.Name))
+                .ForMember(d => d.CipCode, o => 
+                    o.MapFrom(s => s.CipCode ?? string.Empty))
+                .ForMember(d => d.LowGrade, o => 
+                    o.MapFrom(s => s.LowGrade.Name))
+                .ForMember(d => d.HighGrade, o => 
+                    o.MapFrom(s => s.HighGrade.Name))
+                .ForMember(d => d.IsSpecialEd, o => 
+                    o.MapFrom(s => s.IsSpecialEducation))
+                .ForMember(d => d.CollegeCourseCode, o =>
+                    o.MapFrom(s => s.CollegeCourseId))
+                //.ForMember(d => d.CollegeCourseCode, o =>
+                //    o.MapFrom(s => s.CollegeCourseId ?? string.Empty))
+                .ForMember(d => d.EndYear, o =>
+                    o.MapFrom(s => s.EndYear.ToString()))
+                .ForMember(d => d.BeginYear, o =>
+                    o.MapFrom(s => s.BeginYear.ToString() ?? string.Empty))
+                .ForMember(d => d.LocallyEditable, o => 
+                    o.MapFrom(s => s.IsLocallyEditable))
+                .ForMember(d => d.Subject, o => 
+                    o.MapFrom(s => s.Subject.Name ?? string.Empty))
+                .ForMember(d => d.CreditType, o => 
+                    o.MapFrom(s =>  string.Join(",", s.CreditTypes)))
+                .ForMember(d => d.Endorsements, o => 
+                    o.MapFrom(s =>  string.Join(",", s.Endorsements.Select(x => x.Endorsement.EndorseCode))))
+                ;
+
+
             //Draft Mappings
             CreateMap<DraftDetailDto, Draft>().ReverseMap();
             CreateMap<DraftDeliveryType, DraftDeliveryTypeDto>()
@@ -91,6 +125,7 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.Program.Name))
                 .ForMember(d => d.ProgramCode,
                     o => o.MapFrom(d => d.Program.ProgramCode))
+                
                 .ReverseMap();
 
             CreateMap<DraftDetailDto, Draft>().ReverseMap();
@@ -112,6 +147,9 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.Programs, o => o.Ignore())
                 .ReverseMap();
 
+            CreateMap<DraftEndorsement, CourseEndorsement>().ReverseMap(); 
+            CreateMap<ProgramDraft, ProgramCourse>().ReverseMap(); 
+            CreateMap<DraftDeliveryType, CourseDeliveryType>().ReverseMap(); 
 
             //Clusters Mappings
             CreateMap<Cluster, ClusterListDto>()
@@ -192,3 +230,4 @@ namespace CourseCatalog.App.Profiles
         }
     }
 }
+

@@ -1,8 +1,9 @@
 ﻿using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace CourseCatalog.Persistence.Configurations
 {
@@ -13,7 +14,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.ToTable("Courses", "Common");
             builder.Property(s => s.Name).HasColumnName("CourseName");
             builder.Property(s => s.Description).HasColumnName("CourseDescription");
-
 
             builder.Property(s => s.CreditTypes)
                 .HasConversion(

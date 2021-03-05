@@ -45,7 +45,7 @@ function controller($http) {
             groupPanel: {
                 visible: true,
                 allowColumnDragging: true,
-                emptyPanelText: "Drag a column header here to group by that column",
+                emptyPanelText: "Drag a column header here to group by that column"
             },
             grouping: {
                 allowCollapsing: true,
@@ -56,7 +56,7 @@ function controller($http) {
             stateStoring: {
                 enabled: true,
                 type: "localStorage",
-                storageKey: "gridCoursesFilterStorage"
+                storageKey: "gridDraftsFilterStorage"
             },
             hoverStateEnabled: true,
             height: 650,

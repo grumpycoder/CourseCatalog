@@ -49,7 +49,7 @@ function controller($http) {
                 });
         }).catch(e => {
             console.error('error', e);
-            toastr.error(e.data.message);
+            toastr.error(e.data.exceptionMessage);
         });
     }
 

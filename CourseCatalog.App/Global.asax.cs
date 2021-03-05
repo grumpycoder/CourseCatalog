@@ -46,6 +46,12 @@ namespace CourseCatalog.App
 
             builder.RegisterType<LoggedInUserService>().As<ILoggedInUserService>();
             builder.RegisterType<MemberService>().As<IMemberService>();
+            builder.RegisterType<PublisherApiConfiguration>().As<IPublisherApiConfiguration>()
+                .AsImplementedInterfaces().SingleInstance();
+
+            builder.RegisterType<PublishService>().As<IPublishCourseService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             builder
                 .RegisterType<CourseDbContext>()

@@ -53,6 +53,8 @@
     <Compile Include="Contracts\ILoggedInUserService.cs" />
     <Compile Include="Contracts\IMemberService.cs" />
     <Compile Include="Contracts\IProgramRepository.cs" />
+    <Compile Include="Contracts\IPublisherApiConfiguration.cs" />
+    <Compile Include="Contracts\IPublishCourseService.cs" />
     <Compile Include="Contracts\ITagRepository.cs" />
     <Compile Include="Contracts\IDraftRepository.cs" />
     <Compile Include="Contracts\IUserRepository.cs" />
