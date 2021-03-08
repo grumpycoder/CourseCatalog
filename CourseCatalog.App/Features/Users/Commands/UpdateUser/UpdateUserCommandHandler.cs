@@ -21,7 +21,7 @@ namespace CourseCatalog.App.Features.Users.Commands.UpdateUser
             user.EmailAddress = request.User.EmailAddress.ToLower(); 
             user.FirstName = request.User.FirstName; 
             user.LastName = request.User.LastName; 
-            user.FullName = request.User.FullName; 
+            //user.FullName = request.User.FullName; 
             user.Username = request.User.Username.ToLower(); 
 
             await _userRepository.UpdateAsync(user);

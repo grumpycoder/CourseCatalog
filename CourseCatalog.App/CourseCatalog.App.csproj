@@ -285,6 +285,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\API\LogApiController.cs" />
+    <Compile Include="Controllers\API\MembershipApiController.cs" />
     <Compile Include="Controllers\API\TCertController.cs" />
     <Compile Include="Controllers\Mvc\AdminController.cs" />
     <Compile Include="Controllers\Mvc\ErrorController.cs" />
@@ -294,6 +295,12 @@
     <Compile Include="Features\Courses\Queries\GetCourseSummary\CourseSummaryDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQueryHandler.cs" />
+    <Compile Include="Features\Groups\Commands\CreateGroupUser\CreateGroupUserCommand.cs" />
+    <Compile Include="Features\Groups\Commands\CreateGroupUser\CreateGroupUserCommandHandler.cs" />
+    <Compile Include="Features\Groups\Commands\DeleteGroupUser\DeleteGroupUserCommand.cs" />
+    <Compile Include="Features\Groups\Commands\DeleteGroupUser\DeleteGroupUserCommandHandler.cs" />
+    <Compile Include="Features\Groups\Queries\GetGroupList\GetGroupListQuery.cs" />
+    <Compile Include="Features\Groups\Queries\GetGroupList\GetGroupListQueryHandler.cs" />
     <Compile Include="Features\Programs\Queries\GetProgramSummary\ProgramSummaryDto.cs" />
     <Compile Include="Features\Programs\Queries\GetProgramSummary\GetProgramSummaryQuery.cs" />
     <Compile Include="Features\Programs\Queries\GetProgramSummary\GetProgramSummaryQueryHandler.cs" />

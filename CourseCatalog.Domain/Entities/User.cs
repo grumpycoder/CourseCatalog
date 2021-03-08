@@ -40,6 +40,7 @@ namespace CourseCatalog.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<UserGroup> Users { get; set; }
     }
 
     public class UserGroup

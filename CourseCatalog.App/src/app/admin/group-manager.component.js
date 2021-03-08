@@ -17,7 +17,7 @@ function controller($http, $scope) {
             ctrl.groupListOptions = {
                 dataSource: ctrl.groups,
                 searchEnabled: true,
-                searchExpr: "name",
+                searchExpr: "groupName",
                 onItemClick: function (e) {
                     ctrl.selectedGroup = e.itemData;
                 }
@@ -50,7 +50,10 @@ function controller($http, $scope) {
     }
 
     ctrl.addGroupMember = function () {
-        $http.post(`/api/membership/groups/${ctrl.selectedGroup.id}/user/${ctrl.selectedUser.identityGuid}`).then(r => {
+        console.log(ctrl.selectedGroup);
+        console.log(ctrl.selectedUser);
+        $http.post(`/api/membership/groups/${ctrl.selectedGroup.groupId}/user/${ctrl.selectedUser.identityGuid}`).then(r => {
+            console.log('r', r);
             toastr.success('Added user ' + ctrl.selectedUser.fullName);
             ctrl.selectedGroup.users.push(ctrl.selectedUser);
             ctrl.selectedUser = undefined;
@@ -84,7 +87,7 @@ function controller($http, $scope) {
 
         let idx = ctrl.selectedGroup.users.indexOf(found);
 
-        var deleteUri = `${membershipUri}/groups/${ctrl.selectedGroup.id}/user/${user.identityGuid}`;
+        var deleteUri = `${membershipUri}/groups/${ctrl.selectedGroup.groupId}/user/${user.identityGuid}`;
 
         $http.delete(deleteUri)
             .then(r => {

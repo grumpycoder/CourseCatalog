@@ -45,7 +45,6 @@ namespace CourseCatalog.App
                 .As<HttpContextBase>()
                 .InstancePerRequest();
 
-            //builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
             builder.Register(c => HttpContext.Current).As<HttpContext>().InstancePerRequest();
 
             builder.RegisterType<LoggedInUserService>().As<ILoggedInUserService>();
@@ -60,6 +59,11 @@ namespace CourseCatalog.App
             builder
                 .RegisterType<CourseDbContext>()
                 .WithParameter("options", new DbContextOptions<CourseDbContext>())
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<IdemContext>()
+                .WithParameter("options", new DbContextOptions<IdemContext>())
                 .InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(BaseRepository<>))

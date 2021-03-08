@@ -20,6 +20,8 @@ using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
 using System.Linq;
+using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
+using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
 
 namespace CourseCatalog.App.Profiles
 {
@@ -205,7 +207,29 @@ namespace CourseCatalog.App.Profiles
                 .ReverseMap();
 
             //User/Group Mappings
+            CreateMap<Group, GroupListDto>()
+                .ForMember(d => d.GroupId, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.GroupName, o => o.MapFrom(s => s.Name))
+                .ReverseMap();
+
+            CreateMap<UserGroup, UserDto>()
+                //.ForMember(d => d.IdentityGuid, o => o.MapFrom(s => s.User.IdentityGuid))
+                //.ForMember(d => d.UserId, o => o.MapFrom(s => s.User.UserId))
+                .ForMember(d => d.Username, o => o.MapFrom(s => s.User.Username))
+                .ForMember(d => d.FirstName, o => o.MapFrom(s => s.User.FirstName))
+                .ForMember(d => d.LastName, o => o.MapFrom(s => s.User.LastName))
+                .ForMember(d => d.FullName, o => o.MapFrom(s => s.User.FullName))
+                .ReverseMap();
+
             CreateMap<UserGroup, UserGroupListDto>().ReverseMap();
+            CreateMap<UserGroup, CreateGroupUserCommandDto>()
+                .ForMember(d => d.FirstName, o => o.MapFrom(d => d.User.FirstName))
+                .ForMember(d => d.LastName, o => o.MapFrom(d => d.User.LastName))
+                .ForMember(d => d.FullName, o => o.MapFrom(d => d.User.FullName))
+                .ForMember(d => d.IdentityGuid, o => o.MapFrom(d => d.User.IdentityGuid))
+                .ForMember(d => d.UserName, o => o.MapFrom(d => d.User.Username))
+                .ForMember(d => d.UserId, o => o.MapFrom(d => d.User.Id))
+                .ReverseMap();
 
         }
     }

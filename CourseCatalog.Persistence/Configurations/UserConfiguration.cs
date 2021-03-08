@@ -10,6 +10,7 @@ namespace CourseCatalog.Persistence.Configurations
         {
             builder.ToTable("Users", "Security");
             builder.Property(s => s.Id).HasColumnName("UserId");
+            builder.Property(s => s.FullName).HasColumnName("FullName");
 
             //builder.HasMany(p => p.UserGroups)
             //    .WithOne(p => p.User)
@@ -26,7 +27,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.ToTable("Groups", "Security");
             builder.Property(s => s.Id).HasColumnName("GroupId");
             builder.Property(s => s.Name).HasColumnName("GroupName");
-
             //builder.HasMany(p => p.UserGroups)
             //    .WithOne(p => p.Group)
             //    .OnDelete(DeleteBehavior.Cascade)

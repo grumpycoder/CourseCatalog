@@ -26,5 +26,6 @@ namespace CourseCatalog.Persistence.Repositories
                 .ThenInclude(g => g.Group)
                 .FirstOrDefaultAsync(u => u.IdentityGuid == userId);
         }
+
     }
 }

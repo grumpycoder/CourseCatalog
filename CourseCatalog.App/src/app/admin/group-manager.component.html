@@ -39,7 +39,7 @@
                         <div dx-list="$ctrl.groupListOptions" allowDeleting="true" dx-item-alias="item"
                              id="groupList">
                             <div data-options="dxTemplate: {name: 'item'}">
-                                <span>{{item.name}}</span>
+                                <span>{{item.groupName}}</span>
                             </div>
                         </div>
 
@@ -81,7 +81,7 @@
 
                                 <ul class="list-group">
                                     <li ng-repeat="item in $ctrl.selectedGroup.users  | filter:$ctrl.search" class="list-group-item">
-                                        <span>{{ item.fullName }} ({{ item.emailAddress }})</span>
+                                        <span>{{ item.fullName }} ({{ item.username }})</span>
                                         <button class="btn btn-sm btn-outline-dark float-right" ng-click="$ctrl.deleteUser(item)">
                                             <i class="fa fa-trash"></i>
                                         </button>
