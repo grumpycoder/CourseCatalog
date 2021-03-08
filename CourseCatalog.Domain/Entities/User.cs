@@ -5,15 +5,15 @@ namespace CourseCatalog.Domain.Entities
 {
     public class User
     {
-        public User(string username, string emailAddress, string firstName, string lastName, string fullName, Guid identityGuid)
-        {
-            Username = username;
-            EmailAddress = emailAddress;
-            FirstName = firstName;
-            LastName = lastName;
-            FullName = fullName;
-            IdentityGuid = identityGuid;
-        }
+        //public User(string username, string emailAddress, string firstName, string lastName, string fullName, Guid identityGuid)
+        //{
+        //    Username = username;
+        //    //EmailAddress = emailAddress;
+        //    FirstName = firstName;
+        //    LastName = lastName;
+        //    FullName = fullName;
+        //    IdentityGuid = identityGuid;
+        //}
 
         public int Id { get; set; }
         public string Username { get; set; }
@@ -25,15 +25,15 @@ namespace CourseCatalog.Domain.Entities
 
         public List<UserGroup> Groups { get; set; }
 
-        public void Update(string username, string emailAddress, string firstName, string lastName, string fullName, Guid identityGuid)
-        {
-            IdentityGuid = identityGuid;
-            Username = username;
-            EmailAddress = emailAddress;
-            FirstName = firstName;
-            LastName = lastName;
-            FullName = fullName;
-        }
+        //public void Update(string username, string emailAddress, string firstName, string lastName, string fullName, Guid identityGuid)
+        //{
+        //    IdentityGuid = identityGuid;
+        //    Username = username;
+        //    //EmailAddress = emailAddress;
+        //    FirstName = firstName;
+        //    LastName = lastName;
+        //    FullName = fullName;
+        //}
     }
 
     public class Group

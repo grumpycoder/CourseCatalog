@@ -36,9 +36,9 @@ namespace CourseCatalog.Persistence
             builder.ToTable("Identities", "Idem");
             builder.Property(s => s.Id).HasColumnName("IdentityId");
             builder.Property(s => s.IdentityGuid).HasColumnName("IdentityGuid");
-            builder.Property(s => s.EmailAddress).HasColumnName("EmailAddress");
+            //builder.Property(s => s.EmailAddress).HasColumnName("EmailAddress");
             builder.Property(s => s.FullName).HasColumnName("PrintName");
-            builder.Property(s => s.Username).HasColumnName("EmailAddress");
+            //builder.Property(s => s.Username).HasColumnName("EmailAddress");
             //builder.Ignore(s => s.UserGroups)
             ;
         }

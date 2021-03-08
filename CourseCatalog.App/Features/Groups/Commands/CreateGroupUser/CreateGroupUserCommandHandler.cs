@@ -24,7 +24,7 @@ namespace CourseCatalog.App.Features.Groups.Commands.CreateGroupUser
         public async Task<CreateGroupUserCommandDto> Handle(CreateGroupUserCommand request,
             CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.IdentityGuid);
+            var user = await _userRepository.GetByIdentityGuidAsync(request.IdentityGuid);
 
             if (user == null) throw new NotFoundException(nameof(User), request.IdentityGuid);
 

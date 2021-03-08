@@ -33,7 +33,8 @@ namespace CourseCatalog.App.Services
 
         public async Task SyncClaims(ClaimsIdentity identity)
         {
-            var claim = identity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var claim = identity.Claims
+                .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
             //Update local user attributes that may have changed since last login
             var username = identity.GetClaimValue(ClaimTypes.Email).Split('@')[0].ToLower();
@@ -41,34 +42,39 @@ namespace CourseCatalog.App.Services
             var lastName = identity.GetClaimValue(ClaimTypes.Surname).ToTitleCase();
             var firstName = identity.GetClaimValue(ClaimTypes.GivenName).ToTitleCase();
             var fullName = identity.GetClaimValue("FullName").ToLower().ToTitleCase();
-            var identityGuid = new Guid(identity.GetClaimValue(ClaimTypes.NameIdentifier));
             var alsdeId = identity.GetClaimValue("AlsdeId");
+            var identityGuid = new Guid(identity.GetClaimValue(ClaimTypes.NameIdentifier));
 
             var user = await _mediator.Send(new GetUserQuery(identityGuid));
 
-            //switch (user)
-            //{
-            //    case null:
-            //        //user = new User(username, emailAddress, firstName, lastName, fullName, identityGuid);
-            //        //await _mediator.Send(new CreateUserCommand(user));
-            //        break;
-            //    default:
-            //        user.Update(username, emailAddress, firstName, lastName, fullName, identityGuid);
-            //        await _mediator.Send(new UpdateUserCommand()
-            //        {
-            //            EmailAddress = emailAddress, 
-            //            FirstName = firstName, 
-            //            LastName = lastName, 
-            //            FullName = fullName, 
-            //            IdentityGuid = identityGuid, 
-            //            Username = username
-            //        });
-            //        break;
-            //}
+            switch (user)
+            {
+                case null:
+                    user = new User
+                    {
+                        Username = username,
+                        EmailAddress = emailAddress,
+                        FirstName = firstName,
+                        LastName = lastName,
+                        FullName = fullName,
+                        IdentityGuid = identityGuid
+                    };
+                    await _mediator.Send(new CreateUserCommand(user));
+                    break;
+                default:
+                    await _mediator.Send(new UpdateUserCommand
+                    {
+                        EmailAddress = emailAddress,
+                        FirstName = firstName,
+                        LastName = lastName,
+                        FullName = fullName,
+                        IdentityGuid = identityGuid,
+                        Username = username
+                    });
+                    break;
+            }
 
-
-            var guid = identity.GetClaimValue(ClaimTypes.NameIdentifier);
-            var groups = await _mediator.Send(new GetUserGroupListQuery(new Guid(guid)));
+            var groups = await _mediator.Send(new GetUserGroupListQuery(identityGuid));
 
             identity.AddGroupsToRoles(groups);
         }

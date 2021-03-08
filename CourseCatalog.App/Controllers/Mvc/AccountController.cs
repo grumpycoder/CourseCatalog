@@ -17,17 +17,17 @@ namespace CourseCatalog.App.Controllers.Mvc
         {
             var tokenKey = new TokenKey(token, Constants.TpaAccessKey);
 
-            var result = IdentityManager.TokenSignin(Constants.WebServiceUrl, tokenKey);
+            var tokenSignin = IdentityManager.TokenSignin(Constants.WebServiceUrl, tokenKey);
 
             Session["LoginFailureMessage"] = string.Empty;
-            if (result.IsFailure)
+            if (tokenSignin.IsFailure)
             {
-                Session["LoginFailureMessage"] = result.Error;
-                ViewBag.Message = result.Error;
+                Session["LoginFailureMessage"] = tokenSignin.Error;
+                ViewBag.Message = tokenSignin.Error;
                 return View("LoginFailure");
             }
 
-            var identity = result.Value;
+            var identity = tokenSignin.Value;
             if (identity == null)
             {
                 ViewBag.Message = "User account not found";

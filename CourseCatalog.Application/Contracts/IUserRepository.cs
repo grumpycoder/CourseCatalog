@@ -6,7 +6,7 @@ namespace CourseCatalog.Application.Contracts
 {
     public interface IUserRepository : IAsyncRepository<User>
     {
-        Task<User> GetByIdAsync(Guid userId);
+        Task<User> GetByIdentityGuidAsync(Guid userId);
         Task<User> GetUserByIdWithDetails(Guid userId);
     }
 }

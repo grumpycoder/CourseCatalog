@@ -14,9 +14,10 @@ namespace CourseCatalog.Persistence.Repositories
 
         }
 
-        public async Task<User> GetByIdAsync(Guid userId)
+        public async Task<User> GetByIdentityGuidAsync(Guid identityGuid)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.IdentityGuid == userId);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.IdentityGuid == identityGuid);
+            return user; 
         }
 
         public async Task<User> GetUserByIdWithDetails(Guid userId)
