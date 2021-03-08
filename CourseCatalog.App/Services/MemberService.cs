@@ -46,17 +46,25 @@ namespace CourseCatalog.App.Services
 
             var user = await _mediator.Send(new GetUserQuery(identityGuid));
 
-            switch (user)
-            {
-                case null:
-                    user = new User(username, emailAddress, firstName, lastName, fullName, identityGuid);
-                    await _mediator.Send(new CreateUserCommand(user));
-                    break;
-                default:
-                    user.Update(username, emailAddress, firstName, lastName, fullName, identityGuid);
-                    await _mediator.Send(new UpdateUserCommand(user));
-                    break;
-            }
+            //switch (user)
+            //{
+            //    case null:
+            //        //user = new User(username, emailAddress, firstName, lastName, fullName, identityGuid);
+            //        //await _mediator.Send(new CreateUserCommand(user));
+            //        break;
+            //    default:
+            //        user.Update(username, emailAddress, firstName, lastName, fullName, identityGuid);
+            //        await _mediator.Send(new UpdateUserCommand()
+            //        {
+            //            EmailAddress = emailAddress, 
+            //            FirstName = firstName, 
+            //            LastName = lastName, 
+            //            FullName = fullName, 
+            //            IdentityGuid = identityGuid, 
+            //            Username = username
+            //        });
+            //        break;
+            //}
 
 
             var guid = identity.GetClaimValue(ClaimTypes.NameIdentifier);

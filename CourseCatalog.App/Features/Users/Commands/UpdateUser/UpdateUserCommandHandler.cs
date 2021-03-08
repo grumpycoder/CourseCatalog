@@ -1,7 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿using System;
 using CourseCatalog.Application.Contracts;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Users.Commands.UpdateUser
 {
@@ -16,17 +17,25 @@ namespace CourseCatalog.App.Features.Users.Commands.UpdateUser
 
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(request.User.IdentityGuid);
+            try
+            {
+                var user = await _userRepository.GetByIdAsync(request.IdentityGuid);
 
-            user.EmailAddress = request.User.EmailAddress.ToLower(); 
-            user.FirstName = request.User.FirstName; 
-            user.LastName = request.User.LastName; 
-            //user.FullName = request.User.FullName; 
-            user.Username = request.User.Username.ToLower(); 
+                //user.EmailAddress = request.EmailAddress.ToLower(); 
+                user.FirstName = request.FirstName;
+                user.LastName = request.LastName;
+                user.FullName = request.FullName; 
+                user.Username = request.Username.ToLower();
 
-            await _userRepository.UpdateAsync(user);
+                await _userRepository.UpdateAsync(user);
 
-            return Unit.Value;
+                return Unit.Value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
