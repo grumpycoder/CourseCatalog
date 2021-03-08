@@ -2,6 +2,7 @@
 using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Configuration;
 
 namespace CourseCatalog.Persistence
 {
@@ -16,7 +17,7 @@ namespace CourseCatalog.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var _connectionString = @"Data Source=alsdedevsqli1\i1;initial catalog=Idem;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=true;Application Name=Courses";
+            var _connectionString = ConfigurationManager.ConnectionStrings["IdemContext"].ConnectionString;
             optionsBuilder
                 .UseSqlServer(_connectionString)
                 .EnableSensitiveDataLogging();

@@ -3,6 +3,7 @@ using CourseCatalog.Domain.Common;
 using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Configuration;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace CourseCatalog.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var _connectionString = "Data Source=.;initial catalog=Courses;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False;MultipleActiveResultSets=true;Application Name=Courses";
+            var _connectionString = ConfigurationManager.ConnectionStrings["CourseContext"].ConnectionString;
             optionsBuilder
                 .UseSqlServer(_connectionString)
                 .EnableSensitiveDataLogging()
