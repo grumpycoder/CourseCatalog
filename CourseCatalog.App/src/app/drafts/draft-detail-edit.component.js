@@ -47,10 +47,9 @@ function detailController($http) {
 
         ctrl.course.tags = ctrl.selectedTags;
         ctrl.course.creditTypes = ctrl.selectedCreditTypeTags;
-
-        console.log('submit course', ctrl.course);
+        
         if (!ctrl.course.draftId) {
-            $http.post(url, ctrl.course).then(r => {
+            $http.post(url + '/create', ctrl.course).then(r => {
                 toastr.success('Created Course Draft');
                 window.location.href = '/drafts/' + r.data + '/edit';
             }).catch(e => {
@@ -60,7 +59,7 @@ function detailController($http) {
             return;
         }
 
-        $http.put(url, ctrl.course).then(r => {
+        $http.post(url, ctrl.course).then(r => {
             updateCache();
             toastr.success('Saved Course Draft');
         }).catch(e => {

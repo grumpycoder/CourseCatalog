@@ -86,12 +86,12 @@ function controller($http) {
                                     .attr('title', 'Edit Cluster ' + options.data.clusterCode)
                                     .attr('data-toggle', 'tooltip')
                                     .attr('data-placement', 'top')
-                                    .attr('href', '/careertech/clusters/' + options.data.clusterCode + '/edit')
+                                    .attr('href', '/careertech/clusters/' + options.data.clusterId + '/edit')
                                     .append('<i class="fa fa-pencil">')
                                     .on('dxclick',
                                         function (e) {
                                             $('<a href="/careertech/clusters/' +
-                                                options.data.clusterCode +
+                                                options.data.clusterId +
                                                 '/edit>' +
                                                 options.data.clusterCode +
                                                 '</a>').appendTo(container);

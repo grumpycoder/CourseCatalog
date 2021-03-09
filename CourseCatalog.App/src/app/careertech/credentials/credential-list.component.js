@@ -100,12 +100,12 @@ function controller($http) {
                                 .attr('title', 'Edit Credential ' + options.data.credentialCode)
                                 .attr('data-toggle', 'tooltip')
                                 .attr('data-placement', 'top')
-                                .attr('href', '/careertech/credentials/' + options.data.credentialCode + '/edit')
+                                .attr('href', '/careertech/credentials/' + options.data.credentialId + '/edit')
                                 .append('<i class="fa fa-pencil">')
                                 .on('dxclick',
                                     function (e) {
                                         $('<a href="/careertech/programs/' +
-                                            options.data.credentialCode +
+                                            options.data.credentialId +
                                             '/edit>' +
                                             options.data.programCode +
                                             '</a>').appendTo(container);

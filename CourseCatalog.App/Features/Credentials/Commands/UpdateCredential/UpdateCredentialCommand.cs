@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace MyDemo.Api.Features.Credentials.Commands.UpdateCredential
+namespace CourseCatalog.App.Features.Credentials.Commands.UpdateCredential
 {
     public class UpdateCredentialCommand : IRequest
     {

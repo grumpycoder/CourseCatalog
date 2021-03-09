@@ -90,12 +90,12 @@ function controller($http) {
                                 .attr('title', 'Edit Program ' + options.data.programCode)
                                 .attr('data-toggle', 'tooltip')
                                 .attr('data-placement', 'top')
-                                .attr('href', '/careertech/programs/' + options.data.programCode + '/edit')
+                                .attr('href', '/careertech/programs/' + options.data.programId + '/edit')
                                 .append('<i class="fa fa-pencil">')
                                 .on('dxclick',
                                     function (e) {
                                         $('<a href="/careertech/programs/' +
-                                            options.data.programCode +
+                                            options.data.programId +
                                             '/edit>' +
                                             options.data.programCode +
                                             '</a>').appendTo(container);

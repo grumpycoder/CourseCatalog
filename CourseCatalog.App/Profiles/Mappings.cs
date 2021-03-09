@@ -20,6 +20,7 @@ using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
 using System.Linq;
+using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
 using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
 
@@ -205,6 +206,8 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.ProgramCode, o => o.MapFrom(s => s.Program.ProgramCode))
                 .ForMember(d => d.ProgramName, o => o.MapFrom(s => s.Program.Name))
                 .ReverseMap();
+
+            CreateMap<Credential, UpdateCredentialCommand>().ReverseMap(); 
 
             //User/Group Mappings
             CreateMap<Group, GroupListDto>()

@@ -1,10 +1,10 @@
 ﻿using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
+using CourseCatalog.App.Filters;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Filters;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -32,8 +32,8 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(cluster);
         }
 
-        [HttpPut, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
-        public async Task<IHttpActionResult> Put([FromBody] UpdateClusterCommand updateClusterCommand)
+        [HttpPost, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        public async Task<IHttpActionResult> UpdateCluster([FromBody] UpdateClusterCommand updateClusterCommand)
         {
             var id = await _mediator.Send(updateClusterCommand);
             return Ok(id);

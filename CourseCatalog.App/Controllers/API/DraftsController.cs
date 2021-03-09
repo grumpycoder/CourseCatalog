@@ -58,21 +58,21 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPut, Route, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
-        public async Task<IHttpActionResult> Put([FromBody] UpdateDraftCommand updateDraftCommand)
+        [HttpPost, Route, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        public async Task<IHttpActionResult> UpdateDraft([FromBody] UpdateDraftCommand updateDraftCommand)
         {
             var dto = await _mediator.Send(updateDraftCommand);
             return Ok(dto);
         }
 
-        [HttpPost, Route, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
-        public async Task<IHttpActionResult> Post([FromBody] CreateDraftCommand createDraftCommand)
+        [HttpPost, Route("create"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        public async Task<IHttpActionResult> CreateDraft([FromBody] CreateDraftCommand createDraftCommand)
         {
             var dto = await _mediator.Send(createDraftCommand);
             return Ok(dto);
         }
 
-        [HttpDelete, Route("{draftId}"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, Route("{draftId}"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> Delete(int draftId)
         {
             var dto = await _mediator.Send(new DeleteDraftCommand(draftId));
@@ -86,7 +86,7 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpDelete, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
         [Route("{draftId}/endorsements/{endorsementId}")]
         public async Task<IHttpActionResult> DeleteDraftEndorsement(int draftId, int endorsementId)
         {
@@ -101,7 +101,7 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpDelete, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
         [Route("{draftId}/programs/{programId}")]
         public async Task<IHttpActionResult> RemoveProgram(int draftId, int programId)
         {
