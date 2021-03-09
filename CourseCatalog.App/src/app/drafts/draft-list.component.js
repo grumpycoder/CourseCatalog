@@ -281,7 +281,6 @@ function controller($http) {
     };
 
     ctrl.createNewDraft = function () {
-        console.log('create new draft');
         window.location.href = '/drafts/new';
     }
 }

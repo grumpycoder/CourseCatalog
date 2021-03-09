@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MediatR;
+﻿using MediatR;
+using System.Collections.Generic;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraft
 {
@@ -15,12 +15,12 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraft
         public string CipCode { get; set; }
         public int? BeginYear { get; set; }
         public int? EndYear { get; set; }
-        public decimal? CreditHours { get; set; }
+        public decimal CreditHours { get; set; } = 0.00m;
         public List<string> CreditTypes { get; set; }
         public List<string> Tags { get; set; }
         public int? LowGradeId { get; set; }
         public int? HighGradeId { get; set; }
-        public bool? IsCareerTech { get; set; }
+        public bool IsCareerTech { get; set; } = false;
         public bool? IsSpecialEducation { get; set; }
         public bool? IsLocallyEditable { get; set; }
         public bool? IsCollege { get; set; }
