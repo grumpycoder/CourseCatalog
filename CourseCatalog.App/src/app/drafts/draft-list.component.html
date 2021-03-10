@@ -9,7 +9,8 @@
 
         <div class="row">
             <div class="col-12">
-
+                {{$ctrl.isAdmin}}
+                {{$ctrl.isCourseAdmin}}
                 <div id="gridContainer" dx-data-grid="$ctrl.dataGridOptions">
                     <div data-options="dxTemplate:{ name: 'cellTemplate' }">
                         <a href="/courses/{{course.courseCode}}/edit">{{course.courseCode}}</a>

@@ -11,6 +11,7 @@ function controller($http) {
 
     ctrl.$onInit = function () {
         ctrl.isAdmin = (ctrl.isAdmin === 'true');
+        ctrl.isCourseAdmin = (ctrl.isCourseAdmin === 'true');
         console.log(ctrl);
         var url = '/api/drafts/';
         ctrl.title = 'Course Drafts';
@@ -104,7 +105,7 @@ function controller($http) {
                 { dataField: 'status', dataType: 'string', caption: 'Status' },
                 {
                     caption: '',
-                    visible: ctrl.isAdmin, 
+                    visible: ctrl.isAdmin || ctrl.isCourseAdmin, 
                     width: 80,
                     cellTemplate: function (container, options) {
                         $('<a/>').addClass('btn btn btn-outline-dark btn-sm')
@@ -125,24 +126,27 @@ function controller($http) {
                                 })
                             .appendTo(container);
 
-                        $('<a>')
-                            .append('<i class="fa fa-trash"></i>')
-                            .addClass('btn btn btn-outline-dark btn-sm ml-1')
-                            .attr('aria-label', 'Delete Draft ' + options.data.courseNumber)
-                            .attr('title', 'Delete Draft ' + options.data.courseNumber)
-                            .attr('data-toggle', 'tooltip')
-                            .attr('data-placement', 'top')
-                            .on('dxclick',
-                                function (e) {
-                                    $http.delete('/api/drafts/' + options.data.draftId).then(r => {
-                                        toastr.success('Deleted draft ' + options.data.courseNumber);
-                                        $('#gridContainer').dxDataGrid('instance').refresh();
-                                    }).catch(err => {
-                                        console.error('err', err);
-                                        toastr.error(err.data.exceptionMessage);
-                                    });
-                                })
-                            .appendTo(container);
+                        if (ctrl.isCourseAdmin === true) {
+                            $('<a>')
+                                .append('<i class="fa fa-trash"></i>')
+                                .addClass('btn btn btn-outline-dark btn-sm ml-1')
+                                .attr('aria-label', 'Delete Draft ' + options.data.courseNumber)
+                                .attr('title', 'Delete Draft ' + options.data.courseNumber)
+                                .attr('data-toggle', 'tooltip')
+                                .attr('data-placement', 'top')
+                                .on('dxclick',
+                                    function(e) {
+                                        $http.delete('/api/drafts/' + options.data.draftId).then(r => {
+                                            toastr.success('Deleted draft ' + options.data.courseNumber);
+                                            $('#gridContainer').dxDataGrid('instance').refresh();
+                                        }).catch(err => {
+                                            console.error('err', err);
+                                            toastr.error(err.data.exceptionMessage);
+                                        });
+                                    })
+                                .appendTo(container);
+                        }
+
                     }
                 }
             ],
@@ -288,7 +292,8 @@ function controller($http) {
 module.component('draftList',
     {
         bindings: {
-            isAdmin: '@'
+            isAdmin: '@',
+            isCourseAdmin: '@'
         },
         templateUrl: '/src/app/drafts/draft-list.component.html',
         controller: ['$http', controller]

@@ -19,7 +19,7 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View(id);
         }
 
-        [Route("{id:int}/edit"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
+        [Route("{id:int}/edit"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
         public ActionResult Edit(int id)
         {
             return View(id);

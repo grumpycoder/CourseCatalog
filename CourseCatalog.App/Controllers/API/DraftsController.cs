@@ -58,14 +58,14 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPost, Route, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, Route, CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> UpdateDraft([FromBody] UpdateDraftCommand updateDraftCommand)
         {
             var dto = await _mediator.Send(updateDraftCommand);
             return Ok(dto);
         }
 
-        [HttpPost, Route("create"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, Route("create"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CreateDraft([FromBody] CreateDraftCommand createDraftCommand)
         {
             var dto = await _mediator.Send(createDraftCommand);
@@ -79,14 +79,14 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPost, Route("createendorsement"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, Route("createendorsement"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, Admin")]
         public async Task<IHttpActionResult> CreateDraftEndorsement([FromBody] CreateDraftEndorsementCommand createRequirementCommand)
         {
             var dto = await _mediator.Send(createRequirementCommand);
             return Ok(dto);
         }
 
-        [HttpPost, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, Admin")]
         [Route("{draftId}/endorsements/{endorsementId}")]
         public async Task<IHttpActionResult> DeleteDraftEndorsement(int draftId, int endorsementId)
         {
@@ -94,7 +94,7 @@ namespace CourseCatalog.App.Controllers.API
             return Ok();
         }
 
-        [HttpPost, Route("assignprogram"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, Route("assignprogram"), CustomAuthorize(Roles = "CourseAdmin, CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> AssignProgram([FromBody] CreateDraftProgramCommand createDraftProgramCommand)
         {
             var dto = await _mediator.Send(createDraftProgramCommand);
@@ -109,14 +109,14 @@ namespace CourseCatalog.App.Controllers.API
             return Ok();
         }
 
-        [HttpPost, Route("{courseId}/create"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, Route("{courseId}/create"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CreateDraft(int courseId)
         {
             var dto = await _mediator.Send(new CreateDraftByCourseIdCommand(courseId));
             return Ok(dto);
         }
 
-        [HttpPost, Route("publish/{draftId}"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpPost, Route("publish/{draftId}"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> Post(int draftId)
         {
             var dto = await _mediator.Send(new PublishDraftCommand(draftId));
