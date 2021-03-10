@@ -75,29 +75,27 @@ function controller($http) {
                     { dataField: 'endYear', caption: 'End Year', width: 120, dataType: 'int' },
                     {
                         caption: '',
-                        visible: ctrl.isAdmin, 
+                        visible: ctrl.isAdmin,
                         width: 75,
                         cssClass: 'center-col',
                         cellTemplate: function (container, options) {
-                            if (ctrl.isAdmin) {
-                                $('<a/>').addClass('btn btn-outline-primary')
-                                    .text('')
-                                    .attr('aria-label', 'Edit Cluster ' + options.data.clusterCode)
-                                    .attr('title', 'Edit Cluster ' + options.data.clusterCode)
-                                    .attr('data-toggle', 'tooltip')
-                                    .attr('data-placement', 'top')
-                                    .attr('href', '/careertech/clusters/' + options.data.clusterId + '/edit')
-                                    .append('<i class="fa fa-pencil">')
-                                    .on('dxclick',
-                                        function (e) {
-                                            $('<a href="/careertech/clusters/' +
-                                                options.data.clusterId +
-                                                '/edit>' +
-                                                options.data.clusterCode +
-                                                '</a>').appendTo(container);
-                                        })
-                                    .appendTo(container);
-                            }
+                            $('<a/>').addClass('btn btn-sm btn-outline-dark')
+                                .text('')
+                                .attr('aria-label', 'Edit Cluster ' + options.data.clusterCode)
+                                .attr('title', 'Edit Cluster ' + options.data.clusterCode)
+                                .attr('data-toggle', 'tooltip')
+                                .attr('data-placement', 'top')
+                                .attr('href', '/careertech/clusters/' + options.data.clusterId + '/edit')
+                                .append('<i class="fa fa-pencil">')
+                                .on('dxclick',
+                                    function (e) {
+                                        $('<a href="/careertech/clusters/' +
+                                            options.data.clusterId +
+                                            '/edit>' +
+                                            options.data.clusterCode +
+                                            '</a>').appendTo(container);
+                                    })
+                                .appendTo(container);
                         }
                     }
                 ],

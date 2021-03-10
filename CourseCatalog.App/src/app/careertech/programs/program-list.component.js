@@ -84,7 +84,7 @@ function controller($http) {
                         width: 75,
                         cssClass: 'center-col',
                         cellTemplate: function (container, options) {
-                            $('<a/>').addClass('btn btn-outline-primary')
+                            $('<a/>').addClass('btn btn-sm btn-outline-dark')
                                 .text('')
                                 .attr('aria-label', 'Edit Program ' + options.data.programCode)
                                 .attr('title', 'Edit Program ' + options.data.programCode)

@@ -90,11 +90,11 @@ function controller($http) {
                     { dataField: 'endYear', caption: 'End Year', dataType: 'int' },
                     {
                         caption: '',
-                        visible: ctrl.isAdmin,
-                        width: 75,
+                        visible: ctrl.isAdmin, 
+                        width:30, 
                         cssClass: 'center-col',
                         cellTemplate: function (container, options) {
-                            $('<a/>').addClass('btn btn-outline-primary')
+                            $('<a/>').addClass('btn btn-sm btn-outline-dark')
                                 .text('')
                                 .attr('aria-label', 'Edit Credential ' + options.data.credentialCode)
                                 .attr('title', 'Edit Credential ' + options.data.credentialCode)

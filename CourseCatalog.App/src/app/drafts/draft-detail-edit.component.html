@@ -137,6 +137,7 @@
                     <label for="gradeScaleId">Grade Scale</label>
                     <select class="form-control"
                             ng-model="$ctrl.course.gradeScaleId"
+                            required=""
                             name="gradeScaleId"
                             id="gradeScaleId">
                         <option value="">--- Please select ---</option>
@@ -144,6 +145,9 @@
                             {{ option.configuration }}
                         </option>
                     </select>
+                    <ng-messages for="$ctrl.form.gradeScaleId.$error">
+                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                    </ng-messages>
                 </div>
 
                 <div class="form-group col-6">
@@ -198,31 +202,11 @@
                 </div>
 
                 <div class="form-group col-6">
-                    <label for="scedCourseNumber" class="col-form-label">Sced Course Number</label>
+                    <label for="scedCourseNumber" class="col-form-label">SCED Course Number</label>
                     <input type="text" class="form-control"
                            ng-model="$ctrl.course.scedCourseNumber"
                            name="scedCourseNumber"
                            id="scedCourseNumber"
-                           ng-disabled="!$ctrl.canEditCourseNumber"
-                           ng-change="$ctrl.updateCourseNumber()" />
-                </div>
-
-                <div class="form-group col-6">
-                    <label for="stateAttribute1" class="col-form-label">State Attribute 1</label>
-                    <input type="text" class="form-control"
-                           ng-model="$ctrl.course.stateAttribute1"
-                           name="stateAttribute1"
-                           id="stateAttribute1"
-                           ng-disabled="!$ctrl.canEditCourseNumber"
-                           ng-change="$ctrl.updateCourseNumber()" />
-                </div>
-
-                <div class="form-group col-6">
-                    <label for="stateAttribute2" class="col-form-label">State Attribute 2</label>
-                    <input type="text" class="form-control"
-                           ng-model="$ctrl.course.stateAttribute2"
-                           name="stateAttribute2"
-                           id="stateAttribute2"
                            ng-disabled="!$ctrl.canEditCourseNumber"
                            ng-change="$ctrl.updateCourseNumber()" />
                 </div>
@@ -245,6 +229,26 @@
                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
                     </ng-messages>
 
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="stateAttribute1" class="col-form-label">State Attribute 1</label>
+                    <input type="text" class="form-control"
+                           ng-model="$ctrl.course.stateAttribute1"
+                           name="stateAttribute1"
+                           id="stateAttribute1"
+                           ng-disabled="!$ctrl.canEditCourseNumber"
+                           ng-change="$ctrl.updateCourseNumber()" />
+                </div>
+
+                <div class="form-group col-6">
+                    <label for="stateAttribute2" class="col-form-label">State Attribute 2</label>
+                    <input type="text" class="form-control"
+                           ng-model="$ctrl.course.stateAttribute2"
+                           name="stateAttribute2"
+                           id="stateAttribute2"
+                           ng-disabled="!$ctrl.canEditCourseNumber"
+                           ng-change="$ctrl.updateCourseNumber()" />
                 </div>
 
             </div>

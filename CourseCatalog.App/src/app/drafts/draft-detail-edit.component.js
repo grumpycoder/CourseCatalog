@@ -20,8 +20,7 @@ function detailController($http) {
             ctrl.stateAttribute2 = '##';
             ctrl.scedCourseNumber = '##';
             ctrl.updateCourseNumber();
-            ctrl.course.status = 'NewCourse'; 
-            console.log('set edit', ctrl);
+            ctrl.course.status = 'NewCourse';
             loadRefs();
         }
         //path for existing course

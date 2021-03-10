@@ -14,8 +14,8 @@
         <span class="pull-right">
             <a ng-href="/drafts/{{ $ctrl.courseId }}/edit" 
                ng-class="{disabled: $ctrl.isProcessing}"
-               class="btn btn-sm btn-dark" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">Edit</a>
-            <button class="btn btn-warning btn-sm mr-2" ng-click="$ctrl.publish()" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">Publish Draft</button>
+               class="btn btn-sm btn-outline-dark" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">Edit</a>
+            <button class="btn btn-outline-warning btn-sm mr-2" ng-click="$ctrl.publish()" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">Publish Draft</button>
             <small class="alert alert-success" ng-show="{{$ctrl.publishMessage}}">{{$ctrl.publishMessage}}</small>
         </span>
     </div>

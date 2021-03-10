@@ -9,6 +9,20 @@ function controller($http) {
         loadRefs(); 
     }
     
+    ctrl.$onChanges = function() {
+        if (!ctrl.course) return; 
+        ctrl.listOptions = {
+            dataSource: ctrl.course.programs,
+            searchEnabled: true,
+            searchExpr: ['name', 'programCode'],
+            height: 500,
+            allowItemDeleting: true,
+            onItemDeleting: function (data) {
+                ctrl.removeProgram(data.itemData);
+            }
+        }
+    }
+
     function loadRefs() {
         fetchSchoolYears();
         fetchPrograms();
@@ -63,6 +77,7 @@ function controller($http) {
         $http.post(url, dto)
             .then(r => {
                 ctrl.course.programs.push(r.data);
+                $('#draftPrograms').dxList('instance').reload();
                 ctrl.programAssignment.programId = undefined; 
                 toastr.success('Added ' + r.data.programCode);
             }).catch(err => {
