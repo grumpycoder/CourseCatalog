@@ -19,7 +19,14 @@
         </div><!-- ./col -->
 
     </div><!-- ./row -->
-
+    <div class="row">
+        <p>
+            <h4>Error Results</h4>
+            <code>
+                @Html.Raw(@ViewBag.Error)
+            </code>
+        </p>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-primary" type="button"
