@@ -4,10 +4,10 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-6 offset-md-3">
 
             <h2 class="text-center">An error occurred processing your request. </h2>
-            @User.IsInRole(Constants.GlobalAdministrators)
+
             <div class="alert alert-danger">
                 <p>
                     Something happened and we have error monitors in place that will let
@@ -19,14 +19,7 @@
         </div><!-- ./col -->
 
     </div><!-- ./row -->
-    <div class="row">
-        <p>
-            <h4>Error Results</h4>
-            <code>
-                @Html.Raw(@ViewBag.Error)
-            </code>
-        </p>
-    </div>
+
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-primary" type="button"
@@ -34,17 +27,18 @@
                     data-target="#collapseExample"
                     aria-expanded="false"
                     aria-controls="collapseExample"
-                    >
+                    hidden="@User.IsInRole(Constants.GlobalAdministrators)">
                 Exception Details
             </button>
 
             <div class="collapse" id="collapseExample">
                 <p>
-                    <pre>
-                        <code>
-                            @Html.Raw(@ViewBag.Error)
-                        </code>
-                    </pre>
+                    <pre class="p-3">
+                    <code>
+                        @Html.Raw(@ViewBag.Error)
+                    </code>
+</pre>
+
                 </p>
             </div>
         </div><!-- ./col -->

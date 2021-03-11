@@ -7,11 +7,13 @@ function controller($http, userService) {
 
     ctrl.$onInit = function () {
         userService.userDetails().then(r => {
-            ctrl.user = r; 
-            ctrl.isAdmin = ctrl.user.groups.some(g => g.groupName === 'Admin') || ctrl.user.groups.some(g => g.groupName === 'CourseAdmin');
-            ctrl.isCourseAdmin = ctrl.isAdmin;
-            ctrl.isTCertAdmin = ctrl.user.groups.some(g => g.groupName === 'TeacherCertAdmin') || ctrl.isAdmin;
-            ctrl.isCareerTechAdmin = ctrl.user.groups.some(g => g.groupName === 'CareerTechAdmin') || ctrl.isAdmin;
+            if (r !== null) {
+                ctrl.user = r;
+                ctrl.isAdmin = ctrl.user.groups.some(g => g.groupName === 'Admin') || ctrl.user.groups.some(g => g.groupName === 'CourseAdmin');
+                ctrl.isCourseAdmin = ctrl.isAdmin;
+                ctrl.isTCertAdmin = ctrl.user.groups.some(g => g.groupName === 'TeacherCertAdmin') || ctrl.isAdmin;
+                ctrl.isCareerTechAdmin = ctrl.user.groups.some(g => g.groupName === 'CareerTechAdmin') || ctrl.isAdmin;
+            }
         });
 
         ctrl.loadCourse(ctrl.courseId).then(function () {
@@ -45,7 +47,7 @@ function controller($http, userService) {
     };
 
     ctrl.publish = function () {
-        ctrl.isProcessing = true; 
+        ctrl.isProcessing = true;
         $http.post('/api/drafts/publish/' + ctrl.course.draftId).then(r => {
             toastr.success('Published', ctrl.course.courseNumber + ' Successfully Published',
                 {
@@ -56,7 +58,7 @@ function controller($http, userService) {
                 });
         }).catch(e => {
             console.error('error', e);
-            ctrl.isProcessing = false; 
+            ctrl.isProcessing = false;
             toastr.error(e.data.exceptionMessage);
         });
     }
