@@ -26,14 +26,12 @@ namespace CourseCatalog.App.Controllers.API
     {
         private readonly IMediator _mediator;
         private readonly CourseDbContext _context;
-        private readonly IPublishCourseService _publishCourseService;
         private readonly IMapper _mapper;
 
-        public DraftsController(IMediator mediator, CourseDbContext context, IPublishCourseService publishCourseService, IMapper mapper)
+        public DraftsController(IMediator mediator, CourseDbContext context, IMapper mapper)
         {
             _mediator = mediator;
             _context = context;
-            _publishCourseService = publishCourseService;
             _mapper = mapper;
         }
 

@@ -17,7 +17,7 @@ function controller($http) {
                 searchEnabled: true,
                 searchExpr: "description",
                 height: 500,
-                allowItemDeleting: true,
+                allowItemDeleting: ctrl.isAdmin,
                 onItemDeleting: function (data) {
                     ctrl.removeEndorsement(data.itemData);
                 }
@@ -76,7 +76,8 @@ function controller($http) {
 module.component('draftRequirementEdit',
     {
         bindings: {
-            course: '<'
+            course: '<', 
+            isAdmin: '<'
         },
         templateUrl: '/src/app/drafts/draft-requirement-edit.html',
         controller: ['$http', controller]

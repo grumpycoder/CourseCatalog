@@ -23,6 +23,7 @@ using System.Linq;
 using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
 using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
+using CourseCatalog.App.Features.Users.Queries.GetUser;
 
 namespace CourseCatalog.App.Profiles
 {
@@ -222,6 +223,17 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.FirstName, o => o.MapFrom(s => s.User.FirstName))
                 .ForMember(d => d.LastName, o => o.MapFrom(s => s.User.LastName))
                 .ForMember(d => d.FullName, o => o.MapFrom(s => s.User.FullName))
+                .ReverseMap();
+
+            CreateMap<User, UserDetailDto>()
+                //.ForMember(d => d.IdentityGuid, o => o.MapFrom(s => s.User.IdentityGuid))
+                //.ForMember(d => d.UserId, o => o.MapFrom(s => s.User.UserId))
+                .ReverseMap();
+
+            CreateMap<UserGroup, UserGroupDto>()
+                .ForMember(d => d.GroupUserId, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.GroupId, o => o.MapFrom(s => s.Group.Id))
+                .ForMember(d => d.GroupName, o => o.MapFrom(s => s.Group.Name))
                 .ReverseMap();
 
             CreateMap<UserGroup, UserGroupListDto>().ReverseMap();

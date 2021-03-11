@@ -1,6 +1,8 @@
 ﻿using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
 using CourseCatalog.App.Features.Groups.Commands.DeleteGroupUser;
 using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
+using CourseCatalog.App.Features.Users.Queries.GetUser;
+using CourseCatalog.Application.Contracts;
 using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
@@ -20,12 +22,14 @@ namespace CourseCatalog.App.Controllers.API
         private readonly CourseDbContext _context;
         private readonly IdemContext _idemContext;
         private readonly IMediator _mediator;
+        private readonly ILoggedInUserService _loggedInUserService;
 
-        public MembershipApiController(CourseDbContext context, IdemContext idemContext, IMediator mediator)
+        public MembershipApiController(CourseDbContext context, IdemContext idemContext, IMediator mediator, ILoggedInUserService loggedInUserService)
         {
             _context = context;
             _idemContext = idemContext;
             _mediator = mediator;
+            _loggedInUserService = loggedInUserService;
         }
 
         [HttpGet, Route("users")]
@@ -44,6 +48,14 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dtos);
         }
 
+        [HttpGet, Route("currentuser")]
+        public async Task<IHttpActionResult> GetUserDetails()
+        {
+            var dto = await _mediator.Send(new GetUserQuery(_loggedInUserService.IdentityGuid));
+            return Ok(dto);
+        }
+
+
         [HttpDelete, Route("groups/{groupId}/user/{userId}"), Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> DeleteGroupMember(int groupId, Guid userId)
         {
@@ -56,33 +68,6 @@ namespace CourseCatalog.App.Controllers.API
         {
             var dto = await _mediator.Send(new CreateGroupUserCommand(groupId, identityGuid));
             return Ok(dto);
-
-            //if (user == null)
-            //{
-            //    //no local user record check idem for user
-            //    user = await _idemContext.Users.FirstOrDefaultAsync(x => x.IdentityGuid == identityGuid);
-            //    if (user == null) return BadRequest("User does not exist");
-
-            //    //create new user record from idem
-            //    user = new User(user.Username, user.EmailAddress, user.FirstName, user.LastName, user.FullName, user.IdentityGuid);
-            //    _context.Attach(user);
-            //    await _context.SaveChangesAsync();
-            //}
-
-            //var group = await _context.Groups.Include(u => u.UserGroups).FirstOrDefaultAsync(g => g.Id == groupId);
-            //if (group == null) return BadRequest("Group does not exist");
-
-            //try
-            //{
-            //    group.AddUser(user);
-            //    _context.Attach(group);
-            //    await _context.SaveChangesAsync();
-            //    return Ok();
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest(ex.InnerException?.Message);
-            //}
         }
 
         //[HttpPost, Route("groups/{groupName}"), Authorize(Roles = "Admin")]

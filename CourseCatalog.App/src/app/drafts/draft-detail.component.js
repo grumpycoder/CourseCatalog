@@ -6,6 +6,9 @@ function controller($http) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
+        ctrl.isAdmin = (ctrl.isAdmin === 'true');
+        ctrl.isCourseAdmin = (ctrl.isCourseAdmin === 'true');
+
         ctrl.loadCourse(ctrl.courseId).then(function () {
             var courseNumber = ctrl.course.courseNumber ? ctrl.course.courseNumber : 'No Course Number';
             ctrl.title = ctrl.course.name + ' (' + courseNumber + ')';
@@ -59,7 +62,8 @@ module.component('draftDetail',
     {
         bindings: {
             courseId: '@', 
-            isAdmin: '@'
+            isAdmin: '@',
+            isCourseAdmin: '@'
         },
         templateUrl: '/src/app/drafts/draft-detail.component.html',
         controller: ['$http', controller]

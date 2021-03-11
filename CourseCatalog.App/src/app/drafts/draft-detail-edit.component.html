@@ -9,30 +9,33 @@
     <div class="col-12 col-lg-6">
         <form novalidate ng-submit="$ctrl.onSubmit()" name="$ctrl.form" id="$ctrl.form" class="form">
 
-            <div class="form-row">
+        <div class="form-row">
+            <div class="form-group col-12">
+                <span class="d-flex alert alert-heading alert-warning" role="alert">You do not have permissions save changes Details</span>
+            </div>
 
-                <div class="form-group col-12">
-                    <label for="courseName">Course Name</label>
+            <div class="form-group col-12">
+                <label for="courseName">Course Name</label>
 
-                    <input type="text"
-                           class="form-control"
-                           id="courseName"
-                           autocomplete="off"
-                           name="courseName"
-                           placeholder="Course Name (required)"
-                           ng-model="$ctrl.course.name"
-                           required
-                           ng-minlength="6"
-                           ng-maxlength="100" />
-                    <ng-messages for="$ctrl.form.courseName.$error">
-                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
-                        <ng-message when="minlength" class="form-text text-danger small">Field is too short</ng-message>
-                        <ng-message when="maxlength" class="form-text text-danger small">Field is too long</ng-message>
-                    </ng-messages>
-
-                </div>
+                <input type="text"
+                       class="form-control"
+                       id="courseName"
+                       autocomplete="off"
+                       name="courseName"
+                       placeholder="Course Name (required)"
+                       ng-model="$ctrl.course.name"
+                       required
+                       ng-minlength="6"
+                       ng-maxlength="100"/>
+                <ng-messages for="$ctrl.form.courseName.$error">
+                    <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                    <ng-message when="minlength" class="form-text text-danger small">Field is too short</ng-message>
+                    <ng-message when="maxlength" class="form-text text-danger small">Field is too long</ng-message>
+                </ng-messages>
 
             </div>
+
+        </div>
 
             <div class="form-row">
                 <div class="form-group col-12">
@@ -421,7 +424,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row" ng-show="$ctrl.isAdmin">
                 <div class="form-group col-6">
                     <button class="btn btn-outline-secondary btn-block"
                             ng-show="$ctrl.form.$dirty"
@@ -442,7 +445,6 @@
             </div>
 
         </form>
-
     </div>
 
 </div>

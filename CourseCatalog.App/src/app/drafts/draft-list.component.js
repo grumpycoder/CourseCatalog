@@ -126,7 +126,7 @@ function controller($http) {
                                 })
                             .appendTo(container);
 
-                        if (ctrl.isCourseAdmin === true) {
+                        if (ctrl.isCourseAdmin === 'true') {
                             $('<a>')
                                 .append('<i class="fa fa-trash"></i>')
                                 .addClass('btn btn btn-outline-dark btn-sm ml-1')

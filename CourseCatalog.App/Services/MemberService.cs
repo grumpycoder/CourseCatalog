@@ -50,16 +50,16 @@ namespace CourseCatalog.App.Services
             switch (user)
             {
                 case null:
-                    user = new User
-                    {
-                        Username = username,
-                        EmailAddress = emailAddress,
-                        FirstName = firstName,
-                        LastName = lastName,
-                        FullName = fullName,
-                        IdentityGuid = identityGuid
-                    };
-                    await _mediator.Send(new CreateUserCommand(user));
+                    //user = new User
+                    //{
+                    //    Username = username,
+                    //    EmailAddress = emailAddress,
+                    //    FirstName = firstName,
+                    //    LastName = lastName,
+                    //    FullName = fullName,
+                    //    IdentityGuid = identityGuid
+                    //};
+                    //await _mediator.Send(new CreateUserCommand(user));
                     break;
                 default:
                     await _mediator.Send(new UpdateUserCommand

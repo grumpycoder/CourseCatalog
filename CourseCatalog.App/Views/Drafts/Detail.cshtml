@@ -2,9 +2,14 @@
 @{
     ViewBag.Title = "Draft Detail";
     var isAdmin = "false";
-    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
+    var isCourseAdmin = "false";
+    if (User.Identity.HasClaim("TeacherCertAdmin") || @User.Identity.HasClaim("CareerTechAdmin"))
     {
         isAdmin = "true";
+    };
+    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
+    {
+        isCourseAdmin = "true";
     };
 }
 

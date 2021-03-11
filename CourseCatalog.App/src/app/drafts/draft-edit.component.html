@@ -28,13 +28,13 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <draft-detail-edit course="$ctrl.course"></draft-detail-edit>
+                <draft-detail-edit course="$ctrl.course" is-admin="$ctrl.isCourseAdmin"></draft-detail-edit>
             </div>
             <div class="tab-pane fade" id="nav-tc" role="tabpanel" aria-labelledby="nav-tc-tab">
-                <draft-requirement-edit course="$ctrl.course"></draft-requirement-edit>
+                <draft-requirement-edit course="$ctrl.course" is-admin="$ctrl.isTCertAdmin"></draft-requirement-edit>
             </div>
             <div class="tab-pane fade" id="nav-ct" role="tabpanel" aria-labelledby="nav-ct-tab">
-                <draft-careertech-edit course="$ctrl.course"></draft-careertech-edit>
+                <draft-careertech-edit course="$ctrl.course" is-admin="$ctrl.isCareerTechAdmin"></draft-careertech-edit>
             </div>
             <!--<div class="tab-pane fade" id="nav-cos" role="tabpanel" aria-labelledby="nav-cos-tab">
                 Course of Study

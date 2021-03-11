@@ -2,14 +2,13 @@
 
 <form novalidate ng-submit="$ctrl.addProgram()" name="$ctrl.form3" id="$ctrl.form3" class="form">
 
-    <div class="form-row col-12 col-lg-6">
+    <div class="form-row col-12 col-lg-6" ng-show="$ctrl.isAdmin">
 
-        <div class="col-12 alert-info mb-2">
-            <p class="pt-3">
-                Add Career Technology Programs by selecting Beginning and Ending Year ranges and select Program
-            </p>
+        <div class="form-group col-12">
+            <span class="d-flex alert alert-heading alert-info" role="alert">
+                Add Programs by selecting Beginning and Ending Year ranges and select a Program
+            </span>
         </div>
-
         <div class="form-group col-6">
             <label for="beginYear">Beginning Year</label>
             <select class="form-control"
@@ -48,7 +47,7 @@
 
     </div>
 
-    <div class="form-row col-12 col-lg-6">
+    <div class="form-row col-12 col-lg-6" ng-show="$ctrl.isAdmin">
 
         <div class="input-group mb-3">
             <extended-select ng-model="$ctrl.programAssignment.programId"

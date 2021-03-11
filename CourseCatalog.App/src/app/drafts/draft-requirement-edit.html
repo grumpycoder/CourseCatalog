@@ -43,12 +43,9 @@
     }
 </style>
 <div class="col-lg-6 col-sm-12">
-    <pre>
-    {{ $ctrl.form | json }}
-</pre>
     <div class="form-group row">
-       
-        <div class="col-12">
+
+        <div class="col-12" ng-show="$ctrl.isAdmin">
             <div class="input-group mb-3">
                 <extended-select ng-model="$ctrl.endorsementId"
                                  deselectable=""

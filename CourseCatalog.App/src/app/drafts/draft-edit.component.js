@@ -2,10 +2,18 @@
 
 var module = angular.module('app');
 
-function controller($http) {
+function controller($http, userService) {
     var ctrl = this;
 
     ctrl.$onInit = function() {
+        userService.userDetails().then(r => {
+            ctrl.user = r; 
+            ctrl.isAdmin = ctrl.user.groups.some(g => g.groupName === 'Admin') || ctrl.user.groups.some(g => g.groupName === 'CourseAdmin');
+            ctrl.isCourseAdmin = ctrl.isAdmin;
+            ctrl.isTCertAdmin = ctrl.user.groups.some(g => g.groupName === 'TeacherCertAdmin') || ctrl.isAdmin;
+            ctrl.isCareerTechAdmin = ctrl.user.groups.some(g => g.groupName === 'CareerTechAdmin') || ctrl.isAdmin;
+        });
+
         if (ctrl.courseId == -1) {
             ctrl.title = 'New Draft';
             return;
@@ -46,7 +54,7 @@ module.component('draftEdit',
             courseId: '@'
         },
         templateUrl: '/src/app/drafts/draft-edit.component.html',
-        controller: ['$http', controller]
+        controller: ['$http', 'userService', controller]
     });
 
 

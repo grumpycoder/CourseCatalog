@@ -1,6 +1,6 @@
 ﻿//draft-detail-edit.component.js
 
-var module = angular.module('app');
+var module = angular.module('app').value('user', {});
 
 function detailController($http) {
     var ctrl = this;
@@ -332,7 +332,8 @@ function detailController($http) {
 module.component('draftDetailEdit',
     {
         bindings: {
-            course: '<'
+            course: '<', 
+            isAdmin: '<'
         },
         templateUrl: '/src/app/drafts/draft-detail-edit.component.html',
         controller: ['$http', detailController]

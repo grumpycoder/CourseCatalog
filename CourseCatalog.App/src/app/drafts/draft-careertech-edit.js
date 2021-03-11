@@ -2,7 +2,7 @@
 
 var module = angular.module('app');
 
-function controller($http) {
+function controller($http, user) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
@@ -16,7 +16,7 @@ function controller($http) {
             searchEnabled: true,
             searchExpr: ['name', 'programCode'],
             height: 500,
-            allowItemDeleting: true,
+            allowItemDeleting: ctrl.isAdmin,
             onItemDeleting: function (data) {
                 ctrl.removeProgram(data.itemData);
             }
@@ -90,8 +90,9 @@ function controller($http) {
 module.component('draftCareertechEdit',
     {
         bindings: {
-            course: '<'
+            course: '<', 
+            isAdmin: '<'
         },
         templateUrl: '/src/app/drafts/draft-careertech-edit.html',
-        controller: ['$http', controller]
+        controller: ['$http', 'user', controller]
     });

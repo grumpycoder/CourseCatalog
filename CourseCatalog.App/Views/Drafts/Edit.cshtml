@@ -1,5 +1,20 @@
 ﻿@{
     ViewBag.Title = "Edit Draft";
+    var isCourseAdmin = "false";
+    var isTeacherCertAdmin = "false";
+    var isCareerTechAdmin = "false";
+    if (User.Identity.HasClaim("TeacherCertAdmin"))
+    {
+        isTeacherCertAdmin = "true";
+    };
+    if (@User.Identity.HasClaim("CareerTechAdmin"))
+    {
+        isCareerTechAdmin = "true";
+    };
+    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
+    {
+        isCourseAdmin = "true";
+    };
 }
 
 <draft-edit course-id="@Model"></draft-edit>
