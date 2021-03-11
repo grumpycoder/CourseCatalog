@@ -12,7 +12,8 @@ function controller($http) {
     ctrl.$onInit = function () {
         ctrl.isAdmin = (ctrl.isAdmin === 'true');
         ctrl.isCourseAdmin = (ctrl.isCourseAdmin === 'true');
-        console.log(ctrl);
+        ctrl.canCreateDraft = ctrl.isAdmin || ctrl.isCourseAdmin; 
+        console.log(ctrl.canCreateDraft);
         var url = '/api/drafts/';
         ctrl.title = 'Course Drafts';
 

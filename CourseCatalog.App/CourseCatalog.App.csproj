@@ -80,6 +80,9 @@
     <Reference Include="DevExtreme.AspNet.Mvc, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <HintPath>..\packages\DevExtreme.AspNet.Mvc.20.1.4\lib\net452\DevExtreme.AspNet.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.9.5.2\lib\net461\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="MediatR, Version=9.0.0.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2, processorArchitecture=MSIL">
       <HintPath>..\packages\MediatR.9.0.0\lib\net461\MediatR.dll</HintPath>
     </Reference>

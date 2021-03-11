@@ -36,11 +36,6 @@ function controller($http, userService) {
         return $http.get('/api/drafts/' + courseNumber).then(r => {
             ctrl.course = r.data;
             ctrl.programs = r.data.programAssignments;
-
-            ctrl.canPublish = ctrl.course.courseStatus !== 'Published';
-            ctrl.canEdit = (ctrl.course.canEdit === true) && (ctrl.canPublish === true);
-
-            if (!ctrl.canPublish) ctrl.publishMessage = 'Course Published';
         }).catch(function (err) {
             console.error(err.message);
         });

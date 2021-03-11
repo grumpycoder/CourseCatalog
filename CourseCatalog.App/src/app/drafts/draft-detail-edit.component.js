@@ -89,6 +89,7 @@ function detailController($http) {
             ctrl.scedCourseNumber = ctrl.course.scedCourseNumber;
         }
 
+        console.log(ctrl.course);
         if (ctrl.course.scedCategoryId) {
             ctrl.scedCategoryCode = ctrl.scedCategories.find(s => s.scedCategoryId === ctrl.course.scedCategoryId).code;
         }

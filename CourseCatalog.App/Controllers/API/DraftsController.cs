@@ -10,7 +10,6 @@ using CourseCatalog.App.Features.Drafts.Commands.PublishDraft;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.App.Filters;
-using CourseCatalog.Application.Contracts;
 using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
@@ -117,15 +116,8 @@ namespace CourseCatalog.App.Controllers.API
         [HttpPost, Route("publish/{draftId}"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> Post(int draftId)
         {
-            try
-            {
-                var dto = await _mediator.Send(new PublishDraftCommand(draftId));
-                return Ok(dto);
-            }
-            catch (Exception e)
-            {
-                return Ok(e);
-            }
+            var dto = await _mediator.Send(new PublishDraftCommand(draftId));
+            return Ok(dto);
         }
 
     }
