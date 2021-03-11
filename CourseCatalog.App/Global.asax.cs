@@ -47,7 +47,7 @@ namespace CourseCatalog.App
 
             builder.Register(c => HttpContext.Current).As<HttpContext>().InstancePerRequest();
 
-            builder.RegisterType<LoggedInUserService>().As<ILoggedInUserService>();
+            builder.RegisterType<LoggedInUserService>().As<ILoggedInUserService>().InstancePerLifetimeScope();
             builder.RegisterType<MemberService>().As<IMemberService>();
             builder.RegisterType<PublisherApiConfiguration>().As<IPublisherApiConfiguration>()
                 .AsImplementedInterfaces().SingleInstance();

@@ -2,11 +2,11 @@
     ViewBag.Title = "Drafts";
     var isAdmin = "false";
     var isCourseAdmin = "false";
-    if (User.Identity.HasClaim("TeacherCertAdmin") || @User.Identity.HasClaim("CareerTechAdmin"))
+    if (User.Identity.HasRoleClaim("TeacherCertAdmin") || @User.Identity.HasRoleClaim("CareerTechAdmin"))
     {
         isAdmin = "true";
     };
-    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CourseAdmin") || @User.Identity.HasRoleClaim("Admin"))
     {
         isCourseAdmin = "true";
     };

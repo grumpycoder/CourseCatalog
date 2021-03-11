@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Clusters";
     var isAdmin = "false";
-    if (User.Identity.HasClaim("CareerTechAdmin") || @User.Identity.HasClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CareerTechAdmin") || @User.Identity.HasRoleClaim("Admin"))
     {
         isAdmin = "true"; 
     };

@@ -1,19 +1,9 @@
 ﻿
 @{
     ViewBag.Title = "Draft Detail";
-    var isAdmin = "false";
-    var isCourseAdmin = "false";
-    if (User.Identity.HasClaim("TeacherCertAdmin") || @User.Identity.HasClaim("CareerTechAdmin"))
-    {
-        isAdmin = "true";
-    };
-    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
-    {
-        isCourseAdmin = "true";
-    };
 }
 
-<draft-detail course-id="@Model" is-admin=@isAdmin is-course-admin=@isCourseAdmin></draft-detail>
+<draft-detail course-id="@Model"></draft-detail>
 
 @section scripts{
     <script src="~/src/app/drafts/draft-detail.component.js"></script>

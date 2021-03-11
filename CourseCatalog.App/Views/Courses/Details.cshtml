@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Course Detail";
     var isAdmin = "false";
-    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CourseAdmin") || @User.Identity.HasRoleClaim("Admin"))
     {
         isAdmin = "true"; 
     };

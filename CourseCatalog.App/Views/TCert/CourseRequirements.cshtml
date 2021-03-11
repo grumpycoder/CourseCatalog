@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Course Requirements";
     var isAdmin = "false";
-    if (User.Identity.HasClaim("TeacherCertAdmin") || @User.Identity.HasClaim("Admin"))
+    if (User.Identity.HasRoleClaim("TeacherCertAdmin") || @User.Identity.HasRoleClaim("Admin"))
     {
         isAdmin = "true";
     };

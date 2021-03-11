@@ -39,11 +39,20 @@ namespace CourseCatalog.App.Helpers
             return claim?.Value;
         }
 
-        public static bool HasClaim(this IIdentity currentPrincipal, string role)
+        public static bool HasRoleClaim(this IIdentity currentPrincipal, string role)
         {
             var identity = currentPrincipal as ClaimsIdentity;
 
             var claim = identity?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role && c.Value == role);
+
+            return claim != null;
+        }
+        
+        public static bool HasClaim(this IIdentity currentPrincipal, string key)
+        {
+            var identity = currentPrincipal as ClaimsIdentity;
+
+            var claim = identity?.Claims.FirstOrDefault(c => c.Type.ToLower().Contains(key));
 
             return claim != null;
         }

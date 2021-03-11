@@ -3,15 +3,15 @@
     var isCourseAdmin = "false";
     var isTeacherCertAdmin = "false";
     var isCareerTechAdmin = "false";
-    if (User.Identity.HasClaim("TeacherCertAdmin"))
+    if (User.Identity.HasRoleClaim("TeacherCertAdmin"))
     {
         isTeacherCertAdmin = "true";
     };
-    if (@User.Identity.HasClaim("CareerTechAdmin"))
+    if (@User.Identity.HasRoleClaim("CareerTechAdmin"))
     {
         isCareerTechAdmin = "true";
     };
-    if (User.Identity.HasClaim("CourseAdmin") || @User.Identity.HasClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CourseAdmin") || @User.Identity.HasRoleClaim("Admin"))
     {
         isCourseAdmin = "true";
     };

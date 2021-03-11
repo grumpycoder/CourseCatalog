@@ -2,13 +2,17 @@
 
 var module = angular.module('app');
 
-function controller($http) {
+function controller($http, userService) {
     var ctrl = this;
 
     ctrl.$onInit = function () {
-        console.log(ctrl);
-        //ctrl.isAdmin = (ctrl.isAdmin === 'true');
-        //ctrl.isCourseAdmin = (ctrl.isCourseAdmin === 'true');
+        userService.userDetails().then(r => {
+            ctrl.user = r; 
+            ctrl.isAdmin = ctrl.user.groups.some(g => g.groupName === 'Admin') || ctrl.user.groups.some(g => g.groupName === 'CourseAdmin');
+            ctrl.isCourseAdmin = ctrl.isAdmin;
+            ctrl.isTCertAdmin = ctrl.user.groups.some(g => g.groupName === 'TeacherCertAdmin') || ctrl.isAdmin;
+            ctrl.isCareerTechAdmin = ctrl.user.groups.some(g => g.groupName === 'CareerTechAdmin') || ctrl.isAdmin;
+        });
 
         ctrl.loadCourse(ctrl.courseId).then(function () {
             var courseNumber = ctrl.course.courseNumber ? ctrl.course.courseNumber : 'No Course Number';
@@ -62,10 +66,8 @@ function controller($http) {
 module.component('draftDetail',
     {
         bindings: {
-            courseId: '@', 
-            isAdmin: '<',
-            isCourseAdmin: '<'
+            courseId: '@'
         },
         templateUrl: '/src/app/drafts/draft-detail.component.html',
-        controller: ['$http', controller]
+        controller: ['$http', 'userService', controller]
     });

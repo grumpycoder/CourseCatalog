@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
@@ -7,7 +8,7 @@ namespace CourseCatalog.App.Controllers.Mvc
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
-
+            throw new Exception("Test Exception");
             return View();
         }
     }
