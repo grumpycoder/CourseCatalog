@@ -13,7 +13,6 @@ function controller($http) {
         ctrl.isAdmin = (ctrl.isAdmin === 'true');
         ctrl.isCourseAdmin = (ctrl.isCourseAdmin === 'true');
         ctrl.canCreateDraft = ctrl.isAdmin || ctrl.isCourseAdmin; 
-        console.log(ctrl.canCreateDraft);
         var url = '/api/drafts/';
         ctrl.title = 'Course Drafts';
 

@@ -36,6 +36,7 @@ function detailController($http) {
                 ctrl.selectedCreditTypeTags = JSON.parse(JSON.stringify(ctrl.course.creditTypes));
             }
             ctrl.canEditCourseNumber = ctrl.course.status === 'NewCourse';
+            updateCache();
         }
     };
 
@@ -88,8 +89,7 @@ function detailController($http) {
         if (ctrl.course.scedCourseNumber) {
             ctrl.scedCourseNumber = ctrl.course.scedCourseNumber;
         }
-
-        console.log(ctrl.course);
+        
         if (ctrl.course.scedCategoryId) {
             ctrl.scedCategoryCode = ctrl.scedCategories.find(s => s.scedCategoryId === ctrl.course.scedCategoryId).code;
         }
@@ -313,7 +313,11 @@ function detailController($http) {
         ctrl.selectedTags = [];
 
         ctrl.course = angular.copy(ctrl.cache);
-        ctrl.selectedTags = ctrl.course.tags;
+        if (ctrl.course.tags) {
+            ctrl.selectedTags = ctrl.course.tags;
+        } else {
+            ctrl.selectedTags = []; 
+        }
         ctrl.selectedCreditTypes = ctrl.course.creditTypes;
         ctrl.cacheSelectedDeliveryTypes.forEach(e => {
             ctrl.selectedDeliveryTypes.push(e);
