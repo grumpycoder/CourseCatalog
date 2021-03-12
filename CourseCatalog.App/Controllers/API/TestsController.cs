@@ -3,7 +3,7 @@ using System.Web.Http;
 
 namespace CourseCatalog.App.Controllers.API
 {
-    [RoutePrefix("tests")]
+    [RoutePrefix("api/tests")]
     public class TestsController : ApiController
     {
 
