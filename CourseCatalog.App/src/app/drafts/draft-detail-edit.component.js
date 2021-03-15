@@ -10,8 +10,9 @@ function detailController($http) {
         tags: []
     };
 
-    this.$onChanges = function () {
+    ctrl.$onChanges = function () {
         //path for new course
+        //ctrl.isAdmin = ctrl.isAdmin === 'true'; 
         if (!ctrl.course) {
             ctrl.course = {};
             ctrl.scedCategoryCode = '##';
@@ -51,7 +52,7 @@ function detailController($http) {
         ctrl.course.creditTypes = ctrl.selectedCreditTypeTags;
         
         if (!ctrl.course.draftId) {
-            $http.post(url + '/create', ctrl.course).then(r => {
+            $http.post(url, ctrl.course).then(r => {
                 toastr.success('Created Course Draft');
                 window.location.href = '/drafts/' + r.data + '/edit';
             }).catch(e => {
@@ -61,7 +62,7 @@ function detailController($http) {
             return;
         }
 
-        $http.post(url, ctrl.course).then(r => {
+        $http.put(url, ctrl.course).then(r => {
             updateCache();
             toastr.success('Saved Course Draft');
         }).catch(e => {

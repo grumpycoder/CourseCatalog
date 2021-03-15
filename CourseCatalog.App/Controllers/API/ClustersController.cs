@@ -32,7 +32,7 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(cluster);
         }
 
-        [HttpPost, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [HttpPut, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> UpdateCluster([FromBody] UpdateClusterCommand updateClusterCommand)
         {
             var id = await _mediator.Send(updateClusterCommand);

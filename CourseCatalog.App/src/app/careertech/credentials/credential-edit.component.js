@@ -22,7 +22,7 @@ function controller($http) {
                 onItemDeleting: function (item) {
                     var d = $.Deferred();
                     var url = '/api/credentials/' + ctrl.credential.credentialId + '/programs/' + item.itemData.programId;
-                    $http.post(url).then(r => {
+                    $http.delete(url).then(r => {
                         toastr.success('Removed Program');
                         d.resolve();
                     }).catch(e => {
@@ -43,7 +43,7 @@ function controller($http) {
         var url = '/api/credentials';
         if (ctrl.credential.id === null) {
             
-            $http.post(url, ctrl.credential).then(r => {
+            $http.put(url, ctrl.credential).then(r => {
 
                 ctrl.credentialsList.push(r.data);
                 initCredentialList(ctrl.credential.credentialCode);
@@ -61,7 +61,7 @@ function controller($http) {
                 console.error(e);
             });
         } else {
-            $http.post(url, ctrl.credential).then(r => {
+            $http.put(url, ctrl.credential).then(r => {
                 initCredentialList(ctrl.credential.credentialCode);
                 updateCache();
                 resetValidation();

@@ -55,22 +55,22 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPost, Route, CustomAuthorize(Roles = "CourseAdmin, Admin")]
+        [HttpPut, Route, CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> UpdateDraft([FromBody] UpdateDraftCommand updateDraftCommand)
         {
             var dto = await _mediator.Send(updateDraftCommand);
             return Ok(dto);
         }
 
-        [HttpPost, Route("create"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
+        [HttpPost, Route, CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CreateDraft([FromBody] CreateDraftCommand createDraftCommand)
         {
             var dto = await _mediator.Send(createDraftCommand);
             return Ok(dto);
         }
 
-        [HttpPost, Route("{draftId}"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
-        public async Task<IHttpActionResult> Delete(int draftId)
+        [HttpDelete, Route("{draftId}"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        public async Task<IHttpActionResult> DeleteDraft(int draftId)
         {
             var dto = await _mediator.Send(new DeleteDraftCommand(draftId));
             return Ok(dto);
@@ -83,7 +83,7 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPost, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, Admin")]
+        [HttpDelete, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, Admin")]
         [Route("{draftId}/endorsements/{endorsementId}")]
         public async Task<IHttpActionResult> DeleteDraftEndorsement(int draftId, int endorsementId)
         {
@@ -98,7 +98,7 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPost, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [HttpDelete, CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
         [Route("{draftId}/programs/{programId}")]
         public async Task<IHttpActionResult> RemoveProgram(int draftId, int programId)
         {
@@ -114,7 +114,7 @@ namespace CourseCatalog.App.Controllers.API
         }
 
         [HttpPost, Route("publish/{draftId}"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
-        public async Task<IHttpActionResult> Post(int draftId)
+        public async Task<IHttpActionResult> Publish(int draftId)
         {
             var dto = await _mediator.Send(new PublishDraftCommand(draftId));
             return Ok(dto);

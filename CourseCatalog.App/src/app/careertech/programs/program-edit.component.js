@@ -19,7 +19,7 @@ function controller($http) {
                     onItemDeleting: function (item) {
                         var d = $.Deferred();
                         var url = '/api/programs/' + ctrl.program.programId + '/credentials/' + item.itemData.credentialId;
-                        $http.post(url).then(r => {
+                        $http.delete(url).then(r => {
                             toastr.success('Removed Credential');
                             d.resolve();
                         }).catch(e => {
@@ -72,7 +72,7 @@ function controller($http) {
             clusterId: ctrl.program.clusterId
         }
 
-        $http.post(url, dto).then(r => {
+        $http.put(url, dto).then(r => {
             updateCache();
             resetValidation();
             toastr.success('Saved Program');

@@ -1,12 +1,12 @@
 ﻿using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
 using CourseCatalog.App.Features.Credentials.Commands.DeleteCredentialProgram;
+using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
 using CourseCatalog.App.Filters;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -34,14 +34,14 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPost, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [HttpPut, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> UpdateCredential([FromBody] UpdateCredentialCommand updateCredentialCommand)
         {
             var id = await _mediator.Send(updateCredentialCommand);
             return Ok(id);
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("{credentialId}/programs/{programId}"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> DeleteProgramCredential(int credentialId, int programId)
         {

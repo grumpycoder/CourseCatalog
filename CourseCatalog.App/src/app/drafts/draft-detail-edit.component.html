@@ -5,12 +5,11 @@
 </style>
 
 <div class="row">
-
     <div class="col-12 col-lg-6">
         <form novalidate ng-submit="$ctrl.onSubmit()" name="$ctrl.form" id="$ctrl.form" class="form">
 
         <div class="form-row">
-            <div class="form-group col-12">
+            <div class="form-group col-12" ng-show="$ctrl.isAdmin == 'true'">
                 <span class="d-flex alert alert-heading alert-warning" role="alert">You do not have permissions save changes Details</span>
             </div>
 
@@ -424,7 +423,7 @@
                 </div>
             </div>-->
 
-            <div class="form-row" ng-show="$ctrl.isAdmin">
+            <div class="form-row" ng-show="$ctrl.isAdmin == true">
                 <div class="form-group col-6">
                     <button class="btn btn-outline-secondary btn-block"
                             ng-show="$ctrl.form.$dirty"

@@ -35,14 +35,14 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPost, Route("")]
+        [HttpPut, Route("")]
         public async Task<IHttpActionResult> UpdateProgram([FromBody] UpdateProgramCommand updateProgramCommand)
         {
             var id = await _mediator.Send(updateProgramCommand);
             return Ok(id);
         }
 
-        [HttpPost, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [HttpDelete, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         [Route("{programId}/credentials/{credentialId}")]
         public async Task<IHttpActionResult> DeleteProgramCredential(int programId, int credentialId)
         {

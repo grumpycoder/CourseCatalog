@@ -32,7 +32,7 @@ function controller($http) {
             endorsementId: item.endorsementId
         };
         var url = '/api/drafts/' + ctrl.course.draftId + '/endorsements/' + item.endorsementId; 
-        return $http.post(url)
+        return $http.delete(url)
             .then(r => {
                 ctrl.course.endorsements.splice(idx, 1);
                 toastr.success('Removed ' + item.endorseCode);

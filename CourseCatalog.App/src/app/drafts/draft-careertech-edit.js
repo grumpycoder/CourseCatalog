@@ -55,7 +55,7 @@ function controller($http, user) {
     ctrl.removeProgram = function(item) {
         var idx = ctrl.course.programs.indexOf(item);
         var url = '/api/drafts/' + ctrl.course.draftId + '/programs/' + item.programId; 
-        $http.post(url)
+        $http.delete(url)
             .then(r => {
                 toastr.success('Removed ' + item.programCode);
                 ctrl.course.programs.splice(idx, 1);

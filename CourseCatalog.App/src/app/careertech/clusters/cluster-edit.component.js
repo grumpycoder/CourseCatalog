@@ -44,7 +44,7 @@ function controller($http) {
             endYear: ctrl.cluster.endYear, 
             clusterTypeId: ctrl.cluster.clusterTypeId
         }
-        $http.post(url, dto).then(r => {
+        $http.put(url, dto).then(r => {
             updateCache();
             resetValidation();
             toastr.success('Saved Cluster'); 
