@@ -1,15 +1,16 @@
-﻿using CourseCatalog.Domain.Entities;
-using MediatR;
+﻿using MediatR;
+using System;
 
 namespace CourseCatalog.App.Features.Users.Commands.CreateUser
 {
-    public class CreateUserCommand : IRequest<User>
+    public class CreateUserCommand : IRequest<Guid>
     {
-        public User User { get; set; }
-
-        public CreateUserCommand(User user)
-        {
-            User = user;
-        }
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string EmailAddress { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get; set; }
+        public Guid IdentityGuid { get; set; }
     }
 }

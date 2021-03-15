@@ -80,7 +80,7 @@
                                        class="form-control mb-2" autocomplete="off" aria-autocomplete="none" />
 
                                 <ul class="list-group">
-                                    <li ng-repeat="item in $ctrl.selectedGroup.users  | filter:$ctrl.search" class="list-group-item">
+                                    <li ng-repeat="item in $ctrl.selectedGroup.users  | filter:$ctrl.search | orderBy: 'firstName'" class="list-group-item">
                                         <span>{{ item.fullName }} ({{ item.username }})</span>
                                         <button class="btn btn-sm btn-outline-dark float-right" ng-click="$ctrl.deleteUser(item)">
                                             <i class="fa fa-trash"></i>

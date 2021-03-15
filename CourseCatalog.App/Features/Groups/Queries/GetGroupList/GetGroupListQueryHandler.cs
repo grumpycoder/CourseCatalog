@@ -23,17 +23,8 @@ namespace CourseCatalog.App.Features.Groups.Queries.GetGroupList
 
         public async Task<List<GroupListDto>> Handle(GetGroupListQuery request, CancellationToken cancellationToken)
         {
-            try
-            {
-
                 var groups = await _groupRepository.GetGroupsWithUsers();
                 return _mapper.Map<List<GroupListDto>>(groups);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
         }
     }
 }

@@ -50,12 +50,9 @@ function controller($http, $scope) {
     }
 
     ctrl.addGroupMember = function () {
-        console.log(ctrl.selectedGroup);
-        console.log(ctrl.selectedUser);
         $http.post(`/api/membership/groups/${ctrl.selectedGroup.groupId}/user/${ctrl.selectedUser.identityGuid}`).then(r => {
-            console.log('r', r);
             toastr.success('Added user ' + ctrl.selectedUser.fullName);
-            ctrl.selectedGroup.users.push(ctrl.selectedUser);
+            ctrl.selectedGroup.users.push(r.data);
             ctrl.selectedUser = undefined;
         }).catch(e => {
             console.error('error', e);
@@ -83,16 +80,15 @@ function controller($http, $scope) {
     ctrl.deleteUser = function (user) {
 
         let found = ctrl.selectedGroup.users
-            .find(cdt => cdt.id === user.id);
+            .find(cdt => cdt.identityGuid === user.identityGuid);
 
         let idx = ctrl.selectedGroup.users.indexOf(found);
-
         var deleteUri = `${membershipUri}/groups/${ctrl.selectedGroup.groupId}/user/${user.identityGuid}`;
 
         $http.delete(deleteUri)
             .then(r => {
                 ctrl.selectedGroup.users.splice(idx, 1);
-                //TODO: toastr success message
+                
                 toastr.success('Deleted user ' + found.fullName); 
             })
             .catch(e => {

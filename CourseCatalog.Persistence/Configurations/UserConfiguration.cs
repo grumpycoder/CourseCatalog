@@ -11,6 +11,7 @@ namespace CourseCatalog.Persistence.Configurations
             builder.ToTable("Users", "Security");
             builder.Property(s => s.Id).HasColumnName("UserId");
             builder.Property(s => s.FullName).HasColumnName("FullName");
+            builder.Property(s => s.Username).HasColumnName("Username");
 
             //builder.HasMany(p => p.UserGroups)
             //    .WithOne(p => p.User)

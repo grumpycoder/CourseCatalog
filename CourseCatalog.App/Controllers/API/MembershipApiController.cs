@@ -12,6 +12,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.App.Features.Users.Commands.CreateUser;
+using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -32,8 +34,8 @@ namespace CourseCatalog.App.Controllers.API
             _loggedInUserService = loggedInUserService;
         }
 
-        [HttpGet, Route("users")]
-        public object Users() => Ok(GetUsers());
+        //[HttpGet, Route("users")]
+        //public object Users() => Ok(GetUsers());
 
         [HttpGet, Route("idem")]
         public async Task<IHttpActionResult> GetIdemUsers([FromUri] DataSourceLoadOptions loadOptions)
@@ -66,6 +68,24 @@ namespace CourseCatalog.App.Controllers.API
         [HttpPost, Route("groups/{groupId}/user/{identityGuid}"), Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> AddGroupMember(int groupId, Guid identityGuid)
         {
+            var user = await _mediator.Send(new GetUserQuery(identityGuid));
+
+            if (user == null)
+            {
+                var idemUser = await _idemContext.Users.FirstOrDefaultAsync(i => i.IdentityGuid == identityGuid);
+                if (idemUser == null) return BadRequest("Idem User not found.");
+                var createUserCommand = new CreateUserCommand
+                {
+                    IdentityGuid = idemUser.IdentityGuid,
+                    EmailAddress = idemUser.EmailAddress,
+                    FirstName = idemUser.FirstName,
+                    LastName = idemUser.LastName,
+                    FullName = idemUser.FullName,
+                    Username = idemUser.EmailAddress
+                };
+                await _mediator.Send(createUserCommand);
+            }
+
             var dto = await _mediator.Send(new CreateGroupUserCommand(groupId, identityGuid));
             return Ok(dto);
         }
@@ -93,11 +113,11 @@ namespace CourseCatalog.App.Controllers.API
         //    }
 
         //}
-        protected object GetUsers(string username = null)
-        {
-            var users = _context.Users.Where(x => x.Username.Contains(username) || username == null).ToList();
-            return users;
-        }
+        //protected object GetUsers(string username = null)
+        //{
+        //    var users = _context.Users.Where(x => x.Username.Contains(username) || username == null).ToList();
+        //    return users;
+        //}
 
 
     }
