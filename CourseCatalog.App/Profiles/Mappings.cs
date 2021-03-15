@@ -217,13 +217,14 @@ namespace CourseCatalog.App.Profiles
                 .ReverseMap();
 
             CreateMap<UserGroup, UserDto>()
-                //.ForMember(d => d.IdentityGuid, o => o.MapFrom(s => s.User.IdentityGuid))
+                .ForMember(d => d.IdentityGuid, o => o.MapFrom(s => s.User.IdentityGuid))
                 //.ForMember(d => d.UserId, o => o.MapFrom(s => s.User.UserId))
                 .ForMember(d => d.Username, o => o.MapFrom(s => s.User.Username))
                 .ForMember(d => d.FirstName, o => o.MapFrom(s => s.User.FirstName))
                 .ForMember(d => d.LastName, o => o.MapFrom(s => s.User.LastName))
                 .ForMember(d => d.FullName, o => o.MapFrom(s => s.User.FullName))
                 .ReverseMap();
+
 
             CreateMap<User, UserDetailDto>()
                 //.ForMember(d => d.IdentityGuid, o => o.MapFrom(s => s.User.IdentityGuid))
