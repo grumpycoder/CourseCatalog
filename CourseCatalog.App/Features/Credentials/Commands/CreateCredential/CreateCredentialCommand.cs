@@ -1,9 +1,10 @@
 ﻿using MediatR;
 
-namespace MyDemo.Api.Features.Credentials.Commands.CreateCredential
+namespace CourseCatalog.App.Features.Credentials.Commands.CreateCredential
 {
     public class CreateCredentialCommand : IRequest<int>
     {
+        public int CredentialId { get; set; }
         public string CredentialCode { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

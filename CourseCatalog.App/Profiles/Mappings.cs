@@ -21,6 +21,7 @@ using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
 using System.Linq;
 using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
+using CourseCatalog.App.Features.Credentials.Commands.CreateCredential;
 using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
 using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
@@ -213,6 +214,7 @@ namespace CourseCatalog.App.Profiles
                 .ReverseMap();
 
             CreateMap<Credential, UpdateCredentialCommand>().ReverseMap(); 
+            CreateMap<Credential, CreateCredentialCommand>().ReverseMap(); 
 
             //User/Group Mappings
             CreateMap<Group, GroupListDto>()

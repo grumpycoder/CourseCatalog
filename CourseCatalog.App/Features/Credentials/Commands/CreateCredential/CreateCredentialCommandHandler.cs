@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Application.Exceptions;
+using CourseCatalog.Domain.Entities;
 using MediatR;
-using MyDemo.Api.Application.Contracts;
-using MyDemo.Api.Domain.Entities;
-using MyDemo.Api.Exceptions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MyDemo.Api.Features.Credentials.Commands.CreateCredential
+namespace CourseCatalog.App.Features.Credentials.Commands.CreateCredential
 {
     public class CreateCredentialCommandHandler : IRequestHandler<CreateCredentialCommand, int>
     {

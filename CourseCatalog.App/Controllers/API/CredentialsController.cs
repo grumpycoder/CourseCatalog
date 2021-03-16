@@ -1,4 +1,5 @@
-﻿using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
+﻿using CourseCatalog.App.Features.Credentials.Commands.CreateCredential;
+using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
 using CourseCatalog.App.Features.Credentials.Commands.DeleteCredentialProgram;
 using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail;
@@ -38,6 +39,13 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<IHttpActionResult> UpdateCredential([FromBody] UpdateCredentialCommand updateCredentialCommand)
         {
             var id = await _mediator.Send(updateCredentialCommand);
+            return Ok(id);
+        }
+
+        [HttpPost, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        public async Task<IHttpActionResult> CreateCredential([FromBody] CreateCredentialCommand createCredentialCommand)
+        {
+            var id = await _mediator.Send(createCredentialCommand);
             return Ok(id);
         }
 

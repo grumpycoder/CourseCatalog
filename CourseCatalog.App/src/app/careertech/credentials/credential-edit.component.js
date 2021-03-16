@@ -1,6 +1,5 @@
 ﻿//credential-edit.component.js
 
-
 var module = angular.module('app');
 
 function controller($http) {
@@ -11,16 +10,27 @@ function controller($http) {
 
     ctrl.$onInit = function () {
 
+        loadRefs();
+
+        if (ctrl.credentialid == -1) {
+            ctrl.title = 'New Credential';
+            return;
+        } 
+
         fetchCredential(ctrl.credentialid).then(r => {
             ctrl.title = 'Credential: ' + ctrl.credential.name + ' (' + ctrl.credential.credentialCode + ')';
             ctrl.listOptions = {
-                dataSource: ctrl.credential.programs,
+                dataSource: {
+                    store: ctrl.credential.programs, 
+                    sort: 'programName'
+                }, 
                 searchEnabled: true,
                 searchExpr: ["programName", "programCode"],
                 noDataText: 'No Programs Assigned', 
                 allowItemDeleting: true,
                 onItemDeleting: function (item) {
                     var d = $.Deferred();
+                    console.log('delete', item);
                     var url = '/api/credentials/' + ctrl.credential.credentialId + '/programs/' + item.itemData.programId;
                     $http.delete(url).then(r => {
                         toastr.success('Removed Program');
@@ -35,60 +45,48 @@ function controller($http) {
             }
         });
 
-        loadRefs();
     };
-
 
     ctrl.onSubmit = function () {
         var url = '/api/credentials';
-        if (ctrl.credential.id === null) {
-            
-            $http.put(url, ctrl.credential).then(r => {
 
-                ctrl.credentialsList.push(r.data);
-                initCredentialList(ctrl.credential.credentialCode);
-
-                //HACK: Setting DevExtreme list b/c it doesn't act right when adding new item to list
-                var idx = ctrl.credentialsList.findIndex(x => x.credentialCode === ctrl.credential.credentialCode);
-                var selectBox = $('#credentials').dxSelectBox("instance");
-                selectBox.option('value', ctrl.credentialsList[idx]); 
-
-                updateCache();
-                resetValidation();
-                //TODO: toastr message
-            }).catch(e => {
-                //TODO: toastr message
-                console.error(e);
-            });
-        } else {
-            $http.put(url, ctrl.credential).then(r => {
-                initCredentialList(ctrl.credential.credentialCode);
-                updateCache();
-                resetValidation();
-            }).catch(e => {
-                //TODO: toastr message
-                console.error(e);
-            });
+        var dto = {
+            credentialId: ctrl.credential.credentialId, 
+            credentialCode: ctrl.credential.credentialCode, 
+            name: ctrl.credential.name, 
+            description: ctrl.credential.description, 
+            beginYear: ctrl.credential.beginYear, 
+            endYear: ctrl.credential.endYear, 
+            credentialTypeId: ctrl.credential.credentialTypeId,
+            isReimbursable: ctrl.credential.isReimbursable
         }
+
+        if (!ctrl.credential.credentialId) {
+            $http.post(url, dto).then(r => {
+                toastr.success('Created Credential');
+                window.location.href = '/careertech/credentials/' + r.data + '/edit';
+            }).catch(e => {
+                console.error('update error', e.message);
+                toastr.error(e.message);
+            });
+            return;
+        }
+
+        $http.put(url, dto).then(r => {
+            updateCache();
+            resetValidation();
+            toastr.success('Saved Cluster'); 
+        }).catch(e => {
+            console.error('update error', e.message);
+            toastr.error(e.message);
+        });
     };
 
     ctrl.cancel = function () {
         loadCache();
         resetValidation();
     };
-
-    ctrl.create = function () {
-        //HACK: Setting DevExtreme list b/c it doesn't act right when adding new item to list
-        //TODO: copy course requirements method
-        var selectBox = $('#credentials').dxSelectBox("instance");
-        selectBox.option('value', null); 
-
-        ctrl.selectedCredential = null; 
-        ctrl.credential = {
-            id: null
-        };
-    };
-
+    
     ctrl.onChangeCredentialCode = function () {
         ctrl.form.credentialCode.$setValidity("unique", !codeInUse(ctrl.credential.credentialCode)); 
     };
@@ -98,7 +96,7 @@ function controller($http) {
             credentialId: ctrl.credential.credentialId, 
             programId: ctrl.assignment.programId, 
             beginYear: ctrl.assignment.beginYear, 
-            endYar: ctrl.assignment.endYear
+            endYear: ctrl.assignment.endYear
         }
         var url = '/api/credentials/programs';
         $http.post(url, dto).then(r => {
@@ -109,43 +107,21 @@ function controller($http) {
             toastr.success('Saved Credential Assignment');
         }).catch(e => {
             console.error('update error', e);
-            toastr.error(e.data.exceptionMessage);
+            toastr.error(e.message);
         });
     }
 
     ctrl.deleteAssignment = function (item) {
         var url = '/api/programs/' + item.programId + '/credentials/' + item.credentialId;
         return $http.delete(url).then(r => {
-            //TODO: Toastr success message
+            toastr.success('Removed Credential Assignment');
             return r;
         }).catch(e => {
-            //TODO: Toastr error message 
-            console.log(e.data.message);
+            console.error('update error', e);
+            toastr.error(e.message);
         });
     }
-
-
-    function defineProgramsList() {
-        ctrl.store = new DevExpress.data.ArrayStore({
-            data: ctrl.credential.programCredentials, 
-            key: 'id',
-            reshapeOnPush: true
-        });
-
-
-        ctrl.listOptions = {
-            dataSource: ctrl.store, 
-            searchEnabled: true,
-            searchExpr: "credential",
-            allowItemDeleting: true,
-            height: 310,
-            onItemDeleting: function (data) {
-                ctrl.deleteAssignment(data.itemData);
-            }
-
-        }
-    }
-
+   
     function fetchCredential(credentialid) {
         return $http.get('/api/credentials/' + credentialid).then(r => {
             ctrl.credential = r.data;
@@ -208,11 +184,6 @@ function controller($http) {
         return inUse;
     }
 
-    function pad(num, size) {
-        var s = num + "";
-        while (s.length < size) s = "0" + s;
-        return s;
-    }
 }
 
 module.component('credentialEdit',

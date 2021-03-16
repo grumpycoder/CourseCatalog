@@ -302,6 +302,8 @@
     <Compile Include="Features\Courses\Queries\GetCourseSummary\CourseSummaryDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQueryHandler.cs" />
+    <Compile Include="Features\Credentials\Commands\CreateCredential\CreateCredentialCommand.cs" />
+    <Compile Include="Features\Credentials\Commands\CreateCredential\CreateCredentialCommandHandler.cs" />
     <Compile Include="Features\Credentials\Commands\UpdateCredential\UpdateCredentialCommand.cs" />
     <Compile Include="Features\Credentials\Commands\UpdateCredential\UpdateCredentialCommandHandler.cs" />
     <Compile Include="Features\Groups\Commands\CreateGroupUser\CreateGroupUserCommand.cs" />

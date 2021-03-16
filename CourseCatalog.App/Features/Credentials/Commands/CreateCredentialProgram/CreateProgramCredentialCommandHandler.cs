@@ -22,7 +22,7 @@ namespace CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgra
 
         public async Task<CreateCredentialProgramDto> Handle(CreateCredentialProgramCommand request, CancellationToken cancellationToken)
         {
-            var credentialToUpdate = await _credentialRepository.GetCredentialByIdWithDetails(request.ProgramId);
+            var credentialToUpdate = await _credentialRepository.GetCredentialByIdWithDetails(request.CredentialId);
 
             if (credentialToUpdate == null)
             {
@@ -46,7 +46,7 @@ namespace CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgra
 
             await _credentialRepository.UpdateAsync(credentialToUpdate);
 
-            credentialToUpdate = await _credentialRepository.GetCredentialByIdWithDetails(request.ProgramId);
+            credentialToUpdate = await _credentialRepository.GetCredentialByIdWithDetails(request.CredentialId);
 
             programCredential =
                 credentialToUpdate.Programs.FirstOrDefault(c => c.ProgramCredentialId == programCredential.ProgramCredentialId);
