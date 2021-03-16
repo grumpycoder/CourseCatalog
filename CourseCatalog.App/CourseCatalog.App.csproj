@@ -294,6 +294,8 @@
     <Compile Include="Controllers\Mvc\AdminController.cs" />
     <Compile Include="Controllers\Mvc\ErrorController.cs" />
     <Compile Include="Controllers\Mvc\TestsController.cs" />
+    <Compile Include="Features\Clusters\Commands\CreateCluster\CreateClusterCommand.cs" />
+    <Compile Include="Features\Clusters\Commands\CreateCluster\CreateClusterCommandHandler.cs" />
     <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\EndorsementCourseListDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\GetCoursesByEndorsementQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\GetCoursesByEndorsementQueryHandler.cs" />

@@ -14,7 +14,7 @@
     </div>
 
     <div class="card-body">
-        <div class="row" ng-show="$ctrl.cluster">
+        <div class="row">
 
             <div class="col-6">
 
@@ -180,7 +180,7 @@
 
             </div>
 
-            <div class="col-6">
+            <div class="col-6" ng-show="$ctrl.clusterid !== -1">
                 <div class="card border-secondary mb-3">
                     <div class="card-header">
                         <span>Assigned Programs</span>
@@ -207,9 +207,3 @@
     </div>
 
 </div>
-
-
-<!--<pre>
-form
-{{ $ctrl.form | json }}
-</pre>-->

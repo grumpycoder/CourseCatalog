@@ -20,6 +20,7 @@ using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
 using System.Linq;
+using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
 using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
 using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
@@ -163,6 +164,7 @@ namespace CourseCatalog.App.Profiles
             CreateMap<ClusterType, ClusterTypeDto>().ReverseMap();
             CreateMap<Program, ClusterProgramListDto>().ReverseMap();
             CreateMap<Cluster, UpdateClusterCommand>().ReverseMap();
+            CreateMap<Cluster, CreateClusterCommand>().ReverseMap();
 
             //Programs Mappings
             CreateMap<Program, ProgramListDto>()

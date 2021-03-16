@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using CourseCatalog.Domain.Common;
 
 namespace CourseCatalog.Domain.Entities
 {
-    public class Cluster
+    public class Cluster: AuditableEntity
     {
         public int ClusterId { get; set; }
         public string ClusterCode { get; set; }

@@ -9,6 +9,16 @@ function controller($http) {
     ctrl.cache = {};
     
     ctrl.$onInit = function () {
+        
+        fetchSchoolYears().then(r => { ctrl.schoolYears = r; });
+        fetchClusterTypes().then(r => { ctrl.clusterTypes = r; });
+        fetchClusters().then(r => { ctrl.clusters = r });
+
+        if (ctrl.clusterid == -1) {
+            ctrl.title = 'New Cluster';
+            return;
+        } 
+
         fetchCluster(ctrl.clusterid).then(r => {
             ctrl.title = 'Cluster: ' + ctrl.cluster.name + ' (' + ctrl.cluster.clusterCode + ')';
         }).finally(d => {
@@ -26,9 +36,6 @@ function controller($http) {
             }
         });
 
-        fetchSchoolYears().then(r => { ctrl.schoolYears = r; });
-        fetchClusterTypes().then(r => { ctrl.clusterTypes = r; });
-        fetchClusters().then(r => { ctrl.clusters = r });
     };
 
     ctrl.onSubmit = function () {
@@ -44,6 +51,18 @@ function controller($http) {
             endYear: ctrl.cluster.endYear, 
             clusterTypeId: ctrl.cluster.clusterTypeId
         }
+
+        if (!ctrl.cluster.clusterId) {
+            $http.post(url, dto).then(r => {
+                toastr.success('Created Cluster');
+                window.location.href = '/careertech/clusters/' + r.data + '/edit';
+            }).catch(e => {
+                console.error('update error', e.message);
+                toastr.error(e.message);
+            });
+            return;
+        }
+
         $http.put(url, dto).then(r => {
             updateCache();
             resetValidation();

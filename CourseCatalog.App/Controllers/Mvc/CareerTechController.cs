@@ -24,6 +24,12 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View(clusterId);
         }
 
+        [Route("clusters/new"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        public ActionResult ClusterNew()
+        {
+            return View("ClusterEdit", -1);
+        }
+
         [Route("programs")]
         public ActionResult Programs()
         {
