@@ -8,6 +8,7 @@ using CourseCatalog.App.Filters;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.App.Features.Programs.Commands.CreateProgram;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -39,6 +40,13 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<IHttpActionResult> UpdateProgram([FromBody] UpdateProgramCommand updateProgramCommand)
         {
             var id = await _mediator.Send(updateProgramCommand);
+            return Ok(id);
+        }
+
+        [HttpPost, Route("")]
+        public async Task<IHttpActionResult> CreateProgram([FromBody] CreateProgramCommand createProgramCommand)
+        {
+            var id = await _mediator.Send(createProgramCommand);
             return Ok(id);
         }
 

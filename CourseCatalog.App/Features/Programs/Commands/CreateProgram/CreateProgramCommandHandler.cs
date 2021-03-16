@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Application.Exceptions;
+using CourseCatalog.Domain.Entities;
 using MediatR;
-using MyDemo.Api.Application.Contracts;
-using MyDemo.Api.Domain.Entities;
-using MyDemo.Api.Exceptions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MyDemo.Api.Features.Programs.Commands.CreateProgram
+namespace CourseCatalog.App.Features.Programs.Commands.CreateProgram
 {
     public class CreateProgramCommandHandler : IRequestHandler<CreateProgramCommand, int>
     {

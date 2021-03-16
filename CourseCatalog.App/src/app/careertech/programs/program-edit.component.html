@@ -14,7 +14,7 @@
 
     <div class="card-body">
 
-        <div class="row" ng-show="$ctrl.program">
+        <div class="row">
 
             <div class="col-6">
 
@@ -75,14 +75,15 @@
                                 <label for="programDescription" class="col-3 col-form-label">Description</label>
 
                                 <div class="col-9">
-                                    <input type="text"
-                                           class="form-control"
-                                           id="programDescription"
-                                           name="programDescription"
-                                           autocomplete="off"
-                                           placeholder="Program Description"
-                                           ng-model="$ctrl.program.programDescription" />
-                                    <ng-messages for="$ctrl.form.programDescription.$error">
+                                    <textarea id="description"
+                                              name="description"
+                                              class="form-control"
+                                              cols="30"
+                                              rows="10"
+                                              placeholder="Program Description"
+                                              ng-model="$ctrl.program.programDescription"></textarea>
+
+                                    <ng-messages for="$ctrl.form.description.$error">
                                     </ng-messages>
                                 </div>
                             </div>
@@ -95,6 +96,7 @@
                                             name="programTypeId"
                                             id="programTypeId"
                                             required>
+                                        <option value="">--- Please select ---</option>
                                         <option ng-repeat="option in $ctrl.programTypes" ng-value="option.programTypeId">
                                             {{ option.name }}
                                         </option>
@@ -113,6 +115,7 @@
                                             name="clusterId"
                                             id="clusterId"
                                             required>
+                                        <option value="">--- Please select ---</option>
                                         <option ng-repeat="option in $ctrl.clusters" ng-value="option.clusterId">
                                             {{ option.name }}
                                         </option>
@@ -213,7 +216,7 @@
 
             </div>
 
-            <div class="col-6">
+            <div class="col-6" ng-show="$ctrl.programid !== -1">
 
                 <div class="card border-secondary mb-3">
 

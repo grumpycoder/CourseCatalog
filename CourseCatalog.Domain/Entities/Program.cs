@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using CourseCatalog.Domain.Common;
+using System.Collections.Generic;
 
 namespace CourseCatalog.Domain.Entities
 {
-    public class Program
+    public class Program : AuditableEntity
     {
         public int ProgramId { get; set; }
         public string ProgramCode { get; set; }

@@ -7,6 +7,14 @@ function controller($http) {
     ctrl.cache = {};
 
     ctrl.$onInit = function () {
+
+        loadRefs();
+
+        if (ctrl.programid == -1) {
+            ctrl.title = 'New Program';
+            return;
+        } 
+
         fetchProgram(ctrl.programid).then(r => {
             ctrl.title = 'Program: ' + ctrl.program.name + ' (' + ctrl.program.programCode + ')';
         }).finally(f => {
@@ -32,7 +40,7 @@ function controller($http) {
                 }
             }
         });
-        loadRefs();
+
     };
 
     ctrl.$onChanges = function () {
@@ -70,6 +78,17 @@ function controller($http) {
             traditionalForFemales: ctrl.program.traditionalForFemales,
             programTypeId: ctrl.program.programTypeId,
             clusterId: ctrl.program.clusterId
+        }
+
+        if (!ctrl.program.programId) {
+            $http.post(url, dto).then(r => {
+                toastr.success('Created Program');
+                window.location.href = '/careertech/programs/' + r.data + '/edit';
+            }).catch(e => {
+                console.error('update error', e.message);
+                toastr.error(e.message);
+            });
+            return;
         }
 
         $http.put(url, dto).then(r => {

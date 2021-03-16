@@ -48,6 +48,12 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View(programId);
         }
 
+        [Route("programs/new"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        public ActionResult ProgramCreate()
+        {
+            return View("ProgramEdit", -1);
+        }
+
         [Route("credentials")]
         public ActionResult Credentials()
         {

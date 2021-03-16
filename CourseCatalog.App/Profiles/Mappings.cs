@@ -24,6 +24,7 @@ using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
 using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
 using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
+using CourseCatalog.App.Features.Programs.Commands.CreateProgram;
 using CourseCatalog.App.Features.Users.Queries.GetUser;
 
 namespace CourseCatalog.App.Profiles
@@ -184,6 +185,7 @@ namespace CourseCatalog.App.Profiles
                 .ReverseMap();
 
             CreateMap<Program, UpdateProgramCommand>().ReverseMap();
+            CreateMap<Program, CreateProgramCommand>().ReverseMap();
 
             CreateMap<ProgramCredential, CreateProgramCredentialDto>()
                 .ForMember(d => d.CredentialCode, o => o.MapFrom(s => s.Credential.CredentialCode))

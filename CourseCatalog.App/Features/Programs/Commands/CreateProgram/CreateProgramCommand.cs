@@ -1,9 +1,10 @@
 ﻿using MediatR;
 
-namespace MyDemo.Api.Features.Programs.Commands.CreateProgram
+namespace CourseCatalog.App.Features.Programs.Commands.CreateProgram
 {
     public class CreateProgramCommand : IRequest<int>
     {
+        public int ProgramId { get; set; }
         public string ProgramCode { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
