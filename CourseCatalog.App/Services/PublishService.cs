@@ -65,9 +65,9 @@ namespace CourseCatalog.App.Services
             }
             catch (Exception e)
             {
+                throw new BadRequestException(e.Message);
                 var response = new BaseResponse(e.Message, false);
                 return response; 
-                throw new BadRequestException(e.Message);
             }
 
         }
