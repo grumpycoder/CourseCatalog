@@ -124,6 +124,7 @@ namespace CourseCatalog.App.Controllers.API
             }
             catch (Exception e)
             {
+                return BadRequest(e.Message);
                 throw new BadRequestException(e.Message);
             }
         }
