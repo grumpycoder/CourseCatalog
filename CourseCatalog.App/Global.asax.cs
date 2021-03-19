@@ -107,7 +107,7 @@ namespace CourseCatalog.App
                 ////    outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
                 ////    rollingInterval: RollingInterval.Minute)
                 //.WriteTo.File(new CompactJsonFormatter(), @"C:\temp\logs\flatfile.json", rollingInterval: RollingInterval.Minute)
-                .WriteTo.File(new CompactJsonFormatter(), @"\\alsdepfs\WebDev\Test\Logs\courses\courses-flatfile.json", rollingInterval: RollingInterval.Minute)
+                .WriteTo.File(new CompactJsonFormatter(), @"\\alsdepfs\WebDev\Test\Logs\courses\courses-test-flatfile.json", rollingInterval: RollingInterval.Minute)
                 .CreateLogger();
 
         }

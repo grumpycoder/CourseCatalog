@@ -110,7 +110,11 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 existingCourse.Status = CourseStatus.Published;
                 existingCourse.PublishDate = DateTime.Now;
 
-                var publishResponse = await _publishCourseService.PublishCourse(existingCourse);
+                if (_publishCourseService == null)
+                {
+                    throw new Exception("No Publish service"); 
+                }
+                await _publishCourseService.PublishCourse(existingCourse);
                 //if (!publishResponse.Success)
                 //{
                 //    throw new BadRequestException(publishResponse.Message);
