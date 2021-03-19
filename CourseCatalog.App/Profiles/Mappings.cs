@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
 using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
 using CourseCatalog.App.Features.Courses.Queries.GetCoursesByEndorsement;
+using CourseCatalog.App.Features.Credentials.Commands.CreateCredential;
 using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
+using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail;
 using CourseCatalog.App.Features.Credentials.Queries.GetCredentialList;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraft;
@@ -12,21 +15,18 @@ using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
+using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
+using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
 using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
+using CourseCatalog.App.Features.Programs.Commands.CreateProgram;
 using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
 using CourseCatalog.App.Features.Programs.Commands.UpdateProgram;
 using CourseCatalog.App.Features.Programs.Queries.GetProgramDetail;
+using CourseCatalog.App.Features.Users.Queries.GetUser;
 using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
 using System.Linq;
-using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
-using CourseCatalog.App.Features.Credentials.Commands.CreateCredential;
-using CourseCatalog.App.Features.Credentials.Commands.UpdateCredential;
-using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
-using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
-using CourseCatalog.App.Features.Programs.Commands.CreateProgram;
-using CourseCatalog.App.Features.Users.Queries.GetUser;
 
 namespace CourseCatalog.App.Profiles
 {
@@ -213,8 +213,8 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.ProgramName, o => o.MapFrom(s => s.Program.Name))
                 .ReverseMap();
 
-            CreateMap<Credential, UpdateCredentialCommand>().ReverseMap(); 
-            CreateMap<Credential, CreateCredentialCommand>().ReverseMap(); 
+            CreateMap<Credential, UpdateCredentialCommand>().ReverseMap();
+            CreateMap<Credential, CreateCredentialCommand>().ReverseMap();
 
             //User/Group Mappings
             CreateMap<Group, GroupListDto>()

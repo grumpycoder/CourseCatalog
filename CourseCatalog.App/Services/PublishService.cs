@@ -5,11 +5,9 @@ using CourseCatalog.Domain.Entities;
 using Flurl;
 using Flurl.Http;
 using Newtonsoft.Json;
-using Serilog;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 
@@ -33,48 +31,32 @@ namespace CourseCatalog.App.Services
         public async Task<BaseResponse> PublishCourse(Course course)
         {
 
-            //if (TokenHasExpired)
-            await GetBearerToken(_configuration.ApiRequestUrl, _configuration.ApiPluginClientId,
-                _configuration.ClientSecret);
-
-            var publishEndPointUrl = WebConfigurationManager.AppSettings["PublishEndPointURL"];
-            var client = MethodHeaders(BearerToken, publishEndPointUrl);
+            if (TokenHasExpired)
+                await GetBearerToken(_configuration.ApiRequestUrl, _configuration.ApiPluginClientId,
+                    _configuration.ClientSecret);
 
             var dto = _mapper.Map<UDefCourses>(course);
+            if (dto.CreditType == null) dto.CreditType = "";
+
             var container = new UDefCoursesContainer()
             {
                 Name = "u_def_courses",
                 Tables = new Tables() { UDefCourses = dto }
             };
-            var json = JsonConvert.SerializeObject(container);
-            var request =
-                new HttpRequestMessage(HttpMethod.Post, Uri.EscapeUriString(client.BaseAddress.ToString()))
-                {
-                    Content = new StringContent(json, Encoding.UTF8, "application/json")
-                };
 
-            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var tokenResponse =
-                await client.PostAsync(Uri.EscapeUriString(client.BaseAddress.ToString()), request.Content);
+            var post = await _configuration.ApiRequestUrl
+                .AppendPathSegment("ws/schema/table/u_def_courses")
+                .WithOAuthBearerToken(BearerToken)
+                .WithHeader("Content-Type", "application/json")
+                .PostJsonAsync(container)
+                .ReceiveJson();
 
-
-            Log.Logger.Information($"bearer token: {BearerToken}");
-            Log.Logger.Information($"tokenResponse Status: {tokenResponse.ReasonPhrase}");
-
-            if (!tokenResponse.IsSuccessStatusCode)
-            {
-
-                var errorMessage = $"Publish Url: {client.BaseAddress} with BearerToken: {BearerToken}";
-                throw new Exception($"Failed to publish: {tokenResponse.ReasonPhrase} : {errorMessage}");
-            }
-
-            var message = await tokenResponse.Content.ReadAsStringAsync();
-            if (string.IsNullOrWhiteSpace(message)) throw new Exception("No response message from publish endpoint");
-            Log.Logger.Information(message);
-
-            var jsonMessage = JsonConvert.DeserializeObject<JsonMessage>(message);
-            var response = new BaseResponse(jsonMessage.Message, tokenResponse.IsSuccessStatusCode);
+            var postResult = post.result[0];
+            var status = postResult.status.ToLower() == "success";
+            var message = JsonConvert.SerializeObject(postResult.success_message);
+            var response = new BaseResponse(message, status);
             return response;
+
         }
 
         public async Task GetBearerToken(string apiRequestUrl, string pluginClientId, string clientSecret)
@@ -95,30 +77,6 @@ namespace CourseCatalog.App.Services
 
             BearerToken = access_token;
             TokenExpiration = DateTime.Now.AddMilliseconds(int.Parse((expires_in ?? 0)));
-
-            //var base64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(pluginClientId + ":" + clientSecret));
-            //ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-
-            //var apiRequest = (HttpWebRequest)WebRequest.Create(apiRequestUrl + "/oauth/access_token?grant_type=client_credentials");
-
-            //apiRequest.Method = "POST";
-            //apiRequest.ContentType = "application/x-www-form-urlencoded;charset=UTF-8";
-            //apiRequest.Accept = "application/json";
-
-            //WebHeaderCollection authorizationHeaders = apiRequest.Headers;
-            //authorizationHeaders.Add("Authorization: Basic " + base64Encoded);
-
-            //var apiResponse = apiRequest.GetResponse();
-            //var stream = apiResponse.GetResponseStream();
-            //var streamReader = new StreamReader(stream ?? throw new InvalidOperationException("No response getting bearer token"), Encoding.Default);
-            //var content = streamReader.ReadToEnd();
-            //stream.Close();
-            //apiResponse.Close();
-            //dynamic responseObject = JsonConvert.DeserializeObject(content);
-            //string apiBearerToken = responseObject?["access_token"].ToString();
-            //BearerToken = apiBearerToken;
-            //var expiresIn = responseObject?["expires_in"].ToString();
-            //TokenExpiration = DateTime.Now.AddMilliseconds(int.Parse(expiresIn ?? 0));
         }
 
         private static HttpClient MethodHeaders(string bearerToken, string endpointUrl)
