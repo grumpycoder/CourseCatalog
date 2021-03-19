@@ -52,17 +52,20 @@ namespace CourseCatalog.App.Services
                 {
                     Content = new StringContent(json, Encoding.UTF8, "application/json")
                 };
-
+            
             request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var tokenResponse =
                 await client.PostAsync(Uri.EscapeUriString(client.BaseAddress.ToString()), request.Content);
+
 
             Log.Logger.Information($"bearer token: {BearerToken}");
             Log.Logger.Information($"tokenResponse Status: {tokenResponse.ReasonPhrase}");
 
             if (!tokenResponse.IsSuccessStatusCode)
             {
-                throw new Exception($"Failed to publish: {tokenResponse.ReasonPhrase}");
+                var errorMessage = $"Publish Url: {publishEndPointUrl} with {BearerToken}"; 
+                throw new Exception($"Failed to publish: {tokenResponse.ReasonPhrase} : {errorMessage}");
+                //throw new Exception($"Failed to publish: {tokenResponse.ReasonPhrase}");
             }
 
             var message = await tokenResponse.Content.ReadAsStringAsync();
