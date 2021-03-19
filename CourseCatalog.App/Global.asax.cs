@@ -83,8 +83,8 @@ namespace CourseCatalog.App
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Debug)
+                .MinimumLevel.Override("System", LogEventLevel.Debug)
                 ////.Enrich.WithHttpContextData()
                 //.Enrich.FromLogContext()
                 //.Enrich.WithHttpRequestId()
