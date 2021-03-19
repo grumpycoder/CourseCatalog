@@ -15,6 +15,7 @@ using Serilog.Formatting.Compact;
 using Serilog.Sinks.MSSqlServer;
 using System;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Data;
 using System.Reflection;
 using System.Web;
@@ -83,7 +84,7 @@ namespace CourseCatalog.App
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-
+            var fileLocation = ConfigurationManager.AppSettings["LogFile"]; 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -102,7 +103,7 @@ namespace CourseCatalog.App
                 //        sinkOptions: GetSinkOptions(),
                 //        columnOptions: GetSqlColumnOptions()
                 //        )
-                .WriteTo.File(new CompactJsonFormatter(), @"\\alsdepfs\WebDev\Test\Logs\courses\courses-test-flatfile.json", rollingInterval: RollingInterval.Minute)
+                .WriteTo.File(new CompactJsonFormatter(), fileLocation, rollingInterval: RollingInterval.Minute)
                 .CreateLogger();
 
         }
