@@ -117,8 +117,15 @@ namespace CourseCatalog.App.Controllers.API
         [HttpPost, Route("publish/{draftId}"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> Publish(int draftId)
         {
-            var dto = await _mediator.Send(new PublishDraftCommand(draftId));
-            return Ok(dto);
+            try
+            {
+                var dto = await _mediator.Send(new PublishDraftCommand(draftId));
+                return Ok(dto);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
     }
