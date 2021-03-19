@@ -11,7 +11,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Configuration;
-using CourseCatalog.Application.Exceptions;
+using Serilog;
 
 namespace CourseCatalog.App.Services
 {
@@ -58,6 +58,9 @@ namespace CourseCatalog.App.Services
                 await client.PostAsync(Uri.EscapeUriString(client.BaseAddress.ToString()), request.Content);
 
             var message = await tokenResponse.Content.ReadAsStringAsync();
+            if (string.IsNullOrWhiteSpace(message)) throw new Exception("No response message from publish endpoint");
+            Log.Logger.Information(message);
+
             var jsonMessage = JsonConvert.DeserializeObject<JsonMessage>(message);
             var response = new BaseResponse(jsonMessage.Message, tokenResponse.IsSuccessStatusCode);
             return response;
@@ -65,38 +68,29 @@ namespace CourseCatalog.App.Services
 
         public void GetBearerToken(string apiRequestUrl, string pluginClientId, string clientSecret)
         {
+            var base64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(pluginClientId + ":" + clientSecret));
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-            try
-            {
-                var base64Encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(pluginClientId + ":" + clientSecret));
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            var apiRequest = (HttpWebRequest)WebRequest.Create(apiRequestUrl + "/oauth/access_token?grant_type=client_credentials");
 
-                var apiRequest = (HttpWebRequest)WebRequest.Create(apiRequestUrl + "/oauth/access_token?grant_type=client_credentials");
+            apiRequest.Method = "POST";
+            apiRequest.ContentType = "application/x-www-form-urlencoded;charset=UTF-8";
+            apiRequest.Accept = "application/json";
 
-                apiRequest.Method = "POST";
-                apiRequest.ContentType = "application/x-www-form-urlencoded;charset=UTF-8";
-                apiRequest.Accept = "application/json";
+            WebHeaderCollection authorizationHeaders = apiRequest.Headers;
+            authorizationHeaders.Add("Authorization: Basic " + base64Encoded);
 
-                WebHeaderCollection authorizationHeaders = apiRequest.Headers;
-                authorizationHeaders.Add("Authorization: Basic " + base64Encoded);
-
-                var apiResponse = apiRequest.GetResponse();
-                var stream = apiResponse.GetResponseStream();
-                var streamReader = new StreamReader(stream ?? throw new InvalidOperationException("No response getting bearer token"), Encoding.Default);
-                var content = streamReader.ReadToEnd();
-                stream.Close();
-                apiResponse.Close();
-                dynamic responseObject = JsonConvert.DeserializeObject(content);
-                string apiBearerToken = responseObject?["access_token"].ToString();
-                BearerToken = apiBearerToken;
-                var expiresIn = responseObject?["expires_in"].ToString();
-                TokenExpiration = DateTime.Now.AddMilliseconds(int.Parse(expiresIn ?? 0));
-            }
-            catch (Exception e)
-            {
-                throw new BadRequestException(e.Message);
-            }
-
+            var apiResponse = apiRequest.GetResponse();
+            var stream = apiResponse.GetResponseStream();
+            var streamReader = new StreamReader(stream ?? throw new InvalidOperationException("No response getting bearer token"), Encoding.Default);
+            var content = streamReader.ReadToEnd();
+            stream.Close();
+            apiResponse.Close();
+            dynamic responseObject = JsonConvert.DeserializeObject(content);
+            string apiBearerToken = responseObject?["access_token"].ToString();
+            BearerToken = apiBearerToken;
+            var expiresIn = responseObject?["expires_in"].ToString();
+            TokenExpiration = DateTime.Now.AddMilliseconds(int.Parse(expiresIn ?? 0));
         }
 
         private static HttpClient MethodHeaders(string bearerToken, string endpointUrl)
