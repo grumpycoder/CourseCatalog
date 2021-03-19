@@ -57,6 +57,9 @@ namespace CourseCatalog.App.Services
             var tokenResponse =
                 await client.PostAsync(Uri.EscapeUriString(client.BaseAddress.ToString()), request.Content);
 
+            Log.Logger.Information($"bearer token: {BearerToken}");
+            Log.Logger.Information($"tokenResponse Status: {tokenResponse.ReasonPhrase}");
+
             var message = await tokenResponse.Content.ReadAsStringAsync();
             if (string.IsNullOrWhiteSpace(message)) throw new Exception("No response message from publish endpoint");
             Log.Logger.Information(message);
