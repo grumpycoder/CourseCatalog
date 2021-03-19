@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+
+
+	<appSettings xdt:Transform="InsertIfMissing">
+	  <add key="LoggingSchemaName" value="LogSchemaName" xdt:Transform="InsertIfMissing" />
+	  <add key="LoggingContextName" value="LoggingContext" xdt:Transform="InsertIfMissing" />
+	  <add key="AutoCreateLoggingTables" value="false" xdt:Transform="InsertIfMissing" />
+	  <add key="EnableDiagnostics" value="false" xdt:Transform="InsertIfMissing" />
+
+	</appSettings>
+
+	
+	<connectionStrings>
+	  <add name="LoggingContext" connectionString="Data Source=DefaultServerName;initial catalog=DefaultDatabase;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False" providerName="System.Data.SqlClient"  xdt:Transform="InsertIfMissing" />
+	</connectionStrings>
+
+
+</configuration>

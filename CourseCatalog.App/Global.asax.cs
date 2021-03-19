@@ -9,6 +9,9 @@ using CourseCatalog.Persistence;
 using CourseCatalog.Persistence.Repositories;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Compact;
 using System;
 using System.Reflection;
 using System.Web;
@@ -16,9 +19,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Alsde.Mvc.Logging;
-using CourseCatalog.App.Controllers.Mvc;
-using CourseCatalog.App.Helpers;
 
 namespace CourseCatalog.App
 {
@@ -80,42 +80,74 @@ namespace CourseCatalog.App
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                ////.Enrich.WithHttpContextData()
+                //.Enrich.FromLogContext()
+                //.Enrich.WithHttpRequestId()
+                //.Enrich.WithHttpContextData()
+                //.Enrich.WithMvcRouteTemplate()
+                //.Enrich.WithMvcActionName()
+                //.Enrich.WithHttpContextData()
+                //.Enrich.WithRequest()
+                .Enrich.WithMachineName()
+                .Enrich.FromLogContext()
+                .Enrich.WithAssemblyName()
+                .Enrich.WithAssemblyVersion()
+                ////.WriteTo.Console(outputTemplate:
+                ////    "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                ////    theme: AnsiConsoleTheme.Literate)
+                ////.WriteTo.Console(outputTemplate:
+                ////    "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+                ////.WriteTo.File(@"C:\temp\logs\flatfile.json",
+                ////    LogEventLevel.Information,
+                ////    outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                ////    rollingInterval: RollingInterval.Minute)
+                //.WriteTo.File(new CompactJsonFormatter(), @"C:\temp\logs\flatfile.json", rollingInterval: RollingInterval.Minute)
+                .WriteTo.File(new CompactJsonFormatter(), @"\\alsdepfs\WebDev\Test\Logs\courses\courses-flatfile.json", rollingInterval: RollingInterval.Minute)
+                .CreateLogger();
+
         }
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            var ex = Server.GetLastError();
-            if (ex == null) return;
+            //var ex = Server.GetLastError();
+            //if (ex == null) return;
 
-            Session["Error"] = ex.ToBetterString();
+            ////Session["Error"] = ex.ToBetterString();
 
-            string errorControllerAction;
+            //string errorControllerAction;
 
-            MvcWebExtensions.GetHttpStatus(ex, out var httpStatus);
-            switch (httpStatus)
-            {
-                case 404:
-                    errorControllerAction = "NotFound";
-                    break;
-                default:
-                    Alsde.Mvc.Logging.Helpers.LogWebError(Constants.ApplicationName, Constants.LayerName, ex);
-                    errorControllerAction = "Index";
-                    break;
-            }
+            //var logger = new Logger(new LoggingConfiguration());
+            //MvcWebExtensions.GetHttpStatus(ex, out var httpStatus);
+            //switch (httpStatus)
+            //{
+            //    case 404:
+            //        errorControllerAction = "NotFound";
+            //        break;
+            //    default:
+            //        //Alsde.Mvc.Logging.Helpers.LogWebError(Constants.ApplicationName, Constants.LayerName, ex);
+            //        logger.LogWebError(Constants.ApplicationName, Constants.LayerName, ex);
+            //        errorControllerAction = "Index";
+            //        break;
+            //}
 
-            var httpContext = ((WebApiApplication)sender).Context;
-            httpContext.ClearError();
-            httpContext.Response.Clear();
-            httpContext.Response.StatusCode = httpStatus;
-            httpContext.Response.TrySkipIisCustomErrors = true;
+            //var httpContext = ((WebApiApplication)sender).Context;
+            //httpContext.ClearError();
+            //httpContext.Response.Clear();
+            //httpContext.Response.StatusCode = httpStatus;
+            //httpContext.Response.TrySkipIisCustomErrors = true;
 
-            var routeData = new RouteData();
-            routeData.Values["controller"] = "Error";
-            routeData.Values["action"] = errorControllerAction;
+            //var routeData = new RouteData();
+            //routeData.Values["controller"] = "Error";
+            //routeData.Values["action"] = errorControllerAction;
 
-            var controller = new ErrorController();
-            ((IController)controller)
-                .Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
+            //var controller = new ErrorController();
+            //((IController)controller)
+            //    .Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
         }
     }
 

@@ -60,10 +60,10 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 existingCourse.Status = CourseStatus.Published;
                 existingCourse.PublishDate = DateTime.Now;
                 var publishResponse = await _publishCourseService.PublishCourse(existingCourse);
-                if (!publishResponse.Success)
-                {
-                    throw new BadRequestException(publishResponse.Message);
-                }
+                //if (!publishResponse.Success)
+                //{
+                //    throw new BadRequestException(publishResponse.Message);
+                //}
 
                 //HACK: Is there another way to null list<string>?
                 if (existingCourse.Tags.Count == 0) existingCourse.Tags = null;
@@ -111,10 +111,10 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 existingCourse.PublishDate = DateTime.Now;
 
                 var publishResponse = await _publishCourseService.PublishCourse(existingCourse);
-                if (!publishResponse.Success)
-                {
-                    throw new BadRequestException(publishResponse.Message);
-                }
+                //if (!publishResponse.Success)
+                //{
+                //    throw new BadRequestException(publishResponse.Message);
+                //}
 
                 //HACK: Is there another way to null list<string>?
                 if (existingCourse.Tags.Count == 0) existingCourse.Tags = null;
