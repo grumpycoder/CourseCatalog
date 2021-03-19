@@ -3,6 +3,7 @@ using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Responses;
 using CourseCatalog.Domain.Entities;
 using Newtonsoft.Json;
+using Serilog;
 using System;
 using System.IO;
 using System.Net;
@@ -11,7 +12,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Configuration;
-using Serilog;
 
 namespace CourseCatalog.App.Services
 {
@@ -59,6 +59,11 @@ namespace CourseCatalog.App.Services
 
             Log.Logger.Information($"bearer token: {BearerToken}");
             Log.Logger.Information($"tokenResponse Status: {tokenResponse.ReasonPhrase}");
+
+            if (!tokenResponse.IsSuccessStatusCode)
+            {
+                throw new Exception($"Failed to publish: {tokenResponse.ReasonPhrase}");
+            }
 
             var message = await tokenResponse.Content.ReadAsStringAsync();
             if (string.IsNullOrWhiteSpace(message)) throw new Exception("No response message from publish endpoint");
