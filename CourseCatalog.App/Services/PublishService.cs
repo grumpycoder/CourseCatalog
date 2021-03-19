@@ -33,9 +33,9 @@ namespace CourseCatalog.App.Services
         public async Task<BaseResponse> PublishCourse(Course course)
         {
 
-            if (TokenHasExpired)
-                GetBearerToken(_configuration.ApiRequestUrl, _configuration.ApiPluginClientId,
-                    _configuration.ClientSecret);
+            //if (TokenHasExpired)
+            GetBearerToken(_configuration.ApiRequestUrl, _configuration.ApiPluginClientId,
+                _configuration.ClientSecret);
 
             var publishEndPointUrl = WebConfigurationManager.AppSettings["PublishEndPointURL"];
             var client = MethodHeaders(BearerToken, publishEndPointUrl);
