@@ -32,44 +32,35 @@ namespace CourseCatalog.App.Services
 
         public async Task<BaseResponse> PublishCourse(Course course)
         {
-            try
+
+            if (TokenHasExpired)
+                GetBearerToken(_configuration.ApiRequestUrl, _configuration.ApiPluginClientId,
+                    _configuration.ClientSecret);
+
+            var publishEndPointUrl = WebConfigurationManager.AppSettings["PublishEndPointURL"];
+            var client = MethodHeaders(BearerToken, publishEndPointUrl);
+
+            var dto = _mapper.Map<UDefCourses>(course);
+            var container = new UDefCoursesContainer()
             {
-                if (TokenHasExpired)
-                    GetBearerToken(_configuration.ApiRequestUrl, _configuration.ApiPluginClientId,
-                        _configuration.ClientSecret);
-
-                var publishEndPointUrl = WebConfigurationManager.AppSettings["PublishEndPointURL"];
-                var client = MethodHeaders(BearerToken, publishEndPointUrl);
-
-                var dto = _mapper.Map<UDefCourses>(course);
-                var container = new UDefCoursesContainer()
+                Name = "u_def_courses",
+                Tables = new Tables() { UDefCourses = dto }
+            };
+            var json = JsonConvert.SerializeObject(container);
+            var request =
+                new HttpRequestMessage(HttpMethod.Post, Uri.EscapeUriString(client.BaseAddress.ToString()))
                 {
-                    Name = "u_def_courses",
-                    Tables = new Tables() { UDefCourses = dto }
+                    Content = new StringContent(json, Encoding.UTF8, "application/json")
                 };
-                var json = JsonConvert.SerializeObject(container);
-                var request =
-                    new HttpRequestMessage(HttpMethod.Post, Uri.EscapeUriString(client.BaseAddress.ToString()))
-                    {
-                        Content = new StringContent(json, Encoding.UTF8, "application/json")
-                    };
 
-                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                var tokenResponse =
-                    await client.PostAsync(Uri.EscapeUriString(client.BaseAddress.ToString()), request.Content);
+            request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var tokenResponse =
+                await client.PostAsync(Uri.EscapeUriString(client.BaseAddress.ToString()), request.Content);
 
-                var message = await tokenResponse.Content.ReadAsStringAsync();
-                var jsonMessage = JsonConvert.DeserializeObject<JsonMessage>(message);
-                var response = new BaseResponse(jsonMessage.Message, tokenResponse.IsSuccessStatusCode);
-                return response;
-            }
-            catch (Exception e)
-            {
-                throw new BadRequestException(e.Message);
-                var response = new BaseResponse(e.Message, false);
-                return response; 
-            }
-
+            var message = await tokenResponse.Content.ReadAsStringAsync();
+            var jsonMessage = JsonConvert.DeserializeObject<JsonMessage>(message);
+            var response = new BaseResponse(jsonMessage.Message, tokenResponse.IsSuccessStatusCode);
+            return response;
         }
 
         public void GetBearerToken(string apiRequestUrl, string pluginClientId, string clientSecret)
