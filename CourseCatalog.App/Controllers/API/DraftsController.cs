@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CourseCatalog.App.Features.Drafts.Commands.CreateDraft;
+﻿using CourseCatalog.App.Features.Drafts.Commands.CreateDraft;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftByCourseId;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram;
 using CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement;
@@ -10,7 +9,6 @@ using CourseCatalog.App.Features.Drafts.Commands.PublishDraft;
 using CourseCatalog.App.Features.Drafts.Commands.UpdateDraft;
 using CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail;
 using CourseCatalog.App.Filters;
-using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
@@ -26,13 +24,11 @@ namespace CourseCatalog.App.Controllers.API
     {
         private readonly IMediator _mediator;
         private readonly CourseDbContext _context;
-        private readonly IMapper _mapper;
 
-        public DraftsController(IMediator mediator, CourseDbContext context, IMapper mapper)
+        public DraftsController(IMediator mediator, CourseDbContext context)
         {
             _mediator = mediator;
             _context = context;
-            _mapper = mapper;
         }
 
         [HttpGet, Route("")]
@@ -117,15 +113,9 @@ namespace CourseCatalog.App.Controllers.API
         [HttpPost, Route("publish/{draftId}"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> Publish(int draftId)
         {
-            try
-            {
-                var dto = await _mediator.Send(new PublishDraftCommand(draftId));
-                return Ok(dto);
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            var dto = await _mediator.Send(new PublishDraftCommand(draftId));
+            return Ok(dto);
+
         }
 
     }

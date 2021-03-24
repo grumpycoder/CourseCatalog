@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using AutoMapper;
-using CourseCatalog.App.Profiles;
 using CourseCatalog.App.Services;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Persistence;
@@ -10,11 +8,12 @@ using CourseCatalog.Persistence.Repositories;
 using MediatR.Extensions.Autofac.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Serilog.Enrichers.HttpContextData;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
 using Serilog.Sinks.MSSqlServer;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Reflection;
@@ -84,28 +83,111 @@ namespace CourseCatalog.App
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
-            var fileLocation = ConfigurationManager.AppSettings["LogFile"]; 
+            var connectionString = ConfigurationManager.ConnectionStrings["CourseContext"].ConnectionString;
+            var logFile = ConfigurationManager.AppSettings["LogFile"];
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .MinimumLevel.Override("System", LogEventLevel.Information)
-                .Enrich.WithMachineName()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
-                .Enrich.WithAssemblyName()
-                .Enrich.WithAssemblyVersion()
-                //.WriteTo.Logger(lc => lc
-                //        //.Filter.ByIncludingOnly(Matching.WithProperty("ElapsedMilliseconds"))
-                //        .WriteTo.MSSqlServer(connectionString: @"Server=.;Database=Courses;Trusted_Connection=True;", 
-                //                                sinkOptions: GetSinkOptions(), 
-                //                                columnOptions: GetSqlColumnOptions())
-                //    )
-                //.WriteTo.MSSqlServer(connectionString: @"Server=.;Database=Courses;Trusted_Connection=True;",
+                .Enrich.WithHttpRequestId()
+                .Enrich.WithHttpContextData()
+                .Enrich.WithMachineName()
+                .Enrich.WithMvcRouteTemplate()
+                .Enrich.WithMvcActionName()
+                .Enrich.FromLogContext()
+                .WriteTo.Logger(new LoggerConfiguration()
+                    .MinimumLevel.Verbose()
+                    .Enrich.WithMachineName()
+                    .Enrich.FromLogContext()
+                    .Enrich.WithHttpRequestId()
+                    .Enrich.WithAssemblyName()
+                    .Enrich.WithAssemblyVersion()
+                    .Enrich.WithHttpContextData()
+                    .Enrich.WithClaimValue("AlsdeId")
+                    .Enrich.WithUserName()
+                    .Enrich.WithHttpRequestRawUrl()
+                    .Enrich.WithWebApiActionName("ActionName")
+                    .Enrich.WithWebApiControllerName("ControllerName")
+                    .Enrich.WithWebApiRouteData("RouteData")
+                    .Enrich.WithMvcActionName("ActionName")
+                    .Enrich.WithMvcControllerName("ControllerName")
+                    .Enrich.WithMvcRouteData("RouteData")
+                    .WriteTo
+                    .MSSqlServer(connectionString: connectionString,
+                        sinkOptions: GetErrorSinkOptions(),
+                        columnOptions: GetErrorSqlColumnOptions(),
+                        restrictedToMinimumLevel: LogEventLevel.Error)
+                    .CreateLogger())
+                //.WriteTo.Logger(new LoggerConfiguration()
+                //    .MinimumLevel.Verbose()
+                //    .Enrich.WithMachineName()
+                //    .Enrich.FromLogContext()
+                //    .Enrich.WithHttpRequestId()
+                //    .Enrich.WithAssemblyName()
+                //    .Enrich.WithAssemblyVersion()
+                //    .Enrich.WithHttpContextData()
+                //    .Enrich.WithUserName()
+                //    .Enrich.WithMvcActionName("ActionName")
+                //    .Enrich.WithMvcControllerName("ControllerName")
+                //    .Enrich.WithMvcRouteData("RouteData")
+                //    .WriteTo
+                //    .MSSqlServer(connectionString: connectionString,
                 //        sinkOptions: GetSinkOptions(),
-                //        columnOptions: GetSqlColumnOptions()
-                //        )
-                .WriteTo.File(new CompactJsonFormatter(), fileLocation, rollingInterval: RollingInterval.Minute)
+                //        columnOptions: GetSqlColumnOptions(),
+                //        restrictedToMinimumLevel: LogEventLevel.Information)
+                //    .CreateLogger())
+                //.WriteTo.File(new CompactJsonFormatter(), logFile, LogEventLevel.Error,
+                //    shared: true, rollingInterval: RollingInterval.Month
+                //)
                 .CreateLogger();
+        }
 
+        private static MSSqlServerSinkOptions GetErrorSinkOptions()
+        {
+            var options = new MSSqlServerSinkOptions
+            {
+                AutoCreateSqlTable = true,
+                SchemaName = "Log",
+                TableName = "Error"
+            };
+
+            return options;
+        }
+
+        private static ColumnOptions GetErrorSqlColumnOptions()
+        {
+            var options = new ColumnOptions();
+
+            options.Id.ColumnName = "LogId";
+
+            options.Store.Remove(StandardColumn.MessageTemplate);
+            options.Store.Remove(StandardColumn.Level);
+            options.Store.Remove(StandardColumn.Properties);
+
+
+            options.Store.Add(StandardColumn.LogEvent);
+            options.LogEvent.ExcludeStandardColumns = true;
+            options.LogEvent.ExcludeAdditionalProperties = true;
+
+            options.AdditionalColumns = new List<SqlColumn>
+            {
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Location", PropertyName = "RawUrl"},
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AlsdeId" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "UserName", },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Hostname", PropertyName = "MachineName"},
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", PropertyName = "HttpRequestId"},
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AssemblyName" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AssemblyVersion" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Controller", PropertyName = "ControllerName" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Action", PropertyName = "ActionName" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "RouteData" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "HttpContextData" },
+                new SqlColumn { DataType = SqlDbType.Float, ColumnName = "ElapsedMilliseconds", AllowNull = false },
+            };
+
+            return options;
         }
 
         private static MSSqlServerSinkOptions GetSinkOptions()
@@ -114,7 +196,7 @@ namespace CourseCatalog.App
             {
                 AutoCreateSqlTable = true,
                 SchemaName = "Log",
-                TableName = "ErrorNew"
+                TableName = "PerfNew"
             };
 
             return options;
@@ -123,35 +205,31 @@ namespace CourseCatalog.App
         private static ColumnOptions GetSqlColumnOptions()
         {
             var options = new ColumnOptions();
-            //options.Store.Remove(StandardColumn.Message);
-            options.Store.Remove(StandardColumn.MessageTemplate);
-            //options.Store.Remove(StandardColumn.Level);
-            options.Store.Remove(StandardColumn.Exception);
 
+            options.Id.ColumnName = "LogId";
+
+            options.Store.Remove(StandardColumn.Message);
+            options.Store.Remove(StandardColumn.MessageTemplate);
+            options.Store.Remove(StandardColumn.Level);
+            options.Store.Remove(StandardColumn.Exception);
             options.Store.Remove(StandardColumn.Properties);
-            //options.Store.Add(StandardColumn.LogEvent);
+
+            options.Store.Add(StandardColumn.LogEvent);
             options.LogEvent.ExcludeStandardColumns = true;
             options.LogEvent.ExcludeAdditionalProperties = true;
 
-            options.AdditionalColumns = new Collection<SqlColumn>
+            options.AdditionalColumns = new List<SqlColumn>()
             {
-                new SqlColumn
-                { ColumnName = "PerfItem", AllowNull = false,
-                    DataType = SqlDbType.NVarChar, DataLength = 100,
-                    NonClusteredIndex = true },
-                new SqlColumn
-                {
-                    ColumnName = "ElapsedMilliseconds", AllowNull = false,
-                    DataType = SqlDbType.Int
-                },
-                new SqlColumn
-                {
-                    ColumnName = "ActionName", AllowNull = false
-                },
-                new SqlColumn
-                {
-                    ColumnName = "MachineName", AllowNull = false
-                }
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Location", PropertyName = "RawUrl"},
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "UserName" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Hostname", PropertyName = "MachineName"},
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", PropertyName = "HttpRequestId"},
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AssemblyName" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AssemblyVersion" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Controller", PropertyName = "ControllerName" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Action", PropertyName = "ActionName" },
+                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "RouteData" },
+                new SqlColumn { DataType = SqlDbType.Int, ColumnName = "ElapsedMilliseconds", AllowNull = false },
             };
 
             return options;
@@ -195,42 +273,5 @@ namespace CourseCatalog.App
             //    .Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
         }
     }
-
-    public class RepositoryRegistrationModule : Autofac.Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .Where(t => t.Name.EndsWith("Repository"))
-                .AsImplementedInterfaces()
-                .InstancePerRequest();
-        }
-    }
-
-    public class AutoMapperModule : Autofac.Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            //Also register any custom type converter/value resolvers
-            //builder.RegisterType<CustomValueResolver>().AsSelf();
-            //builder.RegisterType<CustomTypeConverter>().AsSelf();
-
-            builder.Register(context => new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<Mappings>();
-            })).AsSelf().SingleInstance();
-
-            builder.Register(c =>
-                {
-                    //This resolves a new context that can be used later.
-                    var context = c.Resolve<IComponentContext>();
-                    var config = context.Resolve<MapperConfiguration>();
-                    return config.CreateMapper(context.Resolve);
-                })
-                .As<IMapper>()
-                .InstancePerLifetimeScope();
-        }
-    }
-
 }
 

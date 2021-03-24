@@ -71,5 +71,6 @@ namespace CourseCatalog.Persistence
             }
             return base.SaveChangesAsync(cancellationToken);
         }
+
     }
 }

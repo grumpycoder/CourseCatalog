@@ -9,7 +9,8 @@ namespace CourseCatalog.Persistence.Configurations
         public void Configure(EntityTypeBuilder<ErrorLogDetail> builder)
         {
             builder.ToTable("Error", "Log");
-            builder.Property(s => s.Id).HasColumnName("Id");
+            builder.HasKey(s => s.LogId);
+            builder.Property(s => s.LogId).HasColumnName("LogId");
         }
     }
 }

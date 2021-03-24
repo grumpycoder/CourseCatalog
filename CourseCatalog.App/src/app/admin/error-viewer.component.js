@@ -13,7 +13,7 @@ function controller($http) {
 
     ctrl.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
-            key: "id",
+            key: "logId",
             loadUrl: url
         }),
         remoteOperations: true,
@@ -43,32 +43,32 @@ function controller($http) {
         columnMinWidth: 50,
         columnAutoWidth: true,
         columns: [
-            { dataField: 'hostname', caption: 'Host' },
-            { dataField: 'layer', caption: 'Layer' },
-            { dataField: 'location', caption: 'Location' },
-            { dataField: 'userName', caption: 'User' },
-            { dataField: 'message', caption: 'Message', width: 200, wordWrapEnabled: false },
-            { dataField: 'elapsedMilliseconds', caption: 'Elapsed Milliseconds', visible: false },
+            { dataField: 'hostname', caption: 'Host', width: 100 },
+            { dataField: 'location', caption: 'Location', width: 200 },
+            { dataField: 'userName', caption: 'User', width: 100 },
+            { dataField: 'message', caption: 'Message', width: 150, wordWrapEnabled: false },
+            { dataField: 'exception', caption: 'Exception', width: 200, wordWrapEnabled: true },
             { dataField: 'correlationId', caption: 'Session' },
-            { dataField: 'timestamp', caption: 'Time Stamp', dataType: 'datetime' }
+            { dataField: 'elapsedMilliseconds', caption: 'Elapsed Milliseconds', visible: false },
+            { dataField: 'timestamp', caption: 'Time Stamp', dataType: 'datetime', width: 100 }
         ],
         onToolbarPreparing: function (e) {
             var dataGrid = e.component;
 
             e.toolbarOptions.items.unshift(
-                {
-                    location: "after",
-                    widget: "dxButton",
-                    options: {
-                        text: "Collapse All",
-                        width: 136,
-                        onClick: function (e) {
-                            var expanding = e.component.option("text") === "Expand All";
-                            dataGrid.option("grouping.autoExpandAll", expanding);
-                            e.component.option("text", expanding ? "Collapse All" : "Expand All");
-                        }
-                    }
-                },
+                //{
+                //    location: "after",
+                //    widget: "dxButton",
+                //    options: {
+                //        text: "Collapse All",
+                //        width: 136,
+                //        onClick: function (e) {
+                //            var expanding = e.component.option("text") === "Expand All";
+                //            dataGrid.option("grouping.autoExpandAll", expanding);
+                //            e.component.option("text", expanding ? "Collapse All" : "Expand All");
+                //        }
+                //    }
+                //},
                 {
                     location: "after",
                     widget: "dxButton",

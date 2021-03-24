@@ -1,13 +1,11 @@
-﻿using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Http;
-using CourseCatalog.App.Helpers;
-using CourseCatalog.Persistence;
+﻿using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -27,7 +25,7 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<object> Error(DataSourceLoadOptions loadOptions)
         {
             var dto = await _context.ErrorLogs.ToListAsync();
-            return Ok(DataSourceLoader.Load(dto.OrderByDescending(x => x.Timestamp), loadOptions));
+            return Ok(DataSourceLoader.Load(dto.OrderByDescending(x => x.LogId), loadOptions));
         }
 
         [HttpGet, Route("perf")]

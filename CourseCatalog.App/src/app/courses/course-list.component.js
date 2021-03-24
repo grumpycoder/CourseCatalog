@@ -9,6 +9,7 @@ function controller($http) {
     ctrl.$onInit = function () {
         var url = '/api/courses/';
         ctrl.title = 'Course Catalog';
+        ctrl.isAdmin = ctrl.isAdmin == 'true';
 
         if (ctrl.filter === 'active') {
             url += 'active';
@@ -94,10 +95,13 @@ function controller($http) {
                 { dataField: 'cipCode', dataType: 'string', visible: false },
                 { dataField: 'courseLevel', dataType: 'string', caption: 'Course Level' },
                 {
-                    dataField: 'creditHours', dataType: 'decimal', format: {
+                    dataField: 'creditHours',
+                    dataType: 'decimal',
+                    format: {
                         type: "fixedPoint",
                         precision: 2
-                    }, caption: 'Credit Hours'
+                    },
+                    caption: 'Credit Hours'
                 },
                 { dataField: 'scedIdentifier', dataType: 'string', caption: 'Sced Category' },
                 { dataField: 'subject', dataType: 'string', caption: 'Subject' },
@@ -119,7 +123,11 @@ function controller($http) {
                                         toastr.success('Created draft ' + options.data.courseNumber);
                                         window.location.href = '/drafts/' + r.data;
                                     }).catch(err => {
-                                        toastr.error(err.data.exceptionMessage);
+                                        if (err.data.exceptionType.includes('EntityFrameworkCore')) {
+                                            toastr.error('Database error creating draft');
+                                        } else {
+                                            toastr.error(err.data.exceptionMessage);
+                                        }
                                         console.log('err', err);
                                     });
                                 })

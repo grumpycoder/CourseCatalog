@@ -15,7 +15,7 @@
       "enabled": true,
       "renameLocals": true
     },
-    "sourceMap": true
+    "sourceMap": false
   },
   {
     "outputFileName": "js/angular-bundle.js",
@@ -30,19 +30,7 @@
       "enabled": false,
       "renameLocals": true
     },
-    "sourceMap": true
-  },
-  {
-    "outputFileName": "js/angular-bundle2.js",
-    "inputFiles": [
-      "node_modules/angularjs-bootstrap-4/dist/angularjs-bootstrap-4.min.js",
-      "node_modules/angularjs-bootstrap4-extended-select/dist/angularjs-bootstrap4-extended-select.min.js"
-    ],
-    "minify": {
-      "enabled": false,
-      "renameLocals": true
-    },
-    "sourceMap": true
+    "sourceMap": false
   },
   {
     "outputFileName": "js/dx-bundle.js",
@@ -55,7 +43,7 @@
       "enabled": true,
       "renameLocals": true
     },
-    "sourceMap": true
+    "sourceMap": false
   },
   {
     "outputFileName": "css/dx-bundle.css",
