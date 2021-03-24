@@ -738,7 +738,6 @@
     <Content Include="js\angularjs-bootstrap-4.min.js.map" />
     <Content Include="js\angularjs-bootstrap4-extended-select.min.js.map" />
     <Content Include="js\angular-animate.min.js.map" />
-    <Content Include="libman.json" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\ComingSoon.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
