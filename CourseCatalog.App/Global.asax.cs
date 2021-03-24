@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Enrichers.HttpContextData;
 using Serilog.Events;
-using Serilog.Formatting.Compact;
 using Serilog.Sinks.MSSqlServer;
 using System;
 using System.Collections.Generic;
@@ -148,7 +147,7 @@ namespace CourseCatalog.App
         {
             var options = new MSSqlServerSinkOptions
             {
-                AutoCreateSqlTable = true,
+                AutoCreateSqlTable = false,
                 SchemaName = "Log",
                 TableName = "Error"
             };
@@ -194,7 +193,7 @@ namespace CourseCatalog.App
         {
             var options = new MSSqlServerSinkOptions
             {
-                AutoCreateSqlTable = true,
+                AutoCreateSqlTable = false,
                 SchemaName = "Log",
                 TableName = "PerfNew"
             };
