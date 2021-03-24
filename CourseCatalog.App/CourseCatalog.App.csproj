@@ -436,6 +436,7 @@
     <Compile Include="Features\Users\Queries\GetUserGroupList\GetUserGroupListQueryHandler.cs" />
     <Compile Include="Features\Users\Queries\GetUser\GetUserQuery.cs" />
     <Compile Include="Features\Users\Queries\GetUser\GetUserQueryHandler.cs" />
+    <Compile Include="Helpers\ExceptionHelper.cs" />
     <Compile Include="RepositoryRegistrationModule.cs" />
     <Compile Include="Services\MemberService.cs" />
     <Compile Include="Services\PublisherApiConfiguration.cs" />

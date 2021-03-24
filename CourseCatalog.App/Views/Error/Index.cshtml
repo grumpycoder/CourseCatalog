@@ -22,25 +22,26 @@
 
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-primary" type="button"
-                    data-toggle="collapse"
-                    data-target="#collapseExample"
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                    hidden="@User.IsInRole(Constants.GlobalAdministrators)">
-                Exception Details
-            </button>
-
+            @if (User.IsInRole(Constants.GlobalAdministrators))
+            {
+                <button class="btn btn-primary" type="button"
+                        data-toggle="collapse"
+                        data-target="#collapseExample"
+                        aria-expanded="false"
+                        aria-controls="collapseExample">
+                    Exception Details
+                </button>
             <div class="collapse" id="collapseExample">
                 <p>
                     <pre class="p-3">
-                    <code>
-                        @Html.Raw(@ViewBag.Error)
-                    </code>
-</pre>
-
+                        <code>
+                            @Html.Raw(@ViewBag.Error)
+                        </code>
+                    </pre>
                 </p>
             </div>
+            }
+
         </div><!-- ./col -->
     </div><!-- ./row -->
 
