@@ -705,7 +705,6 @@
   <ItemGroup>
     <Content Include="package.json" />
     <Content Include="bundleconfig.json" />
-    <Content Include="bundleconfig.json.bindings" />
     <Content Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults" />
     <Content Include="fonts\fontawesome-webfont.eot" />
