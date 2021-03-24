@@ -708,7 +708,6 @@
     <Content Include="bundleconfig.json.bindings" />
     <Content Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults" />
-    <Content Include="js\vendor-bundle.min.js.map" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -739,7 +738,6 @@
     <Content Include="js\angular-messages.min.js.map" />
     <Content Include="js\angularjs-bootstrap-4.min.js.map" />
     <Content Include="js\angularjs-bootstrap4-extended-select.min.js.map" />
-    <Content Include="js\dx-bundle.min.js.map" />
     <Content Include="js\angular-animate.min.js.map" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\ComingSoon.cshtml" />
