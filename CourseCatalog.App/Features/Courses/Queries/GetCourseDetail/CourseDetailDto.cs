@@ -25,6 +25,21 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
         public Grade LowGrade { get; set; }
         public Grade HighGrade { get; set; }
 
+        public GradeRange GradeRange {
+            get
+            {
+                var gr = new GradeRange()
+                {
+                    LowGrade = LowGrade.Name,
+                    HighGrade = HighGrade.Name,
+                    LowGradeId = LowGrade.GradeId,
+                    HighGradeid = HighGrade.GradeId
+                };
+                return gr; 
+            }
+        }
+        
+
         public bool? IsCareerTech { get; set; }
         public bool? IsSpecialEducation { get; set; }
         public bool? IsLocallyEditable { get; set; }
@@ -41,6 +56,14 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
 
         public List<ProgramCourseDto> Programs { get; set; }
 
+    }
+
+    public class GradeRange
+    {
+        public int LowGradeId { get; set; }
+        public string LowGrade { get; set; }
+        public int HighGradeid { get; set; }
+        public string HighGrade { get; set; }
     }
 
     public class ProgramCourseDto
