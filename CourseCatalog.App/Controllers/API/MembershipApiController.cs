@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseCatalog.App.Features.Users.Commands.CreateUser;
+using CourseCatalog.Application.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalog.App.Controllers.API
@@ -68,7 +69,17 @@ namespace CourseCatalog.App.Controllers.API
         [HttpPost, Route("groups/{groupId}/user/{identityGuid}"), Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> AddGroupMember(int groupId, Guid identityGuid)
         {
-            var user = await _mediator.Send(new GetUserQuery(identityGuid));
+
+            UserDetailDto user = null;
+            try
+            {
+                user = await _mediator.Send(new GetUserQuery(identityGuid));
+            }
+            catch (Exception e)
+            {
+                if (e.GetType() != typeof(NotFoundException))
+                    throw;
+            }
 
             if (user == null)
             {
@@ -88,6 +99,7 @@ namespace CourseCatalog.App.Controllers.API
 
             var dto = await _mediator.Send(new CreateGroupUserCommand(groupId, identityGuid));
             return Ok(dto);
+
         }
 
         //[HttpPost, Route("groups/{groupName}"), Authorize(Roles = "Admin")]

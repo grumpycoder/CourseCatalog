@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CourseCatalog.Application.Exceptions;
 
 namespace CourseCatalog.App.Services
 {
@@ -45,38 +46,48 @@ namespace CourseCatalog.App.Services
             var alsdeId = identity.GetClaimValue("AlsdeId");
             var identityGuid = new Guid(identity.GetClaimValue(ClaimTypes.NameIdentifier));
 
-            var user = await _mediator.Send(new GetUserQuery(identityGuid));
-
-            switch (user)
+            try
             {
-                case null:
-                    //user = new User
-                    //{
-                    //    Username = username,
-                    //    EmailAddress = emailAddress,
-                    //    FirstName = firstName,
-                    //    LastName = lastName,
-                    //    FullName = fullName,
-                    //    IdentityGuid = identityGuid
-                    //};
-                    //await _mediator.Send(new CreateUserCommand(user));
-                    break;
-                default:
-                    await _mediator.Send(new UpdateUserCommand
-                    {
-                        EmailAddress = emailAddress,
-                        FirstName = firstName,
-                        LastName = lastName,
-                        FullName = fullName,
-                        IdentityGuid = identityGuid,
-                        Username = username
-                    });
-                    break;
+                var user = await _mediator.Send(new GetUserQuery(identityGuid));
+
+                switch (user)
+                {
+                    case null:
+                        //user = new User
+                        //{
+                        //    Username = username,
+                        //    EmailAddress = emailAddress,
+                        //    FirstName = firstName,
+                        //    LastName = lastName,
+                        //    FullName = fullName,
+                        //    IdentityGuid = identityGuid
+                        //};
+                        //await _mediator.Send(new CreateUserCommand(user));
+                        break;
+                    default:
+                        await _mediator.Send(new UpdateUserCommand
+                        {
+                            EmailAddress = emailAddress,
+                            FirstName = firstName,
+                            LastName = lastName,
+                            FullName = fullName,
+                            IdentityGuid = identityGuid,
+                            Username = username
+                        });
+                        break;
+                }
+
+                var groups = await _mediator.Send(new GetUserGroupListQuery(identityGuid));
+
+                identity.AddGroupsToRoles(groups);
             }
-
-            var groups = await _mediator.Send(new GetUserGroupListQuery(identityGuid));
-
-            identity.AddGroupsToRoles(groups);
+            catch (Exception e)
+            {
+                if (e.GetType() != typeof(NotFoundException))
+                {
+                    throw;
+                }
+            }
         }
     }
 

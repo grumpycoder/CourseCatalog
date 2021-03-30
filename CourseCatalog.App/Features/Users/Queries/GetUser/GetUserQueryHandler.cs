@@ -3,6 +3,8 @@ using CourseCatalog.Application.Contracts;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using CourseCatalog.Application.Exceptions;
+using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Features.Users.Queries.GetUser
 {
@@ -20,6 +22,9 @@ namespace CourseCatalog.App.Features.Users.Queries.GetUser
         public async Task<UserDetailDto> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetUserByIdWithDetails(request.UserId);
+            
+            if(user == null) throw new NotFoundException(nameof(User), request.UserId);
+
             var dto = _mapper.Map<UserDetailDto>(user);
             return dto;
         }
