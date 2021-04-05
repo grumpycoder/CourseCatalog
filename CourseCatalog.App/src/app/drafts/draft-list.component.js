@@ -100,7 +100,7 @@ function controller($http) {
                         precision: 2
                     }, caption: 'Credit Hours'
                 },
-                { dataField: 'scedIdentifier', dataType: 'string', caption: 'Sced Category' },
+                { dataField: 'scedIdentifier', dataType: 'string', caption: 'SCED Category' },
                 { dataField: 'subject', dataType: 'string', caption: 'Subject' },
                 { dataField: 'status', dataType: 'string', caption: 'Status' },
                 {

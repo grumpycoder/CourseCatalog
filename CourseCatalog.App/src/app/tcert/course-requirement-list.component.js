@@ -124,7 +124,7 @@ function controller($http) {
                     precision: 2
                 }, caption: 'Credit Hours'
             },
-            { dataField: 'scedIdentifier', dataType: 'string', caption: 'Sced Category', visible: false },
+            { dataField: 'scedIdentifier', dataType: 'string', caption: 'SCED Category', visible: false },
             { dataField: 'subject', dataType: 'string', caption: 'Subject' },
             { dataField: 'status', dataType: 'string', caption: 'Status', visible: false }
         ],
@@ -274,121 +274,13 @@ function controller($http) {
     };
 
     ctrl.showInfo = function () {
-
-
-        console.log('popup', ctrl.popupOptions);
         ctrl.popupOptions.visible = true;
-        console.log('popup', ctrl.popupOptions);
 
         $("#popupContainer").dxPopup("show");
-
-        //ctrl.currentEmployee =
-        //{
-        //    "ID": 7,
-        //    "FirstName": "Sandra",
-        //    "LastName": "Johnson",
-        //    "Prefix": "Mrs.",
-        //    "Position": "Controller",
-        //    "Picture": "images/employees/06.png",
-        //    "BirthDate": "1974/11/15",
-        //    "HireDate": "2005/05/11",
-        //    "Notes": "Sandra is a CPA and has been our controller since 2008. She loves to interact with staff so if you've not met her, be certain to say hi.\r\n\r\nSandra has 2 daughters both of whom are accomplished gymnasts.",
-        //    "Address": "4600 N Virginia Rd."
-        //}
-        //console.log('employee', ctrl.currentEmployee);
-        //ctrl.visiblePopup = true;
     }
 
     var url = '/api/courses/active';
-
-    //ctrl.dataCourseGridOptions = {
-    //        dataSource: DevExpress.data.AspNet.createStore({
-    //            key: "id",
-    //            loadUrl: url
-    //        }),
-    //        remoteOperations: true,
-    //        scrolling: {
-    //            mode: "virtual",
-    //            rowRenderingMode: "virtual"
-    //        },
-    //        paging: {
-    //            pageSize: 20
-    //        },
-    //        headerFilter: {
-    //            visible: true,
-    //            allowSearch: true
-    //        },
-    //        filterRow: {
-    //            visible: true
-    //        },
-    //        filterPanel: {
-    //            visible: true
-    //        },
-    //        searchPanel: {
-    //            visible: true,
-    //            placeholder: 'Search...'
-    //        },
-    //        loadPanel: {
-    //            text: 'Loading Courses...'
-    //        },
-    //        hoverStateEnabled: true,
-    //        height: 650,
-    //        allowColumnResizing: true,
-    //        allowColumnReordering: true,
-    //        columnResizingMode: "nextColumn",
-    //        wordWrapEnabled: true,
-    //        showBorders: true,
-    //        columnAutoWidth: true,
-    //        columnMinWidth: 50,
-    //        columns: [
-    //            {
-    //                dataField: 'courseNumber',
-    //                caption: 'Course Number',
-    //                dataType: 'string'
-    //            },
-    //            { dataField: 'name', dataType: 'string' },
-    //            { dataField: 'description', dataType: 'string', width: 200, wordWrapEnabled: false, visible: false },
-    //            { dataField: 'beginYear', dataType: 'int', caption: 'Begin Year' },
-    //            { dataField: 'endYear', dataType: 'int', caption: 'End Year' },
-    //            { dataField: 'lowGrade', dataType: 'string', caption: 'Low Grade' },
-    //            { dataField: 'highGrade', dataType: 'string', caption: 'High Grade' },
-    //            { dataField: 'courseLevel', dataType: 'string', caption: 'Course Level' },
-    //            { dataField: 'scedIdentifier', dataType: 'string', caption: 'Sced Category' },
-    //            { dataField: 'subject', dataType: 'string', caption: 'Subject' }
-    //        ],
-    //        onToolbarPreparing: function (e) {
-    //            var dataGrid = e.component;
-    //            e.toolbarOptions.items.unshift(
-    //                {
-    //                    location: "after",
-    //                    widget: "dxButton",
-    //                    options: {
-    //                        icon: "refresh",
-    //                        hint: 'Refresh',
-    //                        elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-    //                        onClick: function () {
-    //                            dataGrid.refresh();
-    //                        }
-    //                    }
-    //                },
-    //                {
-    //                    location: "after",
-    //                    widget: "dxButton",
-    //                    options: {
-    //                        icon: "clearformat",
-    //                        hint: 'Clear filters',
-    //                        elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-    //                        onClick: function () {
-    //                            dataGrid.clearFilter();
-    //                        }
-    //                    }
-    //                }
-
-    //            );
-    //        }
-    //    };
-
-
+    
     function fetchCourses(endorsementId) {
         endorsementId = 495; 
         return $http.get('/api/courses/endorsements/' + endorsementId).then(r => {
