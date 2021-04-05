@@ -12,7 +12,7 @@
             {{ $ctrl.title }}
         </span>
         <span class="pull-right">
-            <a ng-href="/drafts/{{ $ctrl.courseId }}/edit" 
+            <a ng-href="/drafts/{{ $ctrl.courseId }}/edit"
                ng-class="{disabled: $ctrl.isProcessing}"
                class="btn btn-sm btn-outline-dark" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">Edit</a>
             <button class="btn btn-outline-warning btn-sm mr-2" ng-click="$ctrl.publish()" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">Publish Draft</button>
@@ -135,6 +135,8 @@
                             </ul>
                         </dd>
 
+                        <dt class="col-5 col-md-4 col-lg-3">Draft Source</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.status }}</dd>
                     </dl>
                 </fieldset>
             </div>

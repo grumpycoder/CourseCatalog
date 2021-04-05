@@ -102,7 +102,7 @@ function controller($http) {
                 },
                 { dataField: 'scedIdentifier', dataType: 'string', caption: 'SCED Category' },
                 { dataField: 'subject', dataType: 'string', caption: 'Subject' },
-                { dataField: 'status', dataType: 'string', caption: 'Status' },
+                { dataField: 'status', dataType: 'string', caption: 'Draft Source' },
                 {
                     caption: '',
                     visible: ctrl.isAdmin || ctrl.isCourseAdmin, 
