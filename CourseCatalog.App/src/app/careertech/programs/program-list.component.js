@@ -59,6 +59,7 @@ function controller($http) {
                 showBorders: true,
                 columnAutoWidth: true,
                 columnMinWidth: 50,
+                showEditorAlways: false, 
                 columns: [
                     {
                         dataField: 'programCode',
@@ -76,6 +77,12 @@ function controller($http) {
                     { dataField: 'name', caption: 'Name', width: 200, dataType: 'string' },
                     { dataField: 'description', caption: 'Description', dataType: 'string' },
                     { dataField: 'cluster', caption: 'Cluster', width: 200, dataType: 'string' },
+                    { dataField: 'traditionalForFemales', caption: 'Traditional Females', width: 200, dataType: 'boolean',
+                        trueText: 'Yes',
+                        falseText: 'No' },
+                    { dataField: 'traditionalForMales', caption: 'Traditional Males', width: 200, dataType: 'boolean',
+                        trueText: 'Yes',
+                        falseText: 'No' },
                     { dataField: 'beginYear', caption: 'Start Year', width: 120, dataType: 'int' },
                     { dataField: 'endYear', caption: 'End Year', width: 120, dataType: 'int' },
                     {
