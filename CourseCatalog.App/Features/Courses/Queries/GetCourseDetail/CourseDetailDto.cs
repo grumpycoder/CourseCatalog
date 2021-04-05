@@ -1,4 +1,5 @@
 ﻿using CourseCatalog.Domain.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
@@ -25,7 +26,8 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
         public Grade LowGrade { get; set; }
         public Grade HighGrade { get; set; }
 
-        public GradeRange GradeRange {
+        public GradeRange GradeRange
+        {
             get
             {
                 var gr = new GradeRange()
@@ -35,15 +37,16 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
                     LowGradeId = LowGrade.GradeId,
                     HighGradeid = HighGrade.GradeId
                 };
-                return gr; 
+                return gr;
             }
         }
-        
+
 
         public bool? IsCareerTech { get; set; }
         public bool? IsSpecialEducation { get; set; }
         public bool? IsLocallyEditable { get; set; }
         public bool? IsCollege { get; set; }
+        public DateTime? PublishDate { get; set; }
 
         public Subject Subject { get; set; }
 

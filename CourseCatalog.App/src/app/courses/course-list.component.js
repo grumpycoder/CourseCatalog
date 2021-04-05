@@ -106,6 +106,7 @@ function controller($http) {
                 { dataField: 'scedIdentifier', dataType: 'string', caption: 'SCED Category' },
                 { dataField: 'subject', dataType: 'string', caption: 'Subject' },
                 { dataField: 'status', dataType: 'string', caption: 'Status' },
+                { dataField: 'publishDate', dataType: 'date', caption: 'Publish Date', visible:false },
                 {
                     caption: '',
                     visible: ctrl.isAdmin,

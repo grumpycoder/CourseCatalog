@@ -1,4 +1,6 @@
-﻿namespace CourseCatalog.Domain.Entities
+﻿using System;
+
+namespace CourseCatalog.Domain.Entities
 {
     //HACK: Use view because of DevExpress DataGrid
     public class CourseView
@@ -25,6 +27,7 @@
         public string Subject { get; set; }
         public decimal? CreditHours { get; set; }
         public string Status { get; set; }
+        public DateTime? PublishDate { get; set; }
         public bool IsRetired { get; set; }
 
     }
