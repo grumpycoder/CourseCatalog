@@ -168,9 +168,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\ClusterRepository.cs" />
+    <Compile Include="Repositories\CredentialTypeRepository.cs" />
+    <Compile Include="Repositories\ProgramTypeRepository.cs" />
+    <Compile Include="Repositories\ClusterTypeRepository.cs" />
+    <Compile Include="Repositories\DeliveryTypeRepository.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\CredentialRepository.cs" />
     <Compile Include="Repositories\ProgramRepository.cs" />
+    <Compile Include="Repositories\CourseLevelRepository.cs" />
+    <Compile Include="Repositories\SubjectRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
     <Compile Include="Repositories\DraftRepository.cs" />
     <Compile Include="Repositories\GroupRepository.cs" />

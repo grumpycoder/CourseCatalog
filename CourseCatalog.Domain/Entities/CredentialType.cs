@@ -1,6 +1,8 @@
-﻿namespace CourseCatalog.Domain.Entities
+﻿using CourseCatalog.Domain.Common;
+
+namespace CourseCatalog.Domain.Entities
 {
-    public class CredentialType
+    public class CredentialType: AuditableEntity
     {
         public int CredentialTypeId { get; set; }
         public string CredentialTypeCode { get;  set; }

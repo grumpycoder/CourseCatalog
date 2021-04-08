@@ -1,0 +1,83 @@
+﻿<style>
+    .center-col {
+        text-align: center !important;
+    }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+        <span class="pull-right"><button ng-click="$ctrl.create()">New</button></span>
+        <a href="/careertech/clusters/new" class="btn btn-sm btn-outline-dark pull-right" ng-show="$ctrl.isAdmin">New Cluster</a>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-6">
+
+                <div dx-list="$ctrl.groupListOptions" allowDeleting="true" dx-item-alias="item"
+                     id="groupList">
+                    <div data-options="dxTemplate: {name: 'item'}">
+                        <span>{{item.name}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-6">
+                <div class="card border-secondary mb-3" ng-show="$ctrl.selected">
+                    <div class="card-header">
+                        <span>Edit Details</span>
+                        <span class="pull-right text-danger" ng-show="$ctrl.form.$dirty"><i class="fa fa-asterisk"></i></span>
+                    </div>
+                    <div class="card-body text-secondary">
+                        <form novalidate name="$ctrl.form" ng-submit="$ctrl.onSubmit()">
+                            <div class="form-group row">
+                                <label for="name" class="col-3 col-form-label">Cluster Type Name</label>
+                                <div class="col-9">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="name"
+                                           name="name"
+                                           autocomplete="off"
+                                           placeholder="Cluster Type Name (required)"
+                                           ng-change="$ctrl.onChangeCode()"
+                                           ng-model="$ctrl.selected.name"
+                                           required />
+                                    <ng-messages for="$ctrl.form.name.$error">
+                                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                        <ng-message when="unique" class="form-text text-danger small">Already in use</ng-message>
+                                    </ng-messages>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-secondary btn-block"
+                                            ng-show="$ctrl.form.$dirty"
+                                            type="button"
+                                            ng-click="$ctrl.cancel()">
+                                        Cancel Changes
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-primary btn-block"
+                                            ng-disabled="$ctrl.form.$invalid || $ctrl.form.$pristine"
+                                            type="submit">
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -22,6 +22,19 @@ using CourseCatalog.App.Features.Programs.Commands.CreateProgram;
 using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
 using CourseCatalog.App.Features.Programs.Commands.UpdateProgram;
 using CourseCatalog.App.Features.Programs.Queries.GetProgramDetail;
+using CourseCatalog.App.Features.Refs.ClusterTypes.Commands.CreateClusterType;
+using CourseCatalog.App.Features.Refs.ClusterTypes.Commands.UpdateClusterType;
+using CourseCatalog.App.Features.Refs.CourseLevels.Commands.CreateCourseLevel;
+using CourseCatalog.App.Features.Refs.CourseLevels.Commands.UpdateCourseLevel;
+using CourseCatalog.App.Features.Refs.CredentialTypes.Commands.CreateCredentialType;
+using CourseCatalog.App.Features.Refs.CredentialTypes.Commands.UpdateCredentialType;
+using CourseCatalog.App.Features.Refs.CreditTypes.Commands.CreateCreditType;
+using CourseCatalog.App.Features.Refs.CreditTypes.Commands.UpdateCreditType;
+using CourseCatalog.App.Features.Refs.DeliveryTypes.Commands.CreateDeliveryType;
+using CourseCatalog.App.Features.Refs.DeliveryTypes.Commands.UpdateDeliveryType;
+using CourseCatalog.App.Features.Refs.ProgramTypes.Commands.CreateProgramType;
+using CourseCatalog.App.Features.Refs.ProgramTypes.Commands.UpdateProgramType;
+using CourseCatalog.App.Features.Refs.Subjects.Commands;
 using CourseCatalog.App.Features.Users.Queries.GetUser;
 using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Services;
@@ -253,6 +266,34 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.Username, o => o.MapFrom(d => d.User.Username))
                 .ForMember(d => d.UserId, o => o.MapFrom(d => d.User.Id))
                 .ReverseMap();
+
+            //Subject Mappings 
+            CreateMap<Subject, UpdateSubjectCommand>().ReverseMap();
+            CreateMap<Subject, CreateSubjectCommand>().ReverseMap();
+
+            //CourseLevel Mappings 
+            CreateMap<CourseLevel, UpdateCourseLevelCommand>().ReverseMap();
+            CreateMap<CourseLevel, CreateCourseLevelCommand>().ReverseMap();
+
+            //DeliveryType Mappings 
+            CreateMap<DeliveryType, UpdateDeliveryTypeCommand>().ReverseMap();
+            CreateMap<DeliveryType, CreateDeliveryTypeCommand>().ReverseMap();
+
+            //CreditType Mappings 
+            CreateMap<Tag, UpdateCreditTypeCommand>().ReverseMap();
+            CreateMap<Tag, CreateCreditTypeCommand>().ReverseMap();
+
+            //ClusterType Mappings 
+            CreateMap<ClusterType, UpdateClusterTypeCommand>().ReverseMap();
+            CreateMap<ClusterType, CreateClusterTypeCommand>().ReverseMap();
+
+            //ProgramType Mappings 
+            CreateMap<ProgramType, UpdateProgramTypeCommand>().ReverseMap();
+            CreateMap<ProgramType, CreateProgramTypeCommand>().ReverseMap();
+
+            //CredentialType Mappings 
+            CreateMap<CredentialType, UpdateCredentialTypeCommand>().ReverseMap();
+            CreateMap<CredentialType, CreateCredentialTypeCommand>().ReverseMap();
 
         }
     }

@@ -31,7 +31,7 @@ function controller($http) {
                             toastr.success('Removed Credential');
                             d.resolve();
                         }).catch(e => {
-                            console.error('add credential error', e);
+                            console.error('remove credential error', e);
                             toastr.error(e.data.exceptionMessage);
                             d.reject();
                         });

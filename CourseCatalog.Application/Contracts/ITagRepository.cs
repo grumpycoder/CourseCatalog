@@ -8,5 +8,8 @@ namespace CourseCatalog.Application.Contracts
     {
         Task<List<Tag>> GetCreditTypeTags();
         Task<List<Tag>> GetGeneralTags();
+        Task<Tag> GetCreditTypeByName(string name);
+        Task<bool> HasCourses(string name);
+
     }
 }

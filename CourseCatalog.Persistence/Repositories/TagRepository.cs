@@ -25,5 +25,19 @@ namespace CourseCatalog.Persistence.Repositories
             var creditTypes = await _dbContext.Tags.Where(t => t.GroupName == "General").ToListAsync();
             return creditTypes;
         }
+
+        public async Task<Tag> GetCreditTypeByName(string name)
+        {
+            var creditType = await _dbContext.Tags.FirstOrDefaultAsync(t => t.Name == name);
+            return creditType;
+        }
+
+        public async Task<bool> HasCourses(string name)
+        {
+            return await _dbContext.Courses
+                .FromSqlRaw($"select * from common.courses where CreditTypes like '%{name}%'")
+                .AnyAsync();
+            //TODO: Can EfCore linq handle this query
+        }
     }
 }
