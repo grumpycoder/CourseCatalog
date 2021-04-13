@@ -14,6 +14,8 @@ function controller($http) {
         if (ctrl.filter === 'active') {
             url += 'active';
             ctrl.title += ' (Active Courses)';
+        } else {
+            ctrl.title += ' (All Courses)'; 
         }
 
         ctrl.isCollapsed = true;

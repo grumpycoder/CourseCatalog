@@ -3,6 +3,11 @@
         <span class="font-weight-bolder">
             {{ $ctrl.title }}
         </span>
+        <span class="pull-right">
+            <a href="/courses/{{ $ctrl.filter === 'active' ? '' : 'active' }}">
+                View {{ $ctrl.filter === 'active' ? 'All Courses' : 'Active Courses' }}
+            </a>
+        </span>
     </div>
     <div class="card-body">
 
@@ -10,9 +15,6 @@
             <div class="col-12">
 
                 <div id="gridContainer" dx-data-grid="$ctrl.dataGridOptions">
-                    <div data-options="dxTemplate:{ name: 'cellTemplate' }">
-                        <a href="/courses/{{course.courseCode}}/edit">{{course.courseCode}}</a>
-                    </div>
                 </div>
 
             </div>
