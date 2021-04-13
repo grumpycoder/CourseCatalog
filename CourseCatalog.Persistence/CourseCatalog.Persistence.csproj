@@ -138,6 +138,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\CipConfiguration.cs" />
     <Compile Include="Configurations\ClusterConfiguration.cs" />
     <Compile Include="Configurations\ClusterTypeConfiguration.cs" />
     <Compile Include="Configurations\CourseConfiguration.cs" />

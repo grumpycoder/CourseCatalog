@@ -424,6 +424,8 @@
     <Compile Include="Features\Groups\Commands\DeleteGroupUser\DeleteGroupUserCommandHandler.cs" />
     <Compile Include="Features\Groups\Queries\GetGroupList\GetGroupListQuery.cs" />
     <Compile Include="Features\Groups\Queries\GetGroupList\GetGroupListQueryHandler.cs" />
+    <Compile Include="Features\Lookups\Queries\GetCipCodeList\GetCipCodeListQuery.cs" />
+    <Compile Include="Features\Lookups\Queries\GetCipCodeList\GetCipCodeListQueryHandler.cs" />
     <Compile Include="Features\Programs\Commands\CreateProgram\CreateProgramCommand.cs" />
     <Compile Include="Features\Programs\Commands\CreateProgram\CreateProgramCommandHandler.cs" />
     <Compile Include="Features\Programs\Queries\GetProgramSummary\ProgramSummaryDto.cs" />

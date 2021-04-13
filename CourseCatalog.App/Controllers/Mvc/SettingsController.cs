@@ -47,10 +47,5 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View();
         }
 
-        //[Route("cipcodes")]
-        //public ActionResult CipCodes()
-        //{
-        //    return View();
-        //}
     }
 }

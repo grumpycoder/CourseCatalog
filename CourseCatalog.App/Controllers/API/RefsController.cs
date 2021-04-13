@@ -1,4 +1,5 @@
-﻿using CourseCatalog.App.Features.Lookups.Queries.GetClusterTypetList;
+﻿using CourseCatalog.App.Features.Lookups.Queries.GetCipCodeList;
+using CourseCatalog.App.Features.Lookups.Queries.GetClusterTypetList;
 using CourseCatalog.App.Features.Lookups.Queries.GetCourseLevelList;
 using CourseCatalog.App.Features.Lookups.Queries.GetCredentialTypeList;
 using CourseCatalog.App.Features.Lookups.Queries.GetCreditTypeList;
@@ -290,6 +291,13 @@ namespace CourseCatalog.App.Controllers.API
         {
             await _mediator.Send(new DeleteCredentialTypeCommand(credentialTypeId));
             return Ok();
+        }
+
+        [HttpGet, Route("cipCodes")]
+        public async Task<IHttpActionResult> CipCodes()
+        {
+            var dto = await _mediator.Send(new GetCipCodeListQuery());
+            return Ok(dto);
         }
     }
 

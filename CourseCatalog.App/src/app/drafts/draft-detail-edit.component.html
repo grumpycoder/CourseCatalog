@@ -5,7 +5,7 @@
 </style>
 
 <div class="row">
-    <div class="col-12 col-lg-6">
+    <div class="col-sm-12">
         <form novalidate ng-submit="$ctrl.onSubmit()" name="$ctrl.form" id="$ctrl.form" class="form">
 
             <div class="form-row">
@@ -13,7 +13,7 @@
                     <span class="d-flex alert alert-heading alert-warning" role="alert">You do not have permissions save changes Details</span>
                 </div>
 
-                <div class="form-group col-12">
+                <div class="form-group col-lg-6 col-sm-12 col-md-8">
                     <label for="courseName">Course Name</label>
 
                     <input type="text"
@@ -37,7 +37,7 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-12">
+                <div class="form-group col-lg-6 col-sm-12 col-md-8">
                     <label for="description">Description</label>
                     <textarea id="description"
                               name="description"
@@ -273,21 +273,6 @@
                     </select>
                 </div>
 
-                <!--<div class="form-group col-6">
-                    <label for="collegeCourseId">College Course Id</label>
-                    <input type="text" class="form-control"
-                           ng-model="$ctrl.course.collegeCourseId"
-                           name="collegeCourseId"
-                           id="collegeCourseId" />
-                </div>-->
-                <!--<div class="form-group col-6">
-                    <label for="cipCode">CIP Code</label>
-                    <input type="text" class="form-control"
-                           ng-model="$ctrl.course.cipCode"
-                           name="cipCode"
-                           id="cipCode" />
-                </div>-->
-
             </div>
 
             <div class="form-row">
@@ -329,7 +314,7 @@
 
             <div class="form-row">
 
-                <div class="form-group col-6">
+                <div class="form-group col-lg-6 col-sm-12">
 
                     <label for="isCareerTech1">Career Tech</label>
                     <div class="form-check">
@@ -351,13 +336,14 @@
 
                 </div>
 
-                <div class="form-group col-6" ng-show='$ctrl.course.isCareerTech'>
+                <div class="form-group col-lg-6 col-sm-12" ng-show='$ctrl.course.isCareerTech'>
                     <label for="cipCode">CIP Code</label>
-                    <input type="text" class="form-control"
-                           ng-model="$ctrl.course.cipCode"
-                           name="cipCode"
-                           id="cipCode"
-                           ng-required='$ctrl.course.isCareerTech' />
+                    <extended-select ng-model="$ctrl.course.cipCode" 
+                                     id="cipCode"
+                                     deselectable=""
+                                     required
+                                     ng-options="o.cipCode as o.cipCode + ' - ' + o.name group by o.familyName for o in $ctrl.cipCodes | orderBy:['family', 'name']"
+                                     class="custom-select-sm"></extended-select>
                     <ng-messages for="$ctrl.form.cipCode.$error">
                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
                     </ng-messages>
@@ -436,7 +422,7 @@
 
             <div class="form-row">
                 <div class="form-group col-12">
-                    <label for="courseTags">Credit Types(s)</label>
+                    <label for="creditTypes">Credit Types(s)</label>
 
                     <div id="creditTypes" name="creditTypes" ng-model="$ctrl.selectedCreditTypeTags"
                          dx-tag-box="$ctrl.creditTypesTags"></div>

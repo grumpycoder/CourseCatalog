@@ -106,6 +106,7 @@ function detailController($http) {
 
     function loadRefs() {
         fetchSchoolYears();
+        fetchCipCodes();
         fetchGrades();
         fetchGradeScales();
         fetchSubjects();
@@ -113,6 +114,13 @@ function detailController($http) {
         fetchDeliveryTypes();
         fetchCourseLevels();
         fetchScedCategories();
+    }
+
+    function fetchCipCodes() {
+        return $http.get('/api/refs/cipCodes').then(function (r) {
+            ctrl.cipCodes = r.data;
+            return ctrl.cipCodes;
+        });
     }
 
     function fetchSchoolYears() {
