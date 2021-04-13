@@ -30,5 +30,6 @@ namespace CourseCatalog.Domain.Entities
         public DateTime? PublishDate { get; set; }
         public bool IsRetired { get; set; }
 
+        public bool IsPublishable { get; set; }
     }
 }

@@ -111,6 +111,7 @@ function controller($http) {
                     caption: '',
                     visible: ctrl.isAdmin,
                     cellTemplate: function (container, options) {
+                        if (!options.data.isPublishable) return; 
                         $('<button>')
                             .append('<i class="fa fa-pencil"></i>')
                             .addClass('btn btn btn-outline-dark btn-sm')
