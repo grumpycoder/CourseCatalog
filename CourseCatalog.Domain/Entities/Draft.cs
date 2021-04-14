@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using CourseCatalog.Domain.Common;
+using System.Collections.Generic;
 
 namespace CourseCatalog.Domain.Entities
 {
-    public class Draft
+    public class Draft : AuditableEntity
     {
         public int DraftId { get; set; }
         public string CourseNumber { get; set; }

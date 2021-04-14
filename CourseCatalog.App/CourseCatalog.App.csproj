@@ -51,7 +51,7 @@
       <HintPath>..\packages\Alsde.Extensions.2018.11.0\lib\net451\Alsde.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Alsde.Security, Version=2021.3.24.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Alsde.Security.2021.3.24-beta\lib\net471\Alsde.Security.dll</HintPath>
+      <HintPath>..\packages\Alsde.Security.2021.3.24\lib\net471\Alsde.Security.dll</HintPath>
     </Reference>
     <Reference Include="Alsde.Services, Version=2020.11.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Alsde.Services.2020.11.1\lib\net451\Alsde.Services.dll</HintPath>
