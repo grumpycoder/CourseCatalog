@@ -706,6 +706,8 @@
     <Content Include="src\app\courses\course-detail.component.js" />
     <Content Include="src\app\courses\course-edit.component.html" />
     <Content Include="src\app\courses\course-edit.component.js" />
+    <Content Include="src\app\courses\endorsement-course-list.component.html" />
+    <Content Include="src\app\courses\endorsement-course-list.component.js" />
     <Content Include="src\app\courses\course-list.component.html" />
     <Content Include="src\app\courses\course-list.component.js" />
     <Content Include="src\app\courses\course-program-list.component.html" />
@@ -848,6 +850,7 @@
     <Content Include="Views\Settings\ClusterTypes.cshtml" />
     <Content Include="Views\Settings\ProgramTypes.cshtml" />
     <Content Include="Views\Settings\CredentialTypes.cshtml" />
+    <Content Include="Views\Courses\EndorsementCourses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">

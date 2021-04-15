@@ -9,10 +9,23 @@
         <ul class="navbar-nav mr-auto">
 
             @Html.BsNavigationLink("Home", "Index", "Home")
-            @Html.BsNavigationLink("Courses", "Active", "Courses")
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Courses
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/courses/active">Active Courses</a>
+                    <a class="dropdown-item" href="/courses">All Courses</a>
+                    @if (User.IsInRole("Admin") || User.IsInRole("TeacherCertification") || User.IsInRole("TeacherCertAdmin") || User.IsInRole("CareerTechAdmin") || User.IsInRole("CourseAdmin"))
+                    {
+                        <a class="dropdown-item" href="/courses/endorsements">Endorsement Courses</a>
+                        <a class="dropdown-item" href="/careertech/credentials">Teacher Courses</a>
+                    }
+                </div>
+            </li>
+            
             @Html.BsNavigationLink("Drafts", "", "Drafts")
-
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Career Tech

@@ -24,5 +24,11 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View((object)courseId);
         }
 
+        [Route("endorsements")]
+        public ActionResult EndorsementCourses()
+        {
+            return View();
+        }
+
     }
 }
