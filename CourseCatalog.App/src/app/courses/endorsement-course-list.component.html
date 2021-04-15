@@ -21,7 +21,7 @@
             <div class="col-6" ng-show="$ctrl.courses">
                 <input type="text" ng-model="$ctrl.search" placeholder="Search Courses..."
                        class="form-control mb-2" autocomplete="off" aria-autocomplete="none" />
-
+                <small>Total Courses: {{ $ctrl.courses.length }}</small>
                 <ul class="list-group" style="height: 450px; overflow-x: hidden; overflow-y: auto;">
                     <li class="list-group-item" ng-show="$ctrl.courses.length === 0">No Course Assignments</li>
                     <li ng-repeat="item in $ctrl.courses | filter:$ctrl.search | orderBy: 'name'" class="list-group-item">
