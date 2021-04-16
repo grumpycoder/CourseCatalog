@@ -32,6 +32,7 @@ namespace CourseCatalog.Persistence
         public DbSet<ClusterType> ClusterTypes { get; set; }
         public DbSet<ProgramType> ProgramTypes { get; set; }
         public DbSet<CredentialType> CredentialTypes { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
 
         public CourseDbContext(ILoggedInUserService loggedInUserService)
         {
@@ -40,9 +41,9 @@ namespace CourseCatalog.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var _connectionString = ConfigurationManager.ConnectionStrings["CourseContext"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["CourseContext"].ConnectionString;
             optionsBuilder
-                .UseSqlServer(_connectionString)
+                .UseSqlServer(connectionString)
                 .EnableSensitiveDataLogging()
                 //.UseLazyLoadingProxies(_useProxyLoading)
                 ;

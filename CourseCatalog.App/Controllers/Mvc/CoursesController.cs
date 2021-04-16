@@ -30,5 +30,10 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View();
         }
 
+        [Route("teachers")]
+        public ActionResult CourseTeachers()
+        {
+            return View();
+        }
     }
 }

@@ -5,6 +5,7 @@ using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,6 +64,21 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<IHttpActionResult> GetCoursesByEndorsement(int endorseId)
         {
             var dtos = await _mediator.Send(new GetCoursesByEndorsementQuery(endorseId));
+            return Ok(dtos);
+        }
+
+        [HttpGet, Route("{courseId}/teachers")]
+        public async Task<IHttpActionResult> GetTeachersByCourse(int courseId, DataSourceLoadOptions loadOptions)
+        {
+            //HACK: Need to refactor b/c used devx load options
+            var course = await _context.Courses
+                    .Include(e => e.Endorsements)
+                    .FirstOrDefaultAsync(c => c.CourseId == courseId);
+
+            var endorsements = course.Endorsements.Select(n => n.EndorsementId);
+
+            var dtos = await DataSourceLoader
+                .LoadAsync(_context.Certificates.Where(c => endorsements.Contains(c.EndorsementId)), loadOptions);
             return Ok(dtos);
         }
 
