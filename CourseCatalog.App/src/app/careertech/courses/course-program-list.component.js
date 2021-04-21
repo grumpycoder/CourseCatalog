@@ -8,7 +8,6 @@ function controller($http) {
     ctrl.title = 'Career Technology Programs';
 
     ctrl.$onInit = function () {
-        console.log('init');
         $http.get('/api/programs').then(r => {
             ctrl.programs = r.data;
             console.log('programs', ctrl.programs);

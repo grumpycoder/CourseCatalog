@@ -1,20 +1,19 @@
 ﻿using CourseCatalog.App.Features.Groups.Commands.CreateGroupUser;
 using CourseCatalog.App.Features.Groups.Commands.DeleteGroupUser;
 using CourseCatalog.App.Features.Groups.Queries.GetGroupList;
+using CourseCatalog.App.Features.Users.Commands.CreateUser;
 using CourseCatalog.App.Features.Users.Queries.GetUser;
 using CourseCatalog.Application.Contracts;
+using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Features.Users.Commands.CreateUser;
-using CourseCatalog.Application.Exceptions;
-using Microsoft.EntityFrameworkCore;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -34,9 +33,6 @@ namespace CourseCatalog.App.Controllers.API
             _mediator = mediator;
             _loggedInUserService = loggedInUserService;
         }
-
-        //[HttpGet, Route("users")]
-        //public object Users() => Ok(GetUsers());
 
         [HttpGet, Route("idem")]
         public async Task<IHttpActionResult> GetIdemUsers([FromUri] DataSourceLoadOptions loadOptions)
@@ -101,36 +97,6 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
 
         }
-
-        //[HttpPost, Route("groups/{groupName}"), Authorize(Roles = "Admin")]
-        //public async Task<IHttpActionResult> CreateGroup(string groupName)
-        //{
-        //    var group = await _context.Groups.FirstOrDefaultAsync(g => g.Name == groupName);
-
-        //    if (group != null) return BadRequest("Group already exists");
-
-        //    try
-        //    {
-        //        group = new Group(groupName);
-
-        //        _context.Attach(group);
-
-        //        await _context.SaveChangesAsync();
-
-        //        return Ok(group);
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        return BadRequest(exception.InnerException?.Message);
-        //    }
-
-        //}
-        //protected object GetUsers(string username = null)
-        //{
-        //    var users = _context.Users.Where(x => x.Username.Contains(username) || username == null).ToList();
-        //    return users;
-        //}
-
 
     }
 }

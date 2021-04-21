@@ -27,10 +27,6 @@ function controller($http) {
 
     ctrl.removeEndorsement = function (item) {
         var idx = ctrl.course.endorsements.indexOf(item);
-        var dto = {
-            draftId: ctrl.course.draftId,
-            endorsementId: item.endorsementId
-        };
         var url = '/api/drafts/' + ctrl.course.draftId + '/endorsements/' + item.endorsementId; 
         return $http.delete(url)
             .then(r => {

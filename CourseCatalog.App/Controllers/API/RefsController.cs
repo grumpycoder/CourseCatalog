@@ -32,6 +32,7 @@ using CourseCatalog.App.Features.Refs.ProgramTypes.Commands.CreateProgramType;
 using CourseCatalog.App.Features.Refs.ProgramTypes.Commands.DeleteProgramType;
 using CourseCatalog.App.Features.Refs.ProgramTypes.Commands.UpdateProgramType;
 using CourseCatalog.App.Features.Refs.Subjects.Commands;
+using CourseCatalog.App.Filters;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -111,49 +112,49 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPut, Route("courselevels")]
+        [HttpPut, Route("courselevels"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CourseLevels([FromBody] UpdateCourseLevelCommand updateCourseLevelCommand)
         {
             var id = await _mediator.Send(updateCourseLevelCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route("courselevels")]
+        [HttpPost, Route("courselevels"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CourseLevels([FromBody] CreateCourseLevelCommand createCourseLevelCommand)
         {
             var id = await _mediator.Send(createCourseLevelCommand);
             return Ok(id);
         }
 
-        [HttpDelete, Route("courselevels/{courselevelId}")]
+        [HttpDelete, Route("courselevels/{courselevelId}"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CourseLevels(int courselevelId)
         {
             await _mediator.Send(new DeleteCourseLevelCommand(courselevelId));
             return Ok();
         }
 
-        [HttpGet, Route("credittypes")]
+        [HttpGet, Route("credittypes"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CreditTypes()
         {
             var dto = await _mediator.Send(new GetCreditTypeListQuery());
             return Ok(dto);
         }
 
-        [HttpPut, Route("credittypes")]
+        [HttpPut, Route("credittypes"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CreditTypes([FromBody] UpdateCreditTypeCommand updateCreditTypeCommand)
         {
             var id = await _mediator.Send(updateCreditTypeCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route("credittypes")]
+        [HttpPost, Route("credittypes"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CreditTypes([FromBody] CreateCreditTypeCommand createCreditTypeCommand)
         {
             var id = await _mediator.Send(createCreditTypeCommand);
             return Ok(id);
         }
 
-        [HttpDelete, Route("credittypes/{tagId}")]
+        [HttpDelete, Route("credittypes/{tagId}"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> CreditTypes(int tagId)
         {
             await _mediator.Send(new DeleteCreditTypeCommand(tagId));
@@ -174,21 +175,21 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPut, Route("deliverytypes")]
+        [HttpPut, Route("deliverytypes"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> DeliveryTypes([FromBody] UpdateDeliveryTypeCommand updateDeliveryTypeCommand)
         {
             var id = await _mediator.Send(updateDeliveryTypeCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route("deliverytypes")]
+        [HttpPost, Route("deliverytypes"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> DeliveryTypes([FromBody] CreateDeliveryTypeCommand createDeliveryTypeCommand)
         {
             var id = await _mediator.Send(createDeliveryTypeCommand);
             return Ok(id);
         }
 
-        [HttpDelete, Route("deliverytypes/{deliveryTypeId}")]
+        [HttpDelete, Route("deliverytypes/{deliveryTypeId}"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
         public async Task<IHttpActionResult> DeliveryTypes(int deliveryTypeId)
         {
             await _mediator.Send(new DeleteDeliveryTypeCommand(deliveryTypeId));
@@ -216,21 +217,21 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPut, Route("clustertypes")]
+        [HttpPut, Route("clustertypes"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> ClusterTypes([FromBody] UpdateClusterTypeCommand updateClusterTypeCommand)
         {
             var id = await _mediator.Send(updateClusterTypeCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route("clustertypes")]
+        [HttpPost, Route("clustertypes"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> ClusterTypes([FromBody] CreateClusterTypeCommand createClusterTypeCommand)
         {
             var id = await _mediator.Send(createClusterTypeCommand);
             return Ok(id);
         }
 
-        [HttpDelete, Route("clustertypes/{clusterTypeId}")]
+        [HttpDelete, Route("clustertypes/{clusterTypeId}"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> ClusterTypes(int clusterTypeId)
         {
             await _mediator.Send(new DeleteClusterTypeCommand(clusterTypeId));
@@ -244,21 +245,21 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPut, Route("programtypes")]
+        [HttpPut, Route("programtypes"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> ProgramTypes([FromBody] UpdateProgramTypeCommand updateProgramTypeCommand)
         {
             var id = await _mediator.Send(updateProgramTypeCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route("programtypes")]
+        [HttpPost, Route("programtypes"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> ProgramTypes([FromBody] CreateProgramTypeCommand createProgramTypeCommand)
         {
             var id = await _mediator.Send(createProgramTypeCommand);
             return Ok(id);
         }
 
-        [HttpDelete, Route("programtypes/{programTypeId}")]
+        [HttpDelete, Route("programtypes/{programTypeId}"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> ProgramTypes(int programTypeId)
         {
             await _mediator.Send(new DeleteProgramTypeCommand(programTypeId));
@@ -272,21 +273,21 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPut, Route("credentialtypes")]
+        [HttpPut, Route("credentialtypes"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> CredentialTypes([FromBody] UpdateCredentialTypeCommand updateCredentialTypeCommand)
         {
             var id = await _mediator.Send(updateCredentialTypeCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route("credentialtypes")]
+        [HttpPost, Route("credentialtypes"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> CredentialTypes([FromBody] CreateCredentialTypeCommand createCredentialTypeCommand)
         {
             var id = await _mediator.Send(createCredentialTypeCommand);
             return Ok(id);
         }
 
-        [HttpDelete, Route("credentialtypes/{credentialTypeId}")]
+        [HttpDelete, Route("credentialtypes/{credentialTypeId}"), CustomAuthorize(Roles = "CourseAdmin, Admin, CareerTechAdmin")]
         public async Task<IHttpActionResult> CredentialTypes(int credentialTypeId)
         {
             await _mediator.Send(new DeleteCredentialTypeCommand(credentialTypeId));

@@ -1,4 +1,5 @@
 ﻿using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
+using CourseCatalog.App.Features.Programs.Commands.CreateProgram;
 using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
 using CourseCatalog.App.Features.Programs.Commands.DeleteProgramCredential;
 using CourseCatalog.App.Features.Programs.Commands.UpdateProgram;
@@ -8,7 +9,6 @@ using CourseCatalog.App.Filters;
 using MediatR;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseCatalog.App.Features.Programs.Commands.CreateProgram;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -36,22 +36,22 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dto);
         }
 
-        [HttpPut, Route("")]
+        [HttpPut, Route(""), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> UpdateProgram([FromBody] UpdateProgramCommand updateProgramCommand)
         {
             var id = await _mediator.Send(updateProgramCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route("")]
+        [HttpPost, Route(""), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> CreateProgram([FromBody] CreateProgramCommand createProgramCommand)
         {
             var id = await _mediator.Send(createProgramCommand);
             return Ok(id);
         }
 
-        [HttpDelete, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
-        [Route("{programId}/credentials/{credentialId}")]
+        [HttpDelete]
+        [Route("{programId}/credentials/{credentialId}"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> DeleteProgramCredential(int programId, int credentialId)
         {
             await _mediator.Send(new DeleteProgramCredentialCommand(programId, credentialId));

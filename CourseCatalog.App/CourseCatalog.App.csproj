@@ -718,8 +718,6 @@
     <Content Include="src\app\courses\endorsement-course-list.component.js" />
     <Content Include="src\app\courses\course-list.component.html" />
     <Content Include="src\app\courses\course-list.component.js" />
-    <Content Include="src\app\courses\course-program-list.component.html" />
-    <Content Include="src\app\courses\course-program-list.component.js" />
     <Content Include="src\app\courses\course-requirement-edit.html" />
     <Content Include="src\app\courses\course-requirement-edit.js" />
     <Content Include="src\app\dashboard\dashboard-home.component.html" />

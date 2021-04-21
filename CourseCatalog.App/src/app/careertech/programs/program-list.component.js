@@ -11,8 +11,6 @@ function controller($http) {
     }
 
     ctrl.$onInit = function () {
-        
-        console.log(ctrl);
         $http.get('/api/programs').then(r => {
             ctrl.programs = r.data;
             ctrl.dataGridOptions = {

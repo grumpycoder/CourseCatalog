@@ -132,7 +132,7 @@ function controller($http) {
                                         } else {
                                             toastr.error(err.data.exceptionMessage);
                                         }
-                                        console.log('err', err);
+                                        console.error('create draft error', err);
                                     });
                                 })
                             .appendTo(container);

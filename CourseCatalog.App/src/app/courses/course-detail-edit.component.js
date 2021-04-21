@@ -106,7 +106,6 @@ function detailController($http) {
                     return $("<div>").text(data.name + ' - ' + data.description);
                 },
                 onSelectionChanged: function (e) {
-                    console.log(e.element);
                     if (e.element[0].id === 'highGradeId') {
                         ctrl.selectedHighGrade = e.selectedItem.name;
                     } else {

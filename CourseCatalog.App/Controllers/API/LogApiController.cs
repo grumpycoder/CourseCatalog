@@ -1,4 +1,5 @@
-﻿using CourseCatalog.Persistence;
+﻿using CourseCatalog.App.Filters;
+using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using System.Web.Http;
 
 namespace CourseCatalog.App.Controllers.API
 {
-    [RoutePrefix("api/logs")]
+    [RoutePrefix("api/logs"), CustomAuthorize(Roles = "CourseAdmin, Admin")]
     [DisplayName("Logging")]
     public class LogApiController : ApiController
     {

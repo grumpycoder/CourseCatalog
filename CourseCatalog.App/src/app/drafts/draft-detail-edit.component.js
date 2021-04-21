@@ -12,7 +12,6 @@ function detailController($http) {
 
     ctrl.$onChanges = function () {
         //path for new course
-        //ctrl.isAdmin = ctrl.isAdmin === 'true'; 
         if (!ctrl.course) {
             ctrl.course = {};
             ctrl.scedCategoryCode = '##';

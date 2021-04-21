@@ -32,7 +32,6 @@ function controller($http) {
                 onItemClick: function (e) {
                     ctrl.selectedTeacher = e.itemData;
                     ctrl.selectedTeacherId = e.itemData.certholderId;
-                    console.log(e.itemData.certholderId);
                     getCertholderCourses(e.itemData.certholderId);
                 }
             }

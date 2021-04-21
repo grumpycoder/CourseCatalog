@@ -1,8 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using CourseCatalog.App.Filters;
+using System.Web.Mvc;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
-    [RoutePrefix("settings")]
+    [RoutePrefix("settings"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
     public class SettingsController : Controller
     {
         [Route("subjects")]

@@ -43,11 +43,11 @@ function controller($http) {
         var url = '/api/courses/' + ctrl.course.id + '/programs/' + item.programId; 
         $http.delete(url)
             .then(r => {
-                //TODO: toastr message
+                toastr.success('Removed Program'); 
                 ctrl.course.programAssignments.splice(idx, 1);
             }).catch(e => {
-                //TODO: toastr message
                 console.error(e);
+                toastr.error(e.message);
             }); 
     }
 
@@ -57,10 +57,10 @@ function controller($http) {
             .then(r => {
                 ctrl.course.programAssignments.push(r.data);
                 ctrl.programAssignment.programId = undefined; 
-                //TODO: toastr message
+                toastr.success('Added Program'); 
             }).catch(e => {
                 console.error(e);
-                //TODO: toastr message
+                toastr.error(e.message);
             }); 
     }
 }
