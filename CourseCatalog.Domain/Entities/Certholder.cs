@@ -6,6 +6,5 @@
         public string AlsdeId { get; set; }
         public string DisplayName { get; set; }
         public string PrintName { get; set; }
-
     }
 }

@@ -1,5 +1,5 @@
-﻿using CourseCatalog.Domain.Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CourseCatalog.Domain.Common;
 
 namespace CourseCatalog.Domain.Entities
 {

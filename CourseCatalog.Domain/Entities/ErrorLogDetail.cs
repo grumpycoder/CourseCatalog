@@ -23,12 +23,10 @@ namespace CourseCatalog.Domain.Entities
         // EVERYTHING ELSE
         public long? ElapsedMilliseconds { get; set; } // only for performance entries
 
-        public string Exception { get; set; }  // the exception for error logging
+        public string Exception { get; set; } // the exception for error logging
+
         //public CustomException CustomException { get; set; }
         public string CorrelationId { get; set; } // exception shielding from server to client
         //public Dictionary<string, object> AdditionalInfo { get; set; }  // everything else
     }
-
 }
-
-

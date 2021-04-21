@@ -1,6 +1,6 @@
-﻿using CourseCatalog.Domain.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using CourseCatalog.Domain.Common;
 
 namespace CourseCatalog.Domain.Entities
 {
@@ -63,6 +63,3 @@ namespace CourseCatalog.Domain.Entities
         //public DateTime LastUpdate { get; set; }
     }
 }
-
-
-
