@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using CourseCatalog.Domain.Entities;
+﻿using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
