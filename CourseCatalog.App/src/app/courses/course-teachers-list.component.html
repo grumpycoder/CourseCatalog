@@ -8,9 +8,9 @@
 
         <div class="row">
             <div class="col-6">
-                <div dx-list="$ctrl.endorsementListOptions"
+                <div dx-list="$ctrl.courseListOptions"
                      dx-item-alias="item"
-                     id="endorsementList">
+                     id="courseList">
                     <div data-options="dxTemplate: {name: 'item'}">
                         <span>{{item.courseNumber}} - {{item.name}}</span>
                     </div>
@@ -18,7 +18,7 @@
             </div>
 
 
-            <div class="col-6" ng-show="$ctrl.selectedCourseId">
+            <div class="col-6" ng-show="$ctrl.selectedCourse">
 
                 <div dx-list="$ctrl.teacherListOptions"
                      dx-item-alias="item"
@@ -26,10 +26,10 @@
                     <div data-options="dxTemplate: {name: 'item'}">
                         <dl class="row mb-0">
                             <dt class="col-5 col-md-4 col-lg-3">Name</dt>
-                            <dd class="col-7 col-md-8 col-lg-9">{{ item.fullName }}</dd>
+                            <dd class="col-7 col-md-8 col-lg-9">{{ item.printName }}</dd>
 
-                            <dt class="col-5 col-md-4 col-lg-3">TchNumber</dt>
-                            <dd class="col-7 col-md-8 col-lg-9">{{ item.tchNumber }}</dd>
+                            <dt class="col-5 col-md-4 col-lg-3">ALSDE Id</dt>
+                            <dd class="col-7 col-md-8 col-lg-9">{{ item.alsdeId }}</dd>
 
                             <dt class="col-5 col-md-4 col-lg-3">Endorsement</dt>
                             <dd class="col-7 col-md-8 col-lg-9">{{ item.endorseCode }}</dd>

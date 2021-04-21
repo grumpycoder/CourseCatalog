@@ -19,8 +19,9 @@
                     <a class="dropdown-item" href="/courses">All Courses</a>
                     @if (User.IsInRole("Admin") || User.IsInRole("TeacherCertification") || User.IsInRole("TeacherCertAdmin") || User.IsInRole("CareerTechAdmin") || User.IsInRole("CourseAdmin"))
                     {
-                        <a class="dropdown-item" href="/courses/endorsements">Endorsement Courses</a>
-                        <a class="dropdown-item" href="/courses/teachers">Course Teachers</a>
+                        <a class="dropdown-item" href="/courses/endorsement-courses">Endorsement Courses</a>
+                        <a class="dropdown-item" href="/courses/course-teachers">Course Teachers</a>
+                        <a class="dropdown-item" href="/courses/teacher-courses">Teacher Courses</a>
                     }
                 </div>
             </li>

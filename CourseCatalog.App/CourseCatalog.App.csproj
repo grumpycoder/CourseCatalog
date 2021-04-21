@@ -398,9 +398,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutoMapperModule.cs" />
+    <Compile Include="Controllers\API\CertificationController.cs" />
     <Compile Include="Controllers\API\LogApiController.cs" />
     <Compile Include="Controllers\API\MembershipApiController.cs" />
-    <Compile Include="Controllers\API\TCertController.cs" />
+    <Compile Include="Controllers\Mvc\TCertController.cs" />
     <Compile Include="Controllers\API\TestsController.cs" />
     <Compile Include="Controllers\Mvc\AdminController.cs" />
     <Compile Include="Controllers\Mvc\ErrorController.cs" />
@@ -408,6 +409,9 @@
     <Compile Include="Controllers\Mvc\TestsController.cs" />
     <Compile Include="Features\Clusters\Commands\CreateCluster\CreateClusterCommand.cs" />
     <Compile Include="Features\Clusters\Commands\CreateCluster\CreateClusterCommandHandler.cs" />
+    <Compile Include="Features\Courses\Queries\GetCoursesByCertholder\CertholderCourseListDto.cs" />
+    <Compile Include="Features\Courses\Queries\GetCoursesByCertholder\GetCoursesByCertholderQuery.cs" />
+    <Compile Include="Features\Courses\Queries\GetCoursesByCertholder\GetCoursesByCertholderQueryHandler.cs" />
     <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\EndorsementCourseListDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\GetCoursesByEndorsementQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCoursesByEndorsement\GetCoursesByEndorsementQueryHandler.cs" />
@@ -706,6 +710,8 @@
     <Content Include="src\app\courses\course-detail.component.js" />
     <Content Include="src\app\courses\course-edit.component.html" />
     <Content Include="src\app\courses\course-edit.component.js" />
+    <Content Include="src\app\courses\teacher-course-list.component.html" />
+    <Content Include="src\app\courses\teacher-course-list.component.js" />
     <Content Include="src\app\courses\course-teachers-list.component.html" />
     <Content Include="src\app\courses\course-teachers-list.component.js" />
     <Content Include="src\app\courses\endorsement-course-list.component.html" />
@@ -764,6 +770,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Certification\" />
     <Folder Include="Views\Tests\" />
   </ItemGroup>
   <ItemGroup>
@@ -854,6 +861,7 @@
     <Content Include="Views\Settings\CredentialTypes.cshtml" />
     <Content Include="Views\Courses\EndorsementCourses.cshtml" />
     <Content Include="Views\Courses\CourseTeachers.cshtml" />
+    <Content Include="Views\Courses\TeacherCourses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CourseCatalog.Application\CourseCatalog.Application.csproj">

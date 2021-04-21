@@ -50,6 +50,21 @@ namespace CourseCatalog.Persistence.Repositories
 
         }
 
+        public async Task<List<Course>> GetCoursesByCertholderId(int certholderId)
+        {
+            var certificates = _dbContext.Certificates
+                .Where(x => x.CertholderId == certholderId);
+
+            var endorsements = certificates.Select(e => e.EndorsementId).ToList();
+
+            var list = string.Join(",", endorsements.Select(n => n.ToString()));
+
+            var query =
+                $"select c.* from Common.Courses c join Common.CourseEndorsements ce on ce.CourseId = c.CourseId where ce.EndorseId IN ({list})";
+
+            return await _dbContext.Courses.FromSqlRaw(query).ToListAsync();
+        }
+
         public async Task<Course> GetCourseByIdWithDetails(int courseId)
         {
             var course = await _dbContext.Courses

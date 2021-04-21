@@ -75,10 +75,12 @@ namespace CourseCatalog.App.Controllers.API
                     .Include(e => e.Endorsements)
                     .FirstOrDefaultAsync(c => c.CourseId == courseId);
 
-            var endorsements = course.Endorsements.Select(n => n.EndorsementId);
+            var endorsements = course.Endorsements.Select(n => n.EndorsementId).ToList();
 
             var dtos = await DataSourceLoader
-                .LoadAsync(_context.Certificates.Where(c => endorsements.Contains(c.EndorsementId)), loadOptions);
+                .LoadAsync(_context.Certificates.Where(c => endorsements
+                    .Contains(c.EndorsementId)), loadOptions);
+
             return Ok(dtos);
         }
 

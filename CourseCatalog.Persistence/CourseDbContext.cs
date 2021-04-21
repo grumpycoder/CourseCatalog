@@ -33,6 +33,7 @@ namespace CourseCatalog.Persistence
         public DbSet<ProgramType> ProgramTypes { get; set; }
         public DbSet<CredentialType> CredentialTypes { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<Certholder> Certholders { get; set; }
 
         public CourseDbContext(ILoggedInUserService loggedInUserService)
         {

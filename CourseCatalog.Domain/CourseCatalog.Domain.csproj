@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AuditableEntity.cs" />
+    <Compile Include="Entities\Certholder.cs" />
     <Compile Include="Entities\Certificate.cs" />
     <Compile Include="Entities\Cip.cs" />
     <Compile Include="Entities\Cluster.cs" />

@@ -10,5 +10,6 @@ namespace CourseCatalog.Application.Contracts
         Task<Course> GetCourseByCourseNumber(string courseNumber);
         Task<int> GetActiveCourseCount();
         Task<List<Course>> GetCoursesByEndorseId(int endorseId);
+        Task<List<Course>> GetCoursesByCertholderId(int certholderId);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace CourseCatalog.App.Controllers.API
+namespace CourseCatalog.App.Controllers.Mvc
 {
     [RoutePrefix("tcert")]
     public class TCertController : Controller

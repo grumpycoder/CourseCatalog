@@ -40,6 +40,7 @@ using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
 using System.Linq;
+using CourseCatalog.App.Features.Courses.Queries.GetCoursesByCertholder;
 
 namespace CourseCatalog.App.Profiles
 {
@@ -80,6 +81,8 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.CourseLevel,
                     o => o.MapFrom(d => d.CourseLevel.Name))
                 .ReverseMap();
+
+            CreateMap<Course, CertholderCourseListDto>(); 
 
             CreateMap<Course, UDefCourses>()
                 .ForMember(d => d.CourseCode, o =>
@@ -229,7 +232,7 @@ namespace CourseCatalog.App.Profiles
             CreateMap<Credential, UpdateCredentialCommand>().ReverseMap();
             CreateMap<Credential, CreateCredentialCommand>().ReverseMap();
 
-            //User/Group Mappings
+            //UserGroup Mappings
             CreateMap<Group, GroupListDto>()
                 .ForMember(d => d.GroupId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.GroupName, o => o.MapFrom(s => s.Name))

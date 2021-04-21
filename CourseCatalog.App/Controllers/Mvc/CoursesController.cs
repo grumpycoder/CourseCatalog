@@ -24,16 +24,23 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View((object)courseId);
         }
 
-        [Route("endorsements")]
+        [Route("endorsement-courses")]
         public ActionResult EndorsementCourses()
         {
             return View();
         }
 
-        [Route("teachers")]
+        [Route("course-teachers")]
         public ActionResult CourseTeachers()
         {
             return View();
         }
+
+        [Route("teacher-courses")]
+        public ActionResult TeacherCourses()
+        {
+            return View();
+        }
+
     }
 }

@@ -1,0 +1,49 @@
+﻿<div class="card">
+    <div class="card-header">
+        <span class="font-weight-bolder">
+            {{ $ctrl.title }}
+        </span>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-6">
+                <div dx-list="$ctrl.teacherListOptions"
+                     dx-item-alias="item"
+                     id="teacherList">
+                    <div data-options="dxTemplate: {name: 'item'}">
+                        <span>{{item.printName}} - {{item.alsdeId}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<div class="col-6" ng-show="$ctrl.selectedTeacherId">-->
+            <div class="col-6" ng-show="true">
+
+                <div dx-list="$ctrl.courseListOptions"
+                     dx-item-alias="item"
+                     id="courseList">
+                    <div data-options="dxTemplate: {name: 'item'}">
+                        <dl class="row mb-0">
+                            <dt class="col-5 col-md-4 col-lg-3">Course Number</dt>
+                            <dd class="col-7 col-md-8 col-lg-9">{{ item.courseNumber }}</dd>
+
+                            <dt class="col-5 col-md-4 col-lg-3">Name</dt>
+                            <dd class="col-7 col-md-8 col-lg-9">{{ item.name }}</dd>
+
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

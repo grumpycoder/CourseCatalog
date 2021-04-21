@@ -9,7 +9,8 @@ namespace CourseCatalog.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Certificate> builder)
         {
             builder.ToView("v_Certificates", "Common");
-            builder.HasKey(s => s.TchNumber);
+            builder.HasNoKey();
+            //builder.HasKey(c => c.CertholderId);
             builder.Property(c => c.EndorsementId).HasColumnName("EndorseId");
         }
     }
