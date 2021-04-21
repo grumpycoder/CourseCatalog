@@ -1,9 +1,8 @@
 ﻿using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-//using Newtonsoft.Json;
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace CourseCatalog.Persistence.Configurations
 {
@@ -28,7 +27,6 @@ namespace CourseCatalog.Persistence.Configurations
                 );
 
             builder.Property(e => e.Status).HasConversion<string>();
-
         }
     }
 }

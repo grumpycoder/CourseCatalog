@@ -12,12 +12,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.Property(s => s.Id).HasColumnName("UserId");
             builder.Property(s => s.FullName).HasColumnName("FullName");
             builder.Property(s => s.Username).HasColumnName("Username");
-
-            //builder.HasMany(p => p.UserGroups)
-            //    .WithOne(p => p.User)
-            //    .OnDelete(DeleteBehavior.Cascade)
-            //    .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field);
-
         }
     }
 
@@ -28,10 +22,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.ToTable("Groups", "Security");
             builder.Property(s => s.Id).HasColumnName("GroupId");
             builder.Property(s => s.Name).HasColumnName("GroupName");
-            //builder.HasMany(p => p.UserGroups)
-            //    .WithOne(p => p.Group)
-            //    .OnDelete(DeleteBehavior.Cascade)
-            //    .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 
@@ -41,7 +31,6 @@ namespace CourseCatalog.Persistence.Configurations
         {
             builder.ToTable("GroupUsers", "Security");
             builder.Property(s => s.Id).HasColumnName("GroupUserId");
-
         }
     }
 }

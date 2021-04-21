@@ -8,16 +8,14 @@ namespace CourseCatalog.Persistence.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-
         public UserRepository(CourseDbContext dbContext) : base(dbContext)
         {
-
         }
 
         public async Task<User> GetByIdentityGuidAsync(Guid identityGuid)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.IdentityGuid == identityGuid);
-            return user; 
+            return user;
         }
 
         public async Task<User> GetUserByIdWithDetails(Guid userId)
@@ -27,6 +25,5 @@ namespace CourseCatalog.Persistence.Repositories
                 .ThenInclude(g => g.Group)
                 .FirstOrDefaultAsync(u => u.IdentityGuid == userId);
         }
-
     }
 }

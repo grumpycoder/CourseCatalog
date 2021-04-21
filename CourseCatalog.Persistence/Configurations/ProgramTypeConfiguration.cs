@@ -11,7 +11,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.ToTable("ProgramTypes", "CareerTech");
             builder.Property(s => s.Name).HasColumnName("ProgramTypeName");
             builder.Property(s => s.Description).HasColumnName("ProgramTypeDescription");
-
         }
     }
 }

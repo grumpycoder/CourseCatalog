@@ -8,10 +8,8 @@ namespace CourseCatalog.Persistence.Repositories
 {
     public class GroupRepository : BaseRepository<Group>, IGroupRepository
     {
-
         public GroupRepository(CourseDbContext dbContext) : base(dbContext)
         {
-
         }
 
         public async Task<Group> GetGroupByIdWithUsers(int groupId)

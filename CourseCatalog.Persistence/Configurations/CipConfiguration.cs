@@ -10,7 +10,7 @@ namespace CourseCatalog.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Cip> builder)
         {
             builder.ToTable("v_CipCodes", "CareerTech");
-            builder.HasKey(c => c.CipCode); 
+            builder.HasKey(c => c.CipCode);
             builder.Property(s => s.CipId).HasColumnName("CipCodeId");
         }
     }

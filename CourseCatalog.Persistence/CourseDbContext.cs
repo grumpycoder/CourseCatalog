@@ -58,7 +58,6 @@ namespace CourseCatalog.Persistence
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
-            {
                 switch (entry.State)
                 {
                     case EntityState.Added:
@@ -76,9 +75,8 @@ namespace CourseCatalog.Persistence
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-            }
+
             return base.SaveChangesAsync(cancellationToken);
         }
-
     }
 }

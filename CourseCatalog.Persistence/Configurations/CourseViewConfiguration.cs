@@ -12,7 +12,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.HasKey(s => s.CourseId);
             builder.Property(s => s.Name).HasColumnName("CourseName");
             builder.Property(s => s.Description).HasColumnName("CourseDescription");
-
         }
     }
 }

@@ -28,7 +28,6 @@ namespace CourseCatalog.Persistence.Configurations
                 );
 
             builder.Property(e => e.Status).HasConversion<string>();
-
         }
     }
 }

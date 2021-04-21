@@ -12,7 +12,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.Property(s => s.CredentialTypeCode).HasColumnName("CredentialTypeCode");
             builder.Property(s => s.Name).HasColumnName("CredentialTypeName");
             builder.Property(s => s.Description).HasColumnName("CredentialTypeDescription");
-
         }
     }
 }

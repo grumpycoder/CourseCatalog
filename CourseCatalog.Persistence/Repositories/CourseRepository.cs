@@ -47,7 +47,6 @@ namespace CourseCatalog.Persistence.Repositories
                 Console.WriteLine(e);
                 throw;
             }
-
         }
 
         public async Task<List<Course>> GetCoursesByCertholderId(int certholderId)

@@ -8,7 +8,6 @@ namespace CourseCatalog.Persistence
 {
     public class IdemContext : DbContext
     {
-
         public DbSet<User> Users { get; set; }
 
         public IdemContext(ILoggedInUserService loggedInUserService)
@@ -17,9 +16,9 @@ namespace CourseCatalog.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var _connectionString = ConfigurationManager.ConnectionStrings["IdemContext"].ConnectionString;
+            var connectionString = ConfigurationManager.ConnectionStrings["IdemContext"].ConnectionString;
             optionsBuilder
-                .UseSqlServer(_connectionString)
+                .UseSqlServer(connectionString)
                 .EnableSensitiveDataLogging();
         }
 
@@ -38,11 +37,7 @@ namespace CourseCatalog.Persistence
             builder.Property(s => s.IdentityGuid).HasColumnName("IdentityGuid");
             builder.Property(s => s.EmailAddress).HasColumnName("EmailAddress");
             builder.Property(s => s.FullName).HasColumnName("PrintName");
-            //builder.Property(s => s.Username).HasColumnName("EmailAddress");
             builder.Ignore(s => s.Username);
-
-            //builder.Ignore(s => s.UserGroups)
-            ;
         }
     }
 }

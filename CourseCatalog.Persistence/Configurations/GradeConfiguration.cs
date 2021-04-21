@@ -11,7 +11,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.ToTable("Grades", "Common");
             builder.Property(s => s.Name).HasColumnName("GradeName");
             builder.Property(s => s.Description).HasColumnName("GradeDescription");
-
         }
     }
 }

@@ -28,6 +28,7 @@ namespace CourseCatalog.Persistence.Repositories
 
             return programs;
         }
+
         public async Task<Program> GetProgramByIdWithDetails(int programId)
         {
             var program = await _dbContext.Programs

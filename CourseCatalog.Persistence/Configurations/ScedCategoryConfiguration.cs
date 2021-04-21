@@ -12,7 +12,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.Property(s => s.Code).HasColumnName("CategoryCode");
             builder.Property(s => s.Name).HasColumnName("Category");
             builder.Property(s => s.Identifier).HasColumnName("Identifier");
-
         }
     }
 }

@@ -13,13 +13,6 @@ namespace CourseCatalog.Persistence.Configurations
             builder.Property(s => s.Description).HasColumnName("CredentialDescription");
             builder.Property(s => s.CredentialCode).HasColumnName("CredentialCode");
             builder.Property(s => s.IsReimbursable).HasColumnName("Reimbursable");
-
-            
-            //builder.HasMany(p => p.ProgramCredentials)
-            //    .WithOne(p => p.Credential)
-            //    .OnDelete(DeleteBehavior.Cascade)
-            //    .Metadata.PrincipalToDependent.SetPropertyAccessMode(PropertyAccessMode.Field);
-
         }
     }
 }
