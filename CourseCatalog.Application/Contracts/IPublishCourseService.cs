@@ -1,6 +1,6 @@
-﻿using CourseCatalog.Application.Responses;
+﻿using System.Threading.Tasks;
+using CourseCatalog.Application.Responses;
 using CourseCatalog.Domain.Entities;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.Application.Contracts
 {
@@ -8,5 +8,4 @@ namespace CourseCatalog.Application.Contracts
     {
         Task<BaseResponse> PublishCourse(Course course);
     }
-
 }

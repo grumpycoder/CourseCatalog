@@ -6,5 +6,4 @@
         string ApiPluginClientId { get; set; }
         string ClientSecret { get; set; }
     }
-
 }

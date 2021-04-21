@@ -1,8 +1,8 @@
-﻿using CourseCatalog.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.Application.Contracts
 {

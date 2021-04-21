@@ -1,5 +1,5 @@
-﻿using CourseCatalog.Domain.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.Application.Contracts
 {

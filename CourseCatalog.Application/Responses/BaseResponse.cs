@@ -8,6 +8,7 @@ namespace CourseCatalog.Application.Responses
         {
             Success = true;
         }
+
         public BaseResponse(string message = null)
         {
             Success = true;

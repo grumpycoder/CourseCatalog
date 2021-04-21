@@ -1,6 +1,6 @@
-﻿using CourseCatalog.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.Application.Contracts
 {
@@ -10,6 +10,5 @@ namespace CourseCatalog.Application.Contracts
         Task<List<Tag>> GetGeneralTags();
         Task<Tag> GetCreditTypeByName(string name);
         Task<bool> HasCourses(string name);
-
     }
 }
