@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CourseCatalog.App.Features.Refs.CourseLevels.Commands.UpdateCourseLevel;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
@@ -11,8 +10,8 @@ namespace CourseCatalog.App.Features.Refs.DeliveryTypes.Commands.UpdateDeliveryT
 {
     public class UpdateDeliveryTypeCommandHandler : IRequestHandler<UpdateDeliveryTypeCommand>
     {
-        private readonly IMapper _mapper;
         private readonly IDeliveryTypeRepository _deliveryTypeRepository;
+        private readonly IMapper _mapper;
 
         public UpdateDeliveryTypeCommandHandler(IMapper mapper, IDeliveryTypeRepository deliveryTypeRepository)
         {
@@ -27,10 +26,8 @@ namespace CourseCatalog.App.Features.Refs.DeliveryTypes.Commands.UpdateDeliveryT
 
             var deliveryType = await _deliveryTypeRepository.GetDeliveryTypeByName(request.Name);
             if (deliveryType != null && deliveryType.Name != deliveryTypeToUpdate.Name)
-            {
                 throw new BadRequestException(
                     $"Duplicate Name. Existing Delivery Type already contains name {request.Name}");
-            }
 
             _mapper.Map(request, deliveryTypeToUpdate, typeof(UpdateDeliveryTypeCommand), typeof(DeliveryType));
 

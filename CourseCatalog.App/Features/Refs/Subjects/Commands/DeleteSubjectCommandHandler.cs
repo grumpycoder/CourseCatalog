@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.Subjects.Commands
 {
@@ -27,10 +23,8 @@ namespace CourseCatalog.App.Features.Refs.Subjects.Commands
             if (subjectToDelete == null) throw new NotFoundException(nameof(Draft), request.SubjectId);
 
             if (await _subjectRepository.HasCourses(request.SubjectId))
-            {
                 throw new BadRequestException("Subject assigned to courses. Cannot delete.");
-            }
-            
+
             await _subjectRepository.DeleteAsync(subjectToDelete);
 
             return Unit.Value;

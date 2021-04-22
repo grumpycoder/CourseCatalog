@@ -15,7 +15,8 @@
             <div class="mx-auto">
 
                 <h1>
-                    You are not @if (User.Identity.IsAuthenticated)
+                    You are not
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <text>authorized</text>
                     }
@@ -49,4 +50,3 @@
     </div>
 
 </div>
-

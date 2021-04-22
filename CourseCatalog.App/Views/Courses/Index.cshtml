@@ -1,13 +1,13 @@
 ﻿@{
     ViewBag.Title = "Courses";
     var isAdmin = "false";
-    if (User.Identity.HasRoleClaim("CourseAdmin") || @User.Identity.HasRoleClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CourseAdmin") || User.Identity.HasRoleClaim("Admin"))
     {
-        isAdmin = "true"; 
-    };
+        isAdmin = "true";
+    }
 }
 
-<course-list filter="@ViewBag.Filter" is-admin=@isAdmin></course-list>
+<course-list filter="@ViewBag.Filter" is-admin="@isAdmin"></course-list>
 
 
 @section scripts{

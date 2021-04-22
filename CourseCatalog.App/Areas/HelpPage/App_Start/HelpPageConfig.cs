@@ -2,10 +2,10 @@
 // package to your project.
 ////#define Handle_PageResultOfT
 
-using CourseCatalog.App.Areas.HelpPage.SampleGeneration;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using CourseCatalog.App.Areas.HelpPage.SampleGeneration;
 
 #if Handle_PageResultOfT
 using System.Web.Http.OData;
@@ -14,9 +14,10 @@ using System.Web.Http.OData;
 namespace CourseCatalog.App.Areas.HelpPage.App_Start
 {
     /// <summary>
-    /// Use this class to customize the Help Page.
-    /// For example you can set a custom <see cref="System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
-    /// or you can provide the samples for the requests/responses.
+    ///     Use this class to customize the Help Page.
+    ///     For example you can set a custom <see cref="System.Web.Http.Description.IDocumentationProvider" /> to supply the
+    ///     documentation
+    ///     or you can provide the samples for the requests/responses.
     /// </summary>
     public static class HelpPageConfig
     {

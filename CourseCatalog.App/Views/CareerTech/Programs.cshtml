@@ -1,14 +1,13 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Programs";
     var isAdmin = "false";
-    if (User.Identity.HasRoleClaim("CareerTechAdmin") || @User.Identity.HasRoleClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CareerTechAdmin") || User.Identity.HasRoleClaim("Admin"))
     {
         isAdmin = "true";
-    };
+    }
 }
 
-<program-list is-admin=@isAdmin></program-list>
+<program-list is-admin="@isAdmin"></program-list>
 
 @section scripts{
     <script src="~/src/app/careertech/programs/program-list.component.js"></script>

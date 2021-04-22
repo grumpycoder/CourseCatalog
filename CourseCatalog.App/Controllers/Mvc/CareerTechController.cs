@@ -1,5 +1,5 @@
-﻿using CourseCatalog.App.Filters;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using CourseCatalog.App.Filters;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
@@ -18,13 +18,15 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View("ClusterDetail", clusterId);
         }
 
-        [Route("clusters/{clusterId?}/edit"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [Route("clusters/{clusterId?}/edit")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult ClusterEdit(int clusterId)
         {
             return View(clusterId);
         }
 
-        [Route("clusters/new"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [Route("clusters/new")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult ClusterNew()
         {
             return View("ClusterEdit", -1);
@@ -42,13 +44,15 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View("ProgramDetail", programId);
         }
 
-        [Route("programs/{programId}/edit"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [Route("programs/{programId}/edit")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult ProgramEdit(int programId)
         {
             return View(programId);
         }
 
-        [Route("programs/new"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [Route("programs/new")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult ProgramCreate()
         {
             return View("ProgramEdit", -1);
@@ -66,16 +70,18 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View("CredentialDetail", credentialId);
         }
 
-        [Route("credentials/{credentialId}/edit"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [Route("credentials/{credentialId}/edit")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult CredentialEdit(int credentialId)
         {
             return View(credentialId);
         }
 
-        [Route("credentials/new"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [Route("credentials/new")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public ActionResult CredentialCreate()
         {
-            return View("CredentialEdit",-1);
+            return View("CredentialEdit", -1);
         }
     }
 }

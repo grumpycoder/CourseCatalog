@@ -1,15 +1,15 @@
 ﻿//error-viewer.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
     var ctrl = this;
 
-    ctrl.$onInit = function () {
-        ctrl.title = 'Error Log Viewer';
-    }
+    ctrl.$onInit = function() {
+        ctrl.title = "Error Log Viewer";
+    };
 
-    var url = '/api/logs/error';
+    const url = "/api/logs/error";
 
     ctrl.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
@@ -25,7 +25,7 @@ function controller($http) {
             enabled: true,
             fileName: "Log",
             allowExportSelectedData: false,
-            icon: 'fa fa-trash'
+            icon: "fa fa-trash"
         },
         stateStoring: {
             enabled: true,
@@ -43,16 +43,16 @@ function controller($http) {
         columnMinWidth: 50,
         columnAutoWidth: true,
         columns: [
-            { dataField: 'hostname', caption: 'Host', width: 100 },
-            { dataField: 'location', caption: 'Location', width: 200 },
-            { dataField: 'userName', caption: 'User', width: 100 },
-            { dataField: 'message', caption: 'Message', width: 150, wordWrapEnabled: false },
-            { dataField: 'exception', caption: 'Exception', width: 200, wordWrapEnabled: true },
-            { dataField: 'correlationId', caption: 'Session' },
-            { dataField: 'elapsedMilliseconds', caption: 'Elapsed Milliseconds', visible: false },
-            { dataField: 'timestamp', caption: 'Time Stamp', dataType: 'datetime', width: 100 }
+            { dataField: "hostname", caption: "Host", width: 100 },
+            { dataField: "location", caption: "Location", width: 200 },
+            { dataField: "userName", caption: "User", width: 100 },
+            { dataField: "message", caption: "Message", width: 150, wordWrapEnabled: false },
+            { dataField: "exception", caption: "Exception", width: 200, wordWrapEnabled: true },
+            { dataField: "correlationId", caption: "Session" },
+            { dataField: "elapsedMilliseconds", caption: "Elapsed Milliseconds", visible: false },
+            { dataField: "timestamp", caption: "Time Stamp", dataType: "datetime", width: 100 }
         ],
-        onToolbarPreparing: function (e) {
+        onToolbarPreparing: function(e) {
             var dataGrid = e.component;
 
             e.toolbarOptions.items.unshift(
@@ -75,7 +75,7 @@ function controller($http) {
                     options: {
                         text: "Toggle Wrap",
                         width: 160,
-                        onClick: function (e) {
+                        onClick: function(e) {
                             dataGrid.option("wordWrapEnabled", !dataGrid.option("wordWrapEnabled"));
                         }
                     }
@@ -86,8 +86,8 @@ function controller($http) {
 
                     options: {
                         icon: "refresh",
-                        hint: 'Refresh',
-                        onClick: function () {
+                        hint: "Refresh",
+                        onClick: function() {
                             dataGrid.refresh();
                         }
                     }
@@ -97,8 +97,8 @@ function controller($http) {
                     widget: "dxButton",
                     options: {
                         icon: "clearformat",
-                        hint: 'Clear filters',
-                        onClick: function () {
+                        hint: "Clear filters",
+                        onClick: function() {
                             dataGrid.clearFilter();
                         }
                     }
@@ -108,22 +108,21 @@ function controller($http) {
                     widget: "dxButton",
                     options: {
                         icon: "clearsquare",
-                        hint: 'Reset grid to default',
-                        onClick: function () {
+                        hint: "Reset grid to default",
+                        onClick: function() {
                             dataGrid.state({});
                         }
                     }
                 }
-
             );
         }
-    }
+    };
 
 
 }
 
-module.component('errorViewer',
+module.component("errorViewer",
     {
-        templateUrl: '/src/app/admin/error-viewer.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/admin/error-viewer.component.html",
+        controller: ["$http", controller]
     });

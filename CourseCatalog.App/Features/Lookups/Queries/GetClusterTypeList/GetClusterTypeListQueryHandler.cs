@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Domain.Entities;
 using MediatR;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace CourseCatalog.App.Features.Lookups.Queries.GetClusterTypetList
+namespace CourseCatalog.App.Features.Lookups.Queries.GetClusterTypeList
 {
     public class GetClusterTypeListQueryHandler : IRequestHandler<GetClusterTypeListQuery, List<ClusterType>>
     {
@@ -16,7 +16,8 @@ namespace CourseCatalog.App.Features.Lookups.Queries.GetClusterTypetList
             _repository = repository;
         }
 
-        public async Task<List<ClusterType>> Handle(GetClusterTypeListQuery request, CancellationToken cancellationToken)
+        public async Task<List<ClusterType>> Handle(GetClusterTypeListQuery request,
+            CancellationToken cancellationToken)
         {
             var dto = await _repository.ListAllAsync();
             return dto as List<ClusterType>;

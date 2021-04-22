@@ -3,7 +3,8 @@ using System.Web.Mvc;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
-    [RoutePrefix("settings"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+    [RoutePrefix("settings")]
+    [CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
     public class SettingsController : Controller
     {
         [Route("subjects")]
@@ -12,41 +13,40 @@ namespace CourseCatalog.App.Controllers.Mvc
             return View();
         }
 
-        [Route("courselevels")]
+        [Route("courseLevels")]
         public ActionResult CourseLevels()
         {
             return View();
         }
 
-        [Route("deliverytypes")]
+        [Route("deliveryTypes")]
         public ActionResult DeliveryTypes()
         {
             return View();
         }
 
-        [Route("credittypes")]
+        [Route("creditTypes")]
         public ActionResult CreditTypes()
         {
             return View();
         }
 
-        [Route("clustertypes")]
+        [Route("clusterTypes")]
         public ActionResult ClusterTypes()
         {
             return View();
         }
 
-        [Route("programtypes")]
+        [Route("programTypes")]
         public ActionResult ProgramTypes()
         {
             return View();
         }
 
-        [Route("credentialtypes")]
+        [Route("credentialTypes")]
         public ActionResult CredentialTypes()
         {
             return View();
         }
-
     }
 }

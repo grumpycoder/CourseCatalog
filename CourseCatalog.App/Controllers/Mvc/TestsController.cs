@@ -16,7 +16,6 @@ namespace CourseCatalog.App.Controllers.Mvc
         public ActionResult ThrowError()
         {
             throw new Exception("Test Error message should be logged");
-            return View();
         }
     }
 }

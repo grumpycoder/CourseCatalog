@@ -47,7 +47,7 @@ namespace CourseCatalog.App.Helpers
 
             return claim != null;
         }
-        
+
         public static bool HasClaim(this IIdentity currentPrincipal, string key)
         {
             var identity = currentPrincipal as ClaimsIdentity;
@@ -64,13 +64,18 @@ namespace CourseCatalog.App.Helpers
 
         public static string AddGroupsToRoles(this IIdentity currentPrincipal, List<Group> groups)
         {
+            if (currentPrincipal == null) return string.Empty;
+
             var identity = currentPrincipal as ClaimsIdentity;
+
+            if (identity == null) return string.Empty;
 
             foreach (var group in groups)
             {
-                identity.AddClaim(new Claim(ClaimTypes.Role, @group.Name));
-                identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, @group.Name));
+                identity.AddClaim(new Claim(ClaimTypes.Role, group.Name));
+                identity.AddClaim(new Claim(ClaimsIdentity.DefaultNameClaimType, group.Name));
             }
+
             return string.Empty;
         }
     }

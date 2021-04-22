@@ -1,45 +1,44 @@
 ﻿//credential-details.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
     var ctrl = this;
     ctrl.cache = {};
 
-    ctrl.title = 'Career Tech Credentials';
+    ctrl.title = "Career Tech Credentials";
 
     ctrl.$onChanges = function() {
-        ctrl.isAdmin = (ctrl.isAdmin === 'true');
-    }
+        ctrl.isAdmin = (ctrl.isAdmin === "true");
+    };
 
-    ctrl.$onInit = function () {
+    ctrl.$onInit = function() {
 
         fetchCredential(ctrl.credentialid).then(r => {
-            ctrl.title = 'Credential: ' + ctrl.credential.name + ' (' + ctrl.credential.credentialCode + ')';
+            ctrl.title = `Credential: ${ctrl.credential.name} (${ctrl.credential.credentialCode})`;
             ctrl.listOptions = {
                 dataSource: ctrl.credential.programs,
                 searchEnabled: true,
                 searchExpr: ["programName", "programCode"],
-                noDataText: 'No Programs Assigned'
-            }
+                noDataText: "No Programs Assigned"
+            };
         });
     };
 
-    function fetchCredential(credentialid) {
-        return $http.get('/api/credentials/' + credentialid).then(r => {
+    function fetchCredential(credentialId) {
+        return $http.get(`/api/credentials/${credentialId}`).then(r => {
             ctrl.credential = r.data;
             return ctrl.credential;
         });
     }
 }
 
-module.component('credentialDetail',
+module.component("credentialDetail",
     {
         bindings: {
-            credentialid: '<', 
-            isAdmin: '@'
+            credentialid: "<",
+            isAdmin: "@"
         },
-        templateUrl: '/src/app/careertech/credentials/credential-detail.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/careertech/credentials/credential-detail.component.html",
+        controller: ["$http", controller]
     });
-

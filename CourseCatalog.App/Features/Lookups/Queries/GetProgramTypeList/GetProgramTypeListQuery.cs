@@ -6,6 +6,5 @@ namespace CourseCatalog.App.Features.Lookups.Queries.GetProgramTypeList
 {
     public class GetProgramTypeListQuery : IRequest<List<ProgramType>>
     {
-
     }
 }

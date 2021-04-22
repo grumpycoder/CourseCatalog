@@ -6,6 +6,5 @@ namespace CourseCatalog.App.Features.Lookups.Queries.GetCreditTypeList
 {
     public class GetCreditTypeListQuery : IRequest<List<Tag>>
     {
-
     }
 }

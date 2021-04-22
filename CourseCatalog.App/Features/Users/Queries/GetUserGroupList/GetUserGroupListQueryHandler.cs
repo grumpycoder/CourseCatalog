@@ -1,10 +1,10 @@
-﻿using CourseCatalog.Application.Contracts;
-using CourseCatalog.Domain.Entities;
-using MediatR;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Domain.Entities;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Users.Queries.GetUserGroupList
 {

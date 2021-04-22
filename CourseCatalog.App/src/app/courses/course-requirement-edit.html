@@ -1,17 +1,10 @@
-﻿
-<style>
+﻿<style>
 
-    .custom-select {
-        padding: .375rem 1.75rem .375rem .75rem !important;
-    }
+    .custom-select { padding: .375rem 1.75rem .375rem .75rem !important; }
 
-    .custom-select-sm {
-        width: 81%;
-    }
+    .custom-select-sm { width: 81%; }
 
-    .extended-select.custom-select-sm {
-        width: 100%;
-    }
+    .extended-select.custom-select-sm { width: 100%; }
 
     .angular-extended-select {
         height: calc(1.7em + .75rem + 2px);
@@ -19,27 +12,19 @@
     }
 
     @media (min-width: 567px) and (max-width: 767px) {
-        .custom-select-sm {
-            width: 68%;
-        }
+        .custom-select-sm { width: 68%; }
     }
 
     @media (min-width: 768px) {
-        .custom-select-sm {
-            width: 78%;
-        }
+        .custom-select-sm { width: 78%; }
     }
 
     @media (min-width: 992px) {
-        .custom-select-sm {
-            width: 66%;
-        }
+        .custom-select-sm { width: 66%; }
     }
 
     @media (min-width: 1200px) {
-        .custom-select-sm {
-            width: 69%;
-        }
+        .custom-select-sm { width: 69%; }
     }
 </style>
 <div class="col-lg-6 col-sm-12">
@@ -51,7 +36,8 @@
                 <extended-select ng-model="$ctrl.endorsementId"
                                  deselectable=""
                                  ng-options="o.id as o.description for o in $ctrl.endorsements | orderBy:['-len(endorseCode)', 'description']"
-                                 class="custom-select-sm"></extended-select>
+                                 class="custom-select-sm">
+                </extended-select>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2"
                             ng-disabled="!$ctrl.endorsementId"

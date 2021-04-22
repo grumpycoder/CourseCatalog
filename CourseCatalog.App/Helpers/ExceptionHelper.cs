@@ -24,7 +24,9 @@ namespace CourseCatalog.App.Helpers
 
             if (ex.InnerException != null)
                 exceptionMessage.Append("<br />" + prepend + "InnerException: "
-                    + ex.InnerException.ToBetterString(prepend + string.Concat(Enumerable.Repeat("&nbsp;", 2))));
+                                        + ex.InnerException.ToBetterString(prepend +
+                                                                           string.Concat(
+                                                                               Enumerable.Repeat("&nbsp;", 2))));
 
             return exceptionMessage.ToString();
         }
@@ -34,9 +36,7 @@ namespace CourseCatalog.App.Helpers
             var exData = new StringBuilder();
             foreach (var key in exception.Data.Keys.Cast<object>()
                 .Where(key => exception.Data[key] != null))
-            {
                 exData.Append(prependText + $"DATA-{key}:{exception.Data[key]}");
-            }
 
             return exData.ToString();
         }
@@ -47,28 +47,28 @@ namespace CourseCatalog.App.Helpers
             var exPropList = exception.GetType().GetProperties();
 
             var propertiesAlreadyHandled = new List<string>
-            { "StackTrace", "Message", "InnerException", "Data", "HelpLink",
-                "Source", "TargetSite" };
+            {
+                "StackTrace", "Message", "InnerException", "Data", "HelpLink",
+                "Source", "TargetSite"
+            };
 
             foreach (var prop in exPropList
                 .Where(prop => !propertiesAlreadyHandled.Contains(prop.Name)))
             {
                 var propObject = exception.GetType().GetProperty(prop.Name)
-                    .GetValue(exception, null);
+                    ?.GetValue(exception, null);
+
                 var propEnumerable = propObject as IEnumerable;
 
                 if (propEnumerable == null || propObject is string)
-                    allOtherProps.Append(s + String.Format("{0} : {1}",
-                        prop.Name, propObject));
+                {
+                    allOtherProps.Append(s + $"{prop.Name} : {propObject}");
+                }
                 else
                 {
                     var enumerableSb = new StringBuilder();
-                    foreach (var item in propEnumerable)
-                    {
-                        enumerableSb.Append(item + "|");
-                    }
-                    allOtherProps.Append(s + String.Format("{0} : {1}",
-                        prop.Name, enumerableSb));
+                    foreach (var item in propEnumerable) enumerableSb.Append(item + "|");
+                    allOtherProps.Append(s + $"{prop.Name} : {enumerableSb}");
                 }
             }
 

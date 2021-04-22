@@ -1,4 +1,4 @@
-﻿namespace CourseCatalog.App.Features.Courses.Queries.GetCourseSummary
+﻿namespace CourseCatalog.App.Features.Programs.Queries.GetProgramSummary
 {
     public class ProgramSummaryDto
     {

@@ -1,8 +1,8 @@
-﻿using CourseCatalog.Application.Contracts;
-using MediatR;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Users.Commands.UpdateUser
 {
@@ -21,7 +21,7 @@ namespace CourseCatalog.App.Features.Users.Commands.UpdateUser
             {
                 var user = await _userRepository.GetByIdentityGuidAsync(request.IdentityGuid);
 
-                user.EmailAddress = request.EmailAddress.ToLower(); 
+                user.EmailAddress = request.EmailAddress.ToLower();
                 user.FirstName = request.FirstName;
                 user.LastName = request.LastName;
                 user.FullName = request.FullName;

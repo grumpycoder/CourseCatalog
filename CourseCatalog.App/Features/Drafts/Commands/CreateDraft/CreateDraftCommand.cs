@@ -1,5 +1,5 @@
-﻿using MediatR;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraft
 {

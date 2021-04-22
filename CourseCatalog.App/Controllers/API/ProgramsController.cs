@@ -1,4 +1,6 @@
-﻿using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
+using CourseCatalog.App.Features.Lookups.Queries.GetProgramList;
 using CourseCatalog.App.Features.Programs.Commands.CreateProgram;
 using CourseCatalog.App.Features.Programs.Commands.CreateProgramCredential;
 using CourseCatalog.App.Features.Programs.Commands.DeleteProgramCredential;
@@ -7,8 +9,6 @@ using CourseCatalog.App.Features.Programs.Queries.GetProgramDetail;
 using CourseCatalog.App.Features.Programs.Queries.GetProgramSummary;
 using CourseCatalog.App.Filters;
 using MediatR;
-using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -22,28 +22,34 @@ namespace CourseCatalog.App.Controllers.API
             _mediator = mediator;
         }
 
-        [HttpGet, Route("")]
+        [HttpGet]
+        [Route("")]
         public async Task<IHttpActionResult> Get()
         {
             var dtos = await _mediator.Send(new GetProgramListQuery());
             return Ok(dtos);
         }
 
-        [HttpGet, Route("{programId}")]
+        [HttpGet]
+        [Route("{programId}")]
         public async Task<IHttpActionResult> Get(int programId)
         {
             var dto = await _mediator.Send(new GetProgramDetailQuery(programId));
             return Ok(dto);
         }
 
-        [HttpPut, Route(""), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [HttpPut]
+        [Route("")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> UpdateProgram([FromBody] UpdateProgramCommand updateProgramCommand)
         {
             var id = await _mediator.Send(updateProgramCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route(""), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [HttpPost]
+        [Route("")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> CreateProgram([FromBody] CreateProgramCommand createProgramCommand)
         {
             var id = await _mediator.Send(createProgramCommand);
@@ -51,7 +57,8 @@ namespace CourseCatalog.App.Controllers.API
         }
 
         [HttpDelete]
-        [Route("{programId}/credentials/{credentialId}"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [Route("{programId}/credentials/{credentialId}")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> DeleteProgramCredential(int programId, int credentialId)
         {
             await _mediator.Send(new DeleteProgramCredentialCommand(programId, credentialId));
@@ -59,14 +66,17 @@ namespace CourseCatalog.App.Controllers.API
         }
 
         [HttpPost]
-        [Route("credentials"), CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
-        public async Task<IHttpActionResult> CreateProgramCredential([FromBody] CreateProgramCredentialCommand createProgramCredentialCommand)
+        [Route("credentials")]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        public async Task<IHttpActionResult> CreateProgramCredential(
+            [FromBody] CreateProgramCredentialCommand createProgramCredentialCommand)
         {
             var dto = await _mediator.Send(createProgramCredentialCommand);
             return Ok(dto);
         }
 
-        [HttpGet, Route("summary")]
+        [HttpGet]
+        [Route("summary")]
         public async Task<object> Summary()
         {
             var dto = await _mediator.Send(new GetProgramSummaryQuery());

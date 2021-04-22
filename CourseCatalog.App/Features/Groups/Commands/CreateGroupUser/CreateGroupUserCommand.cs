@@ -1,18 +1,18 @@
-﻿using MediatR;
-using System;
+﻿using System;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Groups.Commands.CreateGroupUser
 {
     public class CreateGroupUserCommand : IRequest<CreateGroupUserCommandDto>
     {
-        public int GroupId { get; set; }
-        public Guid IdentityGuid { get; set; }
-
         public CreateGroupUserCommand(int groupId, Guid identityGuid)
         {
             GroupId = groupId;
             IdentityGuid = identityGuid;
         }
+
+        public int GroupId { get; set; }
+        public Guid IdentityGuid { get; set; }
     }
 
     public class CreateGroupUserCommandDto
@@ -25,6 +25,5 @@ namespace CourseCatalog.App.Features.Groups.Commands.CreateGroupUser
         public string LastName { get; set; }
         public string FullName { get; set; }
         public string Username { get; set; }
-
     }
 }

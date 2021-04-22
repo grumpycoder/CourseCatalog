@@ -1,32 +1,32 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="Description" content="ALSDE Course Catalog" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Description" content="ALSDE Course Catalog"/>
     <title>@ViewBag.Title | @Html.RenderApplicationName()</title>
-    <link href="~/css/vendor-bundle.min.css?v=1.0.0" rel="stylesheet" />
-    <link href="~/css/dx-bundle.min.css?v=1.0.0" rel="stylesheet" />
-    <link href="~/css/site.min.css?v=1.0.0" rel="stylesheet" />
+    <link href="~/css/vendor-bundle.min.css?v=1.0.0" rel="stylesheet"/>
+    <link href="~/css/dx-bundle.min.css?v=1.0.0" rel="stylesheet"/>
+    <link href="~/css/site.min.css?v=1.0.0" rel="stylesheet"/>
 </head>
 <body ng-app="app">
-    @Html.Partial("_Statusbar")
-    @Html.Partial("_Header")
-    @Html.Partial("_Navbar")
-    <main class="container-fluid">
-        @RenderBody()
-    </main>
+@Html.Partial("_Statusbar")
+@Html.Partial("_Header")
+@Html.Partial("_Navbar")
+<main class="container-fluid">
+    @RenderBody()
+</main>
 
-    <footer>
-        <p>&copy; @DateTime.Now.Year - @Html.RenderApplicationName()</p>
-    </footer>
-    <script src="~/js/vendor-bundle.min.js?v=1.0.0"></script>
-    <script src="~/js/angular-bundle.js?v=1.0.0"></script>
-    <script src="~/js/dx-bundle.min.js?v=1.0.0"></script>
+<footer>
+    <p>&copy; @DateTime.Now.Year - @Html.RenderApplicationName()</p>
+</footer>
+<script src="~/js/vendor-bundle.min.js?v=1.0.0"></script>
+<script src="~/js/angular-bundle.js?v=1.0.0"></script>
+<script src="~/js/dx-bundle.min.js?v=1.0.0"></script>
 
-    @*TODO: Bundle app code*@
-    <script src="~/src/app/app.module.js"></script>
-    <script src="~/src/app/directives/year-greater-than.directive.js"></script>
-    @RenderSection("scripts", false)
+@*TODO: Bundle app code*@
+<script src="~/src/app/app.module.js"></script>
+<script src="~/src/app/directives/year-greater-than.directive.js"></script>
+@RenderSection("scripts", false)
 </body>
 </html>

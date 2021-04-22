@@ -6,7 +6,6 @@ namespace CourseCatalog.App.Filters
     {
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            //filterContext.Result = new HttpUnauthorizedResult(); // Try this but i'm not sure
             var httpContext = filterContext.HttpContext;
             var request = httpContext.Request;
             var response = httpContext.Response;
@@ -16,30 +15,19 @@ namespace CourseCatalog.App.Filters
                 response.SuppressFormsAuthenticationRedirect = true;
                 base.HandleUnauthorizedRequest(filterContext);
             }
-
+            //TODO: Refactor Authorized filter
             if (httpContext.User.Identity.IsAuthenticated)
-            {
                 filterContext.Result = new RedirectResult("~/Account/Unauthorized");
-            }
             else
-            {
                 filterContext.Result = new RedirectResult("~/Account/Unauthorized");
-                //base.HandleUnauthorizedRequest(filterContext);
-            }
-
         }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             if (AuthorizeCore(filterContext.HttpContext))
-            {
                 base.OnAuthorization(filterContext);
-            }
             else
-            {
                 HandleUnauthorizedRequest(filterContext);
-            }
         }
-
     }
 }

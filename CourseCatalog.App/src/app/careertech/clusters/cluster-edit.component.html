@@ -1,11 +1,7 @@
 ﻿<style>
-    .text-larger {
-        font-size: 90%;
-    }
+    .text-larger { font-size: 90%; }
 
-    .dx-scrollable-customizable-scrollbars {
-        height: 100% !important;
-    }
+    .dx-scrollable-customizable-scrollbars { height: 100% !important; }
 </style>
 
 <div class="card">
@@ -21,7 +17,9 @@
                 <div class="card border-secondary mb-3">
                     <div class="card-header">
                         <span>Details</span>
-                        <span class="pull-right text-danger" ng-show="$ctrl.form.$dirty"><i class="fa fa-asterisk"></i></span>
+                        <span class="pull-right text-danger" ng-show="$ctrl.form.$dirty">
+                            <i class="fa fa-asterisk"></i>
+                        </span>
                     </div>
                     <div class="card-body text-secondary">
 
@@ -38,7 +36,7 @@
                                            autocomplete="off"
                                            placeholder="Cluster Name (required)"
                                            ng-model="$ctrl.cluster.name"
-                                           required />
+                                           required/>
                                     <ng-messages for="$ctrl.form.name.$error">
                                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
                                     </ng-messages>
@@ -69,7 +67,7 @@
                                            name="edFactsClusterValue"
                                            autocomplete="off"
                                            placeholder="EdFacts Name (required)"
-                                           ng-model="$ctrl.cluster.edFactsClusterValue" />
+                                           ng-model="$ctrl.cluster.edFactsClusterValue"/>
                                 </div>
                             </div>
 
@@ -88,7 +86,7 @@
                                            ng-model-options="{ debounce: 300 }"
                                            required
                                            minlength="3"
-                                           maxlength="3" />
+                                           maxlength="3"/>
                                     <ng-messages for="$ctrl.form.clusterCode.$error">
                                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
                                         <ng-message when="minlength" class="form-text text-danger small">Field is too short</ng-message>

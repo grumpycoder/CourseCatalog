@@ -3,16 +3,14 @@ using System;
 namespace CourseCatalog.App.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
-    /// This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+    ///     This represents an invalid sample on the help page. There's a display template named InvalidSample associated with
+    ///     this class.
     /// </summary>
     public class InvalidSample
     {
         public InvalidSample(string errorMessage)
         {
-            if (errorMessage == null)
-            {
-                throw new ArgumentNullException("errorMessage");
-            }
+            if (errorMessage == null) throw new ArgumentNullException("errorMessage");
             ErrorMessage = errorMessage;
         }
 
@@ -20,7 +18,7 @@ namespace CourseCatalog.App.Areas.HelpPage.SampleGeneration
 
         public override bool Equals(object obj)
         {
-            InvalidSample other = obj as InvalidSample;
+            var other = obj as InvalidSample;
             return other != null && ErrorMessage == other.ErrorMessage;
         }
 

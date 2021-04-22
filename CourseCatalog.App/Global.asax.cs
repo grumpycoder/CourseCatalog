@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using CourseCatalog.App.Controllers.Mvc;
+using CourseCatalog.App.Helpers;
 using CourseCatalog.App.Services;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Persistence;
@@ -15,14 +17,13 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Net.Http;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using CourseCatalog.App.Controllers.Mvc;
-using CourseCatalog.App.Helpers;
 
 namespace CourseCatalog.App
 {
@@ -43,9 +44,9 @@ namespace CourseCatalog.App
             builder.RegisterApiControllers(typeof(WebApiApplication).Assembly);
 
             builder.Register(
-                    c => HttpContext.Current != null ?
-                        new HttpContextWrapper(HttpContext.Current) :
-                        c.Resolve<System.Net.Http.HttpRequestMessage>().Properties["MS_HttpContext"])
+                    c => HttpContext.Current != null
+                        ? new HttpContextWrapper(HttpContext.Current)
+                        : c.Resolve<HttpRequestMessage>().Properties["MS_HttpContext"])
                 .As<HttpContextBase>()
                 .InstancePerRequest();
 
@@ -116,8 +117,8 @@ namespace CourseCatalog.App
                     .Enrich.WithMvcControllerName("ControllerName")
                     .Enrich.WithMvcRouteData("RouteData")
                     .WriteTo
-                    .MSSqlServer(connectionString: connectionString,
-                        sinkOptions: GetErrorSinkOptions(),
+                    .MSSqlServer(connectionString,
+                        GetErrorSinkOptions(),
                         columnOptions: GetErrorSqlColumnOptions(),
                         restrictedToMinimumLevel: LogEventLevel.Error)
                     .CreateLogger())
@@ -159,9 +160,7 @@ namespace CourseCatalog.App
 
         private static ColumnOptions GetErrorSqlColumnOptions()
         {
-            var options = new ColumnOptions();
-
-            options.Id.ColumnName = "LogId";
+            var options = new ColumnOptions { Id = { ColumnName = "LogId" } };
 
             options.Store.Remove(StandardColumn.MessageTemplate);
             options.Store.Remove(StandardColumn.Level);
@@ -174,18 +173,20 @@ namespace CourseCatalog.App
 
             options.AdditionalColumns = new List<SqlColumn>
             {
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Location", PropertyName = "RawUrl"},
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AlsdeId" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "UserName", },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Hostname", PropertyName = "MachineName"},
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", PropertyName = "HttpRequestId"},
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AssemblyName" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AssemblyVersion" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Controller", PropertyName = "ControllerName" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Action", PropertyName = "ActionName" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "RouteData" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "HttpContextData" },
-                new SqlColumn { DataType = SqlDbType.Float, ColumnName = "ElapsedMilliseconds", AllowNull = false },
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Location", PropertyName = "RawUrl"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AlsdeId"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "UserName"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Hostname", PropertyName = "MachineName"},
+                new SqlColumn
+                    {DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", PropertyName = "HttpRequestId"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AssemblyName"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AssemblyVersion"},
+                new SqlColumn
+                    {DataType = SqlDbType.VarChar, ColumnName = "Controller", PropertyName = "ControllerName"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Action", PropertyName = "ActionName"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "RouteData"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "HttpContextData"},
+                new SqlColumn {DataType = SqlDbType.Float, ColumnName = "ElapsedMilliseconds", AllowNull = false}
             };
 
             return options;
@@ -205,9 +206,7 @@ namespace CourseCatalog.App
 
         private static ColumnOptions GetSqlColumnOptions()
         {
-            var options = new ColumnOptions();
-
-            options.Id.ColumnName = "LogId";
+            var options = new ColumnOptions { Id = { ColumnName = "LogId" } };
 
             options.Store.Remove(StandardColumn.Message);
             options.Store.Remove(StandardColumn.MessageTemplate);
@@ -219,18 +218,20 @@ namespace CourseCatalog.App
             options.LogEvent.ExcludeStandardColumns = true;
             options.LogEvent.ExcludeAdditionalProperties = true;
 
-            options.AdditionalColumns = new List<SqlColumn>()
+            options.AdditionalColumns = new List<SqlColumn>
             {
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Location", PropertyName = "RawUrl"},
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "UserName" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Hostname", PropertyName = "MachineName"},
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", PropertyName = "HttpRequestId"},
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AssemblyName" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "AssemblyVersion" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Controller", PropertyName = "ControllerName" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "Action", PropertyName = "ActionName" },
-                new SqlColumn { DataType = SqlDbType.VarChar, ColumnName = "RouteData" },
-                new SqlColumn { DataType = SqlDbType.Int, ColumnName = "ElapsedMilliseconds", AllowNull = false },
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Location", PropertyName = "RawUrl"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "UserName"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Hostname", PropertyName = "MachineName"},
+                new SqlColumn
+                    {DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", PropertyName = "HttpRequestId"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AssemblyName"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AssemblyVersion"},
+                new SqlColumn
+                    {DataType = SqlDbType.VarChar, ColumnName = "Controller", PropertyName = "ControllerName"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Action", PropertyName = "ActionName"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "RouteData"},
+                new SqlColumn {DataType = SqlDbType.Int, ColumnName = "ElapsedMilliseconds", AllowNull = false}
             };
 
             return options;
@@ -275,4 +276,3 @@ namespace CourseCatalog.App
         }
     }
 }
-

@@ -1,17 +1,17 @@
-﻿using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Users.Queries.GetUser
 {
     public class GetUserQuery : IRequest<UserDetailDto>
     {
-        public Guid UserId { get; set; }
-
         public GetUserQuery(Guid userId)
         {
             UserId = userId;
         }
+
+        public Guid UserId { get; set; }
     }
 
     public class UserDetailDto

@@ -1,10 +1,10 @@
-﻿using CourseCatalog.Application.Contracts;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Programs.Commands.DeleteProgramCredential
 {
@@ -22,8 +22,9 @@ namespace CourseCatalog.App.Features.Programs.Commands.DeleteProgramCredential
             var existingProgram = await _programRepository.GetProgramByIdWithDetails(request.ProgramId);
 
             if (existingProgram == null) throw new NotFoundException(nameof(Program), request.ProgramId);
-            
-            var credentialToDelete = existingProgram.Credentials.FirstOrDefault(e => e.CredentialId == request.CredentialId);
+
+            var credentialToDelete =
+                existingProgram.Credentials.FirstOrDefault(e => e.CredentialId == request.CredentialId);
             if (credentialToDelete == null) throw new BadRequestException("Program does not contain credential");
 
             existingProgram.Credentials.Remove(credentialToDelete);

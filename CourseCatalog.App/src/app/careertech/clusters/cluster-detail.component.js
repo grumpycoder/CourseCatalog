@@ -1,14 +1,14 @@
 ﻿//cluster-detail.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
     var ctrl = this;
 
-    ctrl.$onInit = function () {
-        ctrl.loadCluster(ctrl.clusterId).then(function () {
-            ctrl.title = ctrl.cluster.name + ' (' + ctrl.cluster.clusterCode + ')';
-            
+    ctrl.$onInit = function() {
+        ctrl.loadCluster(ctrl.clusterId).then(function() {
+            ctrl.title = ctrl.cluster.name + " (" + ctrl.cluster.clusterCode + ")";
+
             if (ctrl.cluster !== undefined) {
 
                 ctrl.listOptions = {
@@ -16,36 +16,36 @@ function controller($http) {
                     searchEnabled: true,
                     searchExpr: "name",
                     height: 310,
-                    noDataText: 'No Programs Assigned', 
+                    noDataText: "No Programs Assigned",
                     allowItemDeleting: false,
-                    onItemDeleting: function (data) {
+                    onItemDeleting: function(data) {
                     }
-                }
+                };
 
             }
         });
     };
 
-    ctrl.$onChanges = function () {
+    ctrl.$onChanges = function() {
 
-    }
+    };
 
-    ctrl.loadCluster = function (clusterId) {
-        return $http.get('/api/clusters/' + clusterId).then(r => {
+    ctrl.loadCluster = function(clusterId) {
+        return $http.get(`/api/clusters/${clusterId}`).then(r => {
             ctrl.cluster = r.data;
-        }).catch(function (err) {
+        }).catch(function(err) {
             console.error(err.message);
         });
     };
 
 }
 
-module.component('clusterDetail',
+module.component("clusterDetail",
     {
         bindings: {
-            clusterId: '@', 
-            isAdmin: '@'
+            clusterId: "@",
+            isAdmin: "@"
         },
-        templateUrl: '/src/app/careertech/clusters/cluster-detail.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/careertech/clusters/cluster-detail.component.html",
+        controller: ["$http", controller]
     });

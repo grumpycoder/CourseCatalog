@@ -9,6 +9,7 @@ namespace CourseCatalog.App.Controllers.Mvc
             ViewBag.Error = Session["Error"];
             return View();
         }
+
         public ActionResult NotFound()
         {
             return View();

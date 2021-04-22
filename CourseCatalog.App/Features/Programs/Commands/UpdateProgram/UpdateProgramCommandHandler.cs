@@ -23,24 +23,18 @@ namespace CourseCatalog.App.Features.Programs.Commands.UpdateProgram
         {
             var programToUpdate = await _programRepository.GetByIdAsync(request.ProgramId);
 
-            if (programToUpdate == null)
-            {
-                throw new NotFoundException(nameof(Program), request.ProgramId);
-            }
+            if (programToUpdate == null) throw new NotFoundException(nameof(Program), request.ProgramId);
 
             var program = await _programRepository.GetProgramByProgramCode(request.ProgramCode);
             if (program != null && program.ProgramCode != programToUpdate.ProgramCode)
-            {
                 throw new BadRequestException(
                     $"Duplicate Program Code. Existing program already contains Program Code {request.ProgramCode}");
-            }
 
             _mapper.Map(request, programToUpdate, typeof(UpdateProgramCommand), typeof(Program));
 
             await _programRepository.UpdateAsync(programToUpdate);
 
             return Unit.Value;
-
         }
     }
 }

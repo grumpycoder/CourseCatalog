@@ -1,17 +1,17 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.CreditTypes.Commands.UpdateCreditType
 {
     public class UpdateCreditTypeCommandHandler : IRequestHandler<UpdateCreditTypeCommand>
     {
-        private readonly IMapper _mapper;
         private readonly ITagRepository _creditTypeRepository;
+        private readonly IMapper _mapper;
 
         public UpdateCreditTypeCommandHandler(IMapper mapper, ITagRepository creditTypeRepository)
         {
@@ -26,10 +26,8 @@ namespace CourseCatalog.App.Features.Refs.CreditTypes.Commands.UpdateCreditType
 
             var creditType = await _creditTypeRepository.GetCreditTypeByName(request.Name);
             if (creditType != null && creditType.Name != creditTypeToUpdate.Name)
-            {
                 throw new BadRequestException(
                     $"Duplicate Name. Existing Credit Type already contains name {request.Name}");
-            }
 
             _mapper.Map(request, creditTypeToUpdate, typeof(UpdateCreditTypeCommand), typeof(Tag));
 

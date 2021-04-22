@@ -1,6 +1,6 @@
 ﻿//draft-detail-edit.component.js
 
-var module = angular.module('app').value('user', {});
+var module = angular.module("app").value("user", {});
 
 function detailController($http) {
     var ctrl = this;
@@ -10,17 +10,17 @@ function detailController($http) {
         tags: []
     };
 
-    ctrl.$onChanges = function () {
+    ctrl.$onChanges = function() {
         //path for new course
         if (!ctrl.course) {
             ctrl.course = {};
-            ctrl.scedCategoryCode = '##';
-            ctrl.courseLevelCode = '##';
-            ctrl.stateAttribute1 = '##';
-            ctrl.stateAttribute2 = '##';
-            ctrl.scedCourseNumber = '##';
+            ctrl.scedCategoryCode = "##";
+            ctrl.courseLevelCode = "##";
+            ctrl.stateAttribute1 = "##";
+            ctrl.stateAttribute2 = "##";
+            ctrl.scedCourseNumber = "##";
             ctrl.updateCourseNumber();
-            ctrl.course.status = 'NewCourse';
+            ctrl.course.status = "NewCourse";
             loadRefs();
         }
         //path for existing course
@@ -35,30 +35,30 @@ function detailController($http) {
                 ctrl.selectedTags = JSON.parse(JSON.stringify(ctrl.course.tags));
                 ctrl.selectedCreditTypeTags = JSON.parse(JSON.stringify(ctrl.course.creditTypes));
             }
-            ctrl.canEditCourseNumber = ctrl.course.status === 'NewCourse';
+            ctrl.canEditCourseNumber = ctrl.course.status === "NewCourse";
             updateCache();
         }
     };
 
-    ctrl.$onInit = function () {
+    ctrl.$onInit = function() {
         loadRefs();
-    }
+    };
 
-    ctrl.onSubmit = function () {
-        var url = '/api/drafts/';
+    ctrl.onSubmit = function() {
+        const url = "/api/drafts/";
 
         ctrl.course.tags = ctrl.selectedTags;
         ctrl.course.creditTypes = ctrl.selectedCreditTypeTags;
-        if (!ctrl.course.isCareerTech) ctrl.course.cipCode = null; 
-        if (!ctrl.course.isCollege) ctrl.course.collegeCourseId = null; 
+        if (!ctrl.course.isCareerTech) ctrl.course.cipCode = null;
+        if (!ctrl.course.isCollege) ctrl.course.collegeCourseId = null;
 
 
         if (!ctrl.course.draftId) {
             $http.post(url, ctrl.course).then(r => {
-                toastr.success('Created Course Draft');
-                window.location.href = '/drafts/' + r.data + '/edit';
+                toastr.success("Created Course Draft");
+                window.location.href = `/drafts/${r.data}/edit`;
             }).catch(e => {
-                console.error('update error', e);
+                console.error("update error", e);
                 toastr.error(e.data.message);
             });
             return;
@@ -66,25 +66,25 @@ function detailController($http) {
 
         $http.put(url, ctrl.course).then(r => {
             updateCache();
-            toastr.success('Saved Course Draft');
+            toastr.success("Saved Course Draft");
         }).catch(e => {
-            console.error('update error', e.message);
+            console.error("update error", e.message);
             toastr.error(e.message);
         });
     };
 
-    ctrl.cancel = function () {
+    ctrl.cancel = function() {
         loadCache();
     };
 
-    ctrl.updateCourseNumber = function () {
+    ctrl.updateCourseNumber = function() {
         if (!ctrl.course.stateAttribute1) {
-            ctrl.stateAttribute1 = '##';
+            ctrl.stateAttribute1 = "##";
         } else {
             ctrl.stateAttribute1 = ctrl.course.stateAttribute1;
         }
         if (!ctrl.course.stateAttribute2) {
-            ctrl.stateAttribute2 = '##';
+            ctrl.stateAttribute2 = "##";
         } else {
             ctrl.stateAttribute2 = ctrl.course.stateAttribute2;
         }
@@ -92,16 +92,21 @@ function detailController($http) {
         if (ctrl.course.scedCourseNumber) {
             ctrl.scedCourseNumber = ctrl.course.scedCourseNumber;
         }
-        
+
         if (ctrl.course.scedCategoryId) {
             ctrl.scedCategoryCode = ctrl.scedCategories.find(s => s.scedCategoryId === ctrl.course.scedCategoryId).code;
         }
         if (ctrl.course.courseLevelId) {
-            ctrl.courseLevelCode = ctrl.courseLevels.find(s => s.courseLevelId === ctrl.course.courseLevelId).courseLevelCode;
+            ctrl.courseLevelCode =
+                ctrl.courseLevels.find(s => s.courseLevelId === ctrl.course.courseLevelId).courseLevelCode;
         }
 
-        ctrl.course.courseNumber = ctrl.scedCategoryCode + ctrl.scedCourseNumber + ctrl.courseLevelCode + ctrl.stateAttribute1 + ctrl.stateAttribute2;
-    }
+        ctrl.course.courseNumber = ctrl.scedCategoryCode +
+            ctrl.scedCourseNumber +
+            ctrl.courseLevelCode +
+            ctrl.stateAttribute1 +
+            ctrl.stateAttribute2;
+    };
 
     function loadRefs() {
         fetchSchoolYears();
@@ -116,26 +121,26 @@ function detailController($http) {
     }
 
     function fetchCipCodes() {
-        return $http.get('/api/refs/cipCodes').then(function (r) {
+        return $http.get("/api/refs/cipCodes").then(function(r) {
             ctrl.cipCodes = r.data;
             return ctrl.cipCodes;
         });
     }
 
     function fetchSchoolYears() {
-        return $http.get('/api/refs/schoolyears').then(function (r) {
+        return $http.get("/api/refs/schoolyears").then(function(r) {
             return ctrl.schoolYears = r.data;
         });
     }
 
     function fetchCourseLevels() {
-        return $http.get('/api/refs/courseLevels').then(function (r) {
+        return $http.get("/api/refs/courseLevels").then(function(r) {
 
             ctrl.courseLevelSelect = {
                 dataSource: r.data,
-                displayExpr: 'name',
-                valueExpr: 'courseLevelId',
-                onValueChanged: function (e) {
+                displayExpr: "name",
+                valueExpr: "courseLevelId",
+                onValueChanged: function(e) {
                     ctrl.updateCourseNumber();
                 }
             };
@@ -145,7 +150,7 @@ function detailController($http) {
     }
 
     function fetchGradeScales() {
-        return $http.get('/api/refs/gradeScales').then(function (r) {
+        return $http.get("/api/refs/gradeScales").then(function(r) {
             return ctrl.gradeScales = r.data;
         });
     }
@@ -155,48 +160,48 @@ function detailController($http) {
             return true;
         }
 
-        return $http.get('/api/refs/grades').then(function (r) {
+        return $http.get("/api/refs/grades").then(function(r) {
             ctrl.grades = r.data;
 
-            var store = new DevExpress.data.DataSource({
+            const store = new DevExpress.data.DataSource({
                 store: ctrl.grades
             });
 
             ctrl.gradeListOptions = {
                 dataSource: store,
                 searchEnabled: true,
-                searchMode: 'contains',
-                searchExpr: ['description', 'name'],
-                displayExpr: function (item) {
-                    return item && item.name + ' - ' + item.description;
+                searchMode: "contains",
+                searchExpr: ["description", "name"],
+                displayExpr: function(item) {
+                    return item && item.name + " - " + item.description;
                 },
-                valueExpr: 'id',
-                itemTemplate: function (data) {
-                    return $("<div>").text(data.name + ' - ' + data.description);
+                valueExpr: "id",
+                itemTemplate: function(data) {
+                    return $("<div>").text(data.name + " - " + data.description);
                 },
-                onSelectionChanged: function (e) {
-                    if (e.element[0].id === 'highGradeId') {
+                onSelectionChanged: function(e) {
+                    if (e.element[0].id === "highGradeId") {
                         ctrl.selectedHighGrade = e.selectedItem.name;
                     } else {
                         ctrl.selectedLowGrade = e.selectedItem.name;
                     }
                     ctrl.validateCourseCode();
                 }
-            }
+            };
             return ctrl.grades = r.data;
         });
     }
 
     function fetchScedCategories() {
-        return $http.get('/api/refs/scedcategories').then(function (r) {
+        return $http.get("/api/refs/scedcategories").then(function(r) {
             ctrl.scedCategories = r.data;
 
             ctrl.scedSelect = {
                 dataSource: r.data,
-                displayExpr: 'identifier',
-                valueExpr: 'scedCategoryId',
-                onValueChanged: function (e) {
-                    console.log('change', e);
+                displayExpr: "identifier",
+                valueExpr: "scedCategoryId",
+                onValueChanged: function(e) {
+                    console.log("change", e);
                     console.log(ctrl.course);
                     ctrl.updateCourseNumber();
                 }
@@ -207,38 +212,38 @@ function detailController($http) {
     }
 
     function fetchSubjects() {
-        return $http.get('/api/refs/subjects').then(function (r) {
+        return $http.get("/api/refs/subjects").then(function(r) {
             ctrl.subjects = r.data;
             return ctrl.subjects;
         });
     }
 
     function fetchTags() {
-        return $http.get('/api/refs/tags').then(function (r) {
+        return $http.get("/api/refs/tags").then(function(r) {
 
-            ctrl.creditTypeTags = r.data.filter(c => { return c.groupName === 'CreditType' });
-            ctrl.generalTags = r.data.filter(c => { return c.groupName === 'General' });
+            ctrl.creditTypeTags = r.data.filter(c => { return c.groupName === "CreditType" });
+            ctrl.generalTags = r.data.filter(c => { return c.groupName === "General" });
 
             ctrl.creditTypesTags = {
                 dataSource: ctrl.creditTypeTags,
-                displayExpr: 'description',
-                valueExpr: 'name',
+                displayExpr: "description",
+                valueExpr: "name",
                 searchEnabled: true,
                 hideSelectedItems: true,
                 multiline: true,
                 showSelectionControls: true,
-                applyValueMode: 'useButtons'
+                applyValueMode: "useButtons"
             };
 
             ctrl.tags = {
                 dataSource: ctrl.generalTags,
-                displayExpr: 'description',
-                valueExpr: 'name',
+                displayExpr: "description",
+                valueExpr: "name",
                 searchEnabled: true,
                 hideSelectedItems: true,
                 multiline: true,
                 showSelectionControls: true,
-                applyValueMode: 'useButtons'
+                applyValueMode: "useButtons"
             };
 
             return ctrl.creditTypeTags;
@@ -246,12 +251,12 @@ function detailController($http) {
     }
 
     function fetchDeliveryTypes() {
-        return $http.get('/api/refs/deliveryTypes').then(function (r) {
+        return $http.get("/api/refs/deliveryTypes").then(function(r) {
             ctrl.deliveryTypes = r.data;
 
-            var source = new DevExpress.data.DataSource({
+            const source = new DevExpress.data.DataSource({
                 store: new DevExpress.data.ArrayStore({
-                    key: 'deliveryTypeId',
+                    key: "deliveryTypeId",
                     data: ctrl.deliveryTypes
                 })
             });
@@ -261,14 +266,14 @@ function detailController($http) {
                 dataSource: source,
                 height: 120,
                 showSelectionControls: true,
-                selectionMode: 'multiple',
+                selectionMode: "multiple",
                 bindingOptions: {
-                    selectedItemKeys: '$ctrl.selectedDeliveryTypes'
+                    selectedItemKeys: "$ctrl.selectedDeliveryTypes"
                 },
-                displayExpr: function (item) {
+                displayExpr: function(item) {
                     return item.name;
                 },
-                onSelectionChanged: function (e) {
+                onSelectionChanged: function(e) {
                     if (!ctrl.course.deliveryTypes) ctrl.course.deliveryTypes = [];
 
                     e.addedItems.forEach(item => {
@@ -288,22 +293,22 @@ function detailController($http) {
 
     function addDeliveryType(item) {
         var deliveryType = {
-            draftDeliveryTypeId: 0, 
-            deliveryTypeId: item.deliveryTypeId, 
-            draftId: ctrl.course.draftId 
+            draftDeliveryTypeId: 0,
+            deliveryTypeId: item.deliveryTypeId,
+            draftId: ctrl.course.draftId
 
-        }
+        };
         if (!ctrl.course.deliveryTypes.find(c => c.deliveryTypeId === deliveryType.deliveryTypeId)) {
             ctrl.course.deliveryTypes.push(deliveryType);
         };
     }
 
     function removeDeliveryType(item) {
-        let found = ctrl.course.deliveryTypes
+        const found = ctrl.course.deliveryTypes
             .find(cdt => cdt.deliveryTypeId === item.deliveryTypeId);
 
         if (found) {
-            let idx = ctrl.course.deliveryTypes.indexOf(found);
+            const idx = ctrl.course.deliveryTypes.indexOf(found);
             ctrl.course.deliveryTypes.splice(idx, 1);
         }
     }
@@ -327,7 +332,7 @@ function detailController($http) {
         if (ctrl.course.tags) {
             ctrl.selectedTags = ctrl.course.tags;
         } else {
-            ctrl.selectedTags = []; 
+            ctrl.selectedTags = [];
         }
         ctrl.selectedCreditTypes = ctrl.course.creditTypes;
         ctrl.cacheSelectedDeliveryTypes.forEach(e => {
@@ -345,13 +350,12 @@ function detailController($http) {
 
 }
 
-module.component('draftDetailEdit',
+module.component("draftDetailEdit",
     {
         bindings: {
-            course: '<', 
-            isAdmin: '<'
+            course: "<",
+            isAdmin: "<"
         },
-        templateUrl: '/src/app/drafts/draft-detail-edit.component.html',
-        controller: ['$http', detailController]
+        templateUrl: "/src/app/drafts/draft-detail-edit.component.html",
+        controller: ["$http", detailController]
     });
-

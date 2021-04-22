@@ -1,14 +1,15 @@
-﻿using AutoMapper;
-using CourseCatalog.Application.Contracts;
-using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using CourseCatalog.Application.Contracts;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Courses.Queries.GetCoursesByCertholder
 {
-    public class GetCoursesByCertholderQueryHandler : IRequestHandler<GetCoursesByCertholderQuery, List<CertholderCourseListDto>>
+    public class
+        GetCoursesByCertholderQueryHandler : IRequestHandler<GetCoursesByCertholderQuery, List<CertholderCourseListDto>>
     {
         private readonly ICourseRepository _courseRepository;
         private readonly IMapper _mapper;
@@ -19,7 +20,8 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCoursesByCertholder
             _courseRepository = courseRepository;
         }
 
-        public async Task<List<CertholderCourseListDto>> Handle(GetCoursesByCertholderQuery request, CancellationToken cancellationToken)
+        public async Task<List<CertholderCourseListDto>> Handle(GetCoursesByCertholderQuery request,
+            CancellationToken cancellationToken)
         {
             try
             {
@@ -28,7 +30,6 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCoursesByCertholder
                 var dto = _mapper.Map<List<CertholderCourseListDto>>(courses);
 
                 return dto;
-
             }
             catch (Exception exception)
             {
@@ -36,6 +37,5 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCoursesByCertholder
                 throw;
             }
         }
-
     }
 }

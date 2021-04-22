@@ -12,9 +12,5 @@ namespace CourseCatalog.App.Features.Programs.Queries.GetProgramList
         public int? EndYear { get; set; }
 
         public ProgramType ProgramType { get; set; }
-
     }
-
-
-
 }

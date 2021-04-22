@@ -1,9 +1,9 @@
-﻿using CourseCatalog.Application.Contracts;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.ProgramTypes.Commands.DeleteProgramType
 {
@@ -23,9 +23,7 @@ namespace CourseCatalog.App.Features.Refs.ProgramTypes.Commands.DeleteProgramTyp
             if (programTypeToDelete == null) throw new NotFoundException(nameof(Draft), request.ProgramTypeId);
 
             if (await _programTypeRepository.HasPrograms(request.ProgramTypeId))
-            {
                 throw new BadRequestException("Program Type assigned to programs. Cannot delete.");
-            }
 
             await _programTypeRepository.DeleteAsync(programTypeToDelete);
 

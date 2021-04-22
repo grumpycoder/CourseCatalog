@@ -3,17 +3,16 @@
 @{
     ViewBag.Title = "Course Requirements";
     var isAdmin = "false";
-    if (User.Identity.HasRoleClaim("TeacherCertAdmin") || @User.Identity.HasRoleClaim("Admin"))
+    if (User.Identity.HasRoleClaim("TeacherCertAdmin") || User.Identity.HasRoleClaim("Admin"))
     {
         isAdmin = "true";
-    };
+    }
 }
 
 
-<course-requirement-list is-admin=@isAdmin></course-requirement-list>
+<course-requirement-list is-admin="@isAdmin"></course-requirement-list>
 
 
 @section scripts{
     <script src="~/src/app/tcert/course-requirement-list.component.js"></script>
 }
-

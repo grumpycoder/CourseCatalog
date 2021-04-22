@@ -9,10 +9,14 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-calendar"></i> @DateTime.Now.ToString("ddd, dd MMM yyy")</a>
+                <a class="nav-link" href="#">
+                    <i class="fa fa-calendar"></i> @DateTime.Now.ToString("ddd, dd MMM yyy")
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-clock-o"></i> @DateTime.Now.ToString("h:mm tt")</a>
+                <a class="nav-link" href="#">
+                    <i class="fa fa-clock-o"></i> @DateTime.Now.ToString("h:mm tt")
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -74,7 +78,6 @@
                 <li class="nav-item">
                     <a href="/account/signout" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a>
                 </li>
-
             }
         </ul>
 
@@ -83,17 +86,19 @@
 </nav>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function (event) {
-        $('#userId').on('click',
-            function (e) {
-                var text = e.currentTarget.innerText.split(':')[1].trim();
-                navigator.clipboard.writeText(text).then(function () {
-                    console.log('Async: Copying to clipboard was successful!');
-                    toastr.success('Copied to clipboard'); 
-                }, function (err) {
-                    console.error('Async: Could not copy text: ', err);
+    document.addEventListener("DOMContentLoaded",
+        function(event) {
+            $('#userId').on('click',
+                function(e) {
+                    const text = e.currentTarget.innerText.split(':')[1].trim();
+                    navigator.clipboard.writeText(text).then(function() {
+                            console.log('Async: Copying to clipboard was successful!');
+                            toastr.success('Copied to clipboard');
+                        },
+                        function(err) {
+                            console.error('Async: Could not copy text: ', err);
+                        });
                 });
-            });
-    });
+        });
 
 </script>

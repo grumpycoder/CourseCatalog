@@ -1,11 +1,11 @@
-﻿using Alsde.Extensions;
-using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using Alsde.Extensions;
+using Microsoft.Data.SqlClient;
 
 namespace CourseCatalog.App.Helpers
 {
@@ -44,14 +44,14 @@ namespace CourseCatalog.App.Helpers
         public static IHtmlString RenderDataSource(this HtmlHelper htmlHelper)
         {
             var connectionString = AppSettings.GetDatabaseString<string>(Constants.DatabaseContextName);
-            var builder = new SqlConnectionStringBuilder { ConnectionString = connectionString };
+            var builder = new SqlConnectionStringBuilder {ConnectionString = connectionString};
             return new MvcHtmlString(builder.DataSource);
         }
 
         public static IHtmlString RenderDatabaseName(this HtmlHelper htmlHelper)
         {
             var connectionString = AppSettings.GetDatabaseString<string>(Constants.DatabaseContextName);
-            var builder = new SqlConnectionStringBuilder { ConnectionString = connectionString };
+            var builder = new SqlConnectionStringBuilder {ConnectionString = connectionString};
             return new MvcHtmlString(builder.InitialCatalog);
         }
 
@@ -64,15 +64,15 @@ namespace CourseCatalog.App.Helpers
 
         public static string RenderUserFullname(this HtmlHelper htmlHelper)
         {
-            var fullname = ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims
+            var fullname = ((ClaimsIdentity) HttpContext.Current.User.Identity).Claims
                 .FirstOrDefault(c => c.Type == "FullName")?.Value.ToTitleCase();
-            var name = ((ClaimsIdentity)HttpContext.Current.User.Identity).Name.ToLower().ToTitleCase();
+            var name = ((ClaimsIdentity) HttpContext.Current.User.Identity).Name.ToLower().ToTitleCase();
             return fullname ?? name;
         }
 
         public static string RenderClaim(this HtmlHelper htmlHelper, string key)
         {
-            var claim = ((ClaimsIdentity)HttpContext.Current.User.Identity).Claims
+            var claim = ((ClaimsIdentity) HttpContext.Current.User.Identity).Claims
                 .FirstOrDefault(c => c.Type == key)?.Value;
             return claim;
         }
@@ -99,12 +99,13 @@ namespace CourseCatalog.App.Helpers
 
             return cssClass;
         }
+
         public static void GetHttpStatus(Exception ex, out int httpStatus)
         {
-            httpStatus = 500;  // default is server error
+            httpStatus = 500; // default is server error
             if (!(ex is HttpException)) return;
 
-            var httpEx = (HttpException)ex;
+            var httpEx = (HttpException) ex;
             httpStatus = httpEx.GetHttpCode();
         }
 
@@ -112,6 +113,5 @@ namespace CourseCatalog.App.Helpers
         {
             return AppSettings.Get<string>("ASPNET_ENV") == "Dev";
         }
-
     }
 }

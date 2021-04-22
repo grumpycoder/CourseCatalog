@@ -3,16 +3,14 @@ using System;
 namespace CourseCatalog.App.Areas.HelpPage.SampleGeneration
 {
     /// <summary>
-    /// This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+    ///     This represents a preformatted text sample on the help page. There's a display template named TextSample associated
+    ///     with this class.
     /// </summary>
     public class TextSample
     {
         public TextSample(string text)
         {
-            if (text == null)
-            {
-                throw new ArgumentNullException("text");
-            }
+            if (text == null) throw new ArgumentNullException("text");
             Text = text;
         }
 
@@ -20,7 +18,7 @@ namespace CourseCatalog.App.Areas.HelpPage.SampleGeneration
 
         public override bool Equals(object obj)
         {
-            TextSample other = obj as TextSample;
+            var other = obj as TextSample;
             return other != null && Text == other.Text;
         }
 

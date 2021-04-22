@@ -1,16 +1,16 @@
-﻿using CourseCatalog.Application.Contracts;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.DeleteDraft
 {
     public class DeleteDraftCommandHandler : IRequestHandler<DeleteDraftCommand>
     {
-        private readonly IDraftRepository _draftRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly IDraftRepository _draftRepository;
 
         public DeleteDraftCommandHandler(IDraftRepository draftRepository, ICourseRepository courseRepository)
         {

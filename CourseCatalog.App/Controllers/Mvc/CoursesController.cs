@@ -1,5 +1,5 @@
-﻿using CourseCatalog.App.Filters;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using CourseCatalog.App.Filters;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
@@ -22,26 +22,28 @@ namespace CourseCatalog.App.Controllers.Mvc
         [Route("{courseId}")]
         public ActionResult Details(string courseId)
         {
-            return View((object)courseId);
+            return View((object) courseId);
         }
 
-        [Route("endorsement-courses"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [Route("endorsement-courses")]
+        [CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
         public ActionResult EndorsementCourses()
         {
             return View();
         }
 
-        [Route("course-teachers"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [Route("course-teachers")]
+        [CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
         public ActionResult CourseTeachers()
         {
             return View();
         }
 
-        [Route("teacher-courses"), CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [Route("teacher-courses")]
+        [CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
         public ActionResult TeacherCourses()
         {
             return View();
         }
-
     }
 }

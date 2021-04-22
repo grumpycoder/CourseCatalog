@@ -1,11 +1,11 @@
-﻿using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
+using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
+using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
 using CourseCatalog.App.Filters;
 using MediatR;
-using System.Threading.Tasks;
-using System.Web.Http;
-using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -19,34 +19,38 @@ namespace CourseCatalog.App.Controllers.API
             _mediator = mediator;
         }
 
-        [HttpGet, Route("")]
+        [HttpGet]
+        [Route("")]
         public async Task<IHttpActionResult> Get()
         {
             var dtos = await _mediator.Send(new GetClusterListQuery());
             return Ok(dtos);
         }
 
-        [HttpGet, Route("{clusterId}")]
+        [HttpGet]
+        [Route("{clusterId}")]
         public async Task<IHttpActionResult> Get(int clusterId)
         {
             var cluster = await _mediator.Send(new GetClusterDetailQuery(clusterId));
             return Ok(cluster);
         }
 
-        [HttpPut, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [HttpPut]
+        [Route]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> UpdateCluster([FromBody] UpdateClusterCommand updateClusterCommand)
         {
             var id = await _mediator.Send(updateClusterCommand);
             return Ok(id);
         }
 
-        [HttpPost, Route, CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
+        [HttpPost]
+        [Route]
+        [CustomAuthorize(Roles = "CareerTechAdmin, Admin")]
         public async Task<IHttpActionResult> CreateCluster([FromBody] CreateClusterCommand createClusterCommand)
         {
             var id = await _mediator.Send(createClusterCommand);
             return Ok(id);
         }
-
     }
-
 }

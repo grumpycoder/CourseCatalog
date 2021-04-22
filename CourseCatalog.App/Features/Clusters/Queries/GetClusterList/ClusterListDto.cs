@@ -13,6 +13,5 @@
 
         public int ClusterTypeId { get; set; }
         public string ClusterTypeName { get; set; }
-
     }
 }

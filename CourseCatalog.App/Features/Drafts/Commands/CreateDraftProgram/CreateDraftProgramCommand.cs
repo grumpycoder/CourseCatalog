@@ -19,5 +19,4 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftProgram
         public int? BeginYear { get; set; }
         public int? EndYear { get; set; }
     }
-
 }

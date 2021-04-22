@@ -1,8 +1,5 @@
-﻿
-<style>
-    .text-larger {
-        font-size: 90%;
-    }
+﻿<style>
+    .text-larger { font-size: 90%; }
 </style>
 
 
@@ -14,7 +11,9 @@
         <span class="pull-right">
             <a ng-href="/drafts/{{ $ctrl.courseId }}/edit"
                ng-class="{disabled: $ctrl.isProcessing}"
-               class="btn btn-sm btn-outline-dark" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">Edit</a>
+               class="btn btn-sm btn-outline-dark" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">
+                Edit
+            </a>
             <button class="btn btn-outline-warning btn-sm mr-2" ng-click="$ctrl.publish()" ng-show="$ctrl.isAdmin" ng-disabled="$ctrl.processing">Publish Draft</button>
             <small class="alert alert-success" ng-show="{{$ctrl.publishMessage}}">{{$ctrl.publishMessage}}</small>
         </span>
@@ -24,7 +23,9 @@
 
             <div class="col-12 col-md-7 col-lg-7">
                 <fieldset class="border p-2">
-                    <legend class="w-auto"><small>Details</small></legend>
+                    <legend class="w-auto">
+                        <small>Details</small>
+                    </legend>
                     <dl class="row">
                         <dt class="col-5 col-md-4 col-lg-3">Name</dt>
                         <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.name }}</dd>
@@ -143,7 +144,9 @@
 
             <div class="col-12 col-md-5 col-lg-5">
                 <fieldset class="border p-2">
-                    <legend class="w-auto"><small>CTE Programs</small></legend>
+                    <legend class="w-auto">
+                        <small>CTE Programs</small>
+                    </legend>
 
                     <div dx-list="$ctrl.listOptions" allowDeleting="true" dx-item-alias="item">
                         <div data-options="dxTemplate: {name: 'item'}">

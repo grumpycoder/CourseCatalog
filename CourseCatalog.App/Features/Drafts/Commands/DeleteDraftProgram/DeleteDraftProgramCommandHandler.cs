@@ -1,10 +1,10 @@
-﻿using CourseCatalog.Application.Contracts;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.DeleteDraftProgram
 {

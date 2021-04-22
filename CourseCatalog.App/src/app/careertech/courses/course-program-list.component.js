@@ -1,18 +1,17 @@
 ﻿//course-program-list.component.js 
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
     var ctrl = this;
 
-    ctrl.title = 'Career Technology Programs';
+    ctrl.title = "Career Technology Programs";
 
-    ctrl.$onInit = function () {
-        $http.get('/api/programs').then(r => {
+    ctrl.$onInit = function() {
+        $http.get("/api/programs").then(r => {
             ctrl.programs = r.data;
-            console.log('programs', ctrl.programs);
         });
-    }
+    };
 
     ctrl.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
@@ -31,21 +30,21 @@ function controller($http) {
         },
         searchPanel: {
             visible: true,
-            placeholder: 'Search...'
+            placeholder: "Search..."
         },
         scrolling: {
             mode: "virtual",
             rowRenderingMode: "virtual"
         },
         paging: {
-            pageSize: 200, 
+            pageSize: 200,
             enabled: false
         },
         remoteOperations: {
             filtering: false
         },
         loadPanel: {
-            text: 'Loading Courses ...'
+            text: "Loading Courses ..."
         },
         groupPanel: {
             visible: true,
@@ -68,30 +67,31 @@ function controller($http) {
         columnAutoWidth: true,
         columnMinWidth: 50,
         columns: [
-            { dataField: 'programCode', caption: 'Program Code', width: 120, dataType: 'string' },
-            { dataField: 'name', caption: 'Name', dataType: 'string' },
-            { dataField: 'description', caption: 'Description', dataType: 'string' },
-            { dataField: 'programType', caption: 'Program Type', width: 120, dataType: 'string' },
-            { dataField: 'clusterCode', caption: 'Cluster Code', width: 120, dataType: 'string' },
-            { dataField: 'clusterType', caption: 'Cluster Type', width: 120, dataType: 'string' },
-            { dataField: 'beginYear', caption: 'Valid Start', width: 120, dataType: 'string' },
-            { dataField: 'endYear', caption: 'Valid End', width: 120, dataType: 'string' }, 
+            { dataField: "programCode", caption: "Program Code", width: 120, dataType: "string" },
+            { dataField: "name", caption: "Name", dataType: "string" },
+            { dataField: "description", caption: "Description", dataType: "string" },
+            { dataField: "programType", caption: "Program Type", width: 120, dataType: "string" },
+            { dataField: "clusterCode", caption: "Cluster Code", width: 120, dataType: "string" },
+            { dataField: "clusterType", caption: "Cluster Type", width: 120, dataType: "string" },
+            { dataField: "beginYear", caption: "Valid Start", width: 120, dataType: "string" },
+            { dataField: "endYear", caption: "Valid End", width: 120, dataType: "string" },
             {
-                caption: '',
+                caption: "",
                 width: 75,
-                cssClass: 'center-col',
-                cellTemplate: function (container, options) {
-                    $('<a/>').addClass('btn btn-outline-primary')
-                        .text('')
-                        .attr('aria-label', 'Edit Cluster ' + options.data.clusterCode)
-                        .attr('title', 'Edit Cluster ' + options.data.clusterCode)
-                        .attr('data-toggle', 'tooltip')
-                        .attr('data-placement', 'top')
-                        .attr('href', '/careertech/clusters/' + options.data.clusterCode + '/edit')
+                cssClass: "center-col",
+                cellTemplate: function(container, options) {
+                    $("<a/>").addClass("btn btn-outline-primary")
+                        .text("")
+                        .attr("aria-label", `Edit Cluster ${options.data.clusterCode}`)
+                        .attr("title", `Edit Cluster ${options.data.clusterCode}`)
+                        .attr("data-toggle", "tooltip")
+                        .attr("data-placement", "top")
+                        .attr("href", `/careertech/clusters/${options.data.clusterCode}/edit`)
                         .append('<i class="fa fa-pencil">')
-                        .on('dxclick',
-                            function (e) {
-                                $('<a href="/careertech/clusters/' + options.data.clusterCode + '/edit>' + options.data.clusterCode + '</a>').appendTo(container);
+                        .on("dxclick",
+                            function(e) {
+                                $(`<a href="/careertech/clusters/${options.data.clusterCode}/edit>${options.data
+                                    .clusterCode}</a>`).appendTo(container);
                             })
                         .appendTo(container);
                 }
@@ -101,29 +101,27 @@ function controller($http) {
             totalItems: [
                 {
                     column: "clusterCode",
-                    displayFormat: '{0} Clusters',
-                    summaryType: 'count',
+                    displayFormat: "{0} Clusters",
+                    summaryType: "count",
                     showInGroupFooter: true,
-                    showInColumn: 'clusterCode'
+                    showInColumn: "clusterCode"
                 }
             ],
             groupItems: [
                 {
                     summaryType: "count",
-                    displayFormat: '{0} Clusters'
+                    displayFormat: "{0} Clusters"
                 }
-
             ]
         }
-    }
+    };
 }
 
 
-module.component('courseProgramList',
+module.component("courseProgramList",
     {
         bindings: {
         },
-        templateUrl: '/src/app/careertech/courses/course-program-list.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/careertech/courses/course-program-list.component.html",
+        controller: ["$http", controller]
     });
-

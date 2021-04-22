@@ -1,6 +1,4 @@
-﻿
-
-<form novalidate ng-submit="$ctrl.addProgram()" name="$ctrl.form3" id="$ctrl.form3" class="form">
+﻿<form novalidate ng-submit="$ctrl.addProgram()" name="$ctrl.form3" id="$ctrl.form3" class="form">
 
     <div class="form-row col-12 col-lg-6" ng-show="$ctrl.isAdmin">
 
@@ -54,7 +52,8 @@
                              deselectable=""
                              required
                              ng-options="o.programId as o.displayName group by o.cluster for o in $ctrl.programs | orderBy:['cluster', 'displayName']"
-                             class="custom-select-sm"></extended-select>
+                             class="custom-select-sm">
+            </extended-select>
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit"
                         ng-disabled="$ctrl.form3.$invalid || $ctrl.form3.$pristine">

@@ -1,12 +1,12 @@
 ﻿@{
     ViewBag.Title = "Clusters";
     var isAdmin = "false";
-    if (User.Identity.HasRoleClaim("CareerTechAdmin") || @User.Identity.HasRoleClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CareerTechAdmin") || User.Identity.HasRoleClaim("Admin"))
     {
-        isAdmin = "true"; 
-    };
+        isAdmin = "true";
+    }
 }
-<cluster-list is-admin=@isAdmin></cluster-list>
+<cluster-list is-admin="@isAdmin"></cluster-list>
 
 @section scripts{
     <script src="~/src/app/careertech/clusters/cluster-list.component.js"></script>

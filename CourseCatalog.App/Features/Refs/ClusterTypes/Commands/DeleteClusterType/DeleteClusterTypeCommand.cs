@@ -4,11 +4,11 @@ namespace CourseCatalog.App.Features.Refs.ClusterTypes.Commands.DeleteClusterTyp
 {
     public class DeleteClusterTypeCommand : IRequest
     {
-        public int ClusterTypeId { get; set; }
-
         public DeleteClusterTypeCommand(int clusterTypeId)
         {
             ClusterTypeId = clusterTypeId;
         }
+
+        public int ClusterTypeId { get; set; }
     }
 }

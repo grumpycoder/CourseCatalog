@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
 {
@@ -23,10 +23,7 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
         {
             var course = await _courseRepository.GetCourseByIdWithDetails(request.CourseId);
 
-            if (course == null)
-            {
-                throw new NotFoundException(nameof(Course), request.CourseId);
-            }
+            if (course == null) throw new NotFoundException(nameof(Course), request.CourseId);
             var courseDetailDto = _mapper.Map<CourseDetailDto>(course);
 
             return courseDetailDto;

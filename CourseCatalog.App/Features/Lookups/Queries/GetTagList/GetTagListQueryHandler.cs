@@ -1,9 +1,9 @@
-﻿using CourseCatalog.Application.Contracts;
-using CourseCatalog.Domain.Entities;
-using MediatR;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
+using CourseCatalog.Domain.Entities;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Lookups.Queries.GetTagList
 {

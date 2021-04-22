@@ -1,17 +1,17 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.CredentialTypes.Commands.CreateCredentialType
 {
     public class CreateCredentialTypeCommandHandler : IRequestHandler<CreateCredentialTypeCommand, int>
     {
-        private readonly IMapper _mapper;
         private readonly ICredentialTypeRepository _clusterTypeRepository;
+        private readonly IMapper _mapper;
 
         public CreateCredentialTypeCommandHandler(IMapper mapper, ICredentialTypeRepository clusterTypeRepository)
         {
@@ -23,10 +23,8 @@ namespace CourseCatalog.App.Features.Refs.CredentialTypes.Commands.CreateCredent
         {
             var clusterType = await _clusterTypeRepository.GetCredentialTypeByName(request.Name);
             if (clusterType != null)
-            {
                 throw new BadRequestException(
                     $"Duplicate Credential Type Name. Existing Credential Type already contains name {request.Name}");
-            }
 
             clusterType = _mapper.Map<CredentialType>(request);
 

@@ -1,5 +1,5 @@
-﻿using CourseCatalog.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail
 {
@@ -28,19 +28,21 @@ namespace CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail
         public int? HighGradeId { get; set; }
         public Grade HighGrade { get; set; }
 
-        public GradeRange GradeRange {
+        public GradeRange GradeRange
+        {
             get
             {
-                var gr = new GradeRange()
+                var gr = new GradeRange
                 {
                     LowGrade = LowGrade.Name,
                     HighGrade = HighGrade.Name,
                     LowGradeId = LowGrade.GradeId,
-                    HighGradeid = HighGrade.GradeId
+                    HighGradeId = HighGrade.GradeId
                 };
-                return gr; 
+                return gr;
             }
         }
+
         public bool? IsCareerTech { get; set; }
         public bool? IsSpecialEducation { get; set; }
         public bool? IsLocallyEditable { get; set; }
@@ -61,14 +63,13 @@ namespace CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail
         public List<DraftEndorsementDto> Endorsements { get; set; }
 
         public List<ProgramDraftDto> Programs { get; set; }
-
     }
 
     public class GradeRange
     {
         public int LowGradeId { get; set; }
         public string LowGrade { get; set; }
-        public int HighGradeid { get; set; }
+        public int HighGradeId { get; set; }
         public string HighGrade { get; set; }
     }
 

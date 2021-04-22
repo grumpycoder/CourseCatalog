@@ -22,32 +22,37 @@ namespace CourseCatalog.App.Controllers.API
             _mapper = mapper;
         }
 
-        [HttpGet, Route("")]
+        [HttpGet]
+        [Route("")]
         public async Task<IHttpActionResult> Get()
         {
             return Ok("Get Request");
         }
 
-        [HttpPut, Route("")]
+        [HttpPut]
+        [Route("")]
         public async Task<IHttpActionResult> Put()
         {
             return Ok("Put Request");
         }
 
-        [HttpDelete, Route("")]
+        [HttpDelete]
+        [Route("")]
         public async Task<IHttpActionResult> Delete()
         {
             return Ok("Delete Request");
         }
 
-        [HttpPost, Route("throwError")]
+        [HttpPost]
+        [Route("throwError")]
         public async Task<IHttpActionResult> ThrowError()
         {
             throw new Exception("Testing error handling");
             return Ok();
         }
 
-        [HttpPost, Route("PsCourseRequest")]
+        [HttpPost]
+        [Route("PsCourseRequest")]
         public async Task<IHttpActionResult> PsClientRequest()
         {
             var url = ConfigurationManager.AppSettings["ApiRequestUrl"];
@@ -60,11 +65,11 @@ namespace CourseCatalog.App.Controllers.API
                 .WithHeader("Content-Type", "application/x-www-form-urlencoded")
                 .PostAsync().ReceiveJson();
 
-            var access_token = result.access_token;
-            var token_type = result.token_type;
-            var expires_in = result.expires_in;
+            var accessToken = result.access_token;
+            var tokenType = result.token_type;
+            var expiresIn = result.expires_in;
 
-            string bearer = access_token.ToString();
+            string bearer = accessToken.ToString();
 
             var courses = await "https://algold-pilot.powerschool.com"
                 .AppendPathSegment("ws/schema/table/u_def_courses")
@@ -76,7 +81,8 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(courses);
         }
 
-        [HttpPost, Route("PsCoursePost/{courseId}")]
+        [HttpPost]
+        [Route("PsCoursePost/{courseId}")]
         public async Task<IHttpActionResult> PsClientpost(int courseId)
         {
             var url = ConfigurationManager.AppSettings["ApiRequestUrl"];
@@ -89,18 +95,18 @@ namespace CourseCatalog.App.Controllers.API
                 .WithHeader("Content-Type", "application/x-www-form-urlencoded")
                 .PostAsync().ReceiveJson();
 
-            var access_token = result.access_token;
-            string bearer = access_token.ToString();
+            var accessToken = result.access_token;
+            string bearer = accessToken.ToString();
 
             var course = await _courseRepository.GetCourseByIdWithDetails(courseId);
 
             var dto = _mapper.Map<UDefCourses>(course);
             if (dto.CreditType == null) dto.CreditType = "";
 
-            var container = new UDefCoursesContainer()
+            var container = new UDefCoursesContainer
             {
                 Name = "u_def_courses",
-                Tables = new Tables() { UDefCourses = dto }
+                Tables = new Tables { UDefCourses = dto }
             };
 
             var post = await "https://algold-pilot.powerschool.com"

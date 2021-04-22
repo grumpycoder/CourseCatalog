@@ -1,20 +1,20 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Programs.Queries.GetProgramDetail
 {
     public class GetProgramDetailQueryHandler : IRequestHandler<GetProgramDetailQuery, ProgramDetailDto>
     {
-        private readonly IProgramRepository _programRepository;
         private readonly IMapper _mapper;
+        private readonly IProgramRepository _programRepository;
 
         public GetProgramDetailQueryHandler(IMapper mapper, IProgramRepository programRepository
-            )
+        )
         {
             _mapper = mapper;
             _programRepository = programRepository;

@@ -4,7 +4,7 @@ using CourseCatalog.App.Profiles;
 
 namespace CourseCatalog.App
 {
-    public class AutoMapperModule : Autofac.Module
+    public class AutoMapperModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -12,10 +12,8 @@ namespace CourseCatalog.App
             //builder.RegisterType<CustomValueResolver>().AsSelf();
             //builder.RegisterType<CustomTypeConverter>().AsSelf();
 
-            builder.Register(context => new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<Mappings>();
-            })).AsSelf().SingleInstance();
+            builder.Register(context => new MapperConfiguration(cfg => { cfg.AddProfile<Mappings>(); })).AsSelf()
+                .SingleInstance();
 
             builder.Register(c =>
                 {

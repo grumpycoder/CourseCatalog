@@ -1,17 +1,17 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.CredentialTypes.Commands.UpdateCredentialType
 {
     public class UpdateCredentialTypeCommandHandler : IRequestHandler<UpdateCredentialTypeCommand>
     {
-        private readonly IMapper _mapper;
         private readonly ICredentialTypeRepository _credentialTypeRepository;
+        private readonly IMapper _mapper;
 
         public UpdateCredentialTypeCommandHandler(IMapper mapper, ICredentialTypeRepository credentialTypeRepository)
         {
@@ -26,10 +26,8 @@ namespace CourseCatalog.App.Features.Refs.CredentialTypes.Commands.UpdateCredent
 
             var credentialType = await _credentialTypeRepository.GetCredentialTypeByName(request.Name);
             if (credentialType != null && credentialType.Name != credentialTypeToUpdate.Name)
-            {
                 throw new BadRequestException(
                     $"Duplicate Name. Existing Credential Type already contains name {request.Name}");
-            }
 
             _mapper.Map(request, credentialTypeToUpdate, typeof(UpdateCredentialTypeCommand), typeof(CredentialType));
 

@@ -4,11 +4,11 @@ namespace CourseCatalog.App.Features.Refs.ProgramTypes.Commands.DeleteProgramTyp
 {
     public class DeleteProgramTypeCommand : IRequest
     {
-        public int ProgramTypeId { get; set; }
-
         public DeleteProgramTypeCommand(int clusterTypeId)
         {
             ProgramTypeId = clusterTypeId;
         }
+
+        public int ProgramTypeId { get; set; }
     }
 }

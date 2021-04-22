@@ -4,11 +4,11 @@ namespace CourseCatalog.App.Features.Refs.CredentialTypes.Commands.DeleteCredent
 {
     public class DeleteCredentialTypeCommand : IRequest
     {
-        public int CredentialTypeId { get; set; }
-
         public DeleteCredentialTypeCommand(int clusterTypeId)
         {
             CredentialTypeId = clusterTypeId;
         }
+
+        public int CredentialTypeId { get; set; }
     }
 }

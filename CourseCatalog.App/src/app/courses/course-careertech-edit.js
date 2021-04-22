@@ -1,75 +1,75 @@
 ﻿//course-careertech-edit.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
     var ctrl = this;
 
-    ctrl.$onInit = function () {
-        loadRefs(); 
-    }
-    
+    ctrl.$onInit = function() {
+        loadRefs();
+    };
+
     function loadRefs() {
         fetchSchoolYears();
         fetchPrograms();
     }
 
     function fetchSchoolYears() {
-        return $http.get('/api/refs/schoolyears').then(function (r) {
+        return $http.get("/api/refs/schoolyears").then(function(r) {
             return ctrl.schoolYears = r.data;
         });
     }
 
     function fetchPrograms() {
-        return $http.get('/api/refs/programs').then(r => {
+        return $http.get("/api/refs/programs").then(r => {
             ctrl.programs = r.data;
             ctrl.programsStore = new DevExpress.data.ArrayStore({
                 data: r.data,
-                key: 'id',
+                key: "id",
                 reshapeOnPush: true
             });
             ctrl.programsListOptions = {
                 dataSource: ctrl.programsStore,
                 searchEnabled: true,
                 searchExpr: "description",
-                displayExpr: 'name',
-                valueExpr: 'id'
-            }
+                displayExpr: "name",
+                valueExpr: "id"
+            };
         });
     }
 
     ctrl.removeProgram = function(item) {
         var idx = ctrl.course.programAssignments.indexOf(item);
-        var url = '/api/courses/' + ctrl.course.id + '/programs/' + item.programId; 
+        const url = `/api/courses/${ctrl.course.id}/programs/${item.programId}`;
         $http.delete(url)
             .then(r => {
-                toastr.success('Removed Program'); 
+                toastr.success("Removed Program");
                 ctrl.course.programAssignments.splice(idx, 1);
             }).catch(e => {
                 console.error(e);
                 toastr.error(e.message);
-            }); 
-    }
+            });
+    };
 
     ctrl.addProgram = function() {
-        var data = JSON.stringify(ctrl.programAssignment);
-        $http.post('/api/courses/' + ctrl.course.id + '/programs', data)
+        const data = JSON.stringify(ctrl.programAssignment);
+        $http.post(`/api/courses/${ctrl.course.id}/programs`, data)
             .then(r => {
                 ctrl.course.programAssignments.push(r.data);
-                ctrl.programAssignment.programId = undefined; 
-                toastr.success('Added Program'); 
+                ctrl.programAssignment.programId = undefined;
+                toastr.success("Added Program");
             }).catch(e => {
                 console.error(e);
                 toastr.error(e.message);
-            }); 
-    }
+            });
+    };
 }
 
-module.component('courseCareertechEdit',
+module.component("courseCareertechEdit",
     {
         bindings: {
-            course: '<'
+            course: "<"
         },
-        templateUrl: '/src/app/courses/course-careertech-edit.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/courses/course-careertech-edit.html",
+        controller: ["$http", controller]
     });

@@ -16,7 +16,8 @@ namespace CourseCatalog.App.Features.Lookups.Queries.GetProgramTypeList
             _repository = repository;
         }
 
-        public async Task<List<ProgramType>> Handle(GetProgramTypeListQuery request, CancellationToken cancellationToken)
+        public async Task<List<ProgramType>> Handle(GetProgramTypeListQuery request,
+            CancellationToken cancellationToken)
         {
             var dto = await _repository.ListAllAsync();
             return dto as List<ProgramType>;

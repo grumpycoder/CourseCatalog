@@ -1,44 +1,44 @@
 ﻿//course-teachers-list.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
 
     var ctrl = this;
     ctrl.selectedCourse = {
         courseId: null
-    }
+    };
 
-    ctrl.$onInit = function () {
-        ctrl.title = 'Courses Teachers';
+    ctrl.$onInit = function() {
+        ctrl.title = "Courses Teachers";
 
         ctrl.courseListOptions = {
             dataSource: DevExpress.data.AspNet.createStore({
-                key: 'courseId',
-                loadUrl: '/api/courses'
+                key: "courseId",
+                loadUrl: "/api/courses"
             }),
             height: 490,
             searchEnabled: true,
-            searchExpr: ['name', 'courseNumber'],
+            searchExpr: ["name", "courseNumber"],
             searchEditorOptions: {
-                placeholder: 'Search courses...'
+                placeholder: "Search courses..."
             },
-            onItemClick: function (e) {
+            onItemClick: function(e) {
                 ctrl.selectedCourse = e.itemData;
                 ctrl.selectedCourseId = e.itemData.courseId;
 
                 getTeachers(e.itemData.courseId);
 
             }
-        }
+        };
 
     };
 
     ctrl.dataSource = DevExpress.data.AspNet.createStore({
-        key: 'tchNumber',
-        loadUrl: '/api/courses/' + ctrl.selectedCourseId + '/teachers',
-        onBeforeSend: function (r, s) {
-            s.url = '/api/courses/' + ctrl.selectedCourseId + '/teachers';
+        key: "tchNumber",
+        loadUrl: `/api/courses/${ctrl.selectedCourseId}/teachers`,
+        onBeforeSend: function(r, s) {
+            s.url = `/api/courses/${ctrl.selectedCourseId}/teachers`;
         }
     });
 
@@ -47,22 +47,21 @@ function controller($http) {
             dataSource: ctrl.dataSource,
             height: 490,
             searchEnabled: true,
-            searchExpr: ['fullName', 'tchNumber'],
+            searchExpr: ["fullName", "tchNumber"],
             searchEditorOptions: {
-                placeholder: 'Search teachers...'
+                placeholder: "Search teachers..."
             }
-        }
+        };
 
-        $('#teacherList').dxList("instance").option('dataSource', ctrl.dataSource);
+        $("#teacherList").dxList("instance").option("dataSource", ctrl.dataSource);
     }
 
 }
 
-module.component('courseTeachersList',
+module.component("courseTeachersList",
     {
         bindings: {
         },
-        templateUrl: '/src/app/courses/course-teachers-list.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/courses/course-teachers-list.component.html",
+        controller: ["$http", controller]
     });
-

@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.Subjects.Commands
 {
@@ -26,10 +26,8 @@ namespace CourseCatalog.App.Features.Refs.Subjects.Commands
 
             var subject = await _subjectRepository.GetSubjectBySubjectCode(request.SubjectCode);
             if (subject != null && subject.SubjectCode != subjectToUpdate.SubjectCode)
-            {
                 throw new BadRequestException(
                     $"Duplicate Subject Code. Existing Subject already contains Subject Code {request.SubjectCode}");
-            }
 
             _mapper.Map(request, subjectToUpdate, typeof(UpdateSubjectCommand), typeof(Subject));
 

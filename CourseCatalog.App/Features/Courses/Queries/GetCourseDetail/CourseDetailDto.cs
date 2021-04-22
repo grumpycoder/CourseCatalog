@@ -30,12 +30,12 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
         {
             get
             {
-                var gr = new GradeRange()
+                var gr = new GradeRange
                 {
                     LowGrade = LowGrade.Name,
                     HighGrade = HighGrade.Name,
                     LowGradeId = LowGrade.GradeId,
-                    HighGradeid = HighGrade.GradeId
+                    HighGradeId = HighGrade.GradeId
                 };
                 return gr;
             }
@@ -58,14 +58,13 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
         public List<CourseEndorsementDto> Endorsements { get; set; }
 
         public List<ProgramCourseDto> Programs { get; set; }
-
     }
 
     public class GradeRange
     {
         public int LowGradeId { get; set; }
         public string LowGrade { get; set; }
-        public int HighGradeid { get; set; }
+        public int HighGradeId { get; set; }
         public string HighGrade { get; set; }
     }
 

@@ -1,15 +1,15 @@
 ﻿//perf-viewer.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
     var ctrl = this;
 
-    ctrl.$onInit = function () {
-        ctrl.title = 'Performance Log Viewer';
-    }
+    ctrl.$onInit = function() {
+        ctrl.title = "Performance Log Viewer";
+    };
 
-    var url = '/api/logs/perf';
+    const url = "/api/logs/perf";
 
     ctrl.dataGridOptions = {
         dataSource: DevExpress.data.AspNet.createStore({
@@ -25,7 +25,7 @@ function controller($http) {
             enabled: true,
             fileName: "Log",
             allowExportSelectedData: false,
-            icon: 'fa fa-trash'
+            icon: "fa fa-trash"
         },
         stateStoring: {
             enabled: true,
@@ -43,16 +43,16 @@ function controller($http) {
         columnMinWidth: 50,
         columnAutoWidth: true,
         columns: [
-            { dataField: 'hostname', caption: 'Host' },
-            { dataField: 'layer', caption: 'Layer' },
-            { dataField: 'location', caption: 'Location' },
-            { dataField: 'userName', caption: 'User' },
-            { dataField: 'message', caption: 'Message', width: 200, wordWrapEnabled: false },
-            { dataField: 'elapsedMilliseconds', caption: 'Elapsed Milliseconds', visible: false },
-            { dataField: 'additionalInfo', caption: 'Additional Info', width: 200, wordWrapEnabled: false },
-            { dataField: 'timestamp', caption: 'Time Stamp', dataType: 'datetime' }
+            { dataField: "hostname", caption: "Host" },
+            { dataField: "layer", caption: "Layer" },
+            { dataField: "location", caption: "Location" },
+            { dataField: "userName", caption: "User" },
+            { dataField: "message", caption: "Message", width: 200, wordWrapEnabled: false },
+            { dataField: "elapsedMilliseconds", caption: "Elapsed Milliseconds", visible: false },
+            { dataField: "additionalInfo", caption: "Additional Info", width: 200, wordWrapEnabled: false },
+            { dataField: "timestamp", caption: "Time Stamp", dataType: "datetime" }
         ],
-        onToolbarPreparing: function (e) {
+        onToolbarPreparing: function(e) {
             var dataGrid = e.component;
 
             e.toolbarOptions.items.unshift(
@@ -62,8 +62,8 @@ function controller($http) {
                     options: {
                         text: "Collapse All",
                         width: 136,
-                        onClick: function (e) {
-                            var expanding = e.component.option("text") === "Expand All";
+                        onClick: function(e) {
+                            const expanding = e.component.option("text") === "Expand All";
                             dataGrid.option("grouping.autoExpandAll", expanding);
                             e.component.option("text", expanding ? "Collapse All" : "Expand All");
                         }
@@ -75,7 +75,7 @@ function controller($http) {
                     options: {
                         text: "Toggle Wrap",
                         width: 160,
-                        onClick: function (e) {
+                        onClick: function(e) {
                             dataGrid.option("wordWrapEnabled", !dataGrid.option("wordWrapEnabled"));
                         }
                     }
@@ -86,8 +86,8 @@ function controller($http) {
 
                     options: {
                         icon: "refresh",
-                        hint: 'Refresh',
-                        onClick: function () {
+                        hint: "Refresh",
+                        onClick: function() {
                             dataGrid.refresh();
                         }
                     }
@@ -97,8 +97,8 @@ function controller($http) {
                     widget: "dxButton",
                     options: {
                         icon: "clearformat",
-                        hint: 'Clear filters',
-                        onClick: function () {
+                        hint: "Clear filters",
+                        onClick: function() {
                             dataGrid.clearFilter();
                         }
                     }
@@ -108,22 +108,21 @@ function controller($http) {
                     widget: "dxButton",
                     options: {
                         icon: "clearsquare",
-                        hint: 'Reset grid to default',
-                        onClick: function () {
+                        hint: "Reset grid to default",
+                        onClick: function() {
                             dataGrid.state({});
                         }
                     }
                 }
-
             );
         }
-    }
+    };
 
 
 }
 
-module.component('perfViewer',
+module.component("perfViewer",
     {
-        templateUrl: '/src/app/admin/perf-viewer.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/admin/perf-viewer.component.html",
+        controller: ["$http", controller]
     });

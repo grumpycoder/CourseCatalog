@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.ProgramTypes.Commands.UpdateProgramType
 {
@@ -26,10 +26,8 @@ namespace CourseCatalog.App.Features.Refs.ProgramTypes.Commands.UpdateProgramTyp
 
             var programType = await _programTypeRepository.GetProgramTypeByName(request.Name);
             if (programType != null && programType.Name != programTypeToUpdate.Name)
-            {
                 throw new BadRequestException(
                     $"Duplicate Name. Existing Program Type already contains name {request.Name}");
-            }
 
             _mapper.Map(request, programTypeToUpdate, typeof(UpdateProgramTypeCommand), typeof(ProgramType));
 

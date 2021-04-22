@@ -21,33 +21,35 @@ namespace CourseCatalog.App.Controllers.API
     [DisplayName("Membership")]
     public class MembershipApiController : ApiController
     {
-        private readonly CourseDbContext _context;
         private readonly IdemContext _idemContext;
-        private readonly IMediator _mediator;
         private readonly ILoggedInUserService _loggedInUserService;
+        private readonly IMediator _mediator;
 
-        public MembershipApiController(CourseDbContext context, IdemContext idemContext, IMediator mediator, ILoggedInUserService loggedInUserService)
+        public MembershipApiController(IdemContext idemContext, IMediator mediator,
+            ILoggedInUserService loggedInUserService)
         {
-            _context = context;
             _idemContext = idemContext;
             _mediator = mediator;
             _loggedInUserService = loggedInUserService;
         }
 
-        [HttpGet, Route("idem")]
+        [HttpGet]
+        [Route("idem")]
         public async Task<IHttpActionResult> GetIdemUsers([FromUri] DataSourceLoadOptions loadOptions)
         {
             return Ok(await DataSourceLoader.LoadAsync(_idemContext.Users, loadOptions));
         }
 
-        [HttpGet, Route("groups")]
+        [HttpGet]
+        [Route("groups")]
         public async Task<IHttpActionResult> Groups()
         {
             var dtos = await _mediator.Send(new GetGroupListQuery());
             return Ok(dtos);
         }
 
-        [HttpGet, Route("currentuser")]
+        [HttpGet]
+        [Route("CurrentUser")]
         public async Task<IHttpActionResult> GetUserDetails()
         {
             var dto = await _mediator.Send(new GetUserQuery(_loggedInUserService.IdentityGuid));
@@ -55,17 +57,20 @@ namespace CourseCatalog.App.Controllers.API
         }
 
 
-        [HttpDelete, Route("groups/{groupId}/user/{userId}"), Authorize(Roles = "Admin")]
+        [HttpDelete]
+        [Route("groups/{groupId}/user/{userId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> DeleteGroupMember(int groupId, Guid userId)
         {
             var dto = await _mediator.Send(new DeleteGroupUserCommand(groupId, userId));
             return Ok(dto);
         }
 
-        [HttpPost, Route("groups/{groupId}/user/{identityGuid}"), Authorize(Roles = "Admin")]
+        [HttpPost]
+        [Route("groups/{groupId}/user/{identityGuid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> AddGroupMember(int groupId, Guid identityGuid)
         {
-
             UserDetailDto user = null;
             try
             {
@@ -95,8 +100,6 @@ namespace CourseCatalog.App.Controllers.API
 
             var dto = await _mediator.Send(new CreateGroupUserCommand(groupId, identityGuid));
             return Ok(dto);
-
         }
-
     }
 }

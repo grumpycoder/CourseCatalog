@@ -1,5 +1,5 @@
-﻿using CourseCatalog.Domain.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail
 {
@@ -27,6 +27,5 @@ namespace CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail
         public string Name { get; set; }
         public int BeginYear { get; set; }
         public int EndYear { get; set; }
-
     }
 }

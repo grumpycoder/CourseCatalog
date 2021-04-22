@@ -1,10 +1,10 @@
 ﻿using Alsde.Extensions;
-using CourseCatalog.App.Features.Users.Commands.CreateUser;
 using CourseCatalog.App.Features.Users.Commands.UpdateUser;
 using CourseCatalog.App.Features.Users.Queries.GetUser;
 using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Helpers;
 using CourseCatalog.Application.Contracts;
+using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
 using System;
@@ -12,11 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using CourseCatalog.Application.Exceptions;
 
 namespace CourseCatalog.App.Services
 {
-
     public class MemberService : IMemberService
     {
         private readonly IMediator _mediator;
@@ -83,13 +81,8 @@ namespace CourseCatalog.App.Services
             }
             catch (Exception e)
             {
-                if (e.GetType() != typeof(NotFoundException))
-                {
-                    throw;
-                }
+                if (e.GetType() != typeof(NotFoundException)) throw;
             }
         }
     }
-
-
 }

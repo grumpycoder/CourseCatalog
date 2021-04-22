@@ -1,26 +1,21 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Responses;
 using CourseCatalog.Domain.Entities;
 using Flurl;
 using Flurl.Http;
 using Newtonsoft.Json;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using System.Web.Configuration;
 
 namespace CourseCatalog.App.Services
 {
     public class PublishService : IPublishCourseService
     {
-        private readonly IMapper _mapper;
         private readonly IPublisherApiConfiguration _configuration;
-
-        public string BearerToken { get; set; }
-        public DateTime TokenExpiration { get; set; }
-        public bool TokenHasExpired => TokenExpiration <= DateTime.Now.AddMinutes(-5);
+        private readonly IMapper _mapper;
 
         public PublishService(IMapper mapper, IPublisherApiConfiguration configuration)
         {
@@ -28,9 +23,12 @@ namespace CourseCatalog.App.Services
             _configuration = configuration;
         }
 
+        public string BearerToken { get; set; }
+        public DateTime TokenExpiration { get; set; }
+        public bool TokenHasExpired => TokenExpiration <= DateTime.Now.AddMinutes(-5);
+
         public async Task<BaseResponse> PublishCourse(Course course)
         {
-
             if (TokenHasExpired)
                 await GetBearerToken(_configuration.ApiRequestUrl, _configuration.ApiPluginClientId,
                     _configuration.ClientSecret);
@@ -38,10 +36,10 @@ namespace CourseCatalog.App.Services
             var dto = _mapper.Map<UDefCourses>(course);
             if (dto.CreditType == null) dto.CreditType = "";
 
-            var container = new UDefCoursesContainer()
+            var container = new UDefCoursesContainer
             {
                 Name = "u_def_courses",
-                Tables = new Tables() { UDefCourses = dto }
+                Tables = new Tables {UDefCourses = dto}
             };
 
             var post = await _configuration.ApiRequestUrl
@@ -56,12 +54,10 @@ namespace CourseCatalog.App.Services
             var message = JsonConvert.SerializeObject(postResult.success_message);
             var response = new BaseResponse(message, status);
             return response;
-
         }
 
         public async Task GetBearerToken(string apiRequestUrl, string pluginClientId, string clientSecret)
         {
-
             var url = apiRequestUrl;
             var config = new PublisherApiConfiguration();
             var result = await url
@@ -72,17 +68,17 @@ namespace CourseCatalog.App.Services
                 .WithHeader("Content-Type", "application/x-www-form-urlencoded")
                 .PostAsync().ReceiveJson();
 
-            var access_token = result.access_token;
-            var expires_in = result.expires_in;
+            var accessToken = result.access_token;
+            var expiresIn = result.expires_in;
 
-            BearerToken = access_token;
-            TokenExpiration = DateTime.Now.AddMilliseconds(int.Parse((expires_in ?? 0)));
+            BearerToken = accessToken;
+            TokenExpiration = DateTime.Now.AddMilliseconds(int.Parse(expiresIn ?? 0));
         }
 
         private static HttpClient MethodHeaders(string bearerToken, string endpointUrl)
         {
-            var handler = new HttpClientHandler() { UseDefaultCredentials = false };
-            var client = new HttpClient(handler) { BaseAddress = new Uri(endpointUrl) };
+            var handler = new HttpClientHandler {UseDefaultCredentials = false};
+            var client = new HttpClient(handler) {BaseAddress = new Uri(endpointUrl)};
 
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -91,7 +87,7 @@ namespace CourseCatalog.App.Services
         }
     }
 
-    class JsonMessage
+    internal class JsonMessage
     {
         public string Message { get; set; }
     }
@@ -99,79 +95,57 @@ namespace CourseCatalog.App.Services
     [JsonObject(IsReference = false, Title = "u_def_courses")]
     public class UDefCourses
     {
-        [JsonProperty("inow_course_code")]
-        public string CourseCode { get; set; }
+        [JsonProperty("inow_course_code")] public string CourseCode { get; set; }
 
-        [JsonProperty("iscareertech")]
-        public string IsCareerTech { get; set; }
+        [JsonProperty("iscareertech")] public string IsCareerTech { get; set; }
 
-        [JsonProperty("code")]
-        public string CipCode { get; set; }
+        [JsonProperty("code")] public string CipCode { get; set; }
 
-        [JsonProperty("course_number")]
-        public string CourseNumber { get; set; }
+        [JsonProperty("course_number")] public string CourseNumber { get; set; }
 
-        [JsonProperty("course_name")]
-        public string CourseName { get; set; }
+        [JsonProperty("course_name")] public string CourseName { get; set; }
 
-        [JsonProperty("lowgrade")]
-        public string LowGrade { get; set; }
+        [JsonProperty("lowgrade")] public string LowGrade { get; set; }
 
-        [JsonProperty("isspecialed")]
-        public string IsSpecialEd { get; set; }
+        [JsonProperty("isspecialed")] public string IsSpecialEd { get; set; }
 
-        [JsonProperty("collegecoursecode")]
-        public string CollegeCourseCode { get; set; }
+        [JsonProperty("collegecoursecode")] public string CollegeCourseCode { get; set; }
 
-        [JsonProperty("locally_editable")]
-        public string LocallyEditable { get; set; }
+        [JsonProperty("locally_editable")] public string LocallyEditable { get; set; }
 
-        [JsonProperty("endorsements")]
-        public string Endorsements { get; set; }
+        [JsonProperty("endorsements")] public string Endorsements { get; set; }
 
-        [JsonProperty("highgrade")]
-        public string HighGrade { get; set; }
+        [JsonProperty("highgrade")] public string HighGrade { get; set; }
 
-        [JsonProperty("regcoursegroup")]
-        public string Subject { get; set; }
+        [JsonProperty("regcoursegroup")] public string Subject { get; set; }
 
-        [JsonProperty("iscollege")]
-        public string IsCollege { get; set; }
+        [JsonProperty("iscollege")] public string IsCollege { get; set; }
 
         [JsonProperty("sched_fullcatalogdescription")]
         public string Description { get; set; }
 
-        [JsonProperty("credit_hours")]
-        public string CreditHours { get; set; }
+        [JsonProperty("credit_hours")] public string CreditHours { get; set; }
 
-        [JsonProperty("credittype")]
-        public string CreditType { get; set; }
+        [JsonProperty("credittype")] public string CreditType { get; set; }
 
-        [JsonProperty("beginyear")]
-        public string BeginYear { get; set; }
+        [JsonProperty("beginyear")] public string BeginYear { get; set; }
 
-        [JsonProperty("endyear")]
-        public string EndYear { get; set; }
+        [JsonProperty("endyear")] public string EndYear { get; set; }
     }
 
     [JsonObject(IsReference = false)]
     public class Tables
     {
-        [JsonProperty("u_def_courses")]
-        public UDefCourses UDefCourses { get; set; }
+        [JsonProperty("u_def_courses")] public UDefCourses UDefCourses { get; set; }
     }
 
     [JsonObject(IsReference = false)]
     public class UDefCoursesContainer
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        [JsonProperty("tables")]
-        public Tables Tables { get; set; }
+        [JsonProperty("tables")] public Tables Tables { get; set; }
     }
-
 }

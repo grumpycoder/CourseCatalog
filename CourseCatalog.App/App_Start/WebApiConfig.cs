@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace CourseCatalog.App
 {
@@ -22,7 +22,8 @@ namespace CourseCatalog.App
             config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("multipart/form-data"));
-            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/octet-stream"));
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(
+                new MediaTypeHeaderValue("application/octet-stream"));
 
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/plain"));
@@ -34,7 +35,7 @@ namespace CourseCatalog.App
             config.Routes.MapHttpRoute(
                 "DefaultApi",
                 "api/{controller}/{id}",
-                new { id = RouteParameter.Optional }
+                new {id = RouteParameter.Optional}
             );
         }
     }

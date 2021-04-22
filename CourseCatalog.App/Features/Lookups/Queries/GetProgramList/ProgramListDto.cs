@@ -21,6 +21,5 @@
         public int ClusterId { get; set; }
 
         public string Cluster { get; set; }
-
     }
 }

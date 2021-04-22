@@ -1,5 +1,5 @@
-﻿using MediatR;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
 {
@@ -36,5 +36,4 @@ namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
         public int DeliveryTypeId { get; set; }
         public int DraftId { get; set; }
     }
-
 }

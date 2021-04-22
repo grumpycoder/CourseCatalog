@@ -9,8 +9,8 @@ namespace CourseCatalog.App.Features.Clusters.Queries.GetClusterList
 {
     public class GetClusterListQueryHandler : IRequestHandler<GetClusterListQuery, List<ClusterListDto>>
     {
-        private readonly IMapper _mapper;
         private readonly IClusterRepository _clusterRepository;
+        private readonly IMapper _mapper;
 
         public GetClusterListQueryHandler(IMapper mapper, IClusterRepository clusterRepository)
         {

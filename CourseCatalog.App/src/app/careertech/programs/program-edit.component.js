@@ -1,22 +1,22 @@
 ﻿//program-edit.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
     var ctrl = this;
     ctrl.cache = {};
 
-    ctrl.$onInit = function () {
+    ctrl.$onInit = function() {
 
         loadRefs();
 
         if (ctrl.programid == -1) {
-            ctrl.title = 'New Program';
+            ctrl.title = "New Program";
             return;
-        } 
+        }
 
         fetchProgram(ctrl.programid).then(r => {
-            ctrl.title = 'Program: ' + ctrl.program.name + ' (' + ctrl.program.programCode + ')';
+            ctrl.title = `Program: ${ctrl.program.name} (${ctrl.program.programCode})`;
         }).finally(f => {
             if (ctrl.program) {
                 ctrl.listOptions = {
@@ -24,50 +24,50 @@ function controller($http) {
                     searchEnabled: true,
                     searchExpr: "credential",
                     allowItemDeleting: true,
-                    onItemDeleting: function (item) {
+                    onItemDeleting: function(item) {
                         var d = $.Deferred();
-                        var url = '/api/programs/' + ctrl.program.programId + '/credentials/' + item.itemData.credentialId;
+                        const url = `/api/programs/${ctrl.program.programId}/credentials/${item.itemData.credentialId}`;
                         $http.delete(url).then(r => {
-                            toastr.success('Removed Credential');
+                            toastr.success("Removed Credential");
                             d.resolve();
                         }).catch(e => {
-                            console.error('remove credential error', e);
+                            console.error("remove credential error", e);
                             toastr.error(e.data.exceptionMessage);
                             d.reject();
                         });
                         item.cancel = d.promise();
                     }
-                }
+                };
             }
         });
 
     };
 
-    ctrl.$onChanges = function () {
+    ctrl.$onChanges = function() {
     };
 
-    ctrl.validateTraditional = function (gender) {
-        if (gender === 'male') {
+    ctrl.validateTraditional = function(gender) {
+        if (gender === "male") {
             ctrl.program.traditionalForFemales = false;
         }
-        if (gender === 'female') {
+        if (gender === "female") {
             ctrl.program.traditionalForMales = false;
         }
-    }
+    };
 
-    ctrl.create = function () {
+    ctrl.create = function() {
         ctrl.program = { id: null };
         resetValidation();
     };
 
-    ctrl.cancel = function () {
+    ctrl.cancel = function() {
         loadCache();
         resetValidation();
     };
 
-    ctrl.onSubmit = function () {
-        var url = '/api/programs/';
-        var dto = {
+    ctrl.onSubmit = function() {
+        const url = "/api/programs/";
+        const dto = {
             programId: ctrl.program.programId,
             programCode: ctrl.program.programCode,
             name: ctrl.program.name,
@@ -78,14 +78,14 @@ function controller($http) {
             traditionalForFemales: ctrl.program.traditionalForFemales,
             programTypeId: ctrl.program.programTypeId,
             clusterId: ctrl.program.clusterId
-        }
+        };
 
         if (!ctrl.program.programId) {
             $http.post(url, dto).then(r => {
-                toastr.success('Created Program');
-                window.location.href = '/careertech/programs/' + r.data + '/edit';
+                toastr.success("Created Program");
+                window.location.href = `/careertech/programs/${r.data}/edit`;
             }).catch(e => {
-                console.error('update error', e.message);
+                console.error("update error", e.message);
                 toastr.error(e.message);
             });
             return;
@@ -94,41 +94,41 @@ function controller($http) {
         $http.put(url, dto).then(r => {
             updateCache();
             resetValidation();
-            toastr.success('Saved Program');
+            toastr.success("Saved Program");
         }).catch(e => {
-            console.error('update error', e);
+            console.error("update error", e);
             toastr.error(e.data.exceptionMessage);
         });
     };
 
-    ctrl.onChangeProgramCode = function () {
+    ctrl.onChangeProgramCode = function() {
         ctrl.form.programCode.$setValidity("unique", !codeInUse(ctrl.program.programCode));
     };
 
-    ctrl.createAssignment = function () {
-        var url = '/api/programs/credentials';
-        var dto = {
-            programId: ctrl.program.programId, 
-            credentialId: ctrl.assignment.credentialId, 
-            beginYear: ctrl.assignment.beginYear, 
+    ctrl.createAssignment = function() {
+        const url = "/api/programs/credentials";
+        const dto = {
+            programId: ctrl.program.programId,
+            credentialId: ctrl.assignment.credentialId,
+            beginYear: ctrl.assignment.beginYear,
             endYar: ctrl.assignment.endYear
-        }
+        };
 
         $http.post(url, dto).then(r => {
             ctrl.program.credentials.push(r.data);
-            $('#credentials').dxList('instance').reload();
+            $("#credentials").dxList("instance").reload();
             ctrl.assignment = {};
             ctrl.showForm = false;
-            toastr.success('Saved Credential Assignment');
+            toastr.success("Saved Credential Assignment");
         }).catch(e => {
-            console.error('update error', e);
+            console.error("update error", e);
             toastr.error(e.data.exceptionMessage);
         });
 
-    }
+    };
 
     function fetchProgram(programid) {
-        return $http.get('/api/programs/' + programid).then(r => {
+        return $http.get(`/api/programs/${programid}`).then(r => {
             ctrl.program = r.data;
             updateCache();
             return ctrl.program = r.data;
@@ -145,35 +145,35 @@ function controller($http) {
     }
 
     function fetchSchoolYears() {
-        return $http.get('/api/refs/schoolyears').then(function (r) {
+        return $http.get("/api/refs/schoolyears").then(function(r) {
             return ctrl.schoolYears = r.data;
         });
     }
 
     function fetchProgramTypes() {
-        return $http.get('/api/refs/programTypes').then(function (r) {
+        return $http.get("/api/refs/programTypes").then(function(r) {
             return ctrl.programTypes = r.data;
         });
     }
 
     function fetchClusters() {
-        return $http.get('/api/clusters').then(function (r) {
+        return $http.get("/api/clusters").then(function(r) {
             return ctrl.clusters = r.data;
         });
     }
 
     function fetchPrograms() {
-        var url = '/api/programs';
         if (!ctrl.programList) {
-            return $http.get(url).then(function (r) {
+            const url = "/api/programs";
+            return $http.get(url).then(function(r) {
                 return ctrl.programList = r.data;
             });
         };
     }
 
     function fetchCredentials() {
-        var url = '/api/credentials';
-        return $http.get(url).then(function (r) {
+        const url = "/api/credentials";
+        return $http.get(url).then(function(r) {
             return ctrl.credentials = r.data;
         });
     }
@@ -194,17 +194,17 @@ function controller($http) {
     function codeInUse(code) {
         //check if code is same as cache code
         if (code === ctrl.cache.programCode) return false;
-        var inUse = ctrl.programList.find(t => t.programCode === code) !== undefined;
+        const inUse = ctrl.programList.find(t => t.programCode === code) !== undefined;
         return inUse;
     }
 
 }
 
-module.component('programEdit',
+module.component("programEdit",
     {
         bindings: {
-            programid: '<'
+            programid: "<"
         },
-        templateUrl: '/src/app/careertech/programs/program-edit.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/careertech/programs/program-edit.component.html",
+        controller: ["$http", controller]
     });

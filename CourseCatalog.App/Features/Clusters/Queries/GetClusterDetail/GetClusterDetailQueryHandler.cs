@@ -14,7 +14,7 @@ namespace CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail
         private readonly IMapper _mapper;
 
         public GetClusterDetailQueryHandler(IMapper mapper, IClusterRepository clusterRepository
-            )
+        )
         {
             _mapper = mapper;
             _clusterRepository = clusterRepository;
@@ -24,10 +24,7 @@ namespace CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail
         {
             var cluster = await _clusterRepository.GetClusterWithDetails(request.ClusterId);
 
-            if (cluster == null)
-            {
-                throw new NotFoundException(nameof(Cluster), request.ClusterId);
-            }
+            if (cluster == null) throw new NotFoundException(nameof(Cluster), request.ClusterId);
             var courseDetailDto = _mapper.Map<ClusterDetailDto>(cluster);
 
             return courseDetailDto;

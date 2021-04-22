@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using CourseCatalog.Application.Contracts;
-using MediatR;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using CourseCatalog.Application.Contracts;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Lookups.Queries.GetProgramList
 {

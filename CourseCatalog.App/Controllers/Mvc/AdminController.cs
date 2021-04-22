@@ -1,9 +1,10 @@
-﻿using CourseCatalog.App.Filters;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using CourseCatalog.App.Filters;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
-    [RoutePrefix("admin"), CustomAuthorize(Roles = "Admin")]
+    [RoutePrefix("admin")]
+    [CustomAuthorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         [Route("groups")]

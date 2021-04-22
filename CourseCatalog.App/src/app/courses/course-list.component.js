@@ -1,21 +1,21 @@
 ﻿//course-list.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
 
     var ctrl = this;
 
-    ctrl.$onInit = function () {
-        var url = '/api/courses/';
-        ctrl.title = 'Course Catalog';
-        ctrl.isAdmin = ctrl.isAdmin == 'true';
+    ctrl.$onInit = function() {
+        var url = "/api/courses/";
+        ctrl.title = "Course Catalog";
+        ctrl.isAdmin = ctrl.isAdmin == "true";
 
-        if (ctrl.filter === 'active') {
-            url += 'active';
-            ctrl.title += ' (Active Courses)';
+        if (ctrl.filter === "active") {
+            url += "active";
+            ctrl.title += " (Active Courses)";
         } else {
-            ctrl.title += ' (All Courses)'; 
+            ctrl.title += " (All Courses)";
         }
 
         ctrl.isCollapsed = true;
@@ -45,10 +45,10 @@ function controller($http) {
             },
             searchPanel: {
                 visible: true,
-                placeholder: 'Search...'
+                placeholder: "Search..."
             },
             loadPanel: {
-                text: 'Loading Courses...'
+                text: "Loading Courses..."
             },
             groupPanel: {
                 visible: true,
@@ -77,62 +77,62 @@ function controller($http) {
             columnMinWidth: 50,
             columns: [
                 {
-                    dataField: 'courseNumber',
-                    caption: 'Course Number',
-                    dataType: 'string',
-                    cellTemplate: function (container, options) {
-                        $('<a/>')
+                    dataField: "courseNumber",
+                    caption: "Course Number",
+                    dataType: "string",
+                    cellTemplate: function(container, options) {
+                        $("<a/>")
                             .text(options.data.courseNumber)
-                            .attr('aria-label', 'Course Details ' + options.data.courseId)
-                            .attr('href', '/courses/' + options.data.courseId)
+                            .attr("aria-label", `Course Details ${options.data.courseId}`)
+                            .attr("href", `/courses/${options.data.courseId}`)
                             .appendTo(container);
                     }
                 },
-                { dataField: 'name', dataType: 'string' },
-                { dataField: 'description', dataType: 'string', width: 200, wordWrapEnabled: false, visible: false },
-                { dataField: 'beginYear', dataType: 'int', caption: 'Begin Year' },
-                { dataField: 'endYear', dataType: 'int', caption: 'End Year' },
-                { dataField: 'lowGrade', dataType: 'string', caption: 'Low Grade' },
-                { dataField: 'highGrade', dataType: 'string', caption: 'High Grade' },
-                { dataField: 'cipCode', dataType: 'string', visible: false },
-                { dataField: 'courseLevel', dataType: 'string', caption: 'Course Level' },
+                { dataField: "name", dataType: "string" },
+                { dataField: "description", dataType: "string", width: 200, wordWrapEnabled: false, visible: false },
+                { dataField: "beginYear", dataType: "int", caption: "Begin Year" },
+                { dataField: "endYear", dataType: "int", caption: "End Year" },
+                { dataField: "lowGrade", dataType: "string", caption: "Low Grade" },
+                { dataField: "highGrade", dataType: "string", caption: "High Grade" },
+                { dataField: "cipCode", dataType: "string", visible: false },
+                { dataField: "courseLevel", dataType: "string", caption: "Course Level" },
                 {
-                    dataField: 'creditHours',
-                    dataType: 'decimal',
+                    dataField: "creditHours",
+                    dataType: "decimal",
                     format: {
                         type: "fixedPoint",
                         precision: 2
                     },
-                    caption: 'Credit Hours'
+                    caption: "Credit Hours"
                 },
-                { dataField: 'scedIdentifier', dataType: 'string', caption: 'SCED Category' },
-                { dataField: 'subject', dataType: 'string', caption: 'Subject' },
-                { dataField: 'status', dataType: 'string', caption: 'Status' },
-                { dataField: 'publishDate', dataType: 'date', caption: 'Publish Date', visible:false },
+                { dataField: "scedIdentifier", dataType: "string", caption: "SCED Category" },
+                { dataField: "subject", dataType: "string", caption: "Subject" },
+                { dataField: "status", dataType: "string", caption: "Status" },
+                { dataField: "publishDate", dataType: "date", caption: "Publish Date", visible: false },
                 {
-                    caption: '',
+                    caption: "",
                     visible: ctrl.isAdmin,
-                    cellTemplate: function (container, options) {
-                        if (!options.data.isPublishable) return; 
-                        $('<button>')
+                    cellTemplate: function(container, options) {
+                        if (!options.data.isPublishable) return;
+                        $("<button>")
                             .append('<i class="fa fa-pencil"></i>')
-                            .addClass('btn btn btn-outline-dark btn-sm')
-                            .attr('aria-label', 'Create Draft ' + options.data.courseNumber)
-                            .attr('title', 'Create Draft ' + options.data.courseNumber)
-                            .attr('data-toggle', 'tooltip')
-                            .attr('data-placement', 'top')
-                            .on('dxclick',
-                                function (e) {
-                                    $http.post('/api/drafts/' + options.data.courseId + '/create').then(r => {
-                                        toastr.success('Created draft ' + options.data.courseNumber);
-                                        window.location.href = '/drafts/' + r.data;
+                            .addClass("btn btn btn-outline-dark btn-sm")
+                            .attr("aria-label", `Create Draft ${options.data.courseNumber}`)
+                            .attr("title", `Create Draft ${options.data.courseNumber}`)
+                            .attr("data-toggle", "tooltip")
+                            .attr("data-placement", "top")
+                            .on("dxclick",
+                                function(e) {
+                                    $http.post(`/api/drafts/${options.data.courseId}/create`).then(r => {
+                                        toastr.success(`Created draft ${options.data.courseNumber}`);
+                                        window.location.href = `/drafts/${r.data}`;
                                     }).catch(err => {
-                                        if (err.data.exceptionType.includes('EntityFrameworkCore')) {
-                                            toastr.error('Database error creating draft');
+                                        if (err.data.exceptionType.includes("EntityFrameworkCore")) {
+                                            toastr.error("Database error creating draft");
                                         } else {
                                             toastr.error(err.data.exceptionMessage);
                                         }
-                                        console.error('create draft error', err);
+                                        console.error("create draft error", err);
                                     });
                                 })
                             .appendTo(container);
@@ -143,43 +143,41 @@ function controller($http) {
                 totalItems: [
                     {
                         column: "courseNumber",
-                        displayFormat: '{0} Courses',
-                        summaryType: 'count',
+                        displayFormat: "{0} Courses",
+                        summaryType: "count",
                         showInGroupFooter: true,
-                        showInColumn: 'CourseCode'
+                        showInColumn: "CourseCode"
                     }
                 ],
                 groupItems: [
                     {
                         summaryType: "count",
-                        displayFormat: '{0} Courses'
+                        displayFormat: "{0} Courses"
                     }
-
                 ]
             },
-            onContentReady: function (e) {
+            onContentReady: function(e) {
                 ctrl.isCollapsed = e.component.columnOption("groupIndex:0") !== undefined;
                 ctrl.showExpand();
                 $('[data-toggle="tooltip"]').tooltip();
             },
-            onOptionChanged: function (e) {
+            onOptionChanged: function(e) {
                 ctrl.isCollapsed = e.component.columnOption("groupIndex:0") !== undefined;
                 ctrl.showExpand();
             },
-            onExporting: function (e) {
-                var time = new Date(),
-                    timeStamp =
-                        ("0" + time.getMonth().toString()).slice(-2) +
-                        ("0" + time.getDay().toString()).slice(-2) +
-                        ("0" + time.getFullYear().toString()).slice(-2) +
-                        '-' +
-                        ("0" + time.getHours().toString()).slice(-2) +
-                        ("0" + time.getMinutes().toString()).slice(-2) +
-                        ("0" + time.getSeconds().toString()).slice(-2),
-                    fileName = "Course-List-" + timeStamp;
+            onExporting: function(e) {
+                const time = new Date();
+                const timeStamp = (`0${time.getMonth().toString()}`).slice(-2) +
+                    (`0${time.getDay().toString()}`).slice(-2) +
+                    (`0${time.getFullYear().toString()}`).slice(-2) +
+                    "-" +
+                    (`0${time.getHours().toString()}`).slice(-2) +
+                    (`0${time.getMinutes().toString()}`).slice(-2) +
+                    (`0${time.getSeconds().toString()}`).slice(-2);
+                const fileName = `Course-List-${timeStamp}`;
                 e.fileName = fileName;
             },
-            onToolbarPreparing: function (e) {
+            onToolbarPreparing: function(e) {
                 var dataGrid = e.component;
                 e.toolbarOptions.items.unshift(
                     {
@@ -187,9 +185,14 @@ function controller($http) {
                         widget: "dxButton",
                         options: {
                             text: "Expand All",
-                            elementAttr: { "id": "btnExpandAllButton", 'ng-show': ctrl.isCollapsed, "data-toggle": "tooltip", "data-placement": "top" },
+                            elementAttr: {
+                                "id": "btnExpandAllButton",
+                                'ng-show': ctrl.isCollapsed,
+                                "data-toggle": "tooltip",
+                                "data-placement": "top"
+                            },
                             width: 136,
-                            onClick: function (e) {
+                            onClick: function(e) {
                                 ctrl.isCollapsed = !dataGrid.option("grouping.autoExpandAll") !== undefined;
                                 e.component.option("text", ctrl.isCollapsed ? "Collapse All" : "Expand All");
                                 dataGrid.option("grouping.autoExpandAll", ctrl.isCollapsed);
@@ -201,9 +204,9 @@ function controller($http) {
                         widget: "dxButton",
                         options: {
                             icon: "refresh",
-                            hint: 'Refresh',
+                            hint: "Refresh",
                             elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                            onClick: function () {
+                            onClick: function() {
                                 dataGrid.refresh();
                             }
                         }
@@ -213,9 +216,9 @@ function controller($http) {
                         widget: "dxButton",
                         options: {
                             icon: "clearformat",
-                            hint: 'Clear filters',
+                            hint: "Clear filters",
                             elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                            onClick: function () {
+                            onClick: function() {
                                 dataGrid.clearFilter();
                             }
                         }
@@ -225,22 +228,21 @@ function controller($http) {
                         widget: "dxButton",
                         options: {
                             icon: "pulldown",
-                            hint: 'Reset grid to default',
+                            hint: "Reset grid to default",
                             elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                            onClick: function () {
+                            onClick: function() {
                                 dataGrid.state({});
                             }
                         }
-                    }
-                    ,
+                    },
                     {
                         location: "after",
                         widget: "dxButton",
                         options: {
                             icon: "save",
-                            hint: 'Export',
+                            hint: "Export",
                             elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                            onClick: function () {
+                            onClick: function() {
                                 dataGrid.exportToExcel(false);
                             }
                         }
@@ -251,9 +253,9 @@ function controller($http) {
 
                         options: {
                             icon: "column-chooser",
-                            hint: 'Column Chooser',
+                            hint: "Column Chooser",
                             elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                            onClick: function () {
+                            onClick: function() {
                                 dataGrid.showColumnChooser();
                             }
                         }
@@ -264,24 +266,22 @@ function controller($http) {
 
     };
 
-    ctrl.showExpand = function () {
+    ctrl.showExpand = function() {
         if (ctrl.isCollapsed) {
-            $('#btnExpandAllButton').show();
-        }
-        else {
-            $('#btnExpandAllButton').hide();
+            $("#btnExpandAllButton").show();
+        } else {
+            $("#btnExpandAllButton").hide();
         }
     };
 
 }
 
-module.component('courseList',
+module.component("courseList",
     {
         bindings: {
-            filter: '@',
-            isAdmin: '@'
+            filter: "@",
+            isAdmin: "@"
         },
-        templateUrl: '/src/app/courses/course-list.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/courses/course-list.component.html",
+        controller: ["$http", controller]
     });
-

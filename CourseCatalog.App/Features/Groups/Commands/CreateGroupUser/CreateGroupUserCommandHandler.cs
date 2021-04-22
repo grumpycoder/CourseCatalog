@@ -1,20 +1,21 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Groups.Commands.CreateGroupUser
 {
     public class CreateGroupUserCommandHandler : IRequestHandler<CreateGroupUserCommand, CreateGroupUserCommandDto>
     {
-        private readonly IMapper _mapper;
         private readonly IGroupRepository _groupRepository;
+        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public CreateGroupUserCommandHandler(IMapper mapper, IGroupRepository groupRepository, IUserRepository userRepository)
+        public CreateGroupUserCommandHandler(IMapper mapper, IGroupRepository groupRepository,
+            IUserRepository userRepository)
         {
             _mapper = mapper;
             _groupRepository = groupRepository;
@@ -32,7 +33,7 @@ namespace CourseCatalog.App.Features.Groups.Commands.CreateGroupUser
 
             if (group == null) throw new NotFoundException(nameof(Group), request.GroupId);
 
-            var groupUser = new UserGroup { GroupId = request.GroupId, UserId = user.Id };
+            var groupUser = new UserGroup {GroupId = request.GroupId, UserId = user.Id};
 
             group.Users.Add(groupUser);
 

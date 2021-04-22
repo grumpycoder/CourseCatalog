@@ -4,14 +4,14 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement
 {
     public class CreateDraftEndorsementCommand : IRequest<CreatedDraftEndorsementDto>
     {
-        public int DraftId { get; set; }
-        public int EndorsementId { get; set; }
-
         public CreateDraftEndorsementCommand(int draftId, int endorsementId)
         {
             DraftId = draftId;
             EndorsementId = endorsementId;
         }
+
+        public int DraftId { get; set; }
+        public int EndorsementId { get; set; }
     }
 
     public class CreatedDraftEndorsementDto

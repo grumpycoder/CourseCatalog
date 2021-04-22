@@ -1,9 +1,9 @@
-﻿using CourseCatalog.Application.Contracts;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.CredentialTypes.Commands.DeleteCredentialType
 {
@@ -23,9 +23,7 @@ namespace CourseCatalog.App.Features.Refs.CredentialTypes.Commands.DeleteCredent
             if (programTypeToDelete == null) throw new NotFoundException(nameof(Draft), request.CredentialTypeId);
 
             if (await _programTypeRepository.HasCredentials(request.CredentialTypeId))
-            {
                 throw new BadRequestException("Credential Type assigned to Credentials. Cannot delete.");
-            }
 
             await _programTypeRepository.DeleteAsync(programTypeToDelete);
 

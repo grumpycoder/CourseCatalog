@@ -77,9 +77,6 @@
     <Reference Include="DevExtreme.AspNet.Mvc, Version=20.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <HintPath>..\packages\DevExtreme.AspNet.Mvc.20.1.4\lib\net452\DevExtreme.AspNet.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="FluentValidation, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentValidation.9.5.2\lib\net461\FluentValidation.dll</HintPath>
-    </Reference>
     <Reference Include="Flurl, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Flurl.3.0.1\lib\net461\Flurl.dll</HintPath>
     </Reference>
@@ -257,12 +254,10 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.5.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
@@ -329,11 +324,9 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -348,8 +341,6 @@
     </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest">
     </Reference>
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -582,8 +573,8 @@
     <Compile Include="Features\Lookups\Queries\GetDeliveryTypeList\GetDeliveryTypeListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetDeliveryTypeList\GetDeliveryTypeListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetProgramList\ProgramListDto.cs" />
-    <Compile Include="Features\Lookups\Queries\GetClusterTypetList\GetClusterTypeListQuery.cs" />
-    <Compile Include="Features\Lookups\Queries\GetClusterTypetList\GetClusterTypeListQueryHandler.cs" />
+    <Compile Include="Features\Lookups\Queries\GetClusterTypeList\GetClusterTypeListQuery.cs" />
+    <Compile Include="Features\Lookups\Queries\GetClusterTypeList\GetClusterTypeListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetProgramTypeList\GetProgramTypeListQuery.cs" />
     <Compile Include="Features\Lookups\Queries\GetProgramTypeList\GetProgramTypeListQueryHandler.cs" />
     <Compile Include="Features\Lookups\Queries\GetCredentialTypeList\GetCredentialTypeListQuery.cs" />

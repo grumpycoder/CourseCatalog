@@ -6,6 +6,5 @@ namespace CourseCatalog.App.Features.Lookups.Queries.GetCourseLevelList
 {
     public class GetCourseLevelListQuery : IRequest<List<CourseLevel>>
     {
-
     }
 }

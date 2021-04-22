@@ -1,20 +1,19 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using WebGrease.Css.Extensions;
-
 
 namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
 {
     public class UpdateDraftCommandHandler : IRequestHandler<UpdateDraftCommand>
     {
-        private readonly IMapper _mapper;
         private readonly IDraftRepository _draftRepository;
+        private readonly IMapper _mapper;
 
         public UpdateDraftCommandHandler(IMapper mapper, IDraftRepository draftRepository)
         {
@@ -35,10 +34,16 @@ namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
             //}
 
             draftToUpdate.DeliveryTypes
-                .Where(ddt => request.DeliveryTypes.All(deliveryTypeDto => deliveryTypeDto.DeliveryTypeId != ddt.DeliveryTypeId))
-                .ForEach(draftDeliveryType => { draftToUpdate.DeliveryTypes.Add(new DraftDeliveryType { DeliveryTypeId = draftDeliveryType.DeliveryTypeId }); });
+                .Where(ddt =>
+                    request.DeliveryTypes.All(deliveryTypeDto => deliveryTypeDto.DeliveryTypeId != ddt.DeliveryTypeId))
+                .ForEach(draftDeliveryType =>
+                {
+                    draftToUpdate.DeliveryTypes.Add(new DraftDeliveryType
+                        {DeliveryTypeId = draftDeliveryType.DeliveryTypeId});
+                });
 
-            draftToUpdate.DeliveryTypes.RemoveAll(cdt => !request.DeliveryTypes.Select(ddt => ddt.DeliveryTypeId).Contains(cdt.DeliveryTypeId));
+            draftToUpdate.DeliveryTypes.RemoveAll(cdt =>
+                !request.DeliveryTypes.Select(ddt => ddt.DeliveryTypeId).Contains(cdt.DeliveryTypeId));
 
             _mapper.Map(request, draftToUpdate, typeof(UpdateDraftCommand), typeof(Draft));
 

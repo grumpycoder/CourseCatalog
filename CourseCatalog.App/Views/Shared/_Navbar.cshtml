@@ -1,6 +1,7 @@
-﻿@using CourseCatalog.App.Helpers
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark menu">
-    <a class="navbar-brand" href="/" aria-label="Menu Home"><i class="fa fa-home"></i></a>
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark menu">
+    <a class="navbar-brand" href="/" aria-label="Menu Home">
+        <i class="fa fa-home"></i>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,7 +10,7 @@
         <ul class="navbar-nav mr-auto">
 
             @Html.BsNavigationLink("Home", "Index", "Home")
-            
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Courses
@@ -25,7 +26,7 @@
                     }
                 </div>
             </li>
-            
+
             @Html.BsNavigationLink("Drafts", "", "Drafts")
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,7 +83,6 @@
             </li>
 
         </ul>
-
 
 
         @if (User.IsInRole("Admin"))

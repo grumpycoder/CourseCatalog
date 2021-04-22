@@ -1,17 +1,17 @@
-﻿using AutoMapper;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.ProgramTypes.Commands.CreateProgramType
 {
     public class CreateProgramTypeCommandHandler : IRequestHandler<CreateProgramTypeCommand, int>
     {
-        private readonly IMapper _mapper;
         private readonly IProgramTypeRepository _clusterTypeRepository;
+        private readonly IMapper _mapper;
 
         public CreateProgramTypeCommandHandler(IMapper mapper, IProgramTypeRepository clusterTypeRepository)
         {
@@ -23,10 +23,8 @@ namespace CourseCatalog.App.Features.Refs.ProgramTypes.Commands.CreateProgramTyp
         {
             var clusterType = await _clusterTypeRepository.GetProgramTypeByName(request.Name);
             if (clusterType != null)
-            {
                 throw new BadRequestException(
                     $"Duplicate Program Type Name. Existing Program Type already contains name {request.Name}");
-            }
 
             clusterType = _mapper.Map<ProgramType>(request);
 

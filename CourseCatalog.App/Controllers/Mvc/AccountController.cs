@@ -1,7 +1,7 @@
-﻿using Alsde.Security.Identity;
-using CourseCatalog.Application.Contracts;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Alsde.Security.Identity;
+using CourseCatalog.Application.Contracts;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
@@ -13,6 +13,7 @@ namespace CourseCatalog.App.Controllers.Mvc
         {
             _memberService = memberService;
         }
+
         public async Task<ActionResult> LoginCallback(string token)
         {
             var tokenKey = new TokenKey(token, Constants.TpaAccessKey);
@@ -36,7 +37,6 @@ namespace CourseCatalog.App.Controllers.Mvc
 
             await _memberService.SyncClaims(identity);
             return RedirectToAction("Index", "Home");
-
         }
 
         public ActionResult SignOut()
@@ -52,6 +52,5 @@ namespace CourseCatalog.App.Controllers.Mvc
         {
             return View();
         }
-
     }
 }

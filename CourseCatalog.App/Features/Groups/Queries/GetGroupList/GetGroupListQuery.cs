@@ -1,16 +1,11 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MediatR;
 
 namespace CourseCatalog.App.Features.Groups.Queries.GetGroupList
 {
-    public class GetGroupListQuery: IRequest<List<GroupListDto>>
+    public class GetGroupListQuery : IRequest<List<GroupListDto>>
     {
-        
     }
 
     public class GroupListDto

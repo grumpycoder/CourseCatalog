@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
 using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterList;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
+using CourseCatalog.App.Features.Courses.Queries.GetCoursesByCertholder;
 using CourseCatalog.App.Features.Courses.Queries.GetCoursesByEndorsement;
 using CourseCatalog.App.Features.Credentials.Commands.CreateCredential;
 using CourseCatalog.App.Features.Credentials.Commands.CreateCredentialProgram;
@@ -39,8 +41,6 @@ using CourseCatalog.App.Features.Users.Queries.GetUser;
 using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
-using System.Linq;
-using CourseCatalog.App.Features.Courses.Queries.GetCoursesByCertholder;
 
 namespace CourseCatalog.App.Profiles
 {
@@ -82,7 +82,7 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.CourseLevel.Name))
                 .ReverseMap();
 
-            CreateMap<Course, CertholderCourseListDto>(); 
+            CreateMap<Course, CertholderCourseListDto>();
 
             CreateMap<Course, UDefCourses>()
                 .ForMember(d => d.CourseCode, o =>
@@ -146,7 +146,6 @@ namespace CourseCatalog.App.Profiles
                     o => o.MapFrom(d => d.Program.Name))
                 .ForMember(d => d.ProgramCode,
                     o => o.MapFrom(d => d.Program.ProgramCode))
-
                 .ReverseMap();
 
             CreateMap<DraftDetailDto, Draft>().ReverseMap();
@@ -297,8 +296,6 @@ namespace CourseCatalog.App.Profiles
             //CredentialType Mappings 
             CreateMap<CredentialType, UpdateCredentialTypeCommand>().ReverseMap();
             CreateMap<CredentialType, CreateCredentialTypeCommand>().ReverseMap();
-
         }
     }
 }
-

@@ -4,11 +4,11 @@ namespace CourseCatalog.App.Features.Refs.CourseLevels.Commands.DeleteCourseLeve
 {
     public class DeleteCourseLevelCommand : IRequest
     {
-        public int CourseLevelId { get; set; }
-
         public DeleteCourseLevelCommand(int courseLevelId)
         {
             CourseLevelId = courseLevelId;
         }
+
+        public int CourseLevelId { get; set; }
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using MediatR;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Groups.Commands.DeleteGroupUser
 {
@@ -34,7 +31,6 @@ namespace CourseCatalog.App.Features.Groups.Commands.DeleteGroupUser
             await _groupRepository.UpdateAsync(group);
 
             return Unit.Value;
-
         }
     }
 }

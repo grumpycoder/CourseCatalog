@@ -29,5 +29,4 @@ namespace CourseCatalog.App.Features.Credentials.Queries.GetCredentialDetail
         public int? BeginYear { get; set; }
         public int? EndYear { get; set; }
     }
-
 }

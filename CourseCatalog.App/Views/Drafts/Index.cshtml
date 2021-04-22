@@ -2,17 +2,17 @@
     ViewBag.Title = "Drafts";
     var isAdmin = "false";
     var isCourseAdmin = "false";
-    if (User.Identity.HasRoleClaim("TeacherCertAdmin") || @User.Identity.HasRoleClaim("CareerTechAdmin"))
+    if (User.Identity.HasRoleClaim("TeacherCertAdmin") || User.Identity.HasRoleClaim("CareerTechAdmin"))
     {
         isAdmin = "true";
-    };
-    if (User.Identity.HasRoleClaim("CourseAdmin") || @User.Identity.HasRoleClaim("Admin"))
+    }
+    if (User.Identity.HasRoleClaim("CourseAdmin") || User.Identity.HasRoleClaim("Admin"))
     {
         isCourseAdmin = "true";
-    };
+    }
 }
 
-<draft-list is-admin=@isAdmin is-course-admin=@isCourseAdmin></draft-list>
+<draft-list is-admin="@isAdmin" is-course-admin="@isCourseAdmin"></draft-list>
 
 @section scripts{
     <script src="~/src/app/drafts/draft-list.component.js"></script>

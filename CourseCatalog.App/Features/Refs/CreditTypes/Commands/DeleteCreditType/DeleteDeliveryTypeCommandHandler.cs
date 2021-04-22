@@ -11,9 +11,9 @@ namespace CourseCatalog.App.Features.Refs.CreditTypes.Commands.DeleteCreditType
     {
         private readonly ITagRepository _tagRepository;
 
-        public DeleteCreditTypeCommandHandler(ITagRepository TagRepository)
+        public DeleteCreditTypeCommandHandler(ITagRepository tagRepository)
         {
-            _tagRepository = TagRepository;
+            _tagRepository = tagRepository;
         }
 
         public async Task<Unit> Handle(DeleteCreditTypeCommand request, CancellationToken cancellationToken)
@@ -23,11 +23,7 @@ namespace CourseCatalog.App.Features.Refs.CreditTypes.Commands.DeleteCreditType
             if (creditTypeToDelete == null) throw new NotFoundException(nameof(Tag), request.TagId);
 
             if (await _tagRepository.HasCourses(creditTypeToDelete.Name))
-            {
                 throw new BadRequestException("Credit Type assigned to courses. Cannot delete.");
-            }
-
-            //await _tagRepository.DeleteAsync(creditTypeToDelete);
 
             return Unit.Value;
         }

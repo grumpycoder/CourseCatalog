@@ -9,12 +9,8 @@ namespace CourseCatalog.App.Features.Lookups.Queries.GetSchoolYearList
 {
     public class GetSchoolYearListQueryHandler : IRequestHandler<GetSchoolYearListQuery, List<SchoolYearDto>>
     {
-        public GetSchoolYearListQueryHandler()
-        {
-
-        }
-
-        public async Task<List<SchoolYearDto>> Handle(GetSchoolYearListQuery request, CancellationToken cancellationToken)
+        public async Task<List<SchoolYearDto>> Handle(GetSchoolYearListQuery request,
+            CancellationToken cancellationToken)
         {
             var currentYear = DateTime.Now.Year + 1;
 

@@ -18,18 +18,17 @@ namespace CourseCatalog.App.Features.Users.Commands.CreateUser
 
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var userToAdd = new User()
+            var userToAdd = new User
             {
                 EmailAddress = request.EmailAddress.ToLower(),
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 FullName = request.FullName,
-                IdentityGuid = request.IdentityGuid, 
+                IdentityGuid = request.IdentityGuid,
                 Username = request.Username.ToLower()
-            }; 
+            };
             var user = await _userRepository.AddAsync(userToAdd);
-            return user.IdentityGuid; 
+            return user.IdentityGuid;
         }
-
     }
 }

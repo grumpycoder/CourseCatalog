@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using CourseCatalog.App;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
-[assembly: OwinStartup(typeof(CourseCatalog.App.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace CourseCatalog.App
 {
     public class Startup

@@ -3,7 +3,7 @@ using Autofac;
 
 namespace CourseCatalog.App
 {
-    public class RepositoryRegistrationModule : Autofac.Module
+    public class RepositoryRegistrationModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

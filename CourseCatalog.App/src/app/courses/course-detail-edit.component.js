@@ -1,6 +1,6 @@
 ﻿//course-detail-edit.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function detailController($http) {
     var ctrl = this;
@@ -10,7 +10,7 @@ function detailController($http) {
         tags: []
     };
 
-    this.$onChanges = function () {
+    this.$onChanges = function() {
         if (!ctrl.course) {
             loadRefs();
         }
@@ -29,27 +29,27 @@ function detailController($http) {
         }
     };
 
-    ctrl.$onInit = function () {
+    ctrl.$onInit = function() {
         loadRefs();
-    }
+    };
 
-    ctrl.onSubmit = function () {
+    ctrl.onSubmit = function() {
         ctrl.course.tags = ctrl.selectedTags;
         ctrl.course.creditTypes = ctrl.selectedCreditTypeTags;
-        
-        var url = `/api/courses/${ctrl.course.id}`;
+
+        const url = `/api/courses/${ctrl.course.id}`;
         $http.put(url, ctrl.course).then(r => {
-            r.data.creditHours = r.data.creditHours.toFixed(2); 
-            ctrl.course = r.data; 
+            r.data.creditHours = r.data.creditHours.toFixed(2);
+            ctrl.course = r.data;
             updateCache();
-            toastr.success('Saved Course'); 
+            toastr.success("Saved Course");
         }).catch(e => {
-            console.error('update error', e.message);
+            console.error("update error", e.message);
             toastr.error(e.message);
         });
     };
 
-    ctrl.cancel = function () {
+    ctrl.cancel = function() {
         loadCache();
     };
 
@@ -64,56 +64,56 @@ function detailController($http) {
     }
 
     function fetchSchoolYears() {
-        return $http.get('/api/refs/schoolyears').then(function (r) {
+        return $http.get("/api/refs/schoolyears").then(function(r) {
             return ctrl.schoolYears = r.data;
         });
     }
-    
+
     function fetchCourseLevels() {
-        return $http.get('/api/refs/courseLevels').then(function (r) {
+        return $http.get("/api/refs/courseLevels").then(function(r) {
             return ctrl.courseLevels = r.data;
         });
     }
 
     function fetchGradeScales() {
-        return $http.get('/api/refs/gradeScales').then(function (r) {
+        return $http.get("/api/refs/gradeScales").then(function(r) {
             return ctrl.gradeScales = r.data;
         });
     }
-    
+
     function fetchGrades() {
         if (ctrl.grades !== undefined) {
             return true;
         }
 
-        return $http.get('/api/refs/grades').then(function (r) {
+        return $http.get("/api/refs/grades").then(function(r) {
             ctrl.grades = r.data;
 
-            var store = new DevExpress.data.DataSource({
+            const store = new DevExpress.data.DataSource({
                 store: ctrl.grades
             });
 
             ctrl.gradeListOptions = {
                 dataSource: store,
                 searchEnabled: true,
-                searchMode: 'contains',
-                searchExpr: ['description', 'name'],
-                displayExpr: function (item) {
-                    return item && item.name + ' - ' + item.description;
+                searchMode: "contains",
+                searchExpr: ["description", "name"],
+                displayExpr: function(item) {
+                    return item && item.name + " - " + item.description;
                 },
-                valueExpr: 'id',
-                itemTemplate: function (data) {
-                    return $("<div>").text(data.name + ' - ' + data.description);
+                valueExpr: "id",
+                itemTemplate: function(data) {
+                    return $("<div>").text(data.name + " - " + data.description);
                 },
-                onSelectionChanged: function (e) {
-                    if (e.element[0].id === 'highGradeId') {
+                onSelectionChanged: function(e) {
+                    if (e.element[0].id === "highGradeId") {
                         ctrl.selectedHighGrade = e.selectedItem.name;
                     } else {
                         ctrl.selectedLowGrade = e.selectedItem.name;
                     }
                     ctrl.validateCourseCode();
                 }
-            }
+            };
 
 
             return ctrl.grades = r.data;
@@ -121,47 +121,47 @@ function detailController($http) {
     }
 
     function fetchScedCategories() {
-        var courseNumber = ctrl.course.courseNumber;
-        if (!ctrl.course.courseNumber) return; 
-        return $http.get('/api/refs/scedcategories/' + courseNumber.substr(0, 2)).then(function (r) {
+        const courseNumber = ctrl.course.courseNumber;
+        if (!ctrl.course.courseNumber) return;
+        return $http.get(`/api/refs/scedcategories/${courseNumber.substr(0, 2)}`).then(function(r) {
             ctrl.scedCategories = r.data;
             return ctrl.scedCategories;
         });
     }
 
     function fetchSubjects() {
-        return $http.get('/api/refs/subjects').then(function (r) {
+        return $http.get("/api/refs/subjects").then(function(r) {
             ctrl.subjects = r.data;
             return ctrl.subjects;
         });
     }
 
     function fetchTags() {
-        return $http.get('/api/refs/tags').then(function (r) {
+        return $http.get("/api/refs/tags").then(function(r) {
 
-            ctrl.creditTypeTags = r.data.filter(c => { return c.groupName === 'CreditType' });
-            ctrl.generalTags = r.data.filter(c => { return c.groupName === 'General' });
+            ctrl.creditTypeTags = r.data.filter(c => { return c.groupName === "CreditType" });
+            ctrl.generalTags = r.data.filter(c => { return c.groupName === "General" });
 
             ctrl.creditTypesTags = {
                 dataSource: ctrl.creditTypeTags,
-                displayExpr: 'description',
-                valueExpr: 'name',
+                displayExpr: "description",
+                valueExpr: "name",
                 searchEnabled: true,
                 hideSelectedItems: true,
                 multiline: true,
                 showSelectionControls: true,
-                applyValueMode: 'useButtons'
+                applyValueMode: "useButtons"
             };
 
             ctrl.tags = {
                 dataSource: ctrl.generalTags,
-                displayExpr: 'description',
-                valueExpr: 'name',
+                displayExpr: "description",
+                valueExpr: "name",
                 searchEnabled: true,
                 hideSelectedItems: true,
                 multiline: true,
                 showSelectionControls: true,
-                applyValueMode: 'useButtons'
+                applyValueMode: "useButtons"
             };
 
             return ctrl.creditTypeTags;
@@ -169,12 +169,12 @@ function detailController($http) {
     }
 
     function fetchDeliveryTypes() {
-        return $http.get('/api/refs/deliveryTypes').then(function (r) {
+        return $http.get("/api/refs/deliveryTypes").then(function(r) {
             ctrl.deliveryTypes = r.data;
 
-            var source = new DevExpress.data.DataSource({
+            const source = new DevExpress.data.DataSource({
                 store: new DevExpress.data.ArrayStore({
-                    key: 'id',
+                    key: "id",
                     data: ctrl.deliveryTypes
                 })
             });
@@ -184,24 +184,24 @@ function detailController($http) {
                 dataSource: source,
                 height: 120,
                 showSelectionControls: true,
-                selectionMode: 'multiple',
+                selectionMode: "multiple",
                 bindingOptions: {
-                    selectedItemKeys: '$ctrl.selectedDeliveryTypes'
+                    selectedItemKeys: "$ctrl.selectedDeliveryTypes"
                 },
-                displayExpr: function (item) {
+                displayExpr: function(item) {
                     return item.name;
                 },
-                onSelectionChanged: function (e) {
+                onSelectionChanged: function(e) {
                     e.addedItems.forEach(item => {
-                        let found = ctrl.course.deliveryTypes
+                        const found = ctrl.course.deliveryTypes
                             .find(cdt => cdt.deliveryTypeId === item.id);
 
                         if (!found) {
-                            var deliveryType = {
+                            const deliveryType = {
                                 deliveryTypeId: item.id,
                                 courseId: ctrl.course.id,
                                 name: item.name
-                            }
+                            };
                             addDeliveryType(deliveryType);
                             e.model.$ctrl.form.$setDirty();
                         }
@@ -222,10 +222,10 @@ function detailController($http) {
     }
 
     function removeDeliveryType(item) {
-        let found = ctrl.course.deliveryTypes
+        const found = ctrl.course.deliveryTypes
             .find(cdt => cdt.deliveryTypeId === item.id);
 
-        let idx = ctrl.course.deliveryTypes.indexOf(found);
+        const idx = ctrl.course.deliveryTypes.indexOf(found);
 
         ctrl.course.deliveryTypes.splice(idx, 1);
     }
@@ -263,12 +263,11 @@ function detailController($http) {
 
 }
 
-module.component('courseDetailEdit',
+module.component("courseDetailEdit",
     {
         bindings: {
-            course: '<' 
+            course: "<"
         },
-        templateUrl: '/src/app/courses/course-detail-edit.component.html',
-        controller: ['$http', detailController]
+        templateUrl: "/src/app/courses/course-detail-edit.component.html",
+        controller: ["$http", detailController]
     });
-

@@ -1,18 +1,18 @@
-﻿using CourseCatalog.App.Features.Courses.Queries.GetCourseSummary;
-using CourseCatalog.Application.Contracts;
+﻿using CourseCatalog.Application.Contracts;
+using CourseCatalog.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.App.Features.Programs.Queries.GetProgramSummary
 {
     public class GetProgramSummaryQueryHandler : IRequestHandler<GetProgramSummaryQuery, ProgramSummaryDto>
     {
-        private readonly IAsyncRepository<Program> _programRepository;
         private readonly IAsyncRepository<Credential> _credentialRepository;
+        private readonly IAsyncRepository<Program> _programRepository;
 
-        public GetProgramSummaryQueryHandler(IAsyncRepository<Program> programRepository, IAsyncRepository<Credential> credentialRepository)
+        public GetProgramSummaryQueryHandler(IAsyncRepository<Program> programRepository,
+            IAsyncRepository<Credential> credentialRepository)
         {
             _programRepository = programRepository;
             _credentialRepository = credentialRepository;
@@ -23,7 +23,7 @@ namespace CourseCatalog.App.Features.Programs.Queries.GetProgramSummary
             var programsCount = await _programRepository.Count();
             var credentialsCount = await _credentialRepository.Count();
 
-            var dto = new ProgramSummaryDto()
+            var dto = new ProgramSummaryDto
             {
                 ActiveProgramsCount = programsCount,
                 ActiveCredentialsCount = credentialsCount

@@ -2,13 +2,13 @@
 @{
     ViewBag.Title = "Program Detail";
     var isAdmin = "false";
-    if (User.Identity.HasRoleClaim("CareerTechAdmin") || @User.Identity.HasRoleClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CareerTechAdmin") || User.Identity.HasRoleClaim("Admin"))
     {
         isAdmin = "true";
-    };
+    }
 }
 
-<program-detail program-id='@Model' is-admin=@isAdmin></program-detail>
+<program-detail program-id="@Model" is-admin="@isAdmin"></program-detail>
 
 
 @section scripts{

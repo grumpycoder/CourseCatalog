@@ -1,9 +1,9 @@
-﻿using CourseCatalog.Application.Contracts;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Refs.CourseLevels.Commands.DeleteCourseLevel
 {
@@ -23,9 +23,7 @@ namespace CourseCatalog.App.Features.Refs.CourseLevels.Commands.DeleteCourseLeve
             if (subjectToDelete == null) throw new NotFoundException(nameof(Draft), request.CourseLevelId);
 
             if (await _courseLevelRepository.HasCourses(request.CourseLevelId))
-            {
                 throw new BadRequestException("Course Level assigned to courses. Cannot delete.");
-            }
 
             await _courseLevelRepository.DeleteAsync(subjectToDelete);
 

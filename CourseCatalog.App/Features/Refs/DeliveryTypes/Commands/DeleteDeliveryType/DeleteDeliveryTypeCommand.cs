@@ -4,11 +4,11 @@ namespace CourseCatalog.App.Features.Refs.DeliveryTypes.Commands.DeleteDeliveryT
 {
     public class DeleteDeliveryTypeCommand : IRequest
     {
-        public int DeliveryTypeId { get; set; }
-
         public DeleteDeliveryTypeCommand(int deliveryTypeId)
         {
             DeliveryTypeId = deliveryTypeId;
         }
+
+        public int DeliveryTypeId { get; set; }
     }
 }

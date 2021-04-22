@@ -1,7 +1,7 @@
-﻿using CourseCatalog.Application.Contracts;
-using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using CourseCatalog.Application.Contracts;
+using MediatR;
 
 namespace CourseCatalog.App.Features.Courses.Queries.GetCourseSummary
 {

@@ -1,13 +1,13 @@
 ﻿@{
     ViewBag.Title = "Cluster Detail";
     var isAdmin = "false";
-    if (User.Identity.HasRoleClaim("CareerTechAdmin") || @User.Identity.HasRoleClaim("Admin"))
+    if (User.Identity.HasRoleClaim("CareerTechAdmin") || User.Identity.HasRoleClaim("Admin"))
     {
         isAdmin = "true";
-    };
+    }
 }
 
-<cluster-detail cluster-id="@Model" is-admin=@isAdmin></cluster-detail>
+<cluster-detail cluster-id="@Model" is-admin="@isAdmin"></cluster-detail>
 
 
 @section scripts{

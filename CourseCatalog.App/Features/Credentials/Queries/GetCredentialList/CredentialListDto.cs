@@ -15,9 +15,5 @@
         public int CredentialTypeId { get; set; }
         public string CredentialType { get; set; }
         public string CredentialTypeCode { get; set; }
-
-
     }
-
-
 }

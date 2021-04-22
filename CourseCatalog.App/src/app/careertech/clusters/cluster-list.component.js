@@ -1,14 +1,14 @@
 ﻿//cluster-list.component.js
 
-var module = angular.module('app');
+var module = angular.module("app");
 
 function controller($http) {
     var ctrl = this;
 
-    ctrl.title = 'CTE Clusters';
+    ctrl.title = "CTE Clusters";
 
-    ctrl.$onInit = function () {
-        $http.get('/api/clusters').then(r => {
+    ctrl.$onInit = function() {
+        $http.get("/api/clusters").then(r => {
             ctrl.clusters = r.data;
             ctrl.dataGridOptions = {
                 dataSource: ctrl.clusters,
@@ -29,10 +29,10 @@ function controller($http) {
                 },
                 searchPanel: {
                     visible: true,
-                    placeholder: 'Search...'
+                    placeholder: "Search..."
                 },
                 loadPanel: {
-                    text: 'Loading Clusters ...'
+                    text: "Loading Clusters ..."
                 },
                 groupPanel: {
                     visible: true,
@@ -56,44 +56,41 @@ function controller($http) {
                 columnMinWidth: 50,
                 columns: [
                     {
-                        dataField: 'clusterCode',
-                        caption: 'Cluster Code',
-                        dataType: 'string',
+                        dataField: "clusterCode",
+                        caption: "Cluster Code",
+                        dataType: "string",
                         width: 120,
-                        cellTemplate: function (container, options) {
-                            $('<a/>')
+                        cellTemplate: function(container, options) {
+                            $("<a/>")
                                 .text(options.data.clusterCode)
-                                .attr('aria-label', 'Cluster Details ' + options.data.clusterId)
-                                .attr('href', '/careertech/clusters/' + options.data.clusterId)
+                                .attr("aria-label", `Cluster Details ${options.data.clusterId}`)
+                                .attr("href", `/careertech/clusters/${options.data.clusterId}`)
                                 .appendTo(container);
                         }
                     },
-                    { dataField: 'name', caption: 'Name', dataType: 'string' },
-                    { dataField: 'description', caption: 'Description', dataType: 'string' },
-                    { dataField: 'clusterTypeName', caption: 'Cluster Type', width: 120, dataType: 'string' },
-                    { dataField: 'beginYear', caption: 'Start Year', width: 120, dataType: 'int' },
-                    { dataField: 'endYear', caption: 'End Year', width: 120, dataType: 'int' },
+                    { dataField: "name", caption: "Name", dataType: "string" },
+                    { dataField: "description", caption: "Description", dataType: "string" },
+                    { dataField: "clusterTypeName", caption: "Cluster Type", width: 120, dataType: "string" },
+                    { dataField: "beginYear", caption: "Start Year", width: 120, dataType: "int" },
+                    { dataField: "endYear", caption: "End Year", width: 120, dataType: "int" },
                     {
-                        caption: '',
+                        caption: "",
                         visible: ctrl.isAdmin,
                         width: 75,
-                        cssClass: 'center-col',
-                        cellTemplate: function (container, options) {
-                            $('<a/>').addClass('btn btn-sm btn-outline-dark')
-                                .text('')
-                                .attr('aria-label', 'Edit Cluster ' + options.data.clusterCode)
-                                .attr('title', 'Edit Cluster ' + options.data.clusterCode)
-                                .attr('data-toggle', 'tooltip')
-                                .attr('data-placement', 'top')
-                                .attr('href', '/careertech/clusters/' + options.data.clusterId + '/edit')
+                        cssClass: "center-col",
+                        cellTemplate: function(container, options) {
+                            $("<a/>").addClass("btn btn-sm btn-outline-dark")
+                                .text("")
+                                .attr("aria-label", `Edit Cluster ${options.data.clusterCode}`)
+                                .attr("title", `Edit Cluster ${options.data.clusterCode}`)
+                                .attr("data-toggle", "tooltip")
+                                .attr("data-placement", "top")
+                                .attr("href", `/careertech/clusters/${options.data.clusterId}/edit`)
                                 .append('<i class="fa fa-pencil">')
-                                .on('dxclick',
-                                    function (e) {
-                                        $('<a href="/careertech/clusters/' +
-                                            options.data.clusterId +
-                                            '/edit>' +
-                                            options.data.clusterCode +
-                                            '</a>').appendTo(container);
+                                .on("dxclick",
+                                    function(e) {
+                                        $(`<a href="/careertech/clusters/${options.data.clusterId}/edit>${options.data
+                                            .clusterCode}</a>`).appendTo(container);
                                     })
                                 .appendTo(container);
                         }
@@ -103,21 +100,20 @@ function controller($http) {
                     totalItems: [
                         {
                             column: "clusterCode",
-                            displayFormat: '{0} Clusters',
-                            summaryType: 'count',
+                            displayFormat: "{0} Clusters",
+                            summaryType: "count",
                             showInGroupFooter: true,
-                            showInColumn: 'clusterCode'
+                            showInColumn: "clusterCode"
                         }
                     ],
                     groupItems: [
                         {
                             summaryType: "count",
-                            displayFormat: '{0} Clusters'
+                            displayFormat: "{0} Clusters"
                         }
-
                     ]
                 },
-                onToolbarPreparing: function (e) {
+                onToolbarPreparing: function(e) {
                     var dataGrid = e.component;
                     e.toolbarOptions.items.unshift(
                         {
@@ -125,9 +121,14 @@ function controller($http) {
                             widget: "dxButton",
                             options: {
                                 text: "Expand All",
-                                elementAttr: { "id": "btnExpandAllButton", 'ng-show': ctrl.isCollapsed, "data-toggle": "tooltip", "data-placement": "top" },
+                                elementAttr: {
+                                    "id": "btnExpandAllButton",
+                                    'ng-show': ctrl.isCollapsed,
+                                    "data-toggle": "tooltip",
+                                    "data-placement": "top"
+                                },
                                 width: 136,
-                                onClick: function (e) {
+                                onClick: function(e) {
                                     ctrl.isCollapsed = !dataGrid.option("grouping.autoExpandAll") !== undefined;
                                     e.component.option("text", ctrl.isCollapsed ? "Collapse All" : "Expand All");
                                     dataGrid.option("grouping.autoExpandAll", ctrl.isCollapsed);
@@ -139,9 +140,9 @@ function controller($http) {
                             widget: "dxButton",
                             options: {
                                 icon: "refresh",
-                                hint: 'Refresh',
+                                hint: "Refresh",
                                 elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                                onClick: function () {
+                                onClick: function() {
                                     dataGrid.refresh();
                                 }
                             }
@@ -151,9 +152,9 @@ function controller($http) {
                             widget: "dxButton",
                             options: {
                                 icon: "clearformat",
-                                hint: 'Clear filters',
+                                hint: "Clear filters",
                                 elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                                onClick: function () {
+                                onClick: function() {
                                     dataGrid.clearFilter();
                                 }
                             }
@@ -163,22 +164,21 @@ function controller($http) {
                             widget: "dxButton",
                             options: {
                                 icon: "pulldown",
-                                hint: 'Reset grid to default',
+                                hint: "Reset grid to default",
                                 elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                                onClick: function () {
+                                onClick: function() {
                                     dataGrid.state({});
                                 }
                             }
-                        }
-                        ,
+                        },
                         {
                             location: "after",
                             widget: "dxButton",
                             options: {
                                 icon: "save",
-                                hint: 'Export',
+                                hint: "Export",
                                 elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                                onClick: function () {
+                                onClick: function() {
                                     dataGrid.exportToExcel(false);
                                 }
                             }
@@ -189,27 +189,27 @@ function controller($http) {
 
                             options: {
                                 icon: "column-chooser",
-                                hint: 'Column Chooser',
+                                hint: "Column Chooser",
                                 elementAttr: { "data-toggle": "tooltip", "data-placement": "top" },
-                                onClick: function () {
+                                onClick: function() {
                                     dataGrid.showColumnChooser();
                                 }
                             }
                         }
                     );
                 }
-            }
+            };
         });
-    }
+    };
 
 }
 
 
-module.component('clusterList',
+module.component("clusterList",
     {
         bindings: {
-            isAdmin: '<'
+            isAdmin: "<"
         },
-        templateUrl: '/src/app/careertech/clusters/cluster-list.component.html',
-        controller: ['$http', controller]
+        templateUrl: "/src/app/careertech/clusters/cluster-list.component.html",
+        controller: ["$http", controller]
     });

@@ -1,16 +1,10 @@
 ﻿<style>
 
-    .custom-select {
-        padding: .375rem 1.75rem .375rem .75rem !important;
-    }
+    .custom-select { padding: .375rem 1.75rem .375rem .75rem !important; }
 
-    .custom-select-sm {
-        width: 81%;
-    }
+    .custom-select-sm { width: 81%; }
 
-    .extended-select.custom-select-sm {
-        width: 100%;
-    }
+    .extended-select.custom-select-sm { width: 100%; }
 
     .angular-extended-select {
         height: calc(1.7em + .75rem + 2px);
@@ -18,27 +12,19 @@
     }
 
     @media (min-width: 567px) and (max-width: 767px) {
-        .custom-select-sm {
-            width: 68%;
-        }
+        .custom-select-sm { width: 68%; }
     }
 
     @media (min-width: 768px) {
-        .custom-select-sm {
-            width: 78%;
-        }
+        .custom-select-sm { width: 78%; }
     }
 
     @media (min-width: 992px) {
-        .custom-select-sm {
-            width: 66%;
-        }
+        .custom-select-sm { width: 66%; }
     }
 
     @media (min-width: 1200px) {
-        .custom-select-sm {
-            width: 69%;
-        }
+        .custom-select-sm { width: 69%; }
     }
 </style>
 
@@ -58,7 +44,8 @@
                                  ng-change="$ctrl.changeEndorsement()"
                                  ng-options="o as o.description for o in $ctrl.endorsements"
                                  placeholder="Select Endorsement..."
-                                 class="custom-select-sm"></extended-select>
+                                 class="custom-select-sm">
+                </extended-select>
 
             </div>
 
@@ -97,7 +84,6 @@
 </div>
 
 
-
 <div dx-popup="$ctrl.popupOptions" id="popupContainer">
     <h3>Courses</h3>
     <div dx-scroll-view="$ctrl.scrollViewOptions">
@@ -112,4 +98,3 @@
 
 
 <pre>{{$ctrl.endorsement | json}}</pre>
-

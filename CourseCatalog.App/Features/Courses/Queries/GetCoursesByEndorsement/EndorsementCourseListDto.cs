@@ -36,7 +36,5 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCoursesByEndorsement
         public List<string> Tags { get; set; }
         public List<string> CreditTypes { get; set; }
         public string CourseStatus { get; set; }
-
     }
-
 }

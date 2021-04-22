@@ -1,4 +1,8 @@
-﻿using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
+using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
 using CourseCatalog.App.Features.Courses.Queries.GetCoursesByEndorsement;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseSummary;
 using CourseCatalog.Persistence;
@@ -6,18 +10,14 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace CourseCatalog.App.Controllers.API
 {
     [RoutePrefix("api/courses")]
     public class CoursesController : ApiController
     {
-        private readonly IMediator _mediator;
         private readonly CourseDbContext _context;
+        private readonly IMediator _mediator;
 
         public CoursesController(IMediator mediator, CourseDbContext context)
         {
@@ -25,7 +25,8 @@ namespace CourseCatalog.App.Controllers.API
             _context = context;
         }
 
-        [HttpGet, Route("active")]
+        [HttpGet]
+        [Route("active")]
         public async Task<IHttpActionResult> GetActive(DataSourceLoadOptions loadOptions)
         {
             try
@@ -39,7 +40,8 @@ namespace CourseCatalog.App.Controllers.API
             }
         }
 
-        [HttpGet, Route("")]
+        [HttpGet]
+        [Route("")]
         public async Task<IHttpActionResult> Get(DataSourceLoadOptions loadOptions)
         {
             try
@@ -53,27 +55,30 @@ namespace CourseCatalog.App.Controllers.API
             }
         }
 
-        [HttpGet, Route("{courseId}")]
+        [HttpGet]
+        [Route("{courseId}")]
         public async Task<IHttpActionResult> Get(int courseId)
         {
             var dto = await _mediator.Send(new GetCourseDetailQuery(courseId));
             return Ok(dto);
         }
 
-        [HttpGet, Route("endorsements/{endorseId}")]
+        [HttpGet]
+        [Route("endorsements/{endorseId}")]
         public async Task<IHttpActionResult> GetCoursesByEndorsement(int endorseId)
         {
             var dtos = await _mediator.Send(new GetCoursesByEndorsementQuery(endorseId));
             return Ok(dtos);
         }
 
-        [HttpGet, Route("{courseId}/teachers")]
+        [HttpGet]
+        [Route("{courseId}/teachers")]
         public async Task<IHttpActionResult> GetTeachersByCourse(int courseId, DataSourceLoadOptions loadOptions)
         {
             //HACK: Need to refactor b/c used devx load options
             var course = await _context.Courses
-                    .Include(e => e.Endorsements)
-                    .FirstOrDefaultAsync(c => c.CourseId == courseId);
+                .Include(e => e.Endorsements)
+                .FirstOrDefaultAsync(c => c.CourseId == courseId);
 
             var endorsements = course.Endorsements.Select(n => n.EndorsementId).ToList();
 
@@ -84,7 +89,8 @@ namespace CourseCatalog.App.Controllers.API
             return Ok(dtos);
         }
 
-        [HttpGet, Route("summary")]
+        [HttpGet]
+        [Route("summary")]
         public async Task<IHttpActionResult> Summary()
         {
             var dto = await _mediator.Send(new GetCourseSummaryQuery());

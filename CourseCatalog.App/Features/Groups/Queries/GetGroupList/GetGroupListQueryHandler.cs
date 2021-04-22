@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using MediatR;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Features.Groups.Queries.GetGroupList
 {
-    public class GetGroupListQueryHandler: IRequestHandler<GetGroupListQuery, List<GroupListDto>>
+    public class GetGroupListQueryHandler : IRequestHandler<GetGroupListQuery, List<GroupListDto>>
     {
-        private readonly IMapper _mapper;
         private readonly IGroupRepository _groupRepository;
+        private readonly IMapper _mapper;
 
         public GetGroupListQueryHandler(IMapper mapper, IGroupRepository groupRepository)
         {
@@ -23,8 +20,8 @@ namespace CourseCatalog.App.Features.Groups.Queries.GetGroupList
 
         public async Task<List<GroupListDto>> Handle(GetGroupListQuery request, CancellationToken cancellationToken)
         {
-                var groups = await _groupRepository.GetGroupsWithUsers();
-                return _mapper.Map<List<GroupListDto>>(groups);
+            var groups = await _groupRepository.GetGroupsWithUsers();
+            return _mapper.Map<List<GroupListDto>>(groups);
         }
     }
 }
