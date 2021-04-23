@@ -339,7 +339,7 @@
         <extended-select ng-model="$ctrl.course.cipCode"
                          id="cipCode"
                          deselectable=""
-                         required
+                         ng-required="$ctrl.course.isCareerTech"
                          ng-options="o.cipCode as o.cipCode + ' - ' + o.name group by o.familyName for o in $ctrl.cipCodes | orderBy:['family', 'name']"
                          class="custom-select-sm">
         </extended-select>
