@@ -27,7 +27,7 @@ function controller($http) {
     };
 
     ctrl.$onChanges = function() {
-
+        ctrl.isAdmin = (ctrl.isAdmin === "true");
     };
 
     ctrl.loadCluster = function(clusterId) {
