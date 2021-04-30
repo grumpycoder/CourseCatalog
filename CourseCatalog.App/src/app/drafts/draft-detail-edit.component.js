@@ -52,7 +52,6 @@ function detailController($http) {
         if (!ctrl.course.isCareerTech) ctrl.course.cipCode = null;
         if (!ctrl.course.isCollege) ctrl.course.collegeCourseId = null;
 
-
         if (!ctrl.course.draftId) {
             $http.post(url, ctrl.course).then(r => {
                 toastr.success("Created Course Draft");

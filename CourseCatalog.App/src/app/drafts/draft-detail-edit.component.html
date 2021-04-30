@@ -23,7 +23,7 @@
                ng-model="$ctrl.course.name"
                required
                ng-minlength="6"
-               ng-maxlength="100"/>
+               ng-maxlength="40"/>
         <ng-messages for="$ctrl.form.courseName.$error">
             <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
             <ng-message when="minlength" class="form-text text-danger small">Field is too short</ng-message>
@@ -187,6 +187,7 @@
                 ng-model="$ctrl.course.scedCategoryId"
                 name="scedCategoryId"
                 id="scedCategoryId"
+                required
                 ng-disabled="!$ctrl.canEditCourseNumber"
                 ng-change="$ctrl.updateCourseNumber()">
             <option value="">--- Please select ---</option>
@@ -207,8 +208,19 @@
                ng-model="$ctrl.course.scedCourseNumber"
                name="scedCourseNumber"
                id="scedCourseNumber"
+               autocomplete="off"
+               required
+               ng-minlength="3"
+               ng-maxlength="3"
                ng-disabled="!$ctrl.canEditCourseNumber"
-               ng-change="$ctrl.updateCourseNumber()"/>
+               ng-change="$ctrl.updateCourseNumber()" />
+
+        <ng-messages for="$ctrl.form.scedCourseNumber.$error">
+            <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+            <ng-message when="minlength" class="form-text text-danger small">Field is too short minimum of 3 characters</ng-message>
+            <ng-message when="maxlength" class="form-text text-danger small">Field is too long maximum of 3 characters</ng-message>
+        </ng-messages>
+
     </div>
 
     <div class="form-group col-6">
@@ -217,6 +229,7 @@
                 ng-model="$ctrl.course.courseLevelId"
                 name="courseLevelId"
                 id="courseLevelId"
+                required
                 ng-disabled="!$ctrl.canEditCourseNumber"
                 ng-change="$ctrl.updateCourseNumber()">
             <option value="">--- Please select ---</option>
@@ -237,8 +250,19 @@
                ng-model="$ctrl.course.stateAttribute1"
                name="stateAttribute1"
                id="stateAttribute1"
+               autocomplete="off"
+               required
+               ng-minlength="2"
+               ng-maxlength="2"
                ng-disabled="!$ctrl.canEditCourseNumber"
-               ng-change="$ctrl.updateCourseNumber()"/>
+               ng-change="$ctrl.updateCourseNumber()" />
+
+        <ng-messages for="$ctrl.form.stateAttribute1.$error">
+            <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+            <ng-message when="minlength" class="form-text text-danger small">Field is too short minimum of 2 characters</ng-message>
+            <ng-message when="maxlength" class="form-text text-danger small">Field is too long maximum of 2 characters</ng-message>
+        </ng-messages>
+
     </div>
 
     <div class="form-group col-6">
@@ -247,8 +271,19 @@
                ng-model="$ctrl.course.stateAttribute2"
                name="stateAttribute2"
                id="stateAttribute2"
+               autocomplete="off"
+               required
+               ng-minlength="2"
+               ng-maxlength="2"
                ng-disabled="!$ctrl.canEditCourseNumber"
-               ng-change="$ctrl.updateCourseNumber()"/>
+               ng-change="$ctrl.updateCourseNumber()" />
+
+        <ng-messages for="$ctrl.form.stateAttribute2.$error">
+            <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+            <ng-message when="minlength" class="form-text text-danger small">Field is too short minimum of 2 characters</ng-message>
+            <ng-message when="maxlength" class="form-text text-danger small">Field is too long maximum of 2 characters</ng-message>
+        </ng-messages>
+
     </div>
 
 </div>

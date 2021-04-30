@@ -21,9 +21,9 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraft
         public int? LowGradeId { get; set; }
         public int? HighGradeId { get; set; }
         public bool IsCareerTech { get; set; } = false;
-        public bool? IsSpecialEducation { get; set; }
-        public bool? IsLocallyEditable { get; set; }
-        public bool? IsCollege { get; set; }
+        public bool? IsSpecialEducation { get; set; } = false;
+        public bool? IsLocallyEditable { get; set; } = false;
+        public bool? IsCollege { get; set; } = false;
         public int? SubjectId { get; set; }
         public int? CourseLevelId { get; set; }
         public int? GradeScaleId { get; set; }
