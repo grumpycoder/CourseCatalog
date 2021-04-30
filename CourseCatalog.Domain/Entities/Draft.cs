@@ -11,10 +11,10 @@ namespace CourseCatalog.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string CollegeCourseId { get; set; }
-        public bool? IsLocallyEditable { get; set; }
-        public bool? IsCareerTech { get; set; }
-        public bool? IsSpecialEducation { get; set; }
-        public bool IsCollege { get; set; }
+        public bool? IsLocallyEditable { get; set; } = false;
+        public bool? IsCareerTech { get; set; } = false;
+        public bool? IsSpecialEducation { get; set; } = false;
+        public bool IsCollege { get; set; } = false;
 
         public string ScedCourseNumber { get; set; }
         public string StateAttribute1 { get; set; }

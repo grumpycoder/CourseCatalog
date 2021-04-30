@@ -1,12 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Exceptions;
 using CourseCatalog.Domain.Entities;
 using MediatR;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using WebGrease.Css.Extensions;
 
 namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
@@ -38,60 +38,58 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
             if (string.IsNullOrWhiteSpace(draftToPublish.Name))
                 throw new BadRequestException("Cannot Publish. Invalid Course Name");
 
-
-            var existingCourse = await _courseRepository.GetCourseByCourseNumber(draftToPublish.CourseNumber);
-
             if (draftToPublish.Status == CourseStatus.NewCourse)
             {
-                if (existingCourse != null)
+                var checkCourseExists = await _courseRepository.GetCourseByCourseNumber(draftToPublish.CourseNumber);
+                if (checkCourseExists != null)
                     throw new BadRequestException(
                         $"Duplicate Course Number. Existing course already contains course number {draftToPublish.CourseNumber}");
 
                 //create new course
-                existingCourse = _mapper.Map<Course>(draftToPublish);
+                var courseToCreate = _mapper.Map<Course>(draftToPublish);
 
-                draftToPublish.Endorsements
-                    .ForEach(endorsement =>
-                    {
-                        existingCourse.Endorsements.Add(new CourseEndorsement
-                            {EndorsementId = endorsement.EndorsementId});
-                    });
+                //draftToPublish.Endorsements
+                //    .ForEach(endorsement =>
+                //    {
+                //        courseToCreate.Endorsements.Add(new CourseEndorsement
+                //            {EndorsementId = endorsement.EndorsementId});
+                //    });
 
-                draftToPublish.Programs
-                    .ForEach(program =>
-                    {
-                        existingCourse.Programs.Add(new ProgramCourse
-                        {
-                            ProgramId = program.ProgramId, BeginYear = program.BeginYear, EndYear = program.EndYear
-                        });
-                    });
+                //draftToPublish.Programs
+                //    .ForEach(program =>
+                //    {
+                //        courseToCreate.Programs.Add(new ProgramCourse
+                //        {
+                //            ProgramId = program.ProgramId,
+                //            BeginYear = program.BeginYear,
+                //            EndYear = program.EndYear
+                //        });
+                //    });
 
-                draftToPublish.DeliveryTypes
-                    .ForEach(program =>
-                    {
-                        existingCourse.DeliveryTypes.Add(new CourseDeliveryType
-                            {DeliveryTypeId = program.DeliveryTypeId});
-                    });
+                //draftToPublish.DeliveryTypes
+                //    .ForEach(program =>
+                //    {
+                //        courseToCreate.DeliveryTypes.Add(new CourseDeliveryType
+                //        { DeliveryTypeId = program.DeliveryTypeId });
+                //    });
 
 
-                existingCourse.Status = CourseStatus.Published;
-                existingCourse.PublishDate = DateTime.Now;
-                var publishResponse = await _publishCourseService.PublishCourse(existingCourse);
-                //if (!publishResponse.Success)
-                //{
-                //    throw new BadRequestException(publishResponse.Message);
-                //}
+                courseToCreate.Status = CourseStatus.Published;
+                courseToCreate.PublishDate = DateTime.Now;
+                await _publishCourseService.PublishCourse(courseToCreate);
 
                 //HACK: Is there another way to null list<string>?
-                if (existingCourse.Tags.Count == 0) existingCourse.Tags = null;
-                if (existingCourse.CreditTypes.Count == 0) existingCourse.CreditTypes = null;
+                if (courseToCreate.Tags.Count == 0) courseToCreate.Tags = null;
+                if (courseToCreate.CreditTypes.Count == 0) courseToCreate.CreditTypes = null;
 
-                var id = await _courseRepository.AddAsync(existingCourse);
-                await _draftRepository.DeleteAsync(draftToPublish);
+                //var id = await _courseRepository.AddAsync(courseToCreate);
+                //await _draftRepository.DeleteAsync(draftToPublish);
             }
             else
             {
-                existingCourse = await _courseRepository.GetCourseByIdWithDetails(existingCourse.CourseId);
+                var existingCourseCheck = await _courseRepository.GetCourseByCourseNumber(draftToPublish.CourseNumber);
+                var existingCourse = await _courseRepository.GetCourseByIdWithDetails(existingCourseCheck.CourseId);
+
                 _mapper.Map(draftToPublish, existingCourse, typeof(Draft), typeof(Course));
 
                 //sync endorsements
@@ -101,7 +99,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                     .ForEach(draftEndorsement =>
                     {
                         existingCourse.Endorsements.Add(new CourseEndorsement
-                            {EndorsementId = draftEndorsement.EndorsementId});
+                        { EndorsementId = draftEndorsement.EndorsementId });
                     });
 
                 existingCourse.Endorsements.RemoveAll(courseEndorsement =>
@@ -116,7 +114,8 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                     {
                         existingCourse.Programs.Add(new ProgramCourse
                         {
-                            ProgramId = programDraft.ProgramId, BeginYear = programDraft.BeginYear,
+                            ProgramId = programDraft.ProgramId,
+                            BeginYear = programDraft.BeginYear,
                             EndYear = programDraft.EndYear
                         });
                     });
@@ -141,7 +140,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                     .ForEach(draftDeliveryType =>
                     {
                         existingCourse.DeliveryTypes.Add(new CourseDeliveryType
-                            {DeliveryTypeId = draftDeliveryType.DeliveryTypeId});
+                        { DeliveryTypeId = draftDeliveryType.DeliveryTypeId });
                     });
 
                 existingCourse.DeliveryTypes.RemoveAll(courseDeliveryType =>

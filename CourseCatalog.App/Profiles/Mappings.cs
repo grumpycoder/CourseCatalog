@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using CourseCatalog.App.Features.Clusters.Commands.CreateCluster;
 using CourseCatalog.App.Features.Clusters.Commands.UpdateCluster;
 using CourseCatalog.App.Features.Clusters.Queries.GetClusterDetail;
@@ -41,6 +40,8 @@ using CourseCatalog.App.Features.Users.Queries.GetUser;
 using CourseCatalog.App.Features.Users.Queries.GetUserGroupList;
 using CourseCatalog.App.Services;
 using CourseCatalog.Domain.Entities;
+using System;
+using System.Linq;
 
 namespace CourseCatalog.App.Profiles
 {
@@ -86,7 +87,7 @@ namespace CourseCatalog.App.Profiles
 
             CreateMap<Course, UDefCourses>()
                 .ForMember(d => d.CourseCode, o =>
-                    o.MapFrom(s => s.ArchiveCourseCode))
+                    o.MapFrom(s => s.ArchiveCourseCode ?? string.Empty))
                 .ForMember(d => d.CourseName, o =>
                     o.MapFrom(s => s.Name))
                 .ForMember(d => d.CipCode, o =>
@@ -104,13 +105,13 @@ namespace CourseCatalog.App.Profiles
                 .ForMember(d => d.BeginYear, o =>
                     o.MapFrom(s => s.BeginYear.ToString() ?? string.Empty))
                 .ForMember(d => d.LocallyEditable, o =>
-                    o.MapFrom(s => s.IsLocallyEditable))
+                    o.MapFrom(s => s.IsLocallyEditable.ToString()))
                 .ForMember(d => d.Subject, o =>
                     o.MapFrom(s => s.Subject.Name ?? string.Empty))
                 .ForMember(d => d.CreditType, o =>
-                    o.MapFrom(s => string.Join(",", s.CreditTypes)))
+                    o.MapFrom(s => string.Join(",", s.CreditTypes) ?? string.Empty))
                 .ForMember(d => d.Endorsements, o =>
-                    o.MapFrom(s => string.Join(",", s.Endorsements.Select(x => x.Endorsement.EndorseCode))))
+                    o.MapFrom(s => string.Join(",", s.Endorsements.Select(x => x.Endorsement.EndorseCode)) ?? string.Empty))
                 ;
 
 

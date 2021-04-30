@@ -1,14 +1,14 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using CourseCatalog.Application.Contracts;
 using CourseCatalog.Application.Responses;
 using CourseCatalog.Domain.Entities;
 using Flurl;
 using Flurl.Http;
 using Newtonsoft.Json;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace CourseCatalog.App.Services
 {
@@ -34,26 +34,34 @@ namespace CourseCatalog.App.Services
                     _configuration.ClientSecret);
 
             var dto = _mapper.Map<UDefCourses>(course);
-            if (dto.CreditType == null) dto.CreditType = "";
 
             var container = new UDefCoursesContainer
             {
                 Name = "u_def_courses",
-                Tables = new Tables {UDefCourses = dto}
+                Tables = new Tables { UDefCourses = dto }
             };
 
-            var post = await _configuration.ApiRequestUrl
-                .AppendPathSegment("ws/schema/table/u_def_courses")
-                .WithOAuthBearerToken(BearerToken)
-                .WithHeader("Content-Type", "application/json")
-                .PostJsonAsync(container)
-                .ReceiveJson();
+            try
+            {
+                var post = await _configuration.ApiRequestUrl
+                    .AppendPathSegment("ws/schema/table/u_def_courses")
+                    .WithOAuthBearerToken(BearerToken)
+                    .WithHeader("Content-Type", "application/json")
+                    .PostJsonAsync(container)
+                    .ReceiveJson();
 
-            var postResult = post.result[0];
-            var status = postResult.status.ToLower() == "success";
-            var message = JsonConvert.SerializeObject(postResult.success_message);
-            var response = new BaseResponse(message, status);
-            return response;
+                var postResult = post.result[0];
+                var status = postResult.status.ToLower() == "success";
+                var message = JsonConvert.SerializeObject(postResult.success_message);
+                var response = new BaseResponse(message, status);
+                return response;
+            }
+            catch (Exception e)
+            {
+                //Log error
+                throw;
+            }
+
         }
 
         public async Task GetBearerToken(string apiRequestUrl, string pluginClientId, string clientSecret)
@@ -77,8 +85,8 @@ namespace CourseCatalog.App.Services
 
         private static HttpClient MethodHeaders(string bearerToken, string endpointUrl)
         {
-            var handler = new HttpClientHandler {UseDefaultCredentials = false};
-            var client = new HttpClient(handler) {BaseAddress = new Uri(endpointUrl)};
+            var handler = new HttpClientHandler { UseDefaultCredentials = false };
+            var client = new HttpClient(handler) { BaseAddress = new Uri(endpointUrl) };
 
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -95,7 +103,7 @@ namespace CourseCatalog.App.Services
     [JsonObject(IsReference = false, Title = "u_def_courses")]
     public class UDefCourses
     {
-        [JsonProperty("inow_course_code")] public string CourseCode { get; set; }
+        [JsonProperty("inow_course_code")] public string CourseCode { get; set; } = string.Empty;
 
         [JsonProperty("iscareertech")] public string IsCareerTech { get; set; }
 
@@ -113,7 +121,7 @@ namespace CourseCatalog.App.Services
 
         [JsonProperty("locally_editable")] public string LocallyEditable { get; set; }
 
-        [JsonProperty("endorsements")] public string Endorsements { get; set; }
+        [JsonProperty("endorsements")] public string Endorsements { get; set; } = string.Empty;
 
         [JsonProperty("highgrade")] public string HighGrade { get; set; }
 
@@ -126,7 +134,7 @@ namespace CourseCatalog.App.Services
 
         [JsonProperty("credit_hours")] public string CreditHours { get; set; }
 
-        [JsonProperty("credittype")] public string CreditType { get; set; }
+        [JsonProperty("credittype")] public string CreditType { get; set; } = string.Empty;
 
         [JsonProperty("beginyear")] public string BeginYear { get; set; }
 
