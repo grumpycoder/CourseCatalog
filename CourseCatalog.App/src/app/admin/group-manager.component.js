@@ -64,8 +64,12 @@ function controller($http, $scope) {
 
         $http.post(`/api/membership/groups/${ctrl.groupName}`)
             .then(r => {
-                console.log("success", r);
-                ctrl.groups.push(r.data);
+                console.log("success", r)
+                var group = {
+                    groupName: ctrl.groupName, 
+                    groupId: r.data
+                }
+                ctrl.groups.push(group);
                 $("#groupList").dxList("instance").reload();
 
                 toastr.success(`Added group ${r.data.name}`);

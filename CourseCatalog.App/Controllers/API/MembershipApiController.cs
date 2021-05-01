@@ -14,6 +14,7 @@ using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseCatalog.App.Features.Groups.Commands.CreateGroup;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -45,6 +46,14 @@ namespace CourseCatalog.App.Controllers.API
         public async Task<IHttpActionResult> Groups()
         {
             var dtos = await _mediator.Send(new GetGroupListQuery());
+            return Ok(dtos);
+        }
+
+        [HttpPost]
+        [Route("groups/{groupName}")]
+        public async Task<IHttpActionResult> Groups(string groupName)
+        {
+            var dtos = await _mediator.Send(new CreateGroupCommand(groupName));
             return Ok(dtos);
         }
 

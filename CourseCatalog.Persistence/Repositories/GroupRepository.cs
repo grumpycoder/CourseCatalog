@@ -25,5 +25,11 @@ namespace CourseCatalog.Persistence.Repositories
                 .Include(ug => ug.Users).ThenInclude(u => u.User)
                 .ToListAsync();
         }
+
+        public async Task<Group> GetGroupByName(string groupName)
+        {
+            return await _dbContext.Groups
+                .FirstOrDefaultAsync(g => g.Name == groupName);
+        }
     }
 }

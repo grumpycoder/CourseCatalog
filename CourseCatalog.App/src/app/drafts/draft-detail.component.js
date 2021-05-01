@@ -9,6 +9,8 @@ function controller($http, userService) {
         userService.userDetails().then(r => {
             if (r !== null) {
                 ctrl.user = r;
+                ctrl.isPublisher = ctrl.user.groups.some(g => g.groupName === "Publisher"); 
+
                 ctrl.isAdmin = ctrl.user.groups.some(g => g.groupName === "Admin") ||
                     ctrl.user.groups.some(g => g.groupName === "CourseAdmin");
                 ctrl.isCourseAdmin = ctrl.isAdmin;
