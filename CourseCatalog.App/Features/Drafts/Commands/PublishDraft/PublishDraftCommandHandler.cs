@@ -82,8 +82,8 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 if (courseToCreate.Tags.Count == 0) courseToCreate.Tags = null;
                 if (courseToCreate.CreditTypes.Count == 0) courseToCreate.CreditTypes = null;
 
-                //var id = await _courseRepository.AddAsync(courseToCreate);
-                //await _draftRepository.DeleteAsync(draftToPublish);
+                var id = await _courseRepository.AddAsync(courseToCreate);
+                await _draftRepository.DeleteAsync(draftToPublish);
             }
             else
             {
