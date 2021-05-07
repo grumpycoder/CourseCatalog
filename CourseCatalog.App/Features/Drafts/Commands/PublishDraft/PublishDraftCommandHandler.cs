@@ -30,10 +30,10 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
         public async Task<Unit> Handle(PublishDraftCommand request, CancellationToken cancellationToken)
         {
             var draftToPublish = await _draftRepository.GetDraftByIdWithDetails(request.DraftId);
-            draftToPublish.CourseNumber = draftToPublish.CourseNumber.Replace("#", "");
+            draftToPublish.CourseNumber = draftToPublish.CourseNumber?.Replace("#", "");
 
             //Basic Validations
-            if (draftToPublish.CourseNumber.Length != 10)
+            if (draftToPublish.CourseNumber?.Length != 10)
                 throw new BadRequestException("Cannot Publish. Invalid Course Number length");
             if (string.IsNullOrWhiteSpace(draftToPublish.Name))
                 throw new BadRequestException("Cannot Publish. Invalid Course Name");
@@ -48,32 +48,6 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 //create new course
                 var courseToCreate = _mapper.Map<Course>(draftToPublish);
 
-                //draftToPublish.Endorsements
-                //    .ForEach(endorsement =>
-                //    {
-                //        courseToCreate.Endorsements.Add(new CourseEndorsement
-                //            {EndorsementId = endorsement.EndorsementId});
-                //    });
-
-                //draftToPublish.Programs
-                //    .ForEach(program =>
-                //    {
-                //        courseToCreate.Programs.Add(new ProgramCourse
-                //        {
-                //            ProgramId = program.ProgramId,
-                //            BeginYear = program.BeginYear,
-                //            EndYear = program.EndYear
-                //        });
-                //    });
-
-                //draftToPublish.DeliveryTypes
-                //    .ForEach(program =>
-                //    {
-                //        courseToCreate.DeliveryTypes.Add(new CourseDeliveryType
-                //        { DeliveryTypeId = program.DeliveryTypeId });
-                //    });
-
-
                 courseToCreate.Status = CourseStatus.Published;
                 courseToCreate.PublishDate = DateTime.Now;
                 await _publishCourseService.PublishCourse(courseToCreate);
@@ -82,8 +56,15 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
                 if (courseToCreate.Tags.Count == 0) courseToCreate.Tags = null;
                 if (courseToCreate.CreditTypes.Count == 0) courseToCreate.CreditTypes = null;
 
-                var id = await _courseRepository.AddAsync(courseToCreate);
-                await _draftRepository.DeleteAsync(draftToPublish);
+                try
+                {
+                    var id = await _courseRepository.AddAsync(courseToCreate);
+                    await _draftRepository.DeleteAsync(draftToPublish);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error moving draft to courses", e);
+                }
             }
             else
             {
@@ -153,18 +134,20 @@ namespace CourseCatalog.App.Features.Drafts.Commands.PublishDraft
 
                 if (_publishCourseService == null) throw new Exception("No Publish service");
                 await _publishCourseService.PublishCourse(existingCourse);
-                //if (!publishResponse.Success)
-                //{
-                //    throw new BadRequestException(publishResponse.Message);
-                //}
 
                 //HACK: Is there another way to null list<string>?
                 if (existingCourse.Tags.Count == 0) existingCourse.Tags = null;
                 if (existingCourse.CreditTypes.Count == 0) existingCourse.CreditTypes = null;
 
-                await _courseRepository.UpdateAsync(existingCourse);
-
-                await _draftRepository.DeleteAsync(draftToPublish);
+                try
+                {
+                    await _courseRepository.UpdateAsync(existingCourse);
+                    await _draftRepository.DeleteAsync(draftToPublish);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error moving draft to courses", e);
+                }
             }
 
             return Unit.Value;

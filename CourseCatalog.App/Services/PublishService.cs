@@ -34,6 +34,8 @@ namespace CourseCatalog.App.Services
                     _configuration.ClientSecret);
 
             var dto = _mapper.Map<UDefCourses>(course);
+            //HACK: mapping is not correcting missing subject to empty string
+            dto.Subject = dto.Subject ?? string.Empty; 
 
             var container = new UDefCoursesContainer
             {
@@ -56,10 +58,11 @@ namespace CourseCatalog.App.Services
                 var response = new BaseResponse(message, status);
                 return response;
             }
-            catch (Exception e)
+            catch (FlurlHttpException ex)
             {
                 //Log error
-                throw;
+                var errorResponse = await ex.GetResponseJsonAsync();
+                throw new Exception($"PowerSchool error: {errorResponse.message}", new Exception($"Payload Error: {ex.Call.RequestBody}", ex));
             }
 
         }
@@ -105,40 +108,41 @@ namespace CourseCatalog.App.Services
     {
         [JsonProperty("inow_course_code")] public string CourseCode { get; set; } = string.Empty;
 
-        [JsonProperty("iscareertech")] public string IsCareerTech { get; set; }
+        [JsonProperty("iscareertech")] public string IsCareerTech { get; set; } = string.Empty;
 
-        [JsonProperty("code")] public string CipCode { get; set; }
+        [JsonProperty("code")] public string CipCode { get; set; } = string.Empty;
 
-        [JsonProperty("course_number")] public string CourseNumber { get; set; }
+        [JsonProperty("course_number")] public string CourseNumber { get; set; } = string.Empty;
 
-        [JsonProperty("course_name")] public string CourseName { get; set; }
+        [JsonProperty("course_name")] public string CourseName { get; set; } = string.Empty;
 
-        [JsonProperty("lowgrade")] public string LowGrade { get; set; }
+        [JsonProperty("lowgrade")] public string LowGrade { get; set; } = string.Empty;
 
-        [JsonProperty("isspecialed")] public string IsSpecialEd { get; set; }
+        [JsonProperty("isspecialed")] public string IsSpecialEd { get; set; } = string.Empty;
 
-        [JsonProperty("collegecoursecode")] public string CollegeCourseCode { get; set; }
+        [JsonProperty("collegecoursecode")] public string CollegeCourseCode { get; set; } = string.Empty;
 
-        [JsonProperty("locally_editable")] public string LocallyEditable { get; set; }
+        [JsonProperty("locally_editable")] public string LocallyEditable { get; set; } = string.Empty;
 
         [JsonProperty("endorsements")] public string Endorsements { get; set; } = string.Empty;
 
-        [JsonProperty("highgrade")] public string HighGrade { get; set; }
+        [JsonProperty("highgrade")] public string HighGrade { get; set; } = string.Empty;
 
-        [JsonProperty("regcoursegroup")] public string Subject { get; set; }
+        [JsonProperty("regcoursegroup")] public string Subject { get; set; } = string.Empty;
 
-        [JsonProperty("iscollege")] public string IsCollege { get; set; }
+        [JsonProperty("iscollege")] public string IsCollege { get; set; } = string.Empty;
 
         [JsonProperty("sched_fullcatalogdescription")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
-        [JsonProperty("credit_hours")] public string CreditHours { get; set; }
+        [JsonProperty("credit_hours")] public string CreditHours { get; set; } = string.Empty;
 
         [JsonProperty("credittype")] public string CreditType { get; set; } = string.Empty;
 
-        [JsonProperty("beginyear")] public string BeginYear { get; set; }
+        [JsonProperty("beginyear")] public string BeginYear { get; set; } = string.Empty;
 
-        [JsonProperty("endyear")] public string EndYear { get; set; }
+        [JsonProperty("endyear")] public string EndYear { get; set; } = string.Empty;
+
     }
 
     [JsonObject(IsReference = false)]

@@ -48,8 +48,8 @@ function controller($http) {
             { dataField: "userName", caption: "User", width: 100 },
             { dataField: "message", caption: "Message", width: 150, wordWrapEnabled: false },
             { dataField: "exception", caption: "Exception", width: 200, wordWrapEnabled: true },
+            { dataField: "logEvent", caption: "Log Event", width: 200, wordWrapEnabled: true },
             { dataField: "correlationId", caption: "Session" },
-            { dataField: "elapsedMilliseconds", caption: "Elapsed Milliseconds", visible: false },
             { dataField: "timestamp", caption: "Time Stamp", dataType: "datetime", width: 100 }
         ],
         onToolbarPreparing: function(e) {

@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Enrichers.HttpContextData;
 using Serilog.Events;
+using Serilog.Formatting.Compact;
 using Serilog.Sinks.MSSqlServer;
 using System;
 using System.Collections.Generic;
@@ -89,60 +90,18 @@ namespace CourseCatalog.App
             var logFile = ConfigurationManager.AppSettings["LogFile"];
 
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                .MinimumLevel.Override("System", LogEventLevel.Warning)
-                .Enrich.FromLogContext()
-                .Enrich.WithHttpRequestId()
-                .Enrich.WithHttpContextData()
+                .WriteTo.MSSqlServer(connectionString, GetErrorSinkOptions(),
+                    columnOptions: GetErrorSqlColumnOptions(),
+                    restrictedToMinimumLevel: LogEventLevel.Verbose)
+                .MinimumLevel.Error()
                 .Enrich.WithMachineName()
-                .Enrich.WithMvcRouteTemplate()
-                .Enrich.WithMvcActionName()
-                .Enrich.FromLogContext()
-                .WriteTo.Logger(new LoggerConfiguration()
-                    .MinimumLevel.Verbose()
-                    .Enrich.WithMachineName()
-                    .Enrich.FromLogContext()
-                    .Enrich.WithHttpRequestId()
-                    .Enrich.WithAssemblyName()
-                    .Enrich.WithAssemblyVersion()
-                    .Enrich.WithHttpContextData()
-                    .Enrich.WithClaimValue("AlsdeId")
-                    .Enrich.WithUserName()
-                    .Enrich.WithHttpRequestRawUrl()
-                    .Enrich.WithWebApiActionName("ActionName")
-                    .Enrich.WithWebApiControllerName("ControllerName")
-                    .Enrich.WithWebApiRouteData("RouteData")
-                    .Enrich.WithMvcActionName("ActionName")
-                    .Enrich.WithMvcControllerName("ControllerName")
-                    .Enrich.WithMvcRouteData("RouteData")
-                    .WriteTo
-                    .MSSqlServer(connectionString,
-                        GetErrorSinkOptions(),
-                        columnOptions: GetErrorSqlColumnOptions(),
-                        restrictedToMinimumLevel: LogEventLevel.Error)
-                    .CreateLogger())
-                //.WriteTo.Logger(new LoggerConfiguration()
-                //    .MinimumLevel.Verbose()
-                //    .Enrich.WithMachineName()
-                //    .Enrich.FromLogContext()
-                //    .Enrich.WithHttpRequestId()
-                //    .Enrich.WithAssemblyName()
-                //    .Enrich.WithAssemblyVersion()
-                //    .Enrich.WithHttpContextData()
-                //    .Enrich.WithUserName()
-                //    .Enrich.WithMvcActionName("ActionName")
-                //    .Enrich.WithMvcControllerName("ControllerName")
-                //    .Enrich.WithMvcRouteData("RouteData")
-                //    .WriteTo
-                //    .MSSqlServer(connectionString: connectionString,
-                //        sinkOptions: GetSinkOptions(),
-                //        columnOptions: GetSqlColumnOptions(),
-                //        restrictedToMinimumLevel: LogEventLevel.Information)
-                //    .CreateLogger())
-                //.WriteTo.File(new CompactJsonFormatter(), logFile, LogEventLevel.Error,
-                //    shared: true, rollingInterval: RollingInterval.Month
-                //)
+                .Enrich.WithHttpRequestId()
+                .Enrich.WithUserName()
+                .Enrich.WithHttpContextData()
+                .Enrich.WithHttpRequestRawUrl()
+                .WriteTo.File(new CompactJsonFormatter(), logFile, LogEventLevel.Verbose,
+                    shared: true, rollingInterval: RollingInterval.Month
+                ).Enrich.WithWebApiActionName()
                 .CreateLogger();
         }
 
@@ -163,29 +122,17 @@ namespace CourseCatalog.App
             var options = new ColumnOptions { Id = { ColumnName = "LogId" } };
 
             options.Store.Remove(StandardColumn.MessageTemplate);
-            options.Store.Remove(StandardColumn.Level);
             options.Store.Remove(StandardColumn.Properties);
 
-
             options.Store.Add(StandardColumn.LogEvent);
-            options.LogEvent.ExcludeStandardColumns = true;
-            options.LogEvent.ExcludeAdditionalProperties = true;
 
             options.AdditionalColumns = new List<SqlColumn>
             {
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Location", PropertyName = "RawUrl"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AlsdeId"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Location", PropertyName = "HttpRequestRawUrl"},
                 new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "UserName"},
                 new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Hostname", PropertyName = "MachineName"},
-                new SqlColumn
-                    {DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", PropertyName = "HttpRequestId"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AssemblyName"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AssemblyVersion"},
-                new SqlColumn
-                    {DataType = SqlDbType.VarChar, ColumnName = "Controller", PropertyName = "ControllerName"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Action", PropertyName = "ActionName"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "RouteData"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "HttpContextData"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "HttpContextData", PropertyName = "ALL_HTTP"},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", PropertyName = "HttpRequestId"},
                 new SqlColumn {DataType = SqlDbType.Float, ColumnName = "ElapsedMilliseconds", AllowNull = false}
             };
 
