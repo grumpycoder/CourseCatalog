@@ -24,6 +24,11 @@ namespace CourseCatalog.Domain.Entities
         public string ScedIdentifier { get; set; }
         public string ScedCategory { get; set; }
         public string ScedCategoryCode { get; set; }
+        public string CollegeCourseId { get; set; }
+        public bool? IsCareerTech { get; set; }
+        public bool? IsSpecialEducation { get; set; }
+        public bool? IsLocallyEditable { get; set; }
+        public bool? IsCollege { get; set; }
         public string Subject { get; set; }
         public decimal? CreditHours { get; set; }
         public string Status { get; set; }
