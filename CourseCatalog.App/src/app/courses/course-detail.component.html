@@ -122,7 +122,7 @@
                             <span ng-show="!$ctrl.course.endorsements.length" class="badge badge-secondary badge-outlined mx-1 text-larger">None</span>
                             <ul class="list-inline text-white" ng-show="$ctrl.course.endorsements">
                                 <li class="list-inline-item">
-                                    <span class="badge badge-success badge-outlined mx-1 mb-2 text-larger" ng-repeat="item in $ctrl.course.endorsements">
+                                    <span class="badge badge-success badge-outlined mx-1 mb-2 text-larger" ng-repeat="item in $ctrl.course.endorsements | orderBy: 'description'">
                                         {{ item.description }}
                                     </span>
                                 </li>
