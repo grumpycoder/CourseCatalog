@@ -168,18 +168,21 @@ function controller($http) {
                                 .attr("aria-disabled", "true")
                                 .on("dxclick",
                                     function(e) {
-                                        if (ctrl.isAdmin !== true || options.data.isPublishable !== true) return;
-                                        $http.post(`/api/drafts/${options.data.courseId}/create`).then(r => {
-                                            toastr.success(`Created draft ${options.data.courseNumber}`);
-                                            window.location.href = `/drafts/${r.data}`;
-                                        }).catch(err => {
-                                            if (err.data.exceptionType.includes("EntityFrameworkCore")) {
-                                                toastr.error("Database error creating draft");
-                                            } else {
-                                                toastr.error(err.data.exceptionMessage);
-                                            }
-                                            console.error("create draft error", err);
-                                        });
+                                        var canCreateDraft =
+                                            ctrl.isAdmin !== true || options.data.isPublishable !== true;
+                                        if (canCreateDraft) {
+                                            $http.post(`/api/drafts/${options.data.courseId}/create`).then(r => {
+                                                toastr.success(`Created draft ${options.data.courseNumber}`);
+                                                window.location.href = `/drafts/${r.data}`;
+                                            }).catch(err => {
+                                                if (err.data.exceptionType.includes("EntityFrameworkCore")) {
+                                                    toastr.error("Database error creating draft");
+                                                } else {
+                                                    toastr.error(err.data.exceptionMessage);
+                                                }
+                                                console.error("create draft error", err);
+                                            });
+                                        }
                                     })
                                 .appendTo(container);
                         }
