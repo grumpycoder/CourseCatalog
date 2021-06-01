@@ -26,6 +26,9 @@ function controller($http) {
                 loadUrl: url
             }),
             remoteOperations: true,
+            selection: {
+                mode: "single"
+            },
             scrolling: {
                 mode: "virtual",
                 rowRenderingMode: "virtual"
@@ -206,6 +209,7 @@ function controller($http) {
                 if (ctrl.isAdmin === 'false') {
                     $('#gridContainer').dxDataGrid('instance').deleteColumn('createDraftCol'); 
                 }
+
             },
             onOptionChanged: function (e) {
                 ctrl.isCollapsed = e.component.columnOption("groupIndex:0") !== undefined;
@@ -320,6 +324,10 @@ function controller($http) {
         }
     };
 
+    //window.onbeforeunload = function(){
+    //    var lastScrollPosition = $('#gridContainer').dxDataGrid('instance').getScrollable().scrollTop(); 
+    //    localStorage.setItem('lastScrollPosition', lastScrollPosition); 
+    //};
 }
 
 module.component("courseList",

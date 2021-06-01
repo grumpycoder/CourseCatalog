@@ -32,7 +32,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraftRequirement
             var existingEndorsement =
                 existingDraft.Endorsements.FirstOrDefault(e => e.EndorsementId == request.EndorsementId);
             if (existingEndorsement != null)
-                throw new BadRequestException("Draft already contains existing endorsement");
+                throw new BadRequestException($"Draft already contains existing endorsement {existingEndorsement.Endorsement.EndorseCode}");
 
             existingDraft.Endorsements.Add(new DraftEndorsement {EndorsementId = request.EndorsementId});
 
