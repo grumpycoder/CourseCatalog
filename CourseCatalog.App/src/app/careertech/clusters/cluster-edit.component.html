@@ -105,7 +105,7 @@
                                             id="clusterTypeId"
                                             required>
                                         <option ng-repeat="option in $ctrl.clusterTypes" ng-value="option.clusterTypeId">
-                                            {{ option.name }}
+                                            {{ option.name }} ({{option.clusterTypeCode}})
                                         </option>
                                     </select>
                                     <ng-messages for="$ctrl.form.clusterTypeId.$error">

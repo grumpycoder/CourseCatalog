@@ -6,5 +6,6 @@ namespace CourseCatalog.App.Features.Refs.ClusterTypes.Commands.CreateClusterTyp
     {
         public int ClusterTypeId { get; set; }
         public string Name { get; set; }
+        public string ClusterTypeCode { get; set; }
     }
 }

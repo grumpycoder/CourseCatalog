@@ -4,5 +4,6 @@
     {
         public int ClusterTypeId { get; set; }
         public string ClusterTypeName { get; set; }
+        public string ClusterTypeCode { get; set; }
     }
 }

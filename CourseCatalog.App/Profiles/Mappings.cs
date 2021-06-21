@@ -175,6 +175,7 @@ namespace CourseCatalog.App.Profiles
             //Clusters Mappings
             CreateMap<Cluster, ClusterListDto>()
                 .ForMember(d => d.ClusterTypeName, o => o.MapFrom(d => d.ClusterType.Name))
+                .ForMember(d => d.ClusterTypeCode, o => o.MapFrom(d => d.ClusterType.ClusterTypeCode))
                 .ReverseMap();
 
             CreateMap<ClusterDetailDto, Cluster>().ReverseMap();

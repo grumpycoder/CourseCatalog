@@ -6,5 +6,6 @@ namespace CourseCatalog.Domain.Entities
     {
         public int ClusterTypeId { get; set; }
         public string Name { get; set; }
+        public string ClusterTypeCode { get; set; }
     }
 }

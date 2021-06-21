@@ -20,7 +20,7 @@
                 <div dx-list="$ctrl.groupListOptions" allowDeleting="true" dx-item-alias="item"
                      id="groupList">
                     <div data-options="dxTemplate: {name: 'item'}">
-                        <span>{{item.name}}</span>
+                        <span>{{item.name}} ({{item.clusterTypeCode}})</span>
                     </div>
                 </div>
 
@@ -47,13 +47,33 @@
                                            placeholder="Cluster Type Name (required)"
                                            ng-change="$ctrl.onChangeCode()"
                                            ng-model="$ctrl.selected.name"
-                                           required/>
+                                           required />
                                     <ng-messages for="$ctrl.form.name.$error">
                                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
                                         <ng-message when="unique" class="form-text text-danger small">Already in use</ng-message>
                                     </ng-messages>
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label for="name" class="col-3 col-form-label">Cluster Type Code</label>
+                                <div class="col-9">
+                                    <input type="text"
+                                           class="form-control"
+                                           id="code"
+                                           name="code"
+                                           autocomplete="off"
+                                           placeholder="Cluster Type Code (required)"
+                                           ng-change="$ctrl.onChangeCode()"
+                                           ng-model="$ctrl.selected.clusterTypeCode"
+                                           required />
+                                    <ng-messages for="$ctrl.form.name.$error">
+                                        <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
+                                        <ng-message when="unique" class="form-text text-danger small">Already in use</ng-message>
+                                    </ng-messages>
+                                </div>
+                            </div>
+
 
                             <div class="form-group row">
                                 <div class="col-6">

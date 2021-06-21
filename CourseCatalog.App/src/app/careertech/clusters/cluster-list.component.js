@@ -71,6 +71,7 @@ function controller($http) {
                     { dataField: "name", caption: "Name", dataType: "string" },
                     { dataField: "description", caption: "Description", dataType: "string" },
                     { dataField: "clusterTypeName", caption: "Cluster Type", width: 120, dataType: "string" },
+                    { dataField: "clusterTypeCode", caption: "Cluster Type Code", width: 120, dataType: "string" },
                     { dataField: "beginYear", caption: "Start Year", width: 120, dataType: "int" },
                     { dataField: "endYear", caption: "End Year", width: 120, dataType: "int" },
                     {

@@ -48,13 +48,14 @@ function controller($http) {
 
         var dto = {
             clusterTypeId: ctrl.selected.clusterTypeId,
-            name: ctrl.selected.name,
+            name: ctrl.selected.name, 
+            clusterTypeCode: ctrl.selected.clusterTypeCode, 
             description: ctrl.selected.description
         };
 
         if (!ctrl.selected.clusterTypeId) {
             $http.post(url, dto).then(r => {
-                toastr.success("Created Delivery Type");
+                toastr.success("Created Cluster Type");
                 dto.clusterTypeId = r.data;
                 ctrl.clusterTypes.push(dto);
                 $("#groupList").dxList("instance").reload();
