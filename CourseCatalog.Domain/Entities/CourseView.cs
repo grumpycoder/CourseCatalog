@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CourseCatalog.Domain.Entities
 {
@@ -31,6 +32,7 @@ namespace CourseCatalog.Domain.Entities
         public bool? IsCollege { get; set; }
         public string Subject { get; set; }
         public decimal? CreditHours { get; set; }
+        public List<string> CreditTypes { get; set; }
         public string Status { get; set; }
         public DateTime? PublishDate { get; set; }
         public bool IsRetired { get; set; }

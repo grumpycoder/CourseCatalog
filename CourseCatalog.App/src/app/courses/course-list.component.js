@@ -108,6 +108,7 @@ function controller($http) {
                     },
                     caption: "Credit Hours"
                 },
+                { dataField: "creditTypes", dataType: "string", caption: "Credit Types" },
                 { dataField: "scedIdentifier", dataType: "string", caption: "SCED Category" },
                 { dataField: "subject", dataType: "string", caption: "Subject" },
                 { dataField: "collegeCourseId", dataType: "string", caption: "College CourseId", visible: false },
