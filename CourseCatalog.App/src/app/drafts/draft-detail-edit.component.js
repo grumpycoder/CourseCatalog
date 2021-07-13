@@ -58,7 +58,8 @@ function detailController($http) {
                 window.location.href = `/drafts/${r.data}/edit`;
             }).catch(e => {
                 console.error("update error", e);
-                toastr.error(e.data.message);
+                if (e.data.exceptionMessage) toastr.error(e.data.exceptionMessage);
+                if (!e.data.exceptionMessage) toastr.error(e.data.message);
             });
             return;
         }
@@ -67,8 +68,9 @@ function detailController($http) {
             updateCache();
             toastr.success("Saved Course Draft");
         }).catch(e => {
-            console.error("update error", e.message);
-            toastr.error(e.message);
+            console.error("update error", e);
+            if (e.data.exceptionMessage) toastr.error(e.data.exceptionMessage);
+            if (!e.data.exceptionMessage) toastr.error(e.data.message);
         });
     };
 
