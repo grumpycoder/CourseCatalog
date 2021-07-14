@@ -27,6 +27,10 @@ namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
         public int? GradeScaleId { get; set; }
         public int? ScedCategoryId { get; set; }
 
+        public string ScedCourseNumber { get; set; }
+        public string StateAttribute1 { get; set; }
+        public string StateAttribute2 { get; set; }
+
         public List<UpdateDraftDeliveryTypeDto> DeliveryTypes { get; set; }
     }
 
