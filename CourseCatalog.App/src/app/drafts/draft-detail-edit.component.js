@@ -51,7 +51,9 @@ function detailController($http) {
         ctrl.course.creditTypes = ctrl.selectedCreditTypeTags;
         if (!ctrl.course.isCareerTech) ctrl.course.cipCode = null;
         if (!ctrl.course.isCollege) ctrl.course.collegeCourseId = null;
-
+        ctrl.course.stateAttribute1 = ctrl.course.stateAttribute1.toUpperCase(); 
+        ctrl.course.stateAttribute2 = ctrl.course.stateAttribute2.toUpperCase(); 
+        
         if (!ctrl.course.draftId) {
             $http.post(url, ctrl.course).then(r => {
                 toastr.success("Created Course Draft");
@@ -82,12 +84,12 @@ function detailController($http) {
         if (!ctrl.course.stateAttribute1) {
             ctrl.stateAttribute1 = "##";
         } else {
-            ctrl.stateAttribute1 = ctrl.course.stateAttribute1;
+            ctrl.stateAttribute1 = ctrl.course.stateAttribute1.toUpperCase();
         }
         if (!ctrl.course.stateAttribute2) {
             ctrl.stateAttribute2 = "##";
         } else {
-            ctrl.stateAttribute2 = ctrl.course.stateAttribute2;
+            ctrl.stateAttribute2 = ctrl.course.stateAttribute2.toUpperCase();
         }
 
         if (ctrl.course.scedCourseNumber) {

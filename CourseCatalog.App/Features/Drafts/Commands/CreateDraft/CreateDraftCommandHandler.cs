@@ -34,8 +34,9 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraft
             if (existingCourse != null)
                 throw new BadRequestException(
                     $"Duplicate Course Number. Existing course already contains course number {request.CourseNumber}");
-
+            
             var draft = _mapper.Map<Draft>(request);
+
             draft.Status = CourseStatus.NewCourse;
 
             draft = await _draftRepository.AddAsync(draft);
