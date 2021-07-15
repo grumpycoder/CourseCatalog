@@ -25,8 +25,7 @@
                            ng-model="$ctrl.course.name"
                            required
                            ng-minlength="6"
-                           ng-maxlength="40"
-                           pattern="^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$" ng-pattern-restrict />
+                           ng-maxlength="40" />
                     <ng-messages for="$ctrl.form.courseName.$error">
                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
                         <ng-message when="minlength" class="form-text text-danger small">Field is too short</ng-message>
@@ -47,8 +46,7 @@
                               cols="30"
                               rows="10"
                               placeholder="Course Description (required)"
-                              ng-model="$ctrl.course.description"
-                              pattern="^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$" ng-pattern-restrict></textarea>
+                              ng-model="$ctrl.course.description"></textarea>
                     <ng-messages for="$ctrl.form.description.$error">
                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
                         <ng-message when="pattern" class="form-text text-danger small">Invalid characters</ng-message>
