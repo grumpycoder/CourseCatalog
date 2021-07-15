@@ -21,7 +21,9 @@ namespace CourseCatalog.App
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 CookieDomain = "alsde.edu",
-                CookieName = "Courses.ApplicationCookie." + Constants.Environment
+                CookieName = "Courses.ApplicationCookie." + Constants.Environment, 
+                CookieHttpOnly = true, 
+                CookieSecure = CookieSecureOption.Always
             });
         }
     }
