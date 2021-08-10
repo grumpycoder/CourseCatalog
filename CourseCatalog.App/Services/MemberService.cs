@@ -9,7 +9,6 @@ using CourseCatalog.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -32,9 +31,6 @@ namespace CourseCatalog.App.Services
 
         public async Task SyncClaims(ClaimsIdentity identity)
         {
-            var claim = identity.Claims
-                .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-
             //Update local user attributes that may have changed since last login
             var username = identity.GetClaimValue(ClaimTypes.Email).Split('@')[0].ToLower();
             var emailAddress = identity.GetClaimValue(ClaimTypes.Email).ToLower();
@@ -51,16 +47,6 @@ namespace CourseCatalog.App.Services
                 switch (user)
                 {
                     case null:
-                        //user = new User
-                        //{
-                        //    Username = username,
-                        //    EmailAddress = emailAddress,
-                        //    FirstName = firstName,
-                        //    LastName = lastName,
-                        //    FullName = fullName,
-                        //    IdentityGuid = identityGuid
-                        //};
-                        //await _mediator.Send(new CreateUserCommand(user));
                         break;
                     default:
                         await _mediator.Send(new UpdateUserCommand

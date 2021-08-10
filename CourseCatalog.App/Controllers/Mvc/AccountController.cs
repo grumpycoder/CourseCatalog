@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
-using System.Web.Mvc;
-using Alsde.Security.Identity;
+﻿using Alsde.Security.Identity;
 using CourseCatalog.Application.Contracts;
+using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace CourseCatalog.App.Controllers.Mvc
 {
@@ -18,24 +19,34 @@ namespace CourseCatalog.App.Controllers.Mvc
         {
             var tokenKey = new TokenKey(token, Constants.TpaAccessKey);
 
-            var tokenSignin = IdentityManager.TokenSignin(Constants.WebServiceUrl, tokenKey);
-
-            Session["LoginFailureMessage"] = string.Empty;
-            if (tokenSignin.IsFailure)
+            try
             {
-                Session["LoginFailureMessage"] = tokenSignin.Error;
-                ViewBag.Message = tokenSignin.Error;
-                return View("LoginFailure");
-            }
+                var tokenSignin = IdentityManager.TokenSignin(Constants.WebServiceUrl, tokenKey, Constants.AimApplicationViewKey);
 
-            var identity = tokenSignin.Value;
-            if (identity == null)
+                Session["LoginFailureMessage"] = string.Empty;
+                if (tokenSignin.IsFailure)
+                {
+                    Session["LoginFailureMessage"] = tokenSignin.Error;
+                    ViewBag.Message = tokenSignin.Error;
+                    return View("LoginFailure");
+                }
+
+                var identity = tokenSignin.Value;
+                if (identity == null)
+                {
+                    ViewBag.Message = "User account not found";
+                    return View("LoginFailure");
+                }
+
+                await _memberService.SyncClaims(identity);
+            }
+            catch (Exception e)
             {
-                ViewBag.Message = "User account not found";
-                return View("LoginFailure");
-            }
+                if (!string.IsNullOrEmpty(e.InnerException?.Message))
+                    throw new Exception(e.InnerException?.Message, e.InnerException);
 
-            await _memberService.SyncClaims(identity);
+                throw new Exception(e.InnerException?.ToString(), e.InnerException);
+            }
             return RedirectToAction("Index", "Home");
         }
 
