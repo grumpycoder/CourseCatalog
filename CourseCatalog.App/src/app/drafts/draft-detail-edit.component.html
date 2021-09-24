@@ -259,7 +259,7 @@
                            ng-maxlength="2"
                            ng-disabled="!$ctrl.canEditCourseNumber"
                            ng-change="$ctrl.updateCourseNumber()"
-                           ng-required="$ctrl.course.isCollege" 
+                           ng-required="$ctrl.course.isCollege"
                            pattern="^[A-Za-z0-9]+$" ng-pattern-restrict="^[A-Z0-9]+$" />
                     <ng-messages for="$ctrl.form.stateAttribute1.$error">
                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
@@ -344,10 +344,13 @@
                            ng-model="$ctrl.course.collegeCourseId"
                            name="collegeCourseId"
                            id="collegeCourseId"
-                           ng-required="$ctrl.course.isCollege" pattern="^[A-Za-z0-9]+$" ng-pattern-restrict />
+                           ng-required="$ctrl.course.isCollege" pattern="^[A-Za-z0-9_ ]+$"
+                           ng-pattern-restrict
+                           ng-maxlength="15" />
                     <ng-messages for="$ctrl.form.collegeCourseId.$error">
                         <ng-message when="required" class="form-text text-danger small">Field is required</ng-message>
                         <ng-message when="pattern" class="form-text text-danger small">Invalid characters</ng-message>
+                        <ng-message when="maxlength" class="form-text text-danger small">Field is too long</ng-message>
                     </ng-messages>
                 </div>
             </div>

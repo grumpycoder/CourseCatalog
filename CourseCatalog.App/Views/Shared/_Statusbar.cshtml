@@ -18,18 +18,24 @@
                     <i class="fa fa-clock-o"></i> @DateTime.Now.ToString("h:mm tt")
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-globe"></i>
-                    @Html.RenderMachineName()
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa fa-database"></i>
-                    (@Html.RenderDataSource()) @Html.RenderDatabaseName()
-                </a>
-            </li>
+            @if (Constants.Environment != "Production")
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-globe"></i>
+                        @Html.RenderMachineName()
+                    </a>
+                </li>
+            }
+            @if (Constants.Environment != "Production")
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-database"></i>
+                        (@Html.RenderDataSource()) @Html.RenderDatabaseName()
+                    </a>
+                </li>
+            }
         </ul>
 
 
@@ -87,15 +93,15 @@
 
 <script>
     document.addEventListener("DOMContentLoaded",
-        function(event) {
+        function (event) {
             $('#userId').on('click',
-                function(e) {
+                function (e) {
                     const text = e.currentTarget.innerText.split(':')[1].trim();
-                    navigator.clipboard.writeText(text).then(function() {
-                            console.log('Async: Copying to clipboard was successful!');
-                            toastr.success('Copied to clipboard');
-                        },
-                        function(err) {
+                    navigator.clipboard.writeText(text).then(function () {
+                        console.log('Async: Copying to clipboard was successful!');
+                        toastr.success('Copied to clipboard');
+                    },
+                        function (err) {
                             console.error('Async: Could not copy text: ', err);
                         });
                 });
