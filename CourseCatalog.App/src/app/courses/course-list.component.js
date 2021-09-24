@@ -162,6 +162,7 @@ function controller($http) {
                         return 'No';
                     }
                 },
+                { dataField: "endorsements", dataType: "string", caption: "Endorsements", visible: false, allowFiltering: false, allowSorting: false },
                 { dataField: "status", dataType: "string", caption: "Status" },
                 { dataField: "publishDate", dataType: "date", caption: "Publish Date", visible: false },
                 {

@@ -15,11 +15,17 @@ namespace CourseCatalog.Persistence.Configurations
             builder.Property(s => s.Name).HasColumnName("CourseName");
             builder.Property(s => s.Description).HasColumnName("CourseDescription");
 
-            builder.Property(s => s.CreditTypes)
+            builder.Property(s => s.Endorsements)
                 .HasConversion(
                     v => JsonConvert.SerializeObject(v),
                     v => JsonConvert.DeserializeObject<List<string>>(v)
                 );
+
+            builder.Property(s => s.CreditTypes)
+        .HasConversion(
+            v => JsonConvert.SerializeObject(v),
+            v => JsonConvert.DeserializeObject<List<string>>(v)
+        );
 
         }
     }
