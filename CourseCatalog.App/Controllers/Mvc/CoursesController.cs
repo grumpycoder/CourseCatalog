@@ -22,11 +22,11 @@ namespace CourseCatalog.App.Controllers.Mvc
         [Route("{courseId}")]
         public ActionResult Details(string courseId)
         {
-            return View((object) courseId);
+            return View((object)courseId);
         }
 
         [Route("endorsement-courses")]
-        [CustomAuthorize(Roles = "CourseAdmin, TeacherCertAdmin, CareerTechAdmin, Admin")]
+        [Authorize()]
         public ActionResult EndorsementCourses()
         {
             return View();
