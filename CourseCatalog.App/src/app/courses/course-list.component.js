@@ -152,6 +152,7 @@ function controller($http) {
                         return 'No';
                     }
                 },
+                { dataField: "endorsements", dataType: "string", caption: "Endorsements", visible: false, allowFiltering: false, allowSorting: false },
                 {
                     dataField: "IsFitness", dataType: "boolean", caption: "Fitness", visible: false,
                     trueText: 'Yes',
