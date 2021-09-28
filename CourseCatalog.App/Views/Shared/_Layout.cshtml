@@ -25,8 +25,8 @@
     <script src="~/js/dx-bundle.min.js?v=1.0.0"></script>
 
     @*TODO: Bundle app code*@
-    <script src="~/src/app/app.module.js?v=1.0.1"></script>
-    <script src="~/src/app/directives/year-greater-than.directive.js"></script>
+    <script src="@Url.HashedContentVersioned("~/src/app/app.module.js")"></script>
+    <script src="@Url.HashedContentVersioned("~/src/app/directives/year-greater-than.directive.js")"></script>
     @RenderSection("scripts", false)
 </body>
 </html>

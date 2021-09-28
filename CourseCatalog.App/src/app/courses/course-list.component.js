@@ -339,10 +339,6 @@ function controller($http) {
         }
     };
 
-    //window.onbeforeunload = function(){
-    //    var lastScrollPosition = $('#gridContainer').dxDataGrid('instance').getScrollable().scrollTop(); 
-    //    localStorage.setItem('lastScrollPosition', lastScrollPosition); 
-    //};
 }
 
 module.component("courseList",
