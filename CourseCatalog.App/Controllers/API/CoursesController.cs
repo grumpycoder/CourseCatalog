@@ -135,9 +135,4 @@ namespace CourseCatalog.App.Controllers.API
             return result;
         }
     }
-
-    public class Sti
-    {
-        public string Xml { get; set; }
-    }
 }
