@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CourseCatalog.Domain.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using CourseCatalog.Domain.Entities;
 
 namespace CourseCatalog.Application.Contracts
 {
@@ -11,5 +11,7 @@ namespace CourseCatalog.Application.Contracts
         Task<int> GetActiveCourseCount();
         Task<List<Course>> GetCoursesByEndorseId(int endorseId);
         Task<List<Course>> GetCoursesByCertholderId(int certholderId);
+
+        Task<string> GetCourseXml(int schoolYear);
     }
 }

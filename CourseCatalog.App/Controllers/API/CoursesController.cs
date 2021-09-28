@@ -1,15 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Http;
-using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
+﻿using CourseCatalog.App.Features.Courses.Queries.GetCourseDetail;
 using CourseCatalog.App.Features.Courses.Queries.GetCoursesByEndorsement;
 using CourseCatalog.App.Features.Courses.Queries.GetCourseSummary;
+using CourseCatalog.App.Features.Courses.Queries.GetXmlCourseList;
 using CourseCatalog.Persistence;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace CourseCatalog.App.Controllers.API
 {
@@ -96,5 +99,45 @@ namespace CourseCatalog.App.Controllers.API
             var dto = await _mediator.Send(new GetCourseSummaryQuery());
             return Ok(dto);
         }
+
+        [HttpGet]
+        [Route("xml/{schoolYear}")]
+        public async Task<HttpResponseMessage> GetXmlByYear(int schoolYear)
+        {
+
+            var xml = await _mediator.Send(new GetXmlCourseListQuery(schoolYear));
+
+            HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+
+            result.Content = new StringContent(xml);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment"); //attachment will force download
+            result.Content.Headers.ContentDisposition.FileName = $"StateCodesList-{schoolYear}.xml";
+
+            return result;
+        }
+
+        [HttpGet]
+        [Route("xml")]
+        public async Task<HttpResponseMessage> GetXmlCurrentYear()
+        {
+            var schoolYear = DateTime.Now.Year;
+
+            var xml = await _mediator.Send(new GetXmlCourseListQuery(schoolYear));
+
+            HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+
+            result.Content = new StringContent(xml);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment"); //attachment will force download
+            result.Content.Headers.ContentDisposition.FileName = $"StateCodesList-{schoolYear}.xml";
+
+            return result;
+        }
+    }
+
+    public class Sti
+    {
+        public string Xml { get; set; }
     }
 }

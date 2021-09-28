@@ -418,6 +418,8 @@
     <Compile Include="Features\Courses\Queries\GetCourseSummary\CourseSummaryDto.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQuery.cs" />
     <Compile Include="Features\Courses\Queries\GetCourseSummary\GetCourseSummaryQueryHandler.cs" />
+    <Compile Include="Features\Courses\Queries\GetXmlCourseList\GetXmlCourseListQuery.cs" />
+    <Compile Include="Features\Courses\Queries\GetXmlCourseList\GetXmlCourseListQueryHandlder.cs" />
     <Compile Include="Features\Credentials\Commands\CreateCredential\CreateCredentialCommand.cs" />
     <Compile Include="Features\Credentials\Commands\CreateCredential\CreateCredentialCommandHandler.cs" />
     <Compile Include="Features\Credentials\Commands\UpdateCredential\UpdateCredentialCommand.cs" />

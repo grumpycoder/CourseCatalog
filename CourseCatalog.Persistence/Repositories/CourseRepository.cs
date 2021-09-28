@@ -3,7 +3,9 @@ using CourseCatalog.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CourseCatalog.Persistence.Repositories
@@ -80,5 +82,36 @@ namespace CourseCatalog.Persistence.Repositories
 
             return course;
         }
+
+        public async Task<string> GetCourseXml(int schoolYear)
+        {
+
+            var constr = _dbContext.Database.GetDbConnection().ConnectionString;
+            string xml = string.Empty;
+            var sb = new StringBuilder();
+
+            using (SqlConnection con = new SqlConnection(constr))
+            {
+                string query = $"EXEC Common.p_getSTI_Courses @SchoolYear = {schoolYear}";
+                using (SqlCommand cmd = new SqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (SqlDataReader sdr = await cmd.ExecuteReaderAsync())
+                    {
+                        while (sdr.Read())
+                        {
+
+                            xml = sdr[0].ToString();
+                            sb.Append(sdr[0]);
+                        }
+                    }
+                    con.Close();
+                    return sb.ToString();
+                }
+            }
+
+        }
+
     }
 }
