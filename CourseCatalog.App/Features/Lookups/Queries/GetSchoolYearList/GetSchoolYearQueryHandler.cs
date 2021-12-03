@@ -14,7 +14,7 @@ namespace CourseCatalog.App.Features.Lookups.Queries.GetSchoolYearList
         {
             var currentYear = DateTime.Now.Year + 1;
 
-            var years = Enumerable.Range(currentYear - 19, 20).Reverse().ToList();
+            var years = Enumerable.Range((currentYear + 1) - 19, 20).Reverse().ToList();
 
             return years.Select(item => new SchoolYearDto { Year = item }).ToList();
         }
