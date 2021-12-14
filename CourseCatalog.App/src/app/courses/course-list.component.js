@@ -167,9 +167,9 @@ function controller($http) {
                 { dataField: "publishDate", dataType: "date", caption: "Publish Date", visible: false },
                 {
                     caption: "",
-                    name: 'createDraftCol', 
+                    name: 'createDraftCol',
                     cellTemplate:
-                        function(container, options) {
+                        function (container, options) {
                             $("<button>")
                                 .append('<i class="fa fa-pencil"></i>')
                                 .addClass("btn btn btn-outline-dark btn-sm")
@@ -179,7 +179,7 @@ function controller($http) {
                                 .attr("data-placement", "top")
                                 .attr("aria-disabled", "true")
                                 .on("dxclick",
-                                    function(e) {
+                                    function (e) {
                                         var canCreateDraft =
                                             ctrl.isAdmin !== true || options.data.isPublishable !== true;
                                         if (canCreateDraft) {
@@ -222,7 +222,7 @@ function controller($http) {
                 ctrl.showExpand();
                 $('[data-toggle="tooltip"]').tooltip();
                 if (ctrl.isAdmin === 'false') {
-                    $('#gridContainer').dxDataGrid('instance').deleteColumn('createDraftCol'); 
+                    $('#gridContainer').dxDataGrid('instance').deleteColumn('createDraftCol');
                 }
 
             },
