@@ -67,6 +67,7 @@ function detailController($http) {
         }
 
         $http.put(url, ctrl.course).then(r => {
+            console.log(ctrl.course);
             updateCache();
             toastr.success("Saved Course Draft");
         }).catch(e => {

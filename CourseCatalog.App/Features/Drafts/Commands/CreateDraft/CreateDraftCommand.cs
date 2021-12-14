@@ -24,6 +24,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.CreateDraft
         public bool? IsSpecialEducation { get; set; } = false;
         public bool? IsLocallyEditable { get; set; } = false;
         public bool? IsCollege { get; set; } = false;
+        public bool IsFitness { get; set; } = false; 
         public int? SubjectId { get; set; }
         public int? CourseLevelId { get; set; }
         public int? GradeScaleId { get; set; }

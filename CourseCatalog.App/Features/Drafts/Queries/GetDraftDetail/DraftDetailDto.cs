@@ -47,6 +47,7 @@ namespace CourseCatalog.App.Features.Drafts.Queries.GetDraftDetail
         public bool? IsSpecialEducation { get; set; }
         public bool? IsLocallyEditable { get; set; }
         public bool? IsCollege { get; set; }
+        public bool IsFitness { get; set; }
 
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }

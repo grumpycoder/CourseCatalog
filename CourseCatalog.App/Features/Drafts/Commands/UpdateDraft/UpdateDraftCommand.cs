@@ -22,6 +22,7 @@ namespace CourseCatalog.App.Features.Drafts.Commands.UpdateDraft
         public bool? IsSpecialEducation { get; set; }
         public bool? IsLocallyEditable { get; set; }
         public bool? IsCollege { get; set; }
+        public bool IsFitness { get; set; }
         public int? SubjectId { get; set; }
         public int? CourseLevelId { get; set; }
         public int? GradeScaleId { get; set; }

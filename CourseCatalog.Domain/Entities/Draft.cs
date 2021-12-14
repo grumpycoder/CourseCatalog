@@ -15,6 +15,7 @@ namespace CourseCatalog.Domain.Entities
         public bool? IsCareerTech { get; set; } = false;
         public bool? IsSpecialEducation { get; set; } = false;
         public bool IsCollege { get; set; } = false;
+        public bool IsFitness { get; set; } = false;
 
         public string ScedCourseNumber { get; set; }
         public string StateAttribute1 { get; set; }

@@ -81,6 +81,9 @@
                         <dt class="col-5 col-md-4 col-lg-3">College Course</dt>
                         <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.isCollege ? 'Yes' : 'No' }}</dd>
 
+                        <dt class="col-5 col-md-4 col-lg-3">Fitness</dt>
+                        <dd class="col-7 col-md-8 col-lg-9">{{ $ctrl.course.isFitness ? 'Yes' : 'No' }}</dd>
+
                         <dt class="col-5 col-md-4 col-lg-3">Credit Types</dt>
                         <dd class="col-7 col-md-8 col-lg-9">
                             <span ng-show="!$ctrl.course.creditTypes.length" class="badge badge-secondary badge-outlined mx-1 text-larger">None</span>
@@ -95,18 +98,18 @@
                         </dd>
 
                         <!--<dt class="col-5 col-md-4 col-lg-3">Tags</dt>
-                        <dd class="col-7 col-md-8 col-lg-9">
+    <dd class="col-7 col-md-8 col-lg-9">
 
-                            <span ng-show="!$ctrl.course.tags.length" class="badge badge-secondary badge-outlined mx-1 text-larger">None</span>
-                            <ul class="list-inline text-white" ng-show="$ctrl.course.tags">
-                                <li class="list-inline-item">
-                                    <span class="badge badge-warning badge-outlined mx-1 text-larger" ng-repeat="tag in $ctrl.course.tags">
-                                        {{ tag }}
-                                    </span>
-                                </li>
+        <span ng-show="!$ctrl.course.tags.length" class="badge badge-secondary badge-outlined mx-1 text-larger">None</span>
+        <ul class="list-inline text-white" ng-show="$ctrl.course.tags">
+            <li class="list-inline-item">
+                <span class="badge badge-warning badge-outlined mx-1 text-larger" ng-repeat="tag in $ctrl.course.tags">
+                    {{ tag }}
+                </span>
+            </li>
 
-                            </ul>
-                        </dd>-->
+        </ul>
+    </dd>-->
 
                         <dt class="col-5 col-md-4 col-lg-3">Delivery Types</dt>
                         <dd class="col-7 col-md-8 col-lg-9">
