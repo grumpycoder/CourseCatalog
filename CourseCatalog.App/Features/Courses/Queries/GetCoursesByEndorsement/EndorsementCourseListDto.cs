@@ -15,6 +15,7 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCoursesByEndorsement
         public bool? IsCareerTech { get; set; }
         public bool? IsSpecialEducation { get; set; }
         public bool IsCollege { get; set; }
+        public bool IsFitness { get; set; }
 
         public string GradeScale { get; set; }
         public decimal? CreditHours { get; set; }

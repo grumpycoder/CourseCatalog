@@ -30,6 +30,7 @@ namespace CourseCatalog.Domain.Entities
         public bool? IsSpecialEducation { get; set; }
         public bool? IsLocallyEditable { get; set; }
         public bool? IsCollege { get; set; }
+        public bool IsFitness { get; set; }
         public string Subject { get; set; }
         public decimal? CreditHours { get; set; }
         public List<string> CreditTypes { get; set; }

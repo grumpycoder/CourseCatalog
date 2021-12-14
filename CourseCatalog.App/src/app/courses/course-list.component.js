@@ -152,6 +152,16 @@ function controller($http) {
                         return 'No';
                     }
                 },
+                {
+                    dataField: "IsFitness", dataType: "boolean", caption: "Fitness", visible: false,
+                    trueText: 'Yes',
+                    falseText: 'No',
+                    showEditorAlways: false,
+                    customizeText: function (cellInfo) {
+                        if (cellInfo.value) return 'Yes';
+                        return 'No';
+                    }
+                },
                 { dataField: "status", dataType: "string", caption: "Status" },
                 { dataField: "publishDate", dataType: "date", caption: "Publish Date", visible: false },
                 {

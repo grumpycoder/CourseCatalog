@@ -46,6 +46,7 @@ namespace CourseCatalog.App.Features.Courses.Queries.GetCourseDetail
         public bool? IsSpecialEducation { get; set; }
         public bool? IsLocallyEditable { get; set; }
         public bool? IsCollege { get; set; }
+        public bool IsFitness { get; set; }
         public DateTime? PublishDate { get; set; }
 
         public Subject Subject { get; set; }
