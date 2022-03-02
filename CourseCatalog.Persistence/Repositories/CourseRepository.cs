@@ -31,6 +31,7 @@ namespace CourseCatalog.Persistence.Repositories
 
         public async Task<List<Course>> GetCoursesByEndorseId(int endorseId)
         {
+            var currentEndYear = DateTime.Now.AddMonths(5).Year; 
             try
             {
                 var courses = await _dbContext.Courses
@@ -40,7 +41,7 @@ namespace CourseCatalog.Persistence.Repositories
                     .Include(c => c.CourseLevel)
                     .Include(c => c.LowGrade)
                     .Include(c => c.HighGrade)
-                    .Where(c => c.Endorsements.Any(e => e.EndorsementId == endorseId))
+                    .Where(c => c.Endorsements.Any(e => e.EndorsementId == endorseId) && c.EndYear < currentEndYear)
                     .ToListAsync();
                 return courses;
             }
